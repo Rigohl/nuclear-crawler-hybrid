@@ -70,8 +70,8 @@ rand = "0.8"
 rayon = "1.11"
 regex = "1.12"
 regex-automata = "0.4"
-reqwest-middleware = "0.2"
-reqwest-retry = "0.4"
+reqwest-middleware = "0.4"
+reqwest-retry = "0.7"
 roxmltree = "0.19"
 rss = "2.0"
 scraper = "0.19"
@@ -136,9 +136,8 @@ features = [
     "brotli",
     "native-tls",
     "rustls-tls",
-    "trust-dns",
 ]
-version = "0.11"
+version = "0.12"
 
 [dependencies.rusqlite]
 features = ["bundled"]
