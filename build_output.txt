@@ -1,0 +1,86 @@
+warning: `panic` setting is ignored for `test` profile
+   Compiling nuclear_scraper_web v0.1.0 (C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID)
+warning: unexpected `cfg` condition name: `has_nim`
+  --> src\nim_integration.rs:14:28
+   |
+14 | #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
+   |                            ^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition name: `has_nim`
+  --> src\nim_integration.rs:72:36
+   |
+72 |         #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
+   |                                    ^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `has_nim`
+   --> src\nim_integration.rs:103:36
+    |
+103 |         #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
+    |                                    ^^^^^^^
+    |
+    = help: consider using a Cargo feature instead
+    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+             [lints.rust]
+             unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+    = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `has_nim`
+   --> src\nim_integration.rs:138:36
+    |
+138 |         #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
+    |                                    ^^^^^^^
+    |
+    = help: consider using a Cargo feature instead
+    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+             [lints.rust]
+             unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+    = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `has_nim`
+   --> src\nim_integration.rs:172:36
+    |
+172 |         #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
+    |                                    ^^^^^^^
+    |
+    = help: consider using a Cargo feature instead
+    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+             [lints.rust]
+             unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+    = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unused import: `SystemStats`
+  --> src\mcp_server.rs:15:33
+   |
+15 | use crate::stats::{StatsSystem, SystemStats};
+   |                                 ^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+error: linking with `link.exe` failed: exit code: 1181
+  |
+  = note: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe" "/DEF:C:\\Users\\DELL\\AppData\\Local\\Temp\\rustcHVTO4y\\lib.def" "/NOLOGO" "C:\\Users\\DELL\\AppData\\Local\\Temp\\rustcHVTO4y\\symbols.o" "<17 object files omitted>" "stealth_go.lib" "nuclear_zig.lib" "<sysroot>\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib/libpanic_abort-*.rlib" "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\deps/{libnum_cpus-eea4ddbd58214dff,liburlencoding-a9633692e0fe0658,librusqlite-2e70914fec466998,libfallible_streaming_iterator-6da911c5ff9b7744,libfallible_iterator-a89a878ac39ea699,libhashlink-e2f5adb1ced799d0,liblibsqlite3_sys-4d163d527cc0b83a,libchrono-490c7d79695e40f7,libnum_traits-d8c681642b4a39c5,libweb_sys-98d1a0e05d704859,libwasm_bindgen_futures-33a4d1bc44df330f,libjs_sys-ff8dd11bed0947ad,libwasm_bindgen-f130f7a19d378ed3,libwasm_bindgen_shared-d95824bb4e6bed83,libunicode_ident-207eb67e1e23af4f,libtoml-539dbb4f1375e0b3,libtoml_edit-1af0dd6a687debfb,libserde_spanned-051fbdb2b48b7989,libwinnow-657f92684d0aa5de,libtoml_write-bc21297ccead7ebc,libtoml_datetime-31f17788bd6435d4,libscraper-a4a4f743377d3cdd,libego_tree-cc9d194d8e4cc441,libselectors-9e3bc0d4303aa0d9,libservo_arc-f31164df22f62e85,libphf-e93f33a77b434dce,libphf_shared-cfe55ebd7707783b,libsiphasher-524d6b2a95d0f746,libfxhash-3d71290e4f3094c4,libbyteorder-ee66b8cf3e95b04d,libcssparser-ec2809440c263cb1,libdtoa_short-a6953007fc194de8,libdtoa-17dec486fb8c0585,libbitflags-602acce5aa44a749,libhtml5ever-5f88523021fe1101,libmarkup5ever-b532d62c4e7089cb,libstring_cache-170066bfb1d5a291,libprecomputed_hash-52b229c80e352692,libphf-568cfd77951d98be,libphf_shared-9ffec7e970c0fb5a,libsiphasher-d1c3cb87736aaff6,libtendril-35247ee77d5e9faf,libutf8-d3fa27bb32a8e57c,libfutf-4c0223dc1fa6ea44,libdebug_unreachable-89589780a4492b6b,libmac-ba6f0e19c749d5db,libfutures-4ffdaa4a83f3090c,libfutures_executor-fe91653030559b9c,libstrsim-50845a9e056d0772,libfuzzy_matcher-31064800f11c2cf4,libthread_local-b4f9a3c4d0558a3c,libregex-cb0504a46cebd8de,libregex_automata-6e2d9672faacd0f6,libaho_corasick-db019b07ab49c99a,libregex_syntax-90851b85875fca1e,librayon-54c09d3f93177f10,librayon_core-bfad41859549febd,libcrossbeam_deque-05d2afa087eec646,libcrossbeam_epoch-d05240b14b277ade,libcrossbeam_utils-84b1676db439b8ab,libeither-c3bb9d8fd0a9836c,libreqwest-40c6d94ab217bbf7,librustls_pemfile-d3919b4f11fd54d1,libhyper_rustls-6e189bd8a9aa6247,libhyper_tls-3a0f500f4997c40d,libserde_urlencoded-c9c776951c7f1ba5,libwebpki_roots-5ddfcc2ea8844665,libcookie_store-27b0c9f1e4710159,libpublicsuffix-bef2ffec0b8b4aec,libpsl_types-7d75da7ada01e3ce,libcookie-97a210fa1bff951c,libtime-3650a3820663d833,libtime_core-00e267979ea222cb,libnum_conv-7f595c005e46febd,libderanged-40c321480ba92478,libpowerfmt-444b12a87c1cf363,libidna-04f03a5cd5eaa948,libunicode_normalization-da07a9c5a9b7467f,libunicode_bidi-80c4aded312ad6db,libbase64-62b5c510e1d6b629,libhickory_resolver-e7ecc8627bc4b262,libipconfig-d3302e2f7846a810,libwinreg-906623546d0113c5,libwindows_sys-3d6d7a57fb8c4363,libwindows_targets-fb343c493516fe4a,libwidestring-839e9d6ea5e3f9ef,liblru_cache-71a6285449c3b284,liblinked_hash_map-4a5e5a06cdafb5eb,libhickory_proto-33e746a1d4057539,librand-6c69fc822a3b3258,librand_chacha-c8deabb0d541b3b1,libppv_lite86-d987c27d15ce9147,librand_core-da36bf814568b0c4,libdata_encoding-4728eb2e4b6ded21,libipnet-1a9aa1df9a380cd8,libtinyvec-605be65b143f5132,libtinyvec_macros-821e062d6820b021,libthiserror-1786b68bdf14b351,libtokio_native_tls-8278044520a24a3b,libtokio_rustls-8a2db8f23d1f1455,libencoding_rs-4fd9e188fca4a555,libserde_json-f786935919f09ffa,libryu-8e0da0c4ca858385,libmime_guess-0f05efb0fb711c4a,libunicase-d82129a798f0aab8,libmime-559995d8ce524a39,libasync_compression-9654259c2ae6871d,libcompression_codecs-251af7ddaa963ad9,libflate2-bf42675806b379f9,libminiz_oxide-ed8cd6805723fa12,libsimd_adler32-060deab759ab8090,libcrc32fast-e1f8d9dcc2d8a9fe,libbrotli-66f60d2e5af7584d,libbrotli_decompressor-e56b5e348e268ce6,liballoc_stdlib-34c4f62b01ca8dca,liballoc_no_stdlib-99c0ce8570e08eb4,libcompression_core-b73dd8e8e8311ee9,librustls-2697eab0bc294a57,libsct-5b57b6bb4afe369b,libwebpki-f908cf6b20639053,libring-8151e6e7328b9f7d,libgetrandom-2f6a230cf6feea4e,libuntrusted-ae74390d3648e60c,libnative_tls-9874831356313454,libschannel-df53574f167835fc,libhyper-8b921a0764cb39ed,libwant-97c5c00d1f6c0680,libtry_lock-866e07cf39af42df,libsocket2-4622726c034e4ef5,libwindows_sys-7031bcb814773d7d,libwindows_targets-510562d0a34e65f3,libhttparse-9bcf14f9983e24f4,libh2-8e0126471ffad090,libindexmap-0689c8f7afaf309c,libequivalent-a531d5f02740973a,libhashbrown-d7671f808f285ca8,libtower_service-94f04416168bed95,libtracing-64416460207b2ea3,libtracing_core-df9f488512d92d2a,libfutures_util-74468d2fed0817d7,libmemchr-f72eba75d8febb24,libfutures_io-b64a7992be6b998c,libslab-7a9825e776727e55,libfutures_channel-0d1781025cda94d1,libfutures_task-3b5000c834c5382c,libpin_utils-87fa052371afd9b4,libtokio_util-026d4f3309848d67,libfutures_sink-b16f128b9f701552,libtokio-86d6bc8ef76ad175,libsocket2-c74d57e21cb15c81,libwindows_sys-e8af88505d13db2b,libwindows_targets-da2ed2780b245893,libmio-63b72327e7075a45,libwindows_sys-6a0de24be17ce0ff,libparking_lot-2c86a521a7a7d715,libsync_wrapper-9604b6d1c70f5dd7,libhttp_body-0e5177ad1ca2f82e,libpin_project_lite-8e3b8a009db228a0,liblog-acf40ab46c4f4622,libfutures_core-95a139edd3dd5da7,liburl-107f70eec5866272,libidna-3c749f1be745aeec,libutf8_iter-05094ed931de114a,libidna_adapter-347ee8ca9104ad71,libicu_properties-fc87e3cae6163b50,libicu_properties_data-ce353f4c14b14471,libicu_normalizer-be0d62954697599a,libicu_normalizer_data-335e773438b8fa4f,libicu_collections-1e70164648dfa73b,libpotential_utf-eb8ac096fceedb4e,libicu_provider-3ac508df364f8c90,libicu_locale_core-ed1c7ea05633eb38,libtinystr-5a57ea764329a80a,liblitemap-8ae67f2d6e082e7e,libwriteable-8154eabed63165d5,libzerovec-f76f1d84b179a44c,libzerotrie-fd35853482c26f53,libyoke-b2fa4c8fc7e211f1,libstable_deref_trait-f87c60e3d13d168a,libzerofrom-2ea1980d56488110,libform_urlencoded-207a35846ef5f435,libpercent_encoding-14bf00feedb429b7,libhttp-1a06b409ca6c2920,libitoa-4cc007d4a71949e5,libbytes-fc3d0f176a9ffc2f,libfnv-3bf8226146a7983f,libserde-2d58f0bac7988355,libserde_core-4a124b51a478cb2a,libdashmap-ad65faa75f9adadd,liblock_api-73651bdad85a9ce1,libscopeguard-02a016b8f1030ecf,libparking_lot_core-8f052177cd721120,libwindows_link-da8deb2b67e517e8,libsmallvec-0652acd679d4f2e6,libhashbrown-4029dd14171fe199,libahash-39a0dc0d6a9a2561,libgetrandom-6b36a164bd2c447d,libonce_cell-b5ab9d4a0ae7d2e8,libcfg_if-567e6057446c354a,libzerocopy-5aceb29bb9e56f21,libanyhow-20fbfba8f373c4ac}.rlib" "<sysroot>\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib/{libstd-*,libcfg_if-*,libwindows_targets-*,librustc_demangle-*,libstd_detect-*,libhashbrown-*,librustc_std_workspace_alloc-*,libunwind-*,librustc_std_workspace_core-*,liballoc-*,libcore-*,libcompiler_builtins-*}.rlib" "iphlpapi.lib" "C:\\Users\\DELL\\scoop\\persist\\rustup\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows_x86_64_msvc-0.48.5\\lib\\windows.0.48.5.lib" "bcrypt.lib" "advapi32.lib" "C:\\Users\\DELL\\scoop\\persist\\rustup\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows_x86_64_msvc-0.52.6\\lib\\windows.0.52.0.lib" "C:\\Users\\DELL\\scoop\\persist\\rustup\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows_x86_64_msvc-0.53.1\\lib\\windows.0.53.0.lib" "kernel32.lib" "kernel32.lib" "kernel32.lib" "ntdll.lib" "userenv.lib" "ws2_32.lib" "dbghelp.lib" "/defaultlib:msvcrt" "/NXCOMPAT" "/LIBPATH:C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\build\\blake3-4b7045710d370d85\\out" "/LIBPATH:C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\build\\ring-b882051f5d77f6a0\\out" "/LIBPATH:C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\build\\libsqlite3-sys-5db3e63c066f44c7\\out" "/LIBPATH:C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\build\\zstd-sys-ad58a8c9bb2d98fc\\out" "/LIBPATH:C:\\Users\\DELL\\scoop\\persist\\rustup\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows_x86_64_msvc-0.53.1\\lib" "/LIBPATH:C:\\Users\\DELL\\scoop\\persist\\rustup\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows_x86_64_msvc-0.48.5\\lib" "/LIBPATH:C:\\Users\\DELL\\scoop\\persist\\rustup\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows_x86_64_msvc-0.52.6\\lib" "/LIBPATH:C:\\Users\\DELL\\scoop\\persist\\rustup\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows_x86_64_msvc-0.33.0\\lib" "/OUT:C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\deps\\nuclear_crawler_lib.dll" "/OPT:REF,NOICF" "/DLL" "/IMPLIB:C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\deps\\nuclear_crawler_lib.dll.lib" "/DEBUG" "/PDBALTPATH:%_PDB%" "/NATVIS:<sysroot>\\lib\\rustlib\\etc\\intrinsic.natvis" "/NATVIS:<sysroot>\\lib\\rustlib\\etc\\liballoc.natvis" "/NATVIS:<sysroot>\\lib\\rustlib\\etc\\libcore.natvis" "/NATVIS:<sysroot>\\lib\\rustlib\\etc\\libstd.natvis"
+  = note: some arguments are omitted. use `--verbose` to show all linker arguments
+  = note: LINK : fatal error LNK1181: no se puede abrir el archivo de entrada 'stealth_go.lib'ÔÉì
+          
+
+warning: `nuclear_scraper_web` (lib) generated 6 warnings
+error: could not compile `nuclear_scraper_web` (lib) due to 1 previous error; 6 warnings emitted

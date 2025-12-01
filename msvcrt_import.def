@@ -1,0 +1,8 @@
+EXPORTS
+fprintf
+vfprintf
+printf
+vprintf
+sprintf
+vsprintf
+

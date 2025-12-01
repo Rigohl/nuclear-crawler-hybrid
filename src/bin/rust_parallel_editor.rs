@@ -8,6 +8,29 @@ use walkdir::WalkDir;
 use indicatif::{ProgressBar, ProgressStyle};
 use clap::{Arg, Command};
 
+/// Detecta el lenguaje basándose en la extensión del archivo
+fn detect_language_from_extension(extension: &str) -> String {
+    match extension.to_lowercase().as_str() {
+        "rs" => "rust".to_string(),
+        "py" => "python".to_string(),
+        "js" | "ts" | "jsx" | "tsx" => "javascript".to_string(),
+        "c" | "h" => "c".to_string(),
+        "cpp" | "cc" | "cxx" | "hpp" => "cpp".to_string(),
+        "go" => "go".to_string(),
+        "java" => "java".to_string(),
+        "rb" => "ruby".to_string(),
+        "php" => "php".to_string(),
+        _ => "generic".to_string(),
+    }
+}
+
+/// Aplica optimizaciones específicas del lenguaje al patrón de búsqueda/reemplazo
+fn apply_language_optimizations(search: &str, replace: &str, _language: &str) -> (String, String) {
+    // Por ahora, devolver los patrones sin modificar
+    // Aquí se podrían añadir optimizaciones específicas por lenguaje
+    (search.to_string(), replace.to_string())
+}
+
 #[derive(Clone)]
 struct ProcessingStats {
     files_processed: usize,
@@ -89,11 +112,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     // Aplicar optimizaciones específicas del lenguaje
-    let (final_search, final_replace) = apply_language_optimizations(
+    let (final_search, _final_replace) = apply_language_optimizations(
         search_pattern,
         replace_pattern,
         &detected_language
     );
+
+    // Compilar regex y envolver en Arc para uso paralelo
+    let regex = Regex::new(&final_search)?;
+    let regex_arc = Arc::new(regex);
 
     println!("📁 Directorio: {}", root_dir);
     println!("🔍 Patrón: {}", search_pattern);
