@@ -441,7 +441,7 @@ impl SimpleMcpServer {
     }
 
     /// Handle tool calls
-    async fn handle_tool_call(&mut self, tool_name: &str, args: Value) -> Result<Value> {
+    pub async fn handle_tool_call(&mut self, tool_name: &str, args: Value) -> Result<Value> {
         match tool_name {
             "websearch" => self.handle_websearch(args).await,
             "ultimas_busquedas" => self.handle_ultimas_busquedas(args).await,

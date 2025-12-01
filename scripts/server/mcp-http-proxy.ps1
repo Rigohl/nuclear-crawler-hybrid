@@ -2,7 +2,7 @@
 # Convierte JSON-RPC stdio en requests HTTP al servidor
 
 $ErrorActionPreference = "Continue"
-$uri = "http://localhost:3001/mcp/message"
+$uri = "http://localhost:4000/mcp/message"
 $maxRetries = 3
 $retryDelay = 1000
 
