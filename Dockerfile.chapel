@@ -20,19 +20,10 @@ WORKDIR /workspace
 # Copiar archivos del proyecto
 COPY . /workspace/
 
-# Compilar la herramienta Chapel con optimizaciones HPC ultra-avanzadas
-RUN echo "🔨 Compilando Chapel HPC Editor con optimizaciones extremas..." && \
+# Compilar la herramienta Chapel
+RUN echo "🔨 Compilando Chapel HPC Editor..." && \
     chpl \
     --fast \
-    --specialize \
-    --optimize-forall-unordered-ops \
-    --optimize-loop-iterators \
-    --optimize-on-clauses \
-    --optimize-on \
-    --inline \
-    --vectorize \
-    --cache-remote \
-    --report-optimized-loop-iterators \
     chpl_parallel_editor.chpl \
     -o chpl_parallel_editor
 

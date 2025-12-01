@@ -1,4 +1,3 @@
-#!/usr/bin/env chapel
 /*
  * ===========================================
  * 🚀 CHAPEL PARALLEL CODE EDITOR - ULTRA HPC
