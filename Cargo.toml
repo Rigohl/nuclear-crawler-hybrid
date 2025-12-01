@@ -1,0 +1,260 @@
+[[bin]]
+name = "nuclear-mcp"
+path = "src/main_mcp.rs"
+
+[[bin]]
+name = "nuclear-http"
+path = "src/main_http.rs"
+
+[[bin]]
+name = "nuclear_crawler_hybrid"
+path = "src/main.rs"
+
+[[bin]]
+name = "chapel-analyzer"
+path = "src/bin/chapel_analyzer.rs"
+
+[[bin]]
+name = "rust-parallel-editor"
+path = "src/bin/rust_parallel_editor.rs"
+
+[build-dependencies]
+cc = "1.2"
+
+# Configuración para enlazar librerías C estándar en Windows
+# Windows ya enlaza msvcrt por defecto, pero lo especificamos explícitamente en build.rs
+
+[dependencies]
+aho-corasick = "1.1"
+ammonia = "3.3"
+anyhow = "1.0"
+arc-swap = "1.7"
+async-stream = "0.3"
+async-trait = "0.1"
+base64 = "0.21"
+blake3 = "1.8"
+brotli = "3.5"
+chardet = "0.2"
+color-eyre = "0.6"
+console_error_panic_hook = "0.1"
+crossbeam = "0.8"
+dashmap = "5.5"
+dirs = "5.0"
+encoding = "0.2"
+encoding_rs = "0.8"
+env_logger = "0.11"
+fancy-regex = "0.11"
+feed-rs = "1.5"
+flate2 = "1.1"
+futures = "0.3"
+futures-util = "0.3"
+fuzzy-matcher = "0.3"
+governor = "0.6"
+html5ever = "0.27"
+http = "1.4"
+http-body-util = "0.1"
+idna = "0.5"
+js-sys = "0.3"
+kuchiki = "0.8"
+lazy_static = "1.5"
+log = "0.4"
+lru = "0.12"
+md5 = "0.7"
+metrics = "0.22"
+metrics-prometheus = "0.5"
+num_cpus = "1.17"
+once_cell = "1.21"
+parking_lot = "0.12"
+percent-encoding = "2.3"
+rand = "0.8"
+rayon = "1.11"
+regex = "1.12"
+regex-automata = "0.4"
+reqwest-middleware = "0.2"
+reqwest-retry = "0.4"
+roxmltree = "0.19"
+rss = "2.0"
+scraper = "0.19"
+select = "0.6"
+serde_json = "1.0"
+serde_urlencoded = "0.7"
+sha2 = "0.10"
+strsim = "0.11"
+tendril = "0.4"
+thiserror = "1.0"
+toml = "0.8"
+tower = "0.4"
+tracing = "0.1"
+url = "2.5"
+urlencoding = "2.1"
+wasm-bindgen-futures = "0.4"
+xml-rs = "0.8"
+yaml-rust = "0.4"
+zstd = "0.13"
+
+[dependencies.axum]
+features = ["json", "multipart", "query"]
+version = "0.7"
+
+[dependencies.chrono]
+features = ["serde"]
+version = "0.4"
+
+[dependencies.clap]
+features = ["derive"]
+version = "4.5"
+
+[dependencies.fake]
+features = ["derive"]
+version = "2.10"
+
+[dependencies.hyper]
+features = ["full"]
+version = "1.8"
+
+[dependencies.hyper-util]
+features = ["full"]
+version = "0.1"
+
+[dependencies.indicatif]
+version = "0.17"
+
+[dependencies.moka]
+features = ["future"]
+version = "0.12"
+
+[dependencies.walkdir]
+version = "2.4"
+
+[dependencies.reqwest]
+features = [
+    "json",
+    "stream",
+    "multipart",
+    "cookies",
+    "gzip",
+    "brotli",
+    "native-tls",
+    "rustls-tls",
+    "trust-dns",
+]
+version = "0.11"
+
+[dependencies.rusqlite]
+features = ["bundled"]
+version = "0.32.1"
+
+[dependencies.serde]
+features = ["derive"]
+version = "1.0"
+
+[dependencies.tokio]
+features = [
+    "full",
+    "rt-multi-thread",
+    "macros",
+    "time",
+    "fs",
+    "net",
+    "signal",
+    "process",
+]
+version = "1.48"
+
+[dependencies.tower-http]
+features = ["cors", "trace"]
+version = "0.5"
+
+[dependencies.tracing-subscriber]
+features = ["env-filter", "json", "chrono"]
+version = "0.3"
+
+[dependencies.ureq]
+features = ["json", "cookies"]
+version = "2.12"
+
+[dependencies.uuid]
+features = ["v4", "serde"]
+version = "1.18"
+
+[dependencies.wasm-bindgen]
+features = ["serde-serialize", "std"]
+version = "0.2"
+
+[dependencies.wasmer]
+features = [
+    "wasmer-compiler-cranelift",
+    "wasmer-compiler-singlepass",
+]
+version = "4.4"
+
+# Comentado temporalmente por conflicto con wasmer
+# [dependencies.wasmtime]
+# features = ["async", "cranelift"]
+# version = "20.0"
+
+[dependencies.web-sys]
+features = [
+    "console",
+    "Document",
+    "Element",
+    "HtmlElement",
+    "HtmlCollection",
+    "Window",
+    "Request",
+    "RequestInit",
+    "RequestMode",
+    "Response",
+    "Headers",
+    "Url",
+    "UrlSearchParams",
+    "AbortController",
+    "AbortSignal",
+    "ReadableStream",
+    "Blob",
+    "TextDecoder",
+    "TextEncoder",
+    "Performance",
+    "Worker",
+    "MessagePort",
+    "MessageEvent",
+]
+version = "0.3"
+
+[dev-dependencies]
+tempfile = "3.23"
+tokio-test = "0.4"
+wasm-bindgen-test = "0.3"
+wasm-pack = "0.12"
+
+[features]
+default = []
+go = []
+zig = []
+nim = []
+hf = []
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "nuclear_crawler_lib"
+
+[package]
+authors = ["Nuclear Scraper Team"]
+description = "Scraper web ultra-rápido con integraciones Rust, Zig, Go y Nim - Máxima velocidad y stealth anti-detección"
+documentation = "https://docs.rs/nuclear_scraper_web"
+edition = "2021"
+license = "MIT"
+name = "nuclear_scraper_web"
+readme = "README.md"
+version = "0.1.0"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "z"
+panic = "abort"
+strip = true
+
+[profile.test]
+panic = "unwind"
+

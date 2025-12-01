@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  chapel-editor:
+    build:
+      context: .
+      dockerfile: Dockerfile.chapel
+    container_name: chapel-hpc-editor
+    volumes:
+      - .:/workspace
+      - /tmp/chapel-cache:/tmp
+    working_dir: /workspace
+    command: ["/bin/bash"]
+    environment:
+      - CHPL_HOME=/opt/chapel
+      - PATH=/opt/chapel/bin:$PATH
+    # Para desarrollo interactivo
+    stdin_open: true
+    tty: true
+
+  # Servicio opcional para benchmarking
+  chapel-benchmark:
+    build:
+      context: .
+      dockerfile: Dockerfile.chapel
+    container_name: chapel-benchmark
+    volumes:
+      - ./benchmark_data:/benchmark
+    working_dir: /benchmark
+    command: ["./chpl_parallel_editor", "/benchmark", "benchmark", "test", "replacement"]
+    profiles: ["benchmark"]
