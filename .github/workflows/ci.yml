@@ -109,8 +109,31 @@ jobs:
         continue-on-error: true
 
   # ═══════════════════════════════════════════════════════════════
-  # 🔒 SECURITY - Audit Dependencies
+  # 🤖 TOKEN BOT - Prompt Optimization Tests
   # ═══════════════════════════════════════════════════════════════
+  token-bot:
+    name: 🤖 Token Bot Tests
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: 🧪 Test Token Bot
+        run: |
+          cd scripts
+          echo "Test prompt for optimization" | python ultra_token_bot.py --intercept
+          python -c "import ultra_token_bot; print('Token Bot import successful')"
+        continue-on-error: true
   security:
     name: 🔒 Security Audit
     runs-on: ubuntu-latest
