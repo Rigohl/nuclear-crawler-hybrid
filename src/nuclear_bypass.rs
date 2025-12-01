@@ -130,6 +130,7 @@ struct PaywallPattern {
 
 /// Método de bypass
 #[derive(Clone)]
+#[allow(dead_code)]
 enum BypassMethod {
     /// Agregar parámetro a URL
     AddUrlParam { key: String, value: String },

@@ -1,6 +1,26 @@
-//! Módulo Utils - Utilidades varias
+//! Módulo de utilidades centralizadas
 //!
-//! Funciones auxiliares y helpers
+//! Elimina duplicación de código manteniendo TODAS las funcionalidades
+
+pub mod html_extraction;
+pub mod scoring;
+
+// Re-exporta las funciones más usadas para conveniencia
+pub use html_extraction::{
+    count_words, detect_code_content, detect_language, extract_description, extract_headings,
+    extract_images, extract_links, extract_meta_tags, extract_source, extract_tables,
+    extract_title, HeadingInfo, ImageInfo, LinkInfo, TableData,
+};
+
+pub use scoring::{
+    calculate_authority_score, calculate_freshness_score, calculate_maintainability_score,
+    calculate_quality, calculate_quality_advanced, calculate_relevance,
+    calculate_relevance_semantic, calculate_security_score,
+};
+
+// ========================================================================
+// FUNCIONES DEL utils.rs ORIGINAL - Para retrocompatibilidad
+// ========================================================================
 
 use regex::Regex;
 use std::collections::HashSet;

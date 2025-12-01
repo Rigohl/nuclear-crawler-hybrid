@@ -498,6 +498,8 @@ impl SimpleMcpServer {
             use_ai,
             use_stealth,
             max_parallel: 10000, // NUCLEAR: 10K paralelo
+            timeout_secs: 60,    // 🔥 60 segundos TOTAL
+            max_urls: 100,       // 🔥 Máximo 100 URLs
         };
 
         let results = self.web_search.search(config).await?;
@@ -580,6 +582,8 @@ impl SimpleMcpServer {
                     use_ai: true,
                     use_stealth: true,
                     max_parallel: 20,
+                    timeout_secs: 7,    // 🔥 7 segundos
+                    max_urls: 100,      // 🔥 100 URLs
                 };
 
                 let web_results = self.web_search.search(web_config).await?;
@@ -610,6 +614,8 @@ impl SimpleMcpServer {
                     use_ai: true,
                     use_stealth: true,
                     max_parallel: 20,
+                    timeout_secs: 60,   // 🔥 60 segundos
+                    max_urls: 100,      // 🔥 100 URLs
                 };
 
                 let web_results = self.web_search.search(web_config).await?;
@@ -960,6 +966,8 @@ impl SimpleMcpServer {
             use_ai: true,
             use_stealth: true,
             max_parallel: 50,
+            timeout_secs: 60,   // 🔥 60 segundos
+            max_urls: 100,      // 🔥 100 URLs
         };
 
         let web_results = match self.web_search.search(web_search_config).await {

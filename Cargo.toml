@@ -232,6 +232,8 @@ go = []
 zig = []
 nim = []
 hf = []
+stealth = []
+intelligent_storage = []
 
 [lib]
 crate-type = ["cdylib", "rlib"]

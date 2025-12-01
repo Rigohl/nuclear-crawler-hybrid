@@ -58,6 +58,11 @@ impl RateLimiter {
         }
     }
 
+    /// Alias para wait() - compatibilidad
+    pub async fn acquire(&self) {
+        self.wait().await
+    }
+
     /// Intenta obtener un token sin esperar
     pub async fn try_acquire(&self) -> bool {
         let mut tokens = self.tokens.lock().await;

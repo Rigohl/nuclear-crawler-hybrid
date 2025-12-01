@@ -12,11 +12,10 @@
 //! 10. Plugin Manager - Sistema de plugins
 
 use anyhow::Result;
-use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::{HashMap, BinaryHeap};
 use std::hash::{Hash, Hasher};
-use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, RwLock};
 use std::time::{Duration, Instant};
 use tokio::sync::{mpsc, Semaphore};
@@ -149,6 +148,7 @@ impl BloomFilter {
 /// Rate limiter basado en semáforo
 pub struct SemaphoreLimiter {
     semaphore: Semaphore,
+    #[allow(dead_code)]
     max_permits: usize,
 }
 
@@ -423,7 +423,7 @@ impl EventBus {
         
         // Background event processor
         tokio::spawn(async move {
-            while let Some((event_type, data)) = receiver.recv().await {
+            while let Some((event_type, _data)) = receiver.recv().await {
                 // Log event
                 tracing::debug!(event_type = %event_type, "Event received");
                 // Could dispatch to registered handlers here

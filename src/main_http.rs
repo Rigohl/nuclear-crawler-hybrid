@@ -100,7 +100,7 @@ struct ApiResponse {
 }
 
 fn default_max_results() -> usize {
-    10
+    100  // NUCLEAR DEFAULT: 100 resultados por defecto
 }
 
 fn default_sources() -> String {

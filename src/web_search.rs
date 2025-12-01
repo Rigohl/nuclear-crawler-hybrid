@@ -7,7 +7,7 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
-use std::time::Instant;
+use std::time::{Instant, Duration};
 
 use crate::ai_smart::{AIConfig, AISmart};
 use crate::nuclear_scraper::{NuclearConfig, NuclearScraper};
@@ -42,6 +42,12 @@ pub struct WebSearchConfig {
 
     /// Paralelismo máximo
     pub max_parallel: usize,
+
+    /// 🔥 NUCLEAR: Timeout total por consulta en segundos (7 seg por defecto)
+    pub timeout_secs: u64,
+
+    /// 🔥 NUCLEAR: URLs máximo a crawlear (100 por defecto)
+    pub max_urls: usize,
 }
 
 impl Default for WebSearchConfig {
@@ -81,6 +87,8 @@ impl Default for WebSearchConfig {
             use_ai: true,
             use_stealth: true,
             max_parallel: 10000, // NUCLEAR: 10K paralelo
+            timeout_secs: 7,     // 🔥 NUCLEAR: 7 segundos TOTAL por consulta
+            max_urls: 100,       // 🔥 NUCLEAR: Máximo 100 URLs a crawlear
         }
     }
 }
@@ -168,9 +176,10 @@ impl WebSearch {
     }
 
     /// Realiza búsqueda web masiva - MODO NUCLEAR SIN LÍMITES
-    /// 🔥 NUCLEAR v3.0: Go + Zig + Stealth + 200 URLs Async
+    /// 🔥 NUCLEAR v3.0: Go + Zig + Stealth + 7 segundos TOTAL
     pub async fn search(&self, config: WebSearchConfig) -> Result<Vec<WebSearchResult>> {
-        let start = Instant::now();
+        let search_start = Instant::now();
+        let timeout_duration = Duration::from_secs(config.timeout_secs);
 
         // 🔥 NUCLEAR: Obtener headers stealth para todas las requests
         let _stealth_headers = self.get_stealth_headers();
@@ -191,42 +200,72 @@ impl WebSearch {
         // 🔥 NUCLEAR: Agregar URLs adicionales de fuentes alternativas
         search_urls.extend(self.prepare_alternative_sources(&config.query));
         
+        // 🔥 NUCLEAR: Limitar a max_urls (100 por defecto) 
+        if search_urls.len() > config.max_urls {
+            search_urls.truncate(config.max_urls);
+        }
+        
         // 🔥 NUCLEAR: Preprocesar URLs con Go si disponible
         #[cfg(feature = "go")]
         let search_urls = self.preprocess_urls_with_go(&search_urls);
 
         // FASE 1: Crawl de páginas de búsqueda (NUCLEAR MASIVO)
-        let search_results = self.scraper.nuclear_crawl(search_urls).await?;
+        // Con timeout global
+        let search_results = match tokio::time::timeout(
+            timeout_duration - Duration::from_millis(500), // Dejar 500ms de margen
+            self.scraper.nuclear_crawl(search_urls)
+        ).await {
+            Ok(Ok(results)) => results,
+            Ok(Err(e)) => {
+                eprintln!("❌ Error en fase 1: {}", e);
+                Vec::new()
+            },
+            Err(_) => {
+                eprintln!("⏱️ TIMEOUT en fase 1 (7 segundos)");
+                Vec::new()
+            }
+        };
 
         // FASE 2: DEEP CRAWL - Extraer links de resultados y crawlearlos
+        // Pero solo si aún hay tiempo
         let mut deep_urls: Vec<String> = Vec::new();
-        for result in &search_results {
-            if result.status_code == 200 && !result.html.is_empty() {
-                // 🔥 NUCLEAR: Parsear HTML con Zig si disponible
-                #[cfg(feature = "zig")]
-                let html = self.parse_html_with_zig(&result.html);
-                #[cfg(not(feature = "zig"))]
-                let html = result.html.clone();
-                
-                // Extraer links relevantes de la página de búsqueda
-                let links = self.extract_result_links(&html, &result.url, &config.query);
-                deep_urls.extend(links);
+        if search_start.elapsed() < timeout_duration - Duration::from_secs(1) {
+            for result in &search_results {
+                if result.status_code == 200 && !result.html.is_empty() {
+                    // 🔥 NUCLEAR: Parsear HTML con Zig si disponible
+                    #[cfg(feature = "zig")]
+                    let html = self.parse_html_with_zig(&result.html);
+                    #[cfg(not(feature = "zig"))]
+                    let html = result.html.clone();
+                    
+                    // Extraer links relevantes de la página de búsqueda
+                    let links = self.extract_result_links(&html, &result.url, &config.query);
+                    deep_urls.extend(links);
+                    
+                    // 🔥 NUCLEAR: Limite 100 URLs
+                    if deep_urls.len() >= config.max_urls {
+                        break;
+                    }
+                }
             }
-        }
 
-        // 🔥 NUCLEAR: Más deep crawl para más resultados
-        let max_deep = if config.max_results == 0 { 1000 } else { config.max_results * 10 };
-        deep_urls.truncate(max_deep);
-        
-        // Deduplicar URLs
-        deep_urls.sort();
-        deep_urls.dedup();
+            // Deduplicar URLs
+            deep_urls.sort();
+            deep_urls.dedup();
+            deep_urls.truncate(config.max_urls);
+        }
         
         // FASE 3: Crawl profundo de los resultados
         let mut all_results = search_results;
-        if !deep_urls.is_empty() {
-            let deep_results = self.scraper.nuclear_crawl(deep_urls).await?;
-            all_results.extend(deep_results);
+        if !deep_urls.is_empty() && search_start.elapsed() < timeout_duration - Duration::from_millis(500) {
+            let remaining_time = timeout_duration - search_start.elapsed() - Duration::from_millis(100);
+            
+            if let Ok(Ok(deep_results)) = tokio::time::timeout(
+                remaining_time,
+                self.scraper.nuclear_crawl(deep_urls)
+            ).await {
+                all_results.extend(deep_results);
+            }
         }
 
         // Procesar resultados

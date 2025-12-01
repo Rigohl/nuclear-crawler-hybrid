@@ -41,8 +41,11 @@ pub mod mcp_server;
 pub mod scan_project;
 pub mod deep_web_search;
 pub mod improvements;
-pub mod nuclear_max_power;
 pub mod nuclear_bypass;
+
+// 🔥💥 NUEVOS MÓDULOS NUCLEARES EXTREMOS
+pub mod nuclear_unified_scraper;   // Scraper unificado modular
+// nuclear_extreme_crawler y nuclear_max_power consolidados en nuclear_unified_scraper
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;

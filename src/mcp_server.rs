@@ -192,8 +192,8 @@ impl McpServer {
                         },
                         "max_results": {
                             "type": "integer",
-                            "description": "Máximo número de resultados",
-                            "default": 50
+                            "description": "Máximo número de resultados (NUCLEAR DEFAULT: 100)",
+                            "default": 100
                         }
                     },
                     "required": ["query"]

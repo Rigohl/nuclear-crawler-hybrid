@@ -2116,6 +2116,7 @@ impl ProjectScanner {
     }
 
     /// Genera recomendaciones específicas para Chapel
+    #[allow(dead_code)]
     async fn generate_chapel_recommendations(&self, errors: &[Issue], warnings: &[Issue]) -> Result<Vec<String>> {
         let mut recommendations = Vec::new();
 
@@ -2165,7 +2166,7 @@ impl ProjectScanner {
     }
 
     /// Análisis AVANZADO de dominios y arrays distribuidos en Chapel
-    fn analyze_chapel_domains(&self, content: &str, file: &str, project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_domains(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2254,7 +2255,7 @@ impl ProjectScanner {
     }
 
     /// Análisis AVANZADO de paralelismo en Chapel
-    fn analyze_chapel_advanced_parallelism(&self, content: &str, file: &str, project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_advanced_parallelism(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2341,7 +2342,7 @@ impl ProjectScanner {
     }
 
     /// Análisis AVANZADO de locality y memoria en Chapel
-    fn analyze_chapel_memory_locality(&self, content: &str, file: &str, project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_memory_locality(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2411,7 +2412,7 @@ impl ProjectScanner {
     }
 
     /// Análisis de patrones anti-óptimos en Chapel
-    fn analyze_chapel_anti_patterns(&self, content: &str, file: &str, project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_anti_patterns(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2493,7 +2494,7 @@ impl ProjectScanner {
     }
 
     /// Análisis de dependencias de tareas en Chapel
-    fn analyze_chapel_task_dependencies(&self, content: &str, file: &str, project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_task_dependencies(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2553,7 +2554,7 @@ impl ProjectScanner {
     }
 
     /// Sugerencias de optimización avanzadas para Chapel
-    fn suggest_chapel_optimizations(&self, content: &str, file: &str, project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn suggest_chapel_optimizations(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
