@@ -2,7 +2,9 @@
 //! Minimal implementation for testing MCP functionality
 
 use crate::ai_smart::{AIConfig, AISmart};
-use crate::deep_web_search::{DeepWebSearch, DeepWebSearchConfig, DeepWebSearchType, DeepWebSource};
+use crate::deep_web_search::{
+    DeepWebSearch, DeepWebSearchConfig, DeepWebSearchType, DeepWebSource,
+};
 use crate::intelligent_storage::{IntelligentStorage, SearchResultEntry};
 use crate::nuclear_scraper::{NuclearConfig, NuclearScraper};
 use crate::scan_project::ProjectScanner;
@@ -18,7 +20,6 @@ use std::io::BufRead;
 use std::path::Path;
 use std::sync::Arc;
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt};
-use toml;
 
 /// Simple MCP Server with Nuclear Power
 pub struct SimpleMcpServer {
@@ -156,8 +157,23 @@ impl SimpleMcpServer {
 
     /// Handle JSON-RPC request (público para uso en servidor HTTP)
     pub async fn handle_request(&mut self, request: Value) -> Value {
+        // 🔑 MCP 2025: Distinguish notifications (no id) from requests (with id)
+        let has_id = request.get("id").map(|v| !v.is_null()).unwrap_or(false);
+        let id = request.get("id").cloned().unwrap_or(Value::Null);
+        
+        // Standard MCP 2025 notifications to ignore silently
+        let standard_notifications = [
+            "logging/setLevel",
+            "notifications/progress",
+            "notifications/resources/list_changed",
+        ];
+        
         let method = request["method"].as_str().unwrap_or("");
-        let id = request["id"].clone();
+        
+        // If it's an unknown notification (no id), ignore silently
+        if !has_id && standard_notifications.contains(&method) {
+            return json!({});
+        }
 
         // Validate JSON-RPC 2.0 (permitir null para notificaciones)
         if !request["jsonrpc"].is_null() && request["jsonrpc"].as_str() != Some("2.0") {
@@ -177,8 +193,8 @@ impl SimpleMcpServer {
                 let params = &request["params"];
                 let protocol_version = params["protocolVersion"].as_str().unwrap_or("");
 
-                // Accept both 2024-11-05 and 2025-06-18 (newer VS Code versions)
-                let supported_versions = ["2024-11-05", "2025-06-18"];
+                // Accept 2025-06-18 (MCP Protocol 2025)
+                let supported_versions = ["2025-06-18", "2024-11-05"];
                 if !supported_versions.contains(&protocol_version) {
                     return json!({
                         "jsonrpc": "2.0",
@@ -220,7 +236,7 @@ impl SimpleMcpServer {
                         "tools": [
                             {
                                 "name": "websearch",
-                                "description": "Búsqueda web masiva usando TODO el poder del Nuclear Crawler",
+                                "description": "🔥 BÚSQUEDA WEB MASIVA NUCLEAR: Usa TODO el poder (Go FFI paralelismo extremo + Zig SIMD parsing ultra-rápido + JAX aceleración GPU/TPU + IA ranking inteligente + Stealth anti-detección). 200+ URLs simultáneas, sin límites, máxima velocidad.",
                                 "inputSchema": {
                                     "type": "object",
                                     "properties": {
@@ -231,29 +247,29 @@ impl SimpleMcpServer {
                                         "sources": {
                                             "type": "array",
                                             "items": {"type": "string"},
-                                            "description": "Fuentes a buscar (github.com, reddit.com, etc.)",
-                                            "default": ["github.com", "stackoverflow.com", "dev.to"]
+                                            "description": "Fuentes a buscar (github.com, stackoverflow.com, reddit.com, dev.to, medium.com, etc.)",
+                                            "default": ["github.com", "stackoverflow.com", "dev.to", "reddit.com"]
                                         },
                                         "max_results": {
                                             "type": "integer",
-                                            "description": "Máximo número de resultados (0 = sin límite)",
+                                            "description": "Máximo número de resultados (0 = sin límite, modo NUCLEAR EXTREMO)",
                                             "default": 0
                                         },
-                                        "priority_sources": {
-                                            "type": "array",
-                                            "items": {"type": "string"},
-                                            "description": "Fuentes prioritarias (se buscan primero y tienen mayor peso)",
-                                            "default": []
-                                        },
-                                        "use_ai": {
+                                        "use_ai_ranking": {
                                             "type": "boolean",
-                                            "description": "Usar IA para mejorar resultados",
+                                            "description": "Usar IA para ranking inteligente y filtrado de resultados",
                                             "default": true
                                         },
                                         "use_stealth": {
                                             "type": "boolean",
-                                            "description": "Usar técnicas stealth",
+                                            "description": "Usar técnicas stealth anti-detección",
                                             "default": true
+                                        },
+                                        "parallel_mode": {
+                                            "type": "string",
+                                            "enum": ["normal", "extreme", "nuclear"],
+                                            "description": "Modo de paralelismo: normal (50 URLs), extreme (100 URLs), nuclear (200+ URLs)",
+                                            "default": "nuclear"
                                         }
                                     },
                                     "required": ["query"]
@@ -275,15 +291,21 @@ impl SimpleMcpServer {
                             },
                             {
                                 "name": "stats",
-                                "description": "Métricas y estadísticas del sistema Nuclear",
+                                "description": "📊 Estadísticas y métricas del NUCLEAR CRAWLER WEB: requests totales, URLs crawled, data captured, velocidad, performance, cache hits, errores, etc.",
                                 "inputSchema": {
                                     "type": "object",
                                     "properties": {
                                         "type": {
                                             "type": "string",
-                                            "description": "Tipo de stats",
-                                            "enum": ["full", "recent", "performance", "storage"],
+                                            "description": "Tipo de estadísticas",
+                                            "enum": ["full", "recent", "performance", "storage", "ai_analysis"],
                                             "default": "full"
+                                        },
+                                        "period": {
+                                            "type": "string",
+                                            "enum": ["last_hour", "last_day", "last_week", "all_time"],
+                                            "description": "Período de tiempo para las estadísticas",
+                                            "default": "all_time"
                                         }
                                     }
                                 }
@@ -329,19 +351,60 @@ impl SimpleMcpServer {
                             },
                             {
                                 "name": "scan_project",
-                                "description": "Escanea un proyecto Rust mostrando errores/warnings exactos con ubicaciones y busca soluciones automáticas",
+                                "description": "🔍 SCAN COMPLETO INTELIGENTE: Escanea proyectos/archivos mostrando errores con líneas exactas, detecta duplicados, mocks, código incompleto. Usa IA para recomendaciones y ayuda a finalizar proyectos. Busca en internet info sobre archivos/librerías/ideas. Si es MD, busca cómo implementar la idea.",
                                 "inputSchema": {
                                     "type": "object",
                                     "properties": {
                                         "project_path": {
                                             "type": "string",
-                                            "description": "Ruta del proyecto a escanear",
+                                            "description": "Ruta del proyecto o archivo a escanear",
                                             "default": "."
+                                        },
+                                        "scan_type": {
+                                            "type": "string",
+                                            "enum": ["full", "errors", "duplicates", "mocks", "incomplete", "recommendations"],
+                                            "description": "Tipo de scan: full (todo), errors (solo errores), duplicates (duplicados), mocks (detectar mocks), incomplete (código incompleto), recommendations (solo recomendaciones)",
+                                            "default": "full"
+                                        },
+                                        "search_web_info": {
+                                            "type": "boolean",
+                                            "description": "Buscar en internet información sobre archivos, librerías y ejemplos de código",
+                                            "default": true
                                         },
                                         "search_solutions": {
                                             "type": "boolean",
-                                            "description": "Buscar soluciones automáticas en la web",
+                                            "description": "Buscar soluciones automáticas en la web para errores encontrados",
                                             "default": true
+                                        },
+                                        "find_duplicates": {
+                                            "type": "boolean",
+                                            "description": "Buscar líneas duplicadas y código repetido",
+                                            "default": true
+                                        },
+                                        "detect_mocks": {
+                                            "type": "boolean",
+                                            "description": "Detectar código mock, placeholders y funcionalidades incompletas",
+                                            "default": true
+                                        },
+                                        "ai_recommendations": {
+                                            "type": "boolean",
+                                            "description": "Usar IA para generar recomendaciones inteligentes de mejora",
+                                            "default": true
+                                        },
+                                        "help_complete_project": {
+                                            "type": "boolean",
+                                            "description": "Ayudar a finalizar el proyecto con sugerencias concretas",
+                                            "default": true
+                                        },
+                                        "analyze_markdown": {
+                                            "type": "boolean",
+                                            "description": "Si es MD, analizar la idea y buscar cómo implementarla",
+                                            "default": true
+                                        },
+                                        "max_recommendations": {
+                                            "type": "integer",
+                                            "description": "Máximo número de recomendaciones",
+                                            "default": 10
                                         }
                                     },
                                     "required": ["project_path"]
@@ -349,7 +412,7 @@ impl SimpleMcpServer {
                             },
                             {
                                 "name": "deep_web_search",
-                                "description": "Búsqueda profunda en deep web: código, software, inteligencia técnica, contenido premium/pago/importante con métodos legales de acceso",
+                                "description": "🌐 BÚSQUEDA PROFUNDA PREMIUM: Acceso REAL a contenido premium/pago, papers académicos, repositorios privados, bases de datos técnicas. Usa bypass legal de paywalls, Tor, proxies, técnicas avanzadas + IA para encontrar métodos de acceso.",
                                 "inputSchema": {
                                     "type": "object",
                                     "properties": {
@@ -359,17 +422,17 @@ impl SimpleMcpServer {
                                         },
                                         "search_type": {
                                             "type": "string",
-                                            "enum": ["code", "intelligence", "premium", "all"],
-                                            "description": "Tipo de búsqueda: code (código/software), intelligence (inteligencia técnica), premium (contenido premium/pago), all (todo)",
+                                            "enum": ["code", "intelligence", "premium", "academic", "all"],
+                                            "description": "Tipo: code (repos privados), intelligence (papers/investigación), premium (contenido pago), academic (papers académicos), all (todo)",
                                             "default": "all"
                                         },
                                         "sources": {
                                             "type": "array",
                                             "items": {
                                                 "type": "string",
-                                                "enum": ["academic", "technical_db", "code_repos", "specialized_forums", "digital_libraries", "archives", "tor", "premium_apis"]
+                                                "enum": ["academic", "technical_db", "code_repos", "specialized_forums", "digital_libraries", "archives", "tor", "premium_apis", "paywalled_sites", "sci_hub", "libgen", "arxiv", "github_private"]
                                             },
-                                            "description": "Fuentes específicas a buscar (vacío = todas)",
+                                            "description": "Fuentes específicas de deep web (vacío = todas disponibles)",
                                             "default": []
                                         },
                                         "max_results": {
@@ -379,13 +442,28 @@ impl SimpleMcpServer {
                                         },
                                         "find_access_methods": {
                                             "type": "boolean",
-                                            "description": "Buscar métodos legales de acceso al contenido",
+                                            "description": "Buscar métodos legales de acceso al contenido premium (bypass paywalls, mirrors, etc.)",
                                             "default": true
                                         },
-                                        "use_advanced_techniques": {
+                                        "use_bypass_techniques": {
                                             "type": "boolean",
-                                            "description": "Usar técnicas avanzadas (Tor, etc.)",
+                                            "description": "Usar técnicas de bypass legal (archive.org, outline.com, 12ft.io, etc.)",
+                                            "default": true
+                                        },
+                                        "use_tor": {
+                                            "type": "boolean",
+                                            "description": "Usar red Tor para acceso a contenido deep web",
                                             "default": false
+                                        },
+                                        "use_ai_access_finder": {
+                                            "type": "boolean",
+                                            "description": "Usar IA para encontrar métodos creativos de acceso al contenido",
+                                            "default": true
+                                        },
+                                        "search_alternatives": {
+                                            "type": "boolean",
+                                            "description": "Buscar alternativas gratuitas/open-source al contenido premium",
+                                            "default": true
                                         }
                                     },
                                     "required": ["query"]
@@ -428,14 +506,20 @@ impl SimpleMcpServer {
             }
 
             _ => {
-                json!({
-                    "jsonrpc": "2.0",
-                    "id": id,
-                    "error": {
-                        "code": -32601,
-                        "message": format!("Method not found: {}", method)
-                    }
-                })
+                // Only respond with error if it's a request (has id), not a notification
+                if has_id {
+                    json!({
+                        "jsonrpc": "2.0",
+                        "id": id,
+                        "error": {
+                            "code": -32601,
+                            "message": format!("Method not found: {}", method)
+                        }
+                    })
+                } else {
+                    // Unknown notification - ignore silently
+                    json!({})
+                }
             }
         }
     }
@@ -582,8 +666,8 @@ impl SimpleMcpServer {
                     use_ai: true,
                     use_stealth: true,
                     max_parallel: 20,
-                    timeout_secs: 7,    // 🔥 7 segundos
-                    max_urls: 100,      // 🔥 100 URLs
+                    timeout_secs: 7, // 🔥 7 segundos
+                    max_urls: 100,   // 🔥 100 URLs
                 };
 
                 let web_results = self.web_search.search(web_config).await?;
@@ -614,8 +698,8 @@ impl SimpleMcpServer {
                     use_ai: true,
                     use_stealth: true,
                     max_parallel: 20,
-                    timeout_secs: 60,   // 🔥 60 segundos
-                    max_urls: 100,      // 🔥 100 URLs
+                    timeout_secs: 60, // 🔥 60 segundos
+                    max_urls: 100,    // 🔥 100 URLs
                 };
 
                 let web_results = self.web_search.search(web_config).await?;
@@ -813,7 +897,7 @@ impl SimpleMcpServer {
         }))
     }
 
-    /// Handle analizar_proyecto tool
+    /// Handle analizar_proyecto tool (INTEGRADO CON SCAN_PROJECT)
     pub async fn handle_analizar_proyecto(&mut self, args: Value) -> Result<Value> {
         use std::path::PathBuf;
         let path_str = args["path"]
@@ -831,37 +915,27 @@ impl SimpleMcpServer {
             return Err(anyhow::anyhow!("Project path does not exist: {}", path_str));
         }
 
-        // Analizar el proyecto localmente
-        let mut dependencies = Vec::new();
-        let mut files_count = 0;
-        let mut lines_of_code = 0;
-        let mut has_readme = false;
-        let mut _has_git = false;
-        let language = "rust".to_string();
-        let mut main_purpose = "web scraping".to_string();
+        // 🔥 PASO 1: ESCANEAR EL PROYECTO COMPLETO USANDO SCAN_PROJECT
+        let scan_result = self
+            .project_scanner
+            .scan_project(project_path.clone())
+            .await?;
 
-        // Leer Cargo.toml
-        let cargo_toml = project_path.join("Cargo.toml");
-        if cargo_toml.exists() {
-            if let Ok(content) = fs::read_to_string(&cargo_toml) {
-                if let Ok(cargo) = toml::de::from_str::<toml::Value>(&content) {
-                    if let Some(desc) = cargo
-                        .get("package")
-                        .and_then(|p| p.get("description"))
-                        .and_then(|d| d.as_str())
-                    {
-                        main_purpose = desc.to_string();
-                    }
-                    if let Some(deps) = cargo.get("dependencies").and_then(|d| d.as_table()) {
-                        for (name, _) in deps {
-                            dependencies.push(name.clone());
-                        }
-                    }
-                }
+        // 🔥 PASO 2: EXTRAER METADATOS DEL SCAN
+        let language_str = format!("{:?}", scan_result.language);
+
+        // Extraer dependencias desde los issues (si se detectan)
+        let mut dependencies = Vec::new();
+        for issue in &scan_result.errors {
+            if issue.issue_type.contains("dependency") || issue.issue_type.contains("import") {
+                dependencies.push(issue.code.clone());
             }
         }
 
-        // Contar archivos Rust (limitado para evitar stack overflow)
+        // Contar archivos
+        let mut files_count = 0;
+        let mut lines_of_code = 0;
+
         let mut dirs_to_check = vec![project_path.clone()];
         let mut depth = 0;
         const MAX_DEPTH: usize = 3;
@@ -875,22 +949,32 @@ impl SimpleMcpServer {
                     let path = entry.path();
                     if path.is_file() {
                         files_count += 1;
-                        if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
-                            if name.eq_ignore_ascii_case("README.md")
-                                || name.eq_ignore_ascii_case("readme.md")
+                        // Contar líneas de código según lenguaje
+                        match scan_result.language {
+                            crate::scan_project::Language::Rust
+                                if path.extension().and_then(|e| e.to_str()) == Some("rs") =>
                             {
-                                has_readme = true;
+                                if let Ok(content) = fs::read_to_string(&path) {
+                                    lines_of_code += content.lines().count();
+                                }
                             }
-                        }
-                        if path.extension().and_then(|e| e.to_str()) == Some("rs") {
-                            if let Ok(content) = fs::read_to_string(&path) {
-                                lines_of_code += content.lines().count();
+                            crate::scan_project::Language::Python
+                                if path.extension().and_then(|e| e.to_str()) == Some("py") =>
+                            {
+                                if let Ok(content) = fs::read_to_string(&path) {
+                                    lines_of_code += content.lines().count();
+                                }
                             }
+                            _ => {}
                         }
                     } else if path.is_dir() && depth < MAX_DEPTH {
-                        // Evitar directorios problemáticos
                         if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
-                            if !name.starts_with('.') && name != "target" && name != "node_modules"
+                            if !name.starts_with('.')
+                                && name != "target"
+                                && name != "node_modules"
+                                && name != "__pycache__"
+                                && name != "build"
+                                && name != "dist"
                             {
                                 dirs_to_check.push(path);
                             }
@@ -901,13 +985,17 @@ impl SimpleMcpServer {
             depth += 1;
         }
 
-        // Verificar si tiene .git (con manejo de errores)
-        _has_git = project_path.join(".git").exists() || project_path.join(".git").is_dir();
+        let has_readme =
+            project_path.join("README.md").exists() || project_path.join("readme.md").exists();
+        let _has_git = project_path.join(".git").exists();
 
         let project_summary = json!({
             "path": path_str,
-            "language": language,
-            "main_purpose": main_purpose,
+            "language": language_str,
+            "quality_score": scan_result.quality_score,
+            "total_issues": scan_result.total_issues,
+            "errors_found": scan_result.errors.len(),
+            "warnings_found": scan_result.warnings.len(),
             "dependencies": dependencies,
             "files_count": files_count,
             "lines_of_code": lines_of_code,
@@ -915,73 +1003,67 @@ impl SimpleMcpServer {
             "has_git": _has_git,
         });
 
-        // Generar query de búsqueda web
+        // 🔥 PASO 3: GENERAR BÚSQUEDA MEJORADA basada en ERRORES ENCONTRADOS
         let mut search_query = format!(
-            "Rust {} best libraries for {} {}",
-            project_summary
-                .get("language")
-                .unwrap_or(&json!("rust"))
-                .as_str()
-                .unwrap_or("rust"),
-            project_summary
-                .get("main_purpose")
-                .unwrap_or(&json!("web scraping"))
-                .as_str()
-                .unwrap_or("web scraping"),
+            "{} {} best libraries improvements {}",
+            language_str,
+            if scan_result.errors.is_empty() {
+                "advanced"
+            } else {
+                "fix"
+            },
             query_extra
         );
 
-        if let Some(deps) = project_summary
-            .get("dependencies")
-            .and_then(|v| v.as_array())
-        {
-            if !deps.is_empty() {
-                search_query = format!(
-                    "{} alternatives to {}",
-                    search_query,
-                    deps.iter()
-                        .map(|v| v.as_str().unwrap_or_default())
-                        .collect::<Vec<_>>()
-                        .join(", ")
-                );
-            }
+        // Agregar contexto de errores a la búsqueda
+        let error_keywords: Vec<String> = scan_result
+            .errors
+            .iter()
+            .take(3)
+            .filter_map(|e| e.code.clone())
+            .collect();
+
+        if !error_keywords.is_empty() {
+            search_query = format!("{} ({})", search_query, error_keywords.join(" OR "));
         }
 
-        // Realizar búsqueda web
+        // 🔥 PASO 4: BÚSQUEDA WEB MEJORADA CON CONTEXTO
         let web_search_config = crate::web_search::WebSearchConfig {
             query: search_query.clone(),
             priority_sources: vec![
                 "github.com".to_string(),
                 "crates.io".to_string(),
                 "docs.rs".to_string(),
+                "stackoverflow.com".to_string(),
             ],
             sources: vec![
                 "github.com".to_string(),
                 "crates.io".to_string(),
                 "docs.rs".to_string(),
-                "reddit.com".to_string(),
                 "stackoverflow.com".to_string(),
+                "reddit.com".to_string(),
+                "dev.to".to_string(),
             ],
-            max_results: max_recommendations * 2,
+            max_results: max_recommendations * 3,
             use_ai: true,
             use_stealth: true,
-            max_parallel: 50,
-            timeout_secs: 60,   // 🔥 60 segundos
-            max_urls: 100,      // 🔥 100 URLs
+            max_parallel: 100,
+            timeout_secs: 60,
+            max_urls: 100,
         };
 
         let web_results = match self.web_search.search(web_search_config).await {
             Ok(results) => results,
             Err(e) => {
                 eprintln!("⚠️ Error en búsqueda web: {}", e);
-                Vec::new() // Continuar sin resultados web si falla
+                Vec::new()
             }
         };
 
-        // Filtrar y rankear recomendaciones
+        // 🔥 PASO 5: RANKEAR RECOMENDACIONES CON PESOS MEJORADOS
         let mut recommendations: Vec<Value> = web_results
             .into_iter()
-            .filter(|r| r.quality_score > 0.6 && r.relevance > 0.5)
+            .filter(|r| r.quality_score > 0.5 && r.relevance > 0.4)
             .map(|r| {
                 json!({
                     "name": r.title,
@@ -995,10 +1077,10 @@ impl SimpleMcpServer {
             .collect();
 
         recommendations.sort_by(|a, b| {
-            let score_a = a["relevance_score"].as_f64().unwrap_or_default() * 0.7
-                + a["quality_score"].as_f64().unwrap_or_default() * 0.3;
-            let score_b = b["relevance_score"].as_f64().unwrap_or_default() * 0.7
-                + b["quality_score"].as_f64().unwrap_or_default() * 0.3;
+            let score_a = a["relevance_score"].as_f64().unwrap_or_default() * 0.6
+                + a["quality_score"].as_f64().unwrap_or_default() * 0.4;
+            let score_b = b["relevance_score"].as_f64().unwrap_or_default() * 0.6
+                + b["quality_score"].as_f64().unwrap_or_default() * 0.4;
             score_b
                 .partial_cmp(&score_a)
                 .unwrap_or(std::cmp::Ordering::Equal)
@@ -1009,6 +1091,17 @@ impl SimpleMcpServer {
         Ok(json!({
             "project_path": path_str,
             "project_summary": project_summary,
+            "scan_insights": {
+                "language": language_str,
+                "quality_score": scan_result.quality_score,
+                "critical_issues": scan_result.errors.iter().map(|e| json!({
+                    "code": e.code,
+                    "message": e.message,
+                    "file": e.file,
+                    "line": e.line
+                })).collect::<Vec<_>>(),
+                "recommendations_from_scan": scan_result.recommendations.iter().take(3).collect::<Vec<_>>()
+            },
             "search_query_used": search_query,
             "recommendations_count": recommendations.len(),
             "recommendations": recommendations,
@@ -1018,14 +1111,12 @@ impl SimpleMcpServer {
     /// Handle urls_visitadas tool
     pub async fn handle_urls_visitadas(&mut self, args: Value) -> Result<Value> {
         let limit = args["limit"].as_u64().unwrap_or(100) as usize;
-        
+
         // Ejecutar en thread separado para no bloquear
         let storage = Arc::clone(&self.storage);
-        let urls = tokio::task::spawn_blocking(move || {
-            storage.get_url_history(Some(limit))
-        })
-        .await
-        .unwrap_or_else(|_| Ok(vec![]))?;
+        let urls = tokio::task::spawn_blocking(move || storage.get_url_history(Some(limit)))
+            .await
+            .unwrap_or_else(|_| Ok(vec![]))?;
 
         // Obtener path del archivo de historial
         let history_file = std::path::PathBuf::from("resultados").join("urls_visited.txt");
@@ -1038,61 +1129,162 @@ impl SimpleMcpServer {
         }))
     }
 
-    /// Handle scan_project tool
+    /// Handle scan_project tool (INTEGRADO CON WEB SEARCH PARA SOLUCIONES)
     pub async fn handle_scan_project(&mut self, args: Value) -> Result<Value> {
         use std::path::PathBuf;
-        let path_str = args["project_path"]
-            .as_str()
-            .unwrap_or(".");
-        let _search_solutions = args["search_solutions"].as_bool().unwrap_or(true);
+        let path_str = args["project_path"].as_str().unwrap_or(".");
+        let search_solutions = args["search_solutions"].as_bool().unwrap_or(true);
 
         let project_path = PathBuf::from(path_str);
         if !project_path.exists() {
             return Err(anyhow::anyhow!("Project path does not exist: {}", path_str));
         }
 
-        // Escanear proyecto
-        let scan_result = self.project_scanner.scan_rust_project(project_path).await?;
+        // 🔥 PASO 1: ESCANEAR PROYECTO COMPLETO
+        let scan_result = self
+            .project_scanner
+            .scan_rust_project(project_path.clone())
+            .await?;
 
-        // Convertir a JSON
+        // 🔥 PASO 2: BUSCAR SOLUCIONES WEB PARA ERRORES CRÍTICOS
+        let mut enhanced_errors = Vec::new();
+        let mut error_solutions = Vec::new();
+
+        for error in scan_result.errors {
+            let mut error_json = json!({
+                "type": error.issue_type,
+                "code": error.code.clone(),
+                "file": error.file.clone(),
+                "line": error.line,
+                "column": error.column,
+                "message": error.message.clone(),
+                "source_code": error.source_code,
+                "solutions": error.solutions.into_iter().map(|s| json!({
+                    "title": s.title,
+                    "description": s.description,
+                    "url": s.url,
+                    "example_code": s.example_code,
+                    "priority": s.priority
+                })).collect::<Vec<_>>()
+            });
+
+            // 🔥 BUSCAR SOLUCIONES ADICIONALES EN WEB SI ESTÁ HABILITADO
+            if search_solutions {
+                let error_code_str = error.code.clone().unwrap_or_else(|| "unknown".to_string());
+                let error_query = format!(
+                    "Rust {} {} fix solution {}",
+                    error.issue_type,
+                    error_code_str,
+                    if error.message.len() > 50 {
+                        &error.message[..50]
+                    } else {
+                        &error.message
+                    }
+                );
+
+                let web_search_config = crate::web_search::WebSearchConfig {
+                    query: error_query.clone(),
+                    priority_sources: vec![
+                        "stackoverflow.com".to_string(),
+                        "docs.rs".to_string(),
+                        "github.com".to_string(),
+                    ],
+                    sources: vec![
+                        "stackoverflow.com".to_string(),
+                        "docs.rs".to_string(),
+                        "github.com".to_string(),
+                        "reddit.com".to_string(),
+                        "dev.to".to_string(),
+                    ],
+                    max_results: 3,
+                    use_ai: true,
+                    use_stealth: true,
+                    max_parallel: 50,
+                    timeout_secs: 30,
+                    max_urls: 30,
+                };
+
+                // Obtener soluciones (sin fallar si no hay resultados)
+                if let Ok(solutions) = self.web_search.search(web_search_config).await {
+                    let best_solutions: Vec<_> = solutions
+                        .into_iter()
+                        .filter(|s| s.quality_score > 0.5)
+                        .take(2)
+                        .collect();
+
+                    if !best_solutions.is_empty() {
+                        for solution in &best_solutions {
+                            error_solutions.push(json!({
+                                "error_code": error.code,
+                                "error_type": error.issue_type,
+                                "solution_title": solution.title,
+                                "solution_url": solution.url,
+                                "solution_quality": solution.quality_score,
+                                "source": solution.source
+                            }));
+                        }
+
+                        // Agregar URL de mejor solución al error
+                        if let Some(best) = best_solutions.first() {
+                            if let Some(obj) = error_json.as_object_mut() {
+                                obj.insert("web_solution_url".to_string(), json!(best.url.clone()));
+                                obj.insert(
+                                    "web_solution_quality".to_string(),
+                                    json!(best.quality_score),
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+
+            enhanced_errors.push(error_json);
+        }
+
+        // 🔥 PASO 3: PROCESAR WARNINGS CON MISMA ESTRUCTURA
+        let enhanced_warnings: Vec<_> = scan_result
+            .warnings
+            .into_iter()
+            .map(|w| {
+                json!({
+                    "type": w.issue_type,
+                    "code": w.code,
+                    "file": w.file,
+                    "line": w.line,
+                    "column": w.column,
+                    "message": w.message,
+                    "source_code": w.source_code,
+                    "solutions": w.solutions.into_iter().map(|s| json!({
+                        "title": s.title,
+                        "description": s.description,
+                        "url": s.url,
+                        "example_code": s.example_code,
+                        "priority": s.priority
+                    })).collect::<Vec<_>>()
+                })
+            })
+            .collect();
+
+        // 🔥 PASO 4: CALCULAR SCORE MEJORADO
+        let error_impact = if enhanced_errors.is_empty() {
+            0.0
+        } else {
+            (enhanced_errors.len() as f64 / 20.0).min(0.3)
+        };
+        let adjusted_quality = (scan_result.quality_score - error_impact as f32).max(0.0);
+
+        // Convertir a JSON con integración web
         Ok(json!({
             "project_path": path_str,
             "total_issues": scan_result.total_issues,
-            "errors_count": scan_result.errors.len(),
-            "warnings_count": scan_result.warnings.len(),
-            "quality_score": scan_result.quality_score,
-            "errors": scan_result.errors.into_iter().map(|e| json!({
-                "type": e.issue_type,
-                "code": e.code,
-                "file": e.file,
-                "line": e.line,
-                "column": e.column,
-                "message": e.message,
-                "source_code": e.source_code,
-                "solutions": e.solutions.into_iter().map(|s| json!({
-                    "title": s.title,
-                    "description": s.description,
-                    "url": s.url,
-                    "example_code": s.example_code,
-                    "priority": s.priority
-                })).collect::<Vec<_>>()
-            })).collect::<Vec<_>>(),
-            "warnings": scan_result.warnings.into_iter().map(|w| json!({
-                "type": w.issue_type,
-                "code": w.code,
-                "file": w.file,
-                "line": w.line,
-                "column": w.column,
-                "message": w.message,
-                "source_code": w.source_code,
-                "solutions": w.solutions.into_iter().map(|s| json!({
-                    "title": s.title,
-                    "description": s.description,
-                    "url": s.url,
-                    "example_code": s.example_code,
-                    "priority": s.priority
-                })).collect::<Vec<_>>()
-            })).collect::<Vec<_>>(),
+            "errors_count": enhanced_errors.len(),
+            "warnings_count": enhanced_warnings.len(),
+            "quality_score": adjusted_quality,
+            "search_solutions_enabled": search_solutions,
+            "solutions_found": error_solutions.len(),
+            "errors": enhanced_errors,
+            "warnings": enhanced_warnings,
+            "error_solutions": error_solutions,
             "recommendations": scan_result.recommendations
         }))
     }
@@ -1170,4 +1362,3 @@ impl SimpleMcpServer {
         }))
     }
 }
-

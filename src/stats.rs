@@ -167,4 +167,34 @@ impl StatsSystem {
 
         searches
     }
+
+    /// Obtiene todas las estadísticas como JSON
+    pub fn get_all_stats(&self) -> serde_json::Value {
+        let full = self.get_full_stats();
+        serde_json::json!({
+            "web_search": {
+                "total_searches": full.web_search_stats.total_searches,
+                "successful": full.web_search_stats.successful_searches,
+                "failed": full.web_search_stats.failed_searches,
+                "avg_results": full.web_search_stats.avg_results_per_search,
+                "total_results": full.web_search_stats.total_results_found
+            },
+            "scraping": {
+                "urls_crawled": full.scraping_stats.total_urls_crawled,
+                "successful": full.scraping_stats.successful,
+                "failed": full.scraping_stats.failed,
+                "data_mb": full.scraping_stats.total_data_captured_mb,
+                "avg_response_ms": full.scraping_stats.avg_response_time_ms,
+                "urls_per_sec": full.scraping_stats.urls_per_second
+            },
+            "ai": {
+                "patterns_learned": full.ai_stats.patterns_learned,
+                "domains_analyzed": full.ai_stats.domains_analyzed,
+                "predictions_made": full.ai_stats.predictions_made,
+                "accuracy": full.ai_stats.accuracy
+            },
+            "uptime_secs": full.total_uptime.as_secs(),
+            "recent_searches_count": full.recent_searches.len()
+        })
+    }
 }

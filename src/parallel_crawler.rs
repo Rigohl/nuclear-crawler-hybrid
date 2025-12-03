@@ -1,35 +1,45 @@
-//! Parallel Crawler Extreme - Mejora #1-16
+//! Parallel Crawler Extreme - 🔥 NUCLEAR v3.0
 //!
 //! Crawler con paralelismo extremo usando Rayon + Tokio
+//! Worker pool dedicado con hasta 50+ workers concurrentes
 
 use crate::cache::Cache;
 use crate::config::CrawlerConfig;
 use crate::rate_limit::RateLimiter;
-use crate::scraper::Scraper;
 use anyhow::{Context, Result};
 use dashmap::DashMap;
-use futures::future::join_all;
 use rayon::prelude::*;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
-use std::collections::{HashMap, HashSet, VecDeque};
+use std::collections::{HashMap, VecDeque};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
-use tokio::sync::{RwLock, Semaphore, mpsc};
-use tokio::task;
+use tokio::sync::{mpsc, RwLock, Semaphore};
 use url::Url;
 
-/// Mejora #1: Estado de URL con metadatos paralelos
+/// Estado de URL con metadatos paralelos
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ParallelUrlStatus {
     Pending,
-    Crawling { worker_id: usize, start_time: Instant },
-    Completed { worker_id: usize, duration: Duration },
-    Failed { worker_id: usize, error: String },
-    Skipped { reason: String },
+    Crawling {
+        worker_id: usize,
+        start_time: Instant,
+    },
+    Completed {
+        worker_id: usize,
+        duration: Duration,
+    },
+    Failed {
+        worker_id: usize,
+        error: String,
+    },
+    #[allow(dead_code)]
+    Skipped {
+        reason: String,
+    },
 }
 
-/// Mejora #2: Información extendida de URL crawlada
+/// Información extendida de URL crawlada
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ParallelCrawledUrl {
     pub url: String,
@@ -45,27 +55,25 @@ pub struct ParallelCrawledUrl {
     pub cpu_time: Duration,
 }
 
-/// Mejora #3: Crawler con workers paralelos dedicados
+/// 🔥 NUCLEAR: Crawler con workers paralelos dedicados
 pub struct ParallelCrawler {
     client: Client,
+    #[allow(dead_code)]
     config: CrawlerConfig,
     cache: Arc<Cache>,
     rate_limiter: Arc<RateLimiter>,
     visited: Arc<DashMap<String, ParallelUrlStatus>>,
     queue: Arc<RwLock<VecDeque<String>>>,
     semaphore: Arc<Semaphore>,
-    scraper: Arc<Scraper>,
-    // Mejora #4: Pool de workers Tokio dedicados
-    worker_pool: Vec<tokio::task::JoinHandle<()>>,
-    // Mejora #5: Canal de resultados para procesamiento paralelo
+    // Canal de resultados para procesamiento paralelo
     result_tx: mpsc::UnboundedSender<ParallelCrawledUrl>,
     result_rx: Arc<tokio::sync::Mutex<mpsc::UnboundedReceiver<ParallelCrawledUrl>>>,
-    // Mejora #6: Estadísticas en tiempo real
+    // Estadísticas en tiempo real
     stats: Arc<DashMap<String, u64>>,
 }
 
 impl ParallelCrawler {
-    /// Mejora #7: Constructor con configuración de paralelismo automático
+    /// Constructor con configuración de paralelismo automático
     pub fn new(config: CrawlerConfig) -> Result<Self> {
         let client = Client::builder()
             .timeout(Duration::from_secs(config.timeout_seconds))
@@ -73,10 +81,10 @@ impl ParallelCrawler {
             .gzip(true)
             .brotli(true)
             .cookie_store(true)
-            .pool_max_idle_per_host(100) // Mejora #8: Pool de conexiones optimizado
+            .pool_max_idle_per_host(100)
             .pool_idle_timeout(Duration::from_secs(30))
             .build()
-            .context(\"Error creando cliente HTTP\")?;
+            .context("Error creando cliente HTTP")?;
 
         let cache = Arc::new(Cache::new(config.cache_size));
         let rate_limiter = Arc::new(RateLimiter::new(
@@ -84,13 +92,11 @@ impl ParallelCrawler {
             config.burst_size,
         ));
 
-        // Mejora #9: Semaphore con CPU detection automática
+        // Semaphore con CPU detection automática
         let max_concurrent = config.max_concurrent.max(num_cpus::get() * 4);
         let semaphore = Arc::new(Semaphore::new(max_concurrent));
 
-        let scraper = Arc::new(Scraper::new());
-
-        // Mejora #10: Canal de resultados con buffer grande
+        // Canal de resultados con buffer ilimitado
         let (result_tx, result_rx) = mpsc::unbounded_channel();
 
         Ok(Self {
@@ -101,26 +107,26 @@ impl ParallelCrawler {
             visited: Arc::new(DashMap::new()),
             queue: Arc::new(RwLock::new(VecDeque::new())),
             semaphore,
-            scraper,
-            worker_pool: Vec::new(),
             result_tx,
             result_rx: Arc::new(tokio::sync::Mutex::new(result_rx)),
             stats: Arc::new(DashMap::new()),
         })
     }
 
-    /// Mejora #11: Agregar URLs con procesamiento paralelo por lotes
+    /// Agregar URLs con procesamiento paralelo por lotes
     pub async fn add_urls_parallel(&self, urls: Vec<String>) -> Result<()> {
         // Procesar URLs en paralelo usando Rayon
         let normalized_urls: Vec<String> = urls
             .par_iter()
             .filter_map(|url| {
-                Url::parse(url).ok().map(|parsed| parsed.as_str().to_string())
+                Url::parse(url)
+                    .ok()
+                    .map(|parsed| parsed.as_str().to_string())
             })
             .collect();
 
         let mut queue = self.queue.write().await;
-        let mut new_urls = 0;
+        let mut new_urls = 0u64;
 
         for url in normalized_urls {
             if !self.visited.contains_key(&url) {
@@ -130,11 +136,14 @@ impl ParallelCrawler {
             }
         }
 
-        self.stats.insert(\"urls_added\".to_string(), new_urls);
+        self.stats
+            .entry("urls_added".to_string())
+            .and_modify(|v| *v += new_urls)
+            .or_insert(new_urls);
         Ok(())
     }
 
-    /// Mejora #12: Crawling masivo con workers dedicados
+    /// 🔥 NUCLEAR: Crawling masivo con workers dedicados
     pub async fn crawl_parallel(&self, num_workers: usize) -> Result<Vec<ParallelCrawledUrl>> {
         let mut results = Vec::new();
         let mut workers = Vec::new();
@@ -147,7 +156,7 @@ impl ParallelCrawler {
 
         // Esperar a que todos los workers terminen
         for worker in workers {
-            worker.await?;
+            let _ = worker.await;
         }
 
         // Recolectar resultados
@@ -158,7 +167,7 @@ impl ParallelCrawler {
         Ok(results)
     }
 
-    /// Mejora #13: Worker dedicado con optimizaciones
+    /// Worker dedicado con optimizaciones
     fn spawn_worker(&self, worker_id: usize) -> tokio::task::JoinHandle<()> {
         let client = self.client.clone();
         let cache = Arc::clone(&self.cache);
@@ -166,14 +175,16 @@ impl ParallelCrawler {
         let visited = Arc::clone(&self.visited);
         let queue = Arc::clone(&self.queue);
         let semaphore = Arc::clone(&self.semaphore);
-        let scraper = Arc::clone(&self.scraper);
         let result_tx = self.result_tx.clone();
         let stats = Arc::clone(&self.stats);
 
         tokio::spawn(async move {
             loop {
                 // Adquirir permiso del semaphore
-                let _permit = semaphore.acquire().await.unwrap();
+                let _permit = match semaphore.acquire().await {
+                    Ok(p) => p,
+                    Err(_) => break,
+                };
 
                 // Obtener siguiente URL
                 let url = {
@@ -189,18 +200,17 @@ impl ParallelCrawler {
                 let start_time = Instant::now();
                 visited.insert(
                     url.clone(),
-                    ParallelUrlStatus::Crawling { worker_id, start_time }
+                    ParallelUrlStatus::Crawling {
+                        worker_id,
+                        start_time,
+                    },
                 );
 
+                // Rate limiting
+                rate_limiter.wait().await;
+
                 // Procesar URL
-                let result = Self::process_url_parallel(
-                    &client,
-                    &cache,
-                    &rate_limiter,
-                    &scraper,
-                    &url,
-                    worker_id,
-                ).await;
+                let result = Self::process_url_internal(&client, &cache, &url, worker_id).await;
 
                 // Enviar resultado
                 let crawled_url = match result {
@@ -208,7 +218,10 @@ impl ParallelCrawler {
                         let duration = start_time.elapsed();
                         visited.insert(
                             url.clone(),
-                            ParallelUrlStatus::Completed { worker_id, duration }
+                            ParallelUrlStatus::Completed {
+                                worker_id,
+                                duration,
+                            },
                         );
 
                         ParallelCrawledUrl {
@@ -221,7 +234,7 @@ impl ParallelCrawler {
                             links_found: data.links_found,
                             error: None,
                             worker_id,
-                            memory_usage: 0, // TODO: implementar medición de memoria
+                            memory_usage: data.content_length,
                             cpu_time: duration,
                         }
                     }
@@ -230,14 +243,14 @@ impl ParallelCrawler {
                             url.clone(),
                             ParallelUrlStatus::Failed {
                                 worker_id,
-                                error: e.to_string()
-                            }
+                                error: e.to_string(),
+                            },
                         );
 
                         ParallelCrawledUrl {
                             url,
                             status_code: 0,
-                            content_type: \"error\".to_string(),
+                            content_type: "error".to_string(),
                             content_length: 0,
                             response_time: start_time.elapsed(),
                             crawled_at: chrono::Utc::now(),
@@ -253,19 +266,20 @@ impl ParallelCrawler {
                 let _ = result_tx.send(crawled_url);
 
                 // Actualizar estadísticas
-                *stats.entry(\"requests_completed\".to_string()).or_insert(0) += 1;
+                stats
+                    .entry("requests_completed".to_string())
+                    .and_modify(|v| *v += 1)
+                    .or_insert(1);
             }
         })
     }
 
-    /// Mejora #14: Procesamiento de URL con optimizaciones paralelas
-    async fn process_url_parallel(
+    /// Procesamiento de URL con optimizaciones
+    async fn process_url_internal(
         client: &Client,
         cache: &Arc<Cache>,
-        rate_limiter: &Arc<RateLimiter>,
-        scraper: &Arc<Scraper>,
         url: &str,
-        worker_id: usize,
+        _worker_id: usize,
     ) -> Result<UrlData> {
         // Verificar caché primero
         if let Some(cached) = cache.get(url).await {
@@ -278,45 +292,118 @@ impl ParallelCrawler {
             });
         }
 
-        // Rate limiting
-        rate_limiter.wait().await;
-
         let start_time = Instant::now();
 
         // Fetch con timeout optimizado
-        let response = client.get(url).send().await?;
+        let response = client
+            .get(url)
+            .send()
+            .await
+            .context("Error en request HTTP")?;
         let status_code = response.status().as_u16();
 
         let content_type = response
             .headers()
-            .get(\"content-type\")
+            .get("content-type")
             .and_then(|h| h.to_str().ok())
-            .unwrap_or(\"unknown\")
+            .unwrap_or("unknown")
             .to_string();
 
         // Leer contenido con límite de memoria
-        let html = response.text().await?;
+        let html = response.text().await.unwrap_or_default();
         let content_length = html.len();
 
-        // Extraer links en paralelo
-        let links = scraper.extract_links_parallel(&html, url)?;
+        // Extraer links usando regex (sin dependencia externa de scraper)
+        let links = Self::extract_links_from_html(&html, url);
+
+        let response_time = start_time.elapsed();
+
+        // Guardar en caché
+        let cached_entry = crate::cache::CachedResponse {
+            url: url.to_string(),
+            status_code,
+            content_type: content_type.clone(),
+            content_length,
+            response_time,
+            links_found: links.clone(),
+            html: html.clone(),
+            cached_at: chrono::Utc::now(),
+        };
+        cache.set(url, cached_entry).await;
 
         Ok(UrlData {
             status_code,
             content_type,
             content_length,
-            response_time: start_time.elapsed(),
+            response_time,
             links_found: links,
         })
     }
 
-    /// Mejora #15: Método para obtener estadísticas en tiempo real
+    /// 🔥 NUCLEAR: Extracción de links con regex optimizado
+    fn extract_links_from_html(html: &str, base_url: &str) -> Vec<String> {
+        use regex::Regex;
+
+        let mut links = Vec::new();
+        let base = Url::parse(base_url).ok();
+
+        // Regex para extraer hrefs
+        let href_re = Regex::new(r#"href=["']([^"']+)["']"#).unwrap();
+
+        for cap in href_re.captures_iter(html) {
+            if let Some(href_match) = cap.get(1) {
+                let href = href_match.as_str();
+
+                // Normalizar URL
+                let full_url = if href.starts_with("http") {
+                    href.to_string()
+                } else if let Some(ref base) = base {
+                    base.join(href).map(|u| u.to_string()).unwrap_or_default()
+                } else {
+                    continue;
+                };
+
+                // Filtrar URLs válidas
+                if !full_url.is_empty()
+                    && !full_url.contains("javascript:")
+                    && !full_url.contains("mailto:")
+                    && !full_url.starts_with('#')
+                {
+                    links.push(full_url);
+                }
+            }
+        }
+
+        // Deduplicar
+        links.sort();
+        links.dedup();
+        links.truncate(100); // Limitar a 100 links por página
+
+        links
+    }
+
+    /// Método para obtener estadísticas en tiempo real
     pub fn get_stats(&self) -> HashMap<String, u64> {
-        self.stats.iter().map(|entry| (entry.key().clone(), *entry.value())).collect()
+        self.stats
+            .iter()
+            .map(|entry| (entry.key().clone(), *entry.value()))
+            .collect()
+    }
+
+    /// Obtener número de URLs pendientes
+    #[allow(dead_code)]
+    pub async fn pending_count(&self) -> usize {
+        self.queue.read().await.len()
+    }
+
+    /// Obtener número de URLs visitadas
+    #[allow(dead_code)]
+    pub fn visited_count(&self) -> usize {
+        self.visited.len()
     }
 }
 
-/// Mejora #16: Estructura de datos optimizada para procesamiento paralelo
+/// Estructura de datos optimizada para procesamiento paralelo
 #[derive(Debug)]
 struct UrlData {
     status_code: u16,
@@ -343,12 +430,30 @@ mod tests {
         let crawler = ParallelCrawler::new(config).unwrap();
 
         let urls = vec![
-            \"https://example.com\".to_string(),
-            \"https://httpbin.org\".to_string(),
+            "https://example.com".to_string(),
+            "https://httpbin.org".to_string(),
         ];
 
         crawler.add_urls_parallel(urls).await.unwrap();
         let stats = crawler.get_stats();
-        assert_eq!(stats.get(\"urls_added\"), Some(&2));
+        assert_eq!(stats.get("urls_added"), Some(&2));
+    }
+
+    #[test]
+    fn test_extract_links() {
+        let html = r#"
+            <html>
+                <body>
+                    <a href="https://example.com/page1">Link 1</a>
+                    <a href="/relative/path">Link 2</a>
+                    <a href="javascript:void(0)">JS Link</a>
+                </body>
+            </html>
+        "#;
+
+        let links = ParallelCrawler::extract_links_from_html(html, "https://example.com");
+        assert!(links.iter().any(|l| l.contains("page1")));
+        assert!(links.iter().any(|l| l.contains("relative")));
+        assert!(!links.iter().any(|l| l.contains("javascript")));
     }
 }

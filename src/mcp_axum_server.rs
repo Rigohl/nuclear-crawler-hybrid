@@ -98,8 +98,8 @@ async fn mcp_initialize(
         .as_str()
         .ok_or_else(|| McpError::InvalidRequest("Missing protocolVersion".to_string()))?;
 
-    // Support both 2024-11-05 and 2025-06-18
-    let supported_versions = ["2024-11-05", "2025-06-18"];
+    // Support 2025-06-18 (MCP Protocol 2025)
+    let supported_versions = ["2025-06-18", "2024-11-05"];
     if !supported_versions.contains(&protocol_version) {
         return Err(McpError::InvalidRequest(format!(
             "Unsupported protocol version: {}. Supported: {:?}",
@@ -127,9 +127,7 @@ async fn mcp_initialize(
 }
 
 /// MCP Tools List endpoint
-async fn mcp_tools_list(
-    State(_state): State<McpServerState>,
-) -> Result<Json<Value>, McpError> {
+async fn mcp_tools_list(State(_state): State<McpServerState>) -> Result<Json<Value>, McpError> {
     // Get tools from SimpleMcpServer
     let tools = get_mcp_tools();
 
@@ -167,18 +165,12 @@ async fn mcp_tools_call(
 }
 
 /// MCP WebSocket endpoint (MCP 2025)
-async fn mcp_websocket(
-    ws: WebSocketUpgrade,
-    State(state): State<McpServerState>,
-) -> Response {
+async fn mcp_websocket(ws: WebSocketUpgrade, State(state): State<McpServerState>) -> Response {
     ws.on_upgrade(|socket| handle_websocket(socket, state))
 }
 
 /// Handle WebSocket connection
-async fn handle_websocket(
-    mut socket: axum::extract::ws::WebSocket,
-    state: McpServerState,
-) {
+async fn handle_websocket(mut socket: axum::extract::ws::WebSocket, state: McpServerState) {
     use axum::extract::ws::Message;
 
     while let Some(msg) = socket.recv().await {
@@ -187,12 +179,35 @@ async fn handle_websocket(
                 // Parse JSON-RPC request
                 match serde_json::from_str::<Value>(&text) {
                     Ok(request) => {
+                        // 🔑 MCP 2025: Check if it's a notification (no id) or request (with id)
+                        let has_id = request.get("id").map(|v| !v.is_null()).unwrap_or(false);
+                        
+                        // Standard MCP 2025 notifications to ignore
+                        let standard_notifications = [
+                            "logging/setLevel",
+                            "notifications/progress",
+                            "notifications/resources/list_changed",
+                        ];
+                        
+                        let method = request["method"].as_str().unwrap_or("");
+                        
+                        // If it's a known notification, don't process further
+                        if !has_id && standard_notifications.contains(&method) {
+                            continue;
+                        }
+                        
                         let mut mcp = state.mcp.write().await;
                         let response = mcp.handle_request(request).await;
+
+                        // Only send response if it's not an empty notification response
+                        let should_send = !response.as_object().map(|o| o.is_empty()).unwrap_or(false) 
+                            || has_id;
                         
-                        if let Ok(response_text) = serde_json::to_string(&response) {
-                            if socket.send(Message::Text(response_text)).await.is_err() {
-                                break;
+                        if should_send {
+                            if let Ok(response_text) = serde_json::to_string(&response) {
+                                if socket.send(Message::Text(response_text)).await.is_err() {
+                                    break;
+                                }
                             }
                         }
                     }

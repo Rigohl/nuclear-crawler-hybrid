@@ -1,271 +1,290 @@
-<div align="center">
+# 🔥 NUCLEAR CRAWLER HYBRID - MCP Server 2025
 
-<img src="https://img.shields.io/badge/Arvix-Nuclear%20Crawler-ff6b35?style=for-the-badge&logo=rust&logoColor=white" alt="Arvix Nuclear Crawler"/>
+**Sistema de Búsqueda Web Masiva y Scraping Empresarial** con 18+ módulos integrados.
 
-# 🔥 NUCLEAR CRAWLER HYBRID
-
-### **Enterprise Web Scraping & Search Engine**
-
-[![CI/CD](https://github.com/Rigohl/nuclear-crawler-hybrid/actions/workflows/ci.yml/badge.svg)](https://github.com/Rigohl/nuclear-crawler-hybrid/actions)
-[![Security](https://img.shields.io/badge/Security-Audited-success?style=flat-square)](https://github.com/Rigohl/nuclear-crawler-hybrid/security)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
-[![Rust](https://img.shields.io/badge/Rust-1.83+-orange?style=flat-square&logo=rust)](https://www.rust-lang.org/)
-[![Version](https://img.shields.io/badge/Version-0.5.0-green?style=flat-square)](https://github.com/Rigohl/nuclear-crawler-hybrid/releases)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://ghcr.io/rigohl/nuclear-crawler-hybrid)
-
-**Rust** · **Go FFI** · **Zig SIMD** · **Stealth** · **MCP Protocol**
-
-[🚀 Quick Start](#-quick-start) · [✨ Features](#-features) · [📦 Installation](#-installation) · [🔧 Usage](#-usage) · [📚 Docs](#-documentation)
+[![Rust](https://img.shields.io/badge/Rust-1.75+-orange.svg)](https://www.rust-lang.org/)
+[![MCP Protocol](https://img.shields.io/badge/MCP-2025--06--18-blue.svg)](https://modelcontextprotocol.io/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
-<a href="https://github.com/Rigohl">
-  <img src="https://img.shields.io/badge/Powered%20by-Arvix-ff6b35?style=for-the-badge" alt="Powered by Arvix"/>
-</a>
+## 🚀 Inicio Rápido
 
-</div>
-
-## 🚀 Quick Start
-
+### Compilación
 ```bash
-# Clone
-git clone https://github.com/Rigohl/nuclear-crawler-hybrid.git
-cd nuclear-crawler-hybrid
-
-# Build
-cargo build --release
-
-# Run
-./target/release/nuclear-mcp --help
-```
-
-## ✨ Features
-
-<table>
-<tr>
-<td width="50%">
-
-### 🔥 Core Engine
-- **2000** concurrent connections
-- **10K** requests/second throughput
-- Async Rust with Tokio runtime
-- Connection pooling & reuse
-- Smart retry with exponential backoff
-
-</td>
-<td width="50%">
-
-### 🛡️ Stealth System
-- Browser fingerprint rotation
-- TLS fingerprint randomization
-- User-Agent rotation (500+ agents)
-- Request timing randomization
-- Anti-bot detection bypass
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### ⚡ FFI Integrations
-- **Go FFI** - Goroutines for parallelism
-- **Zig FFI** - SIMD HTML parsing
-- Native performance, zero overhead
-- Cross-platform compatibility
-
-</td>
-<td width="50%">
-
-### 🔓 Nuclear Bypass
-- LibGen integration
-- Sci-Hub connector
-- Anna's Archive support
-- Internet Archive fallback
-- Multi-source aggregation
-
-</td>
-</tr>
-</table>
-
-## 📦 Installation
-
-### Pre-built Binaries
-
-| Platform | Download |
-|----------|----------|
-| Windows x64 | [nuclear-windows-x64.zip](https://github.com/Rigohl/nuclear-crawler-hybrid/releases/latest) |
-| Linux x64 | [nuclear-linux-x64.tar.gz](https://github.com/Rigohl/nuclear-crawler-hybrid/releases/latest) |
-| Linux ARM64 | [nuclear-linux-arm64.tar.gz](https://github.com/Rigohl/nuclear-crawler-hybrid/releases/latest) |
-| macOS x64 | [nuclear-macos-x64.tar.gz](https://github.com/Rigohl/nuclear-crawler-hybrid/releases/latest) |
-| macOS ARM64 | [nuclear-macos-arm64.tar.gz](https://github.com/Rigohl/nuclear-crawler-hybrid/releases/latest) |
-
-### Docker
-
-```bash
-docker pull ghcr.io/rigohl/nuclear-crawler-hybrid:latest
-docker run -it ghcr.io/rigohl/nuclear-crawler-hybrid:latest
-```
-
-### From Source
-
-```bash
-# Prerequisites: Rust 1.83+
-cargo install --path .
-
-# Or build release binary
 cargo build --release --bin nuclear-mcp
 ```
 
-## 🔧 Usage
+### Ejecución
+```bash
+# Modo MCP Studio (stdio) - Para VS Code, Cursor, Claude Desktop
+./target/release/nuclear-mcp.exe
 
-### MCP Server Mode
+# Modo HTTP (API REST)
+./target/release/nuclear-mcp.exe --mode http --port 3000
+```
 
-Configure in your MCP client (Claude Desktop, VS Code, etc.):
+---
+
+## 🛠️ 5 Herramientas MCP
+
+### 1. 🔥 `websearch` - Búsqueda Web MASIVA
+Busca en **15+ motores de búsqueda** y **20+ sitios especializados** simultáneamente.
 
 ```json
 {
-  "mcpServers": {
-    "nuclear": {
-      "command": "nuclear-mcp",
-      "args": ["--stdio"]
+  "name": "websearch",
+  "arguments": {
+    "query": "Rust async await tutorial",
+    "max_results": 100,
+    "deep_web": false
+  }
+}
+```
+
+**Motores de búsqueda integrados:**
+- DuckDuckGo, Bing, Brave Search, Yandex
+- Ecosia, Qwant, Startpage, SearX, Mojeek
+
+**Sitios especializados:**
+- GitHub, GitLab, StackOverflow, Reddit
+- HuggingFace, arXiv, crates.io, npm, PyPI
+- dev.to, Medium, Wikipedia, y más...
+
+---
+
+### 2. 🔍 `analyzer` - Analizador de Proyectos
+Escanea proyectos en **10+ lenguajes** con análisis de seguridad.
+
+```json
+{
+  "name": "analyzer",
+  "arguments": {
+    "path": "./mi-proyecto",
+    "analyze_type": "full"
+  }
+}
+```
+
+**Lenguajes soportados:**
+- Rust, Python, JavaScript, TypeScript
+- Go, Java, C/C++, Zig, Chapel
+
+**Tipos de análisis:**
+- `full` - Análisis completo
+- `errors` - Solo errores
+- `security` - Vulnerabilidades (passwords, API keys, tokens)
+
+---
+
+### 3. 📂 `file_research` - Búsqueda en Archivos
+Encuentra texto exacto con **número de línea preciso**.
+
+```json
+{
+  "name": "file_research",
+  "arguments": {
+    "search_term": "TODO|FIXME|panic!",
+    "path": ".",
+    "use_regex": true
+  }
+}
+```
+
+---
+
+### 4. 📊 `stats` - Estadísticas del Sistema
+Métricas completas del MCP.
+
+```json
+{
+  "name": "stats",
+  "arguments": {
+    "stat_type": "full"
+  }
+}
+```
+
+**Tipos:**
+- `full` - Todo
+- `performance` - Rendimiento
+- `storage` - Almacenamiento
+- `recent` - Actividad reciente
+
+---
+
+### 5. 🎭 `orchestrate` - Orquestador de Tareas Masivas
+Ejecuta **múltiples tareas en paralelo**.
+
+```json
+{
+  "name": "orchestrate",
+  "arguments": {
+    "tasks": [
+      {"type": "search", "query": "Rust MCP"},
+      {"type": "search", "query": "Python FastAPI"},
+      {"type": "file_search", "term": "TODO"},
+      {"type": "analyzer", "path": "."},
+      {"type": "stats"}
+    ],
+    "parallel": true,
+    "max_concurrent": 50
+  }
+}
+```
+
+**Tipos de tareas:**
+- `search` - Búsqueda web (requiere `query`)
+- `file_search` - Búsqueda en archivos (requiere `term`)
+- `analyzer` - Análisis de proyecto (requiere `path`)
+- `stats` - Estadísticas
+
+---
+
+## ⚡ 18+ Módulos Integrados
+
+| Módulo | Función |
+|--------|---------|
+| **WebSearch v5.0** | Orquestador principal de búsqueda |
+| **MassiveParallelSearch** | Búsqueda masiva con query real |
+| **NuclearScraper** | Crawling masivo 200+ URLs |
+| **GoIntegration** | Paralelismo estilo goroutines |
+| **ZigIntegration** | Parsing SIMD ultra-rápido |
+| **NimIntegration** | Parser HTML alternativo |
+| **JaxAccelerator** | Vectorización con Rayon |
+| **MojoJaxProcessor** | Bridge ML processing |
+| **NuclearBypass** | Bypass de protecciones anti-bot |
+| **StealthSystem** | Anti-detección con headers rotativos |
+| **AISmart** | Estrategias inteligentes de búsqueda |
+| **DeepWebSearch** | Búsqueda en deep web |
+| **IntelligentStorage** | SQLite + Full-Text Search |
+| **ParallelCrawler** | Crawl paralelo con workers |
+| **FileSearch** | Búsqueda en archivos locales |
+| **ProjectScanner** | Análisis de proyectos multi-lenguaje |
+| **Improvements** | BloomFilter, CircuitBreaker, Cache |
+| **Orchestrator** | Coordinación de tareas masivas |
+
+---
+
+## 🔧 Configuración VS Code / Cursor
+
+### Global MCP Settings
+
+**Windows:** `%APPDATA%\Code\User\settings.json`
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "nuclear-crawler": {
+        "command": "C:\\Users\\TU_USUARIO\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\nuclear-mcp.exe",
+        "args": []
+      }
     }
   }
 }
 ```
 
-### Available Tools
+### MCP Config File
 
-| Tool | Description | Example |
-|------|-------------|---------|
-| `websearch` | Massive parallel web search | Search 100+ sources simultaneously |
-| `deep_web_search` | Deep web with bypass | Access paywalled content |
-| `crawl` | Recursive crawling | Spider entire domains |
-| `scrape` | Extract structured data | Parse HTML/JSON/XML |
-| `analizar_proyecto` | Project analysis | Get recommendations |
-| `stats` | System statistics | Monitor performance |
+**Windows:** `%APPDATA%\Code\User\globalStorage\rooveterinaryinc.roo-cline\settings\mcp_settings.json`
 
-### HTTP API Mode
+O crear `mcp.json` en el workspace:
 
-```bash
-# Start HTTP server
-./nuclear-http --port 8080
-
-# Search endpoint
-curl -X POST http://localhost:8080/search \
-  -H "Content-Type: application/json" \
-  -d '{"query": "rust async", "max_results": 50}'
-```
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-```bash
-# Performance
-NUCLEAR_MAX_CONCURRENT=2000    # Max parallel requests
-NUCLEAR_TIMEOUT=180            # Request timeout (seconds)
-NUCLEAR_CACHE_SIZE=5000000     # Cache entries
-
-# Features
-NUCLEAR_STEALTH=true           # Enable stealth mode
-NUCLEAR_BYPASS=true            # Enable paywall bypass
-
-# Logging
-RUST_LOG=info                  # Log level
-```
-
-### Performance Profiles
-
-```rust
-// NUCLEAR Mode (Default) - Maximum Performance
-NuclearConfig {
-    max_concurrent: 2000,
-    max_requests_per_second: 10000,
-    timeout_seconds: 180,
-    burst_size: 5000,
-    cache_size: 5_000_000,
-}
-
-// Stealth Mode - Undetectable
-StealthConfig {
-    max_concurrent: 50,
-    request_delay_ms: 500..2000,
-    fingerprint_rotation: true,
+```json
+{
+  "mcpServers": {
+    "nuclear-crawler": {
+      "command": "C:\\Users\\TU_USUARIO\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\target\\release\\nuclear-mcp.exe",
+      "args": [],
+      "env": {}
+    }
+  }
 }
 ```
-
-## 🏗️ Architecture
-
-```
-nuclear-crawler-hybrid/
-├── src/
-│   ├── lib.rs                 # Core library
-│   ├── nuclear_scraper.rs     # Scraper engine
-│   ├── web_search.rs          # Search with Go/Zig
-│   ├── deep_web_search.rs     # Bypass system
-│   ├── nuclear_bypass.rs      # Paywall bypass
-│   ├── stealth.rs             # Anti-detection
-│   ├── go_integration.rs      # Go FFI bindings
-│   ├── zig_integration.rs     # Zig FFI bindings
-│   └── improvements.rs        # Enterprise features
-├── go/                        # Go modules
-├── zig/                       # Zig modules
-├── scripts/                   # JAX/Python ML
-└── .github/workflows/         # CI/CD
-```
-
-## 📊 Benchmarks
-
-| Metric | Value | vs Others |
-|--------|-------|-----------|
-| URLs/query | 200+ | 50x faster |
-| Concurrent | 2000 | Enterprise |
-| Req/second | 10K | NUCLEAR |
-| Cache | 5M entries | Zero I/O |
-| Startup | <100ms | Instant |
-
-## 📚 Documentation
-
-- [Configuration Guide](docs/CONFIG.md)
-- [Contributing](CONTRIBUTING.md)
-- [Security Policy](SECURITY.md)
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-
-## 🔒 Security
-
-- ✅ Automated security audits via GitHub Actions
-- ✅ Dependency scanning with `cargo-audit`
-- ✅ TLS 1.3 enforced for all connections
-- ✅ No sensitive data storage
-- ✅ Rootless container execution
-
-Report vulnerabilities: [SECURITY.md](SECURITY.md)
-
-## 🤝 Contributing
-
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-```bash
-# Development setup
-git clone https://github.com/Rigohl/nuclear-crawler-hybrid.git
-cd nuclear-crawler-hybrid
-cargo test --all-features
-cargo clippy
-```
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-<div align="center">
+## 📈 Rendimiento
 
-**Built with 🔥 by [Arvix](https://github.com/Rigohl)**
+| Métrica | Valor |
+|---------|-------|
+| **URLs simultáneas** | 200+ |
+| **Requests/segundo** | 100,000 |
+| **Timeout** | 15 segundos |
+| **Cache** | 10,000 entradas |
+| **Workers paralelos** | 2x CPU cores |
+| **Motores de búsqueda** | 15+ |
+| **Sitios especializados** | 20+ |
 
-[![GitHub Stars](https://img.shields.io/github/stars/Rigohl/nuclear-crawler-hybrid?style=social)](https://github.com/Rigohl/nuclear-crawler-hybrid)
-[![GitHub Forks](https://img.shields.io/github/forks/Rigohl/nuclear-crawler-hybrid?style=social)](https://github.com/Rigohl/nuclear-crawler-hybrid/fork)
+---
 
-[⬆ Back to Top](#-nuclear-crawler-hybrid)
+## 🔒 Características de Seguridad
 
-</div>
+- ✅ **Stealth Mode** - Headers anti-detección rotativos
+- ✅ **Rate Limiting** - Control de velocidad por dominio
+- ✅ **Circuit Breaker** - Tolerancia a fallos
+- ✅ **Bloom Filter** - Deduplicación O(1)
+- ✅ **Memory Cache** - Cache en memoria con TTL
+
+---
+
+## 📦 Estructura del Proyecto
+
+```
+NUCLEAR_CRAWLER_HYBRID/
+├── src/
+│   ├── bin/
+│   │   └── nuclear_ultimate.rs    # 🔥 Binario MCP principal
+│   ├── web_search.rs              # Búsqueda web v5.0
+│   ├── massive_parallel_search.rs # Búsqueda masiva paralela
+│   ├── nuclear_scraper.rs         # Scraper nuclear
+│   ├── file_search.rs             # Búsqueda en archivos
+│   ├── scan_project.rs            # Scanner de proyectos
+│   ├── deep_web_search.rs         # Deep web
+│   ├── stealth.rs                 # Sistema stealth
+│   ├── ai_smart.rs                # IA inteligente
+│   └── ...                        # 18+ módulos más
+├── target/release/
+│   └── nuclear-mcp.exe            # Binario compilado
+├── resultados/                    # Resultados guardados
+├── Cargo.toml
+└── README.md
+```
+
+---
+
+## 🧪 Pruebas
+
+```bash
+# Test básico MCP
+$init = '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}'
+$list = '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}'
+($init, $list) -join "`n" | .\target\release\nuclear-mcp.exe
+
+# Test búsqueda web
+$search = '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"websearch","arguments":{"query":"Rust async await"}}}'
+($init, $search) -join "`n" | .\target\release\nuclear-mcp.exe
+```
+
+---
+
+## 📄 Licencia
+
+MIT License - Ver [LICENSE](LICENSE)
+
+---
+
+## 🔥 Desarrollado por
+
+**Nuclear Crawler Team** | Protocolo MCP 2025-06-18
+
+```
+██╗  ██╗██╗   ██╗ ██████╗██╗     ███████╗ █████╗ ██████╗ 
+███╗ ██║██║   ██║██╔════╝██║     ██╔════╝██╔══██╗██╔══██╗
+██╔██╗██║██║   ██║██║     ██║     █████╗  ███████║██████╔╝
+██║╚████║██║   ██║██║     ██║     ██╔══╝  ██╔══██║██╔══██╗
+██║ ╚███║╚██████╔╝╚██████╗███████╗███████╗██║  ██║██║  ██║
+╚═╝  ╚══╝ ╚═════╝  ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+                CRAWLER HYBRID v0.5.0
+```

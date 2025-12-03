@@ -312,6 +312,12 @@ impl IntelligentStorage {
         Ok(searches)
     }
 
+    /// Cuenta el número total de entradas (búsquedas + resultados)
+    pub fn count_entries(&self) -> Result<usize> {
+        let stats = self.get_stats()?;
+        Ok(stats.total_searches + stats.total_results)
+    }
+
     /// Obtiene estadísticas de almacenamiento
     pub fn get_stats(&self) -> Result<StorageStats> {
         let conn = self.db.lock().unwrap();

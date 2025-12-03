@@ -142,11 +142,14 @@ impl ProjectScanner {
 
         // Verificar archivos de configuración específicos
         let has_cargo_toml = project_path.join("Cargo.toml").exists();
-        let has_pyproject_toml = project_path.join("pyproject.toml").exists() || project_path.join("setup.py").exists();
+        let has_pyproject_toml =
+            project_path.join("pyproject.toml").exists() || project_path.join("setup.py").exists();
         let has_package_json = project_path.join("package.json").exists();
         let has_go_mod = project_path.join("go.mod").exists();
-        let has_pom_xml = project_path.join("pom.xml").exists() || project_path.join("build.gradle").exists();
-        let has_makefile = project_path.join("Makefile").exists() || project_path.join("CMakeLists.txt").exists();
+        let has_pom_xml =
+            project_path.join("pom.xml").exists() || project_path.join("build.gradle").exists();
+        let has_makefile =
+            project_path.join("Makefile").exists() || project_path.join("CMakeLists.txt").exists();
 
         // Lógica de detección basada en archivos y configuración
         if has_cargo_toml && rust_files > 0 {
@@ -228,12 +231,13 @@ impl ProjectScanner {
                 // Evitar directorios comunes que no queremos escanear
                 if let Some(dir_name) = entry_path.file_name() {
                     let dir_str = dir_name.to_string_lossy();
-                    if !dir_str.starts_with('.') && 
-                       dir_str != "target" && 
-                       dir_str != "node_modules" && 
-                       dir_str != "__pycache__" &&
-                       dir_str != "build" &&
-                       dir_str != "dist" {
+                    if !dir_str.starts_with('.')
+                        && dir_str != "target"
+                        && dir_str != "node_modules"
+                        && dir_str != "__pycache__"
+                        && dir_str != "build"
+                        && dir_str != "dist"
+                    {
                         self.walk_directory(&entry_path, callback)?;
                     }
                 }
@@ -247,11 +251,13 @@ impl ProjectScanner {
     /// Escanea un proyecto automáticamente detectando el lenguaje
     pub async fn scan_project(&self, project_path: PathBuf) -> Result<ScanResult> {
         let language = self.detect_language(&project_path)?;
-        
+
         match language {
             Language::Rust => self.scan_rust_project(project_path).await,
             Language::Python => self.scan_python_project(project_path).await,
-            Language::JavaScript | Language::TypeScript => self.scan_javascript_project(project_path).await,
+            Language::JavaScript | Language::TypeScript => {
+                self.scan_javascript_project(project_path).await
+            }
             Language::Go => self.scan_go_project(project_path).await,
             Language::Java => self.scan_java_project(project_path).await,
             Language::Cpp | Language::C => self.scan_cpp_project(project_path).await,
@@ -263,10 +269,14 @@ impl ProjectScanner {
                     self.scan_rust_project(project_path).await
                 } else if project_path.join("package.json").exists() {
                     self.scan_javascript_project(project_path).await
-                } else if project_path.join("requirements.txt").exists() || project_path.join("pyproject.toml").exists() {
+                } else if project_path.join("requirements.txt").exists()
+                    || project_path.join("pyproject.toml").exists()
+                {
                     self.scan_python_project(project_path).await
                 } else {
-                    Err(anyhow::anyhow!("No se pudo detectar el lenguaje del proyecto"))
+                    Err(anyhow::anyhow!(
+                        "No se pudo detectar el lenguaje del proyecto"
+                    ))
                 }
             }
         }
@@ -371,7 +381,8 @@ impl ProjectScanner {
                         if let Some(message) = json.get("message") {
                             if let Some(level) = message.get("level").and_then(|l| l.as_str()) {
                                 if level == "warning" {
-                                    let issue = self.parse_compiler_message(message, &project_path).await?;
+                                    let issue =
+                                        self.parse_compiler_message(message, &project_path).await?;
                                     warnings.push(issue);
                                 }
                             }
@@ -387,7 +398,9 @@ impl ProjectScanner {
         }
 
         // 5. Realizar análisis de seguridad
-        let security_analysis = self.analyze_security(&project_path, &Language::Rust).await?;
+        let security_analysis = self
+            .analyze_security(&project_path, &Language::Rust)
+            .await?;
 
         // 6. Generar recomendaciones
         let recommendations = self.generate_recommendations(&errors, &warnings).await?;
@@ -524,10 +537,7 @@ impl ProjectScanner {
         let mut recommendations = Vec::new();
 
         // Analizar tipos de errores comunes
-        let error_codes: Vec<String> = errors
-            .iter()
-            .filter_map(|e| e.code.clone())
-            .collect();
+        let error_codes: Vec<String> = errors.iter().filter_map(|e| e.code.clone()).collect();
 
         if error_codes.iter().any(|c| c.starts_with("E0599")) {
             recommendations.push(
@@ -550,7 +560,8 @@ impl ProjectScanner {
         }
 
         if errors.is_empty() && warnings.is_empty() {
-            recommendations.push("✅ ¡Proyecto sin errores ni warnings! Excelente trabajo.".to_string());
+            recommendations
+                .push("✅ ¡Proyecto sin errores ni warnings! Excelente trabajo.".to_string());
         }
 
         Ok(recommendations)
@@ -618,7 +629,9 @@ impl ProjectScanner {
         }
 
         // Análisis de seguridad para Python
-        let security_analysis = self.analyze_security(&project_path, &Language::Python).await?;
+        let security_analysis = self
+            .analyze_security(&project_path, &Language::Python)
+            .await?;
 
         // Generar recomendaciones
         let recommendations = self.generate_recommendations(&errors, &warnings).await?;
@@ -676,8 +689,11 @@ impl ProjectScanner {
         if let Ok(json_array) = serde_json::from_str::<Vec<serde_json::Value>>(&stdout) {
             for file_result in json_array {
                 if let Some(messages) = file_result.get("messages").and_then(|m| m.as_array()) {
-                    let file_name = file_result.get("filePath").and_then(|f| f.as_str()).unwrap_or("unknown");
-                    
+                    let file_name = file_result
+                        .get("filePath")
+                        .and_then(|f| f.as_str())
+                        .unwrap_or("unknown");
+
                     for message in messages {
                         let issue = self.parse_eslint_message(message, file_name, &project_path)?;
                         match issue.issue_type.as_str() {
@@ -696,7 +712,9 @@ impl ProjectScanner {
         }
 
         // Análisis de seguridad para JavaScript/TypeScript
-        let security_analysis = self.analyze_security(&project_path, &Language::JavaScript).await?;
+        let security_analysis = self
+            .analyze_security(&project_path, &Language::JavaScript)
+            .await?;
 
         // Generar recomendaciones
         let recommendations = self.generate_js_recommendations(&errors, &warnings).await?;
@@ -790,14 +808,16 @@ impl ProjectScanner {
 
         // Parsear salida de linter
         let stdout = String::from_utf8_lossy(&lint_output.stdout);
-        if stdout.contains("[{") { // JSON output de revive
+        if stdout.contains("[{") {
+            // JSON output de revive
             if let Ok(json_array) = serde_json::from_str::<Vec<serde_json::Value>>(&stdout) {
                 for item in json_array {
                     let issue = self.parse_revive_issue(&item, &project_path)?;
                     warnings.push(issue);
                 }
             }
-        } else { // Output de golint (texto plano)
+        } else {
+            // Output de golint (texto plano)
             for line in stdout.lines() {
                 if !line.trim().is_empty() {
                     let issue = self.parse_golint_line(line, &project_path)?;
@@ -925,10 +945,14 @@ impl ProjectScanner {
         }
 
         // Análisis de seguridad para Java
-        let security_analysis = self.analyze_security(&project_path, &Language::Java).await?;
+        let security_analysis = self
+            .analyze_security(&project_path, &Language::Java)
+            .await?;
 
         // Generar recomendaciones
-        let recommendations = self.generate_java_recommendations(&errors, &warnings).await?;
+        let recommendations = self
+            .generate_java_recommendations(&errors, &warnings)
+            .await?;
 
         // Calcular quality score
         let quality_score = self.calculate_quality_score(&errors, &warnings);
@@ -948,7 +972,7 @@ impl ProjectScanner {
     pub async fn scan_cpp_project(&self, project_path: PathBuf) -> Result<ScanResult> {
         // Placeholder - implementación básica por ahora
         let security_analysis = self.analyze_security(&project_path, &Language::Cpp).await?;
-        
+
         Ok(ScanResult {
             language: Language::Cpp,
             total_issues: 0,
@@ -964,7 +988,7 @@ impl ProjectScanner {
     pub async fn scan_zig_project(&self, project_path: PathBuf) -> Result<ScanResult> {
         // Placeholder - implementación básica por ahora
         let security_analysis = self.analyze_security(&project_path, &Language::Zig).await?;
-        
+
         Ok(ScanResult {
             language: Language::Zig,
             total_issues: 0,
@@ -1016,7 +1040,9 @@ impl ProjectScanner {
             if !line.trim().is_empty() && (line.contains("error") || line.contains("Error")) {
                 let issue = self.parse_chpl_error(line, &project_path)?;
                 errors.push(issue);
-            } else if !line.trim().is_empty() && (line.contains("warning") || line.contains("Warning")) {
+            } else if !line.trim().is_empty()
+                && (line.contains("warning") || line.contains("Warning"))
+            {
                 let issue = self.parse_chpl_error(line, &project_path)?;
                 warnings.push(issue);
             }
@@ -1031,23 +1057,28 @@ impl ProjectScanner {
                 warnings.extend(domain_issues);
 
                 // Análisis de paralelismo avanzado
-                let parallel_issues = self.analyze_chapel_advanced_parallelism(&content, file, &project_path)?;
+                let parallel_issues =
+                    self.analyze_chapel_advanced_parallelism(&content, file, &project_path)?;
                 performance_issues.extend(parallel_issues);
 
                 // Análisis de locality y memoria
-                let locality_issues = self.analyze_chapel_memory_locality(&content, file, &project_path)?;
+                let locality_issues =
+                    self.analyze_chapel_memory_locality(&content, file, &project_path)?;
                 performance_issues.extend(locality_issues);
 
                 // Análisis de patrones anti-óptimos
-                let anti_pattern_issues = self.analyze_chapel_anti_patterns(&content, file, &project_path)?;
+                let anti_pattern_issues =
+                    self.analyze_chapel_anti_patterns(&content, file, &project_path)?;
                 warnings.extend(anti_pattern_issues);
 
                 // Análisis de dependencias de tareas
-                let task_dep_issues = self.analyze_chapel_task_dependencies(&content, file, &project_path)?;
+                let task_dep_issues =
+                    self.analyze_chapel_task_dependencies(&content, file, &project_path)?;
                 warnings.extend(task_dep_issues);
 
                 // Sugerencias de optimización
-                let optimization_suggestions = self.suggest_chapel_optimizations(&content, file, &project_path)?;
+                let optimization_suggestions =
+                    self.suggest_chapel_optimizations(&content, file, &project_path)?;
                 performance_issues.extend(optimization_suggestions);
             }
         }
@@ -1066,13 +1097,18 @@ impl ProjectScanner {
         }
 
         // Análisis de seguridad específico para Chapel
-        let security_analysis = self.analyze_security(&project_path, &Language::Chapel).await?;
+        let security_analysis = self
+            .analyze_security(&project_path, &Language::Chapel)
+            .await?;
 
         // Generar recomendaciones hiper-avanzadas para Chapel
-        let recommendations = self.generate_hyper_chapel_recommendations(&errors, &warnings, &performance_issues).await?;
+        let recommendations = self
+            .generate_hyper_chapel_recommendations(&errors, &warnings, &performance_issues)
+            .await?;
 
         // Calcular quality score con bonus por optimizaciones
-        let quality_score = self.calculate_chapel_quality_score(&errors, &warnings, &performance_issues);
+        let quality_score =
+            self.calculate_chapel_quality_score(&errors, &warnings, &performance_issues);
 
         // Combinar todos los issues
         let mut all_warnings = warnings;
@@ -1090,7 +1126,11 @@ impl ProjectScanner {
     }
 
     /// Analiza seguridad de un proyecto
-    pub async fn analyze_security(&self, project_path: &PathBuf, language: &Language) -> Result<SecurityAnalysis> {
+    pub async fn analyze_security(
+        &self,
+        project_path: &PathBuf,
+        language: &Language,
+    ) -> Result<SecurityAnalysis> {
         let mut vulnerabilities = Vec::new();
         let mut files_analyzed = 0;
 
@@ -1098,14 +1138,15 @@ impl ProjectScanner {
         self.walk_directory(project_path, &mut |entry| {
             files_analyzed += 1;
             let path = entry.path();
-            
+
             if let Some(extension) = path.extension() {
                 let ext_str = extension.to_string_lossy();
-                
+
                 // Solo analizar archivos de código fuente
                 if self.is_source_file(&ext_str, language) {
                     if let Ok(content) = std::fs::read_to_string(&path) {
-                        let file_vulns = self.scan_file_for_vulnerabilities(&content, &path, language);
+                        let file_vulns =
+                            self.scan_file_for_vulnerabilities(&content, &path, language);
                         vulnerabilities.extend(file_vulns);
                     }
                 }
@@ -1128,31 +1169,42 @@ impl ProjectScanner {
         match language {
             Language::Rust => extension == "rs",
             Language::Python => extension == "py",
-            Language::JavaScript | Language::TypeScript => matches!(extension, "js" | "ts" | "jsx" | "tsx"),
+            Language::JavaScript | Language::TypeScript => {
+                matches!(extension, "js" | "ts" | "jsx" | "tsx")
+            }
             Language::Go => extension == "go",
             Language::Java => extension == "java",
             Language::Cpp => matches!(extension, "cpp" | "cc" | "cxx" | "c++"),
             Language::C => extension == "c",
             Language::Zig => extension == "zig",
             Language::Chapel => extension == "chpl",
-            Language::Unknown => matches!(extension, "rs" | "py" | "js" | "ts" | "go" | "java" | "cpp" | "c" | "zig" | "chpl"),
+            Language::Unknown => matches!(
+                extension,
+                "rs" | "py" | "js" | "ts" | "go" | "java" | "cpp" | "c" | "zig" | "chpl"
+            ),
         }
     }
 
     /// Escanea un archivo en busca de vulnerabilidades
-    fn scan_file_for_vulnerabilities(&self, content: &str, path: &std::path::Path, language: &Language) -> Vec<SecurityIssue> {
+    fn scan_file_for_vulnerabilities(
+        &self,
+        content: &str,
+        path: &std::path::Path,
+        language: &Language,
+    ) -> Vec<SecurityIssue> {
         let mut vulnerabilities = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
         for (line_num, line) in lines.iter().enumerate() {
             let line_num = line_num + 1; // Líneas empiezan en 1
-            
+
             match language {
                 Language::Python => {
                     vulnerabilities.extend(self.scan_python_vulnerabilities(line, line_num, path));
                 }
                 Language::JavaScript | Language::TypeScript => {
-                    vulnerabilities.extend(self.scan_javascript_vulnerabilities(line, line_num, path));
+                    vulnerabilities
+                        .extend(self.scan_javascript_vulnerabilities(line, line_num, path));
                 }
                 Language::Rust => {
                     vulnerabilities.extend(self.scan_rust_vulnerabilities(line, line_num, path));
@@ -1177,7 +1229,12 @@ impl ProjectScanner {
     }
 
     /// Escanea vulnerabilidades en Python
-    fn scan_python_vulnerabilities(&self, line: &str, line_num: usize, path: &std::path::Path) -> Vec<SecurityIssue> {
+    fn scan_python_vulnerabilities(
+        &self,
+        line: &str,
+        line_num: usize,
+        path: &std::path::Path,
+    ) -> Vec<SecurityIssue> {
         let mut vulnerabilities = Vec::new();
 
         // SQL Injection
@@ -1198,7 +1255,9 @@ impl ProjectScanner {
         }
 
         // Command Injection
-        if line.contains("subprocess.") && (line.contains("shell=True") || line.contains("format(") || line.contains("%")) {
+        if line.contains("subprocess.")
+            && (line.contains("shell=True") || line.contains("format(") || line.contains("%"))
+        {
             vulnerabilities.push(SecurityIssue {
                 vulnerability_type: "Command Injection".to_string(),
                 severity: 8,
@@ -1216,11 +1275,16 @@ impl ProjectScanner {
         }
 
         // Hardcoded secrets
-        if (line.contains("password") || line.contains("secret") || line.contains("key")) && 
-           (line.contains("=") || line.contains(":")) &&
-           !line.contains("#") { // Ignorar comentarios
+        if (line.contains("password") || line.contains("secret") || line.contains("key"))
+            && (line.contains("=") || line.contains(":"))
+            && !line.contains("#")
+        {
+            // Ignorar comentarios
             let lower_line = line.to_lowercase();
-            if lower_line.contains("password = \"") || lower_line.contains("secret = \"") || lower_line.contains("key = \"") {
+            if lower_line.contains("password = \"")
+                || lower_line.contains("secret = \"")
+                || lower_line.contains("key = \"")
+            {
                 vulnerabilities.push(SecurityIssue {
                     vulnerability_type: "Hardcoded Secret".to_string(),
                     severity: 7,
@@ -1242,7 +1306,12 @@ impl ProjectScanner {
     }
 
     /// Escanea vulnerabilidades en JavaScript/TypeScript
-    fn scan_javascript_vulnerabilities(&self, line: &str, line_num: usize, path: &std::path::Path) -> Vec<SecurityIssue> {
+    fn scan_javascript_vulnerabilities(
+        &self,
+        line: &str,
+        line_num: usize,
+        path: &std::path::Path,
+    ) -> Vec<SecurityIssue> {
         let mut vulnerabilities = Vec::new();
 
         // XSS
@@ -1285,7 +1354,12 @@ impl ProjectScanner {
     }
 
     /// Escanea vulnerabilidades en Rust
-    fn scan_rust_vulnerabilities(&self, line: &str, line_num: usize, path: &std::path::Path) -> Vec<SecurityIssue> {
+    fn scan_rust_vulnerabilities(
+        &self,
+        line: &str,
+        line_num: usize,
+        path: &std::path::Path,
+    ) -> Vec<SecurityIssue> {
         let mut vulnerabilities = Vec::new();
 
         // Unsafe code
@@ -1295,7 +1369,8 @@ impl ProjectScanner {
                 severity: 5,
                 file: path.to_string_lossy().to_string(),
                 line: line_num,
-                description: "Uso de código unsafe que puede causar vulnerabilidades de memoria".to_string(),
+                description: "Uso de código unsafe que puede causar vulnerabilidades de memoria"
+                    .to_string(),
                 vulnerable_code: Some(line.trim().to_string()),
                 recommendations: vec![
                     "Minimiza el uso de unsafe blocks".to_string(),
@@ -1310,12 +1385,17 @@ impl ProjectScanner {
     }
 
     /// Escanea vulnerabilidades en Go
-    fn scan_go_vulnerabilities(&self, line: &str, line_num: usize, path: &std::path::Path) -> Vec<SecurityIssue> {
+    fn scan_go_vulnerabilities(
+        &self,
+        line: &str,
+        line_num: usize,
+        path: &std::path::Path,
+    ) -> Vec<SecurityIssue> {
         let mut vulnerabilities = Vec::new();
 
         // SQL Injection
-        if line.contains("db.Query(") || line.contains("db.Exec(") {
-            if line.contains("fmt.Sprintf") || line.contains("string+") {
+        if (line.contains("db.Query(") || line.contains("db.Exec("))
+            && (line.contains("fmt.Sprintf") || line.contains("string+")) {
                 vulnerabilities.push(SecurityIssue {
                     vulnerability_type: "SQL Injection".to_string(),
                     severity: 9,
@@ -1330,18 +1410,22 @@ impl ProjectScanner {
                     cwe_id: Some("CWE-89".to_string()),
                 });
             }
-        }
 
         vulnerabilities
     }
 
     /// Escanea vulnerabilidades en Java
-    fn scan_java_vulnerabilities(&self, line: &str, line_num: usize, path: &std::path::Path) -> Vec<SecurityIssue> {
+    fn scan_java_vulnerabilities(
+        &self,
+        line: &str,
+        line_num: usize,
+        path: &std::path::Path,
+    ) -> Vec<SecurityIssue> {
         let mut vulnerabilities = Vec::new();
 
         // SQL Injection
-        if line.contains("executeQuery(") || line.contains("executeUpdate(") {
-            if line.contains("+") || line.contains("format(") {
+        if (line.contains("executeQuery(") || line.contains("executeUpdate("))
+            && (line.contains("+") || line.contains("format(")) {
                 vulnerabilities.push(SecurityIssue {
                     vulnerability_type: "SQL Injection".to_string(),
                     severity: 9,
@@ -1356,58 +1440,64 @@ impl ProjectScanner {
                     cwe_id: Some("CWE-89".to_string()),
                 });
             }
-        }
 
         vulnerabilities
     }
 
     /// Escanea vulnerabilidades en Chapel
-    fn scan_chapel_vulnerabilities(&self, line: &str, line_num: usize, path: &std::path::Path) -> Vec<SecurityIssue> {
+    fn scan_chapel_vulnerabilities(
+        &self,
+        line: &str,
+        line_num: usize,
+        path: &std::path::Path,
+    ) -> Vec<SecurityIssue> {
         let mut vulnerabilities = Vec::new();
 
         // Deadlock potencial en sincronización
-        if line.contains("sync") && line.contains("waitFor") {
-            if line.contains("forall") || line.contains("coforall") {
+        if line.contains("sync") && line.contains("waitFor")
+            && (line.contains("forall") || line.contains("coforall")) {
                 vulnerabilities.push(SecurityIssue {
                     vulnerability_type: "Deadlock Risk".to_string(),
                     severity: 7,
                     file: path.to_string_lossy().to_string(),
                     line: line_num,
-                    description: "Posible deadlock en código paralelo con sincronización".to_string(),
+                    description: "Posible deadlock en código paralelo con sincronización"
+                        .to_string(),
                     vulnerable_code: Some(line.trim().to_string()),
                     recommendations: vec![
                         "Evita sincronización compleja en bucles paralelos".to_string(),
                         "Usa 'atomic' variables en lugar de 'sync' cuando sea posible".to_string(),
-                        "Considera reestructurar el algoritmo para evitar dependencias circulares".to_string(),
+                        "Considera reestructurar el algoritmo para evitar dependencias circulares"
+                            .to_string(),
                     ],
                     cwe_id: Some("CWE-833".to_string()),
                 });
             }
-        }
 
         // Data race en variables compartidas
-        if (line.contains("forall") || line.contains("coforall")) && line.contains("=") {
-            if !line.contains("atomic") && !line.contains("sync") && !line.contains("single") {
+        if (line.contains("forall") || line.contains("coforall")) && line.contains("=")
+            && !line.contains("atomic") && !line.contains("sync") && !line.contains("single") {
                 vulnerabilities.push(SecurityIssue {
                     vulnerability_type: "Data Race".to_string(),
                     severity: 8,
                     file: path.to_string_lossy().to_string(),
                     line: line_num,
-                    description: "Posible data race en variable compartida en bucle paralelo".to_string(),
+                    description: "Posible data race en variable compartida en bucle paralelo"
+                        .to_string(),
                     vulnerable_code: Some(line.trim().to_string()),
                     recommendations: vec![
-                        "Usa variables 'atomic' para operaciones thread-safe: var x: atomic int;".to_string(),
+                        "Usa variables 'atomic' para operaciones thread-safe: var x: atomic int;"
+                            .to_string(),
                         "Considera usar 'single' para asignaciones únicas".to_string(),
                         "Revisa si la variable debe ser privada al hilo/task".to_string(),
                     ],
                     cwe_id: Some("CWE-362".to_string()),
                 });
             }
-        }
 
         // Buffer overflow en arrays distribuidos
-        if line.contains("[") && line.contains("]") && (line.contains("..") || line.contains("#")) {
-            if !line.contains("domain") && !line.contains("check") {
+        if line.contains("[") && line.contains("]") && (line.contains("..") || line.contains("#"))
+            && !line.contains("domain") && !line.contains("check") {
                 vulnerabilities.push(SecurityIssue {
                     vulnerability_type: "Array Bounds".to_string(),
                     severity: 6,
@@ -1423,13 +1513,16 @@ impl ProjectScanner {
                     cwe_id: Some("CWE-125".to_string()),
                 });
             }
-        }
 
         // Información sensible en código HPC
         let lower_line = line.to_lowercase();
-        if (lower_line.contains("password") || lower_line.contains("secret") || lower_line.contains("key")) &&
-           (lower_line.contains("=") || lower_line.contains(":")) &&
-           !line.trim().starts_with("//") && !line.trim().starts_with("/*") {
+        if (lower_line.contains("password")
+            || lower_line.contains("secret")
+            || lower_line.contains("key"))
+            && (lower_line.contains("=") || lower_line.contains(":"))
+            && !line.trim().starts_with("//")
+            && !line.trim().starts_with("/*")
+        {
             vulnerabilities.push(SecurityIssue {
                 vulnerability_type: "Hardcoded Secret".to_string(),
                 severity: 7,
@@ -1450,15 +1543,24 @@ impl ProjectScanner {
     }
 
     /// Escanea vulnerabilidades genéricas
-    fn scan_generic_vulnerabilities(&self, line: &str, line_num: usize, path: &std::path::Path) -> Vec<SecurityIssue> {
+    fn scan_generic_vulnerabilities(
+        &self,
+        line: &str,
+        line_num: usize,
+        path: &std::path::Path,
+    ) -> Vec<SecurityIssue> {
         let mut vulnerabilities = Vec::new();
 
         // Hardcoded passwords/secrets (genérico)
         let lower_line = line.to_lowercase();
-        if (lower_line.contains("password") || lower_line.contains("secret") || lower_line.contains("key")) &&
-           (lower_line.contains("=") || lower_line.contains(":")) &&
-           !line.trim().starts_with("//") && !line.trim().starts_with("#") && !line.trim().starts_with("--") {
-            
+        if (lower_line.contains("password")
+            || lower_line.contains("secret")
+            || lower_line.contains("key"))
+            && (lower_line.contains("=") || lower_line.contains(":"))
+            && !line.trim().starts_with("//")
+            && !line.trim().starts_with("#")
+            && !line.trim().starts_with("--")
+        {
             // Buscar patrones de strings hardcodeadas
             if lower_line.contains("\"") || lower_line.contains("'") {
                 vulnerabilities.push(SecurityIssue {
@@ -1482,7 +1584,11 @@ impl ProjectScanner {
     }
 
     /// Calcula el security score
-    fn calculate_security_score(&self, vulnerabilities: &[SecurityIssue], files_analyzed: usize) -> f32 {
+    fn calculate_security_score(
+        &self,
+        vulnerabilities: &[SecurityIssue],
+        files_analyzed: usize,
+    ) -> f32 {
         if vulnerabilities.is_empty() {
             return 100.0;
         }
@@ -1494,23 +1600,45 @@ impl ProjectScanner {
         // Calcular score basado en severidad y cantidad
         let total_severity: u32 = vulnerabilities.iter().map(|v| v.severity as u32).sum();
         let vuln_penalty = (total_severity as f32 * 2.0).min(80.0); // Máximo 80 puntos de penalización
-        
+
         // Penalización adicional por cantidad de vulnerabilidades
         let count_penalty = (vulnerabilities.len() as f32 * 1.5).min(20.0);
-        
+
         (100.0 - vuln_penalty - count_penalty).max(0.0)
     }
 
     /// Parsea un issue de Python (pylint/flake8)
-    fn parse_python_issue(&self, item: &serde_json::Value, project_path: &PathBuf) -> Result<Issue> {
-        let file = item.get("path").and_then(|p| p.as_str()).unwrap_or("unknown").to_string();
+    fn parse_python_issue(
+        &self,
+        item: &serde_json::Value,
+        project_path: &PathBuf,
+    ) -> Result<Issue> {
+        let file = item
+            .get("path")
+            .and_then(|p| p.as_str())
+            .unwrap_or("unknown")
+            .to_string();
         let line = item.get("line").and_then(|l| l.as_u64()).unwrap_or(0) as usize;
-        let column = item.get("column").and_then(|c| c.as_u64()).map(|c| c as usize);
-        
-        let issue_type = item.get("type").and_then(|t| t.as_str()).unwrap_or("warning").to_string();
-        let code = item.get("symbol").and_then(|s| s.as_str()).map(|s| s.to_string());
-        let message = item.get("message").and_then(|m| m.as_str()).unwrap_or("").to_string();
-        
+        let column = item
+            .get("column")
+            .and_then(|c| c.as_u64())
+            .map(|c| c as usize);
+
+        let issue_type = item
+            .get("type")
+            .and_then(|t| t.as_str())
+            .unwrap_or("warning")
+            .to_string();
+        let code = item
+            .get("symbol")
+            .and_then(|s| s.as_str())
+            .map(|s| s.to_string());
+        let message = item
+            .get("message")
+            .and_then(|m| m.as_str())
+            .unwrap_or("")
+            .to_string();
+
         // Intentar leer código fuente
         let mut source_code = None;
         if let Ok(full_path) = project_path.join(&file).canonicalize() {
@@ -1534,12 +1662,30 @@ impl ProjectScanner {
     }
 
     /// Parsea un mensaje de ESLint
-    fn parse_eslint_message(&self, message: &serde_json::Value, file_name: &str, project_path: &PathBuf) -> Result<Issue> {
-        let rule_id = message.get("ruleId").and_then(|r| r.as_str()).map(|s| s.to_string());
-        let severity = message.get("severity").and_then(|s| s.as_u64()).unwrap_or(1);
+    fn parse_eslint_message(
+        &self,
+        message: &serde_json::Value,
+        file_name: &str,
+        project_path: &PathBuf,
+    ) -> Result<Issue> {
+        let rule_id = message
+            .get("ruleId")
+            .and_then(|r| r.as_str())
+            .map(|s| s.to_string());
+        let severity = message
+            .get("severity")
+            .and_then(|s| s.as_u64())
+            .unwrap_or(1);
         let line = message.get("line").and_then(|l| l.as_u64()).unwrap_or(0) as usize;
-        let column = message.get("column").and_then(|c| c.as_u64()).map(|c| c as usize);
-        let message_text = message.get("message").and_then(|m| m.as_str()).unwrap_or("").to_string();
+        let column = message
+            .get("column")
+            .and_then(|c| c.as_u64())
+            .map(|c| c as usize);
+        let message_text = message
+            .get("message")
+            .and_then(|m| m.as_str())
+            .unwrap_or("")
+            .to_string();
 
         // Intentar leer código fuente
         let mut source_code = None;
@@ -1552,7 +1698,11 @@ impl ProjectScanner {
         }
 
         Ok(Issue {
-            issue_type: if severity == 2 { "error".to_string() } else { "warning".to_string() },
+            issue_type: if severity == 2 {
+                "error".to_string()
+            } else {
+                "warning".to_string()
+            },
             code: rule_id,
             file: file_name.to_string(),
             line,
@@ -1564,14 +1714,15 @@ impl ProjectScanner {
     }
 
     /// Genera recomendaciones específicas para JavaScript/TypeScript
-    async fn generate_js_recommendations(&self, errors: &[Issue], warnings: &[Issue]) -> Result<Vec<String>> {
+    async fn generate_js_recommendations(
+        &self,
+        errors: &[Issue],
+        warnings: &[Issue],
+    ) -> Result<Vec<String>> {
         let mut recommendations = Vec::new();
 
         // Analizar tipos de errores comunes
-        let error_codes: Vec<String> = errors
-            .iter()
-            .filter_map(|e| e.code.clone())
-            .collect();
+        let error_codes: Vec<String> = errors.iter().filter_map(|e| e.code.clone()).collect();
 
         if error_codes.iter().any(|c| c.contains("no-undef")) {
             recommendations.push(
@@ -1601,7 +1752,10 @@ impl ProjectScanner {
         }
 
         if errors.is_empty() && warnings.is_empty() {
-            recommendations.push("✅ ¡Código JavaScript/TypeScript sin errores ni warnings! Excelente trabajo.".to_string());
+            recommendations.push(
+                "✅ ¡Código JavaScript/TypeScript sin errores ni warnings! Excelente trabajo."
+                    .to_string(),
+            );
         }
 
         Ok(recommendations)
@@ -1652,11 +1806,31 @@ impl ProjectScanner {
     }
 
     /// Parsea un issue de revive (JSON)
-    fn parse_revive_issue(&self, item: &serde_json::Value, project_path: &PathBuf) -> Result<Issue> {
-        let file = item.get("Position").and_then(|p| p.get("Filename")).and_then(|f| f.as_str()).unwrap_or("unknown").to_string();
-        let line = item.get("Position").and_then(|p| p.get("Offset")).and_then(|o| o.as_u64()).unwrap_or(0) as usize;
-        let rule = item.get("RuleName").and_then(|r| r.as_str()).map(|s| s.to_string());
-        let message = item.get("Failure").and_then(|f| f.as_str()).unwrap_or("").to_string();
+    fn parse_revive_issue(
+        &self,
+        item: &serde_json::Value,
+        project_path: &PathBuf,
+    ) -> Result<Issue> {
+        let file = item
+            .get("Position")
+            .and_then(|p| p.get("Filename"))
+            .and_then(|f| f.as_str())
+            .unwrap_or("unknown")
+            .to_string();
+        let line = item
+            .get("Position")
+            .and_then(|p| p.get("Offset"))
+            .and_then(|o| o.as_u64())
+            .unwrap_or(0) as usize;
+        let rule = item
+            .get("RuleName")
+            .and_then(|r| r.as_str())
+            .map(|s| s.to_string());
+        let message = item
+            .get("Failure")
+            .and_then(|f| f.as_str())
+            .unwrap_or("")
+            .to_string();
 
         // Intentar leer código fuente
         let mut source_code = None;
@@ -1725,16 +1899,24 @@ impl ProjectScanner {
     }
 
     /// Genera recomendaciones específicas para Go
-    async fn generate_go_recommendations(&self, errors: &[Issue], warnings: &[Issue]) -> Result<Vec<String>> {
+    async fn generate_go_recommendations(
+        &self,
+        errors: &[Issue],
+        warnings: &[Issue],
+    ) -> Result<Vec<String>> {
         let mut recommendations = Vec::new();
 
         if !errors.is_empty() {
             recommendations.push(
-                "Ejecuta 'go vet ./...' para detectar problemas potenciales en el código.".to_string(),
+                "Ejecuta 'go vet ./...' para detectar problemas potenciales en el código."
+                    .to_string(),
             );
         }
 
-        if warnings.iter().any(|w| w.message.contains("exported") && w.message.contains("comment")) {
+        if warnings
+            .iter()
+            .any(|w| w.message.contains("exported") && w.message.contains("comment"))
+        {
             recommendations.push(
                 "Agrega comentarios a las funciones y tipos exportados (deben empezar con el nombre de la función/tipo).".to_string(),
             );
@@ -1753,7 +1935,8 @@ impl ProjectScanner {
         }
 
         if errors.is_empty() && warnings.is_empty() {
-            recommendations.push("✅ ¡Código Go sin errores ni warnings! Excelente trabajo.".to_string());
+            recommendations
+                .push("✅ ¡Código Go sin errores ni warnings! Excelente trabajo.".to_string());
         }
 
         Ok(recommendations)
@@ -1762,7 +1945,7 @@ impl ProjectScanner {
     /// Encuentra todos los archivos Java en el proyecto
     fn find_java_files(&self, project_path: &PathBuf) -> Vec<String> {
         let mut java_files = Vec::new();
-        
+
         let _ = self.walk_directory(project_path, &mut |entry| {
             if let Some(extension) = entry.path().extension() {
                 if extension == "java" {
@@ -1795,7 +1978,12 @@ impl ProjectScanner {
 
         let file = parts[0].to_string();
         let line_num = parts[1].parse::<usize>().unwrap_or(0);
-        let issue_type = if parts[2].trim() == "error" { "error" } else { "warning" }.to_string();
+        let issue_type = if parts[2].trim() == "error" {
+            "error"
+        } else {
+            "warning"
+        }
+        .to_string();
         let message = parts[3..].join(":").trim().to_string();
 
         // Intentar leer código fuente
@@ -1841,7 +2029,7 @@ impl ProjectScanner {
         let line_num = parts[1].parse::<usize>().unwrap_or(0);
         let col = parts[2].parse::<usize>().ok();
         let message_and_rule = parts[3..].join(":");
-        
+
         // Extraer regla si está entre []
         let (message, code) = if let Some(rule_start) = message_and_rule.rfind('[') {
             if let Some(rule_end) = message_and_rule.rfind(']') {
@@ -1878,16 +2066,26 @@ impl ProjectScanner {
     }
 
     /// Genera recomendaciones específicas para Java
-    async fn generate_java_recommendations(&self, errors: &[Issue], warnings: &[Issue]) -> Result<Vec<String>> {
+    async fn generate_java_recommendations(
+        &self,
+        errors: &[Issue],
+        warnings: &[Issue],
+    ) -> Result<Vec<String>> {
         let mut recommendations = Vec::new();
 
-        if errors.iter().any(|e| e.message.contains("cannot find symbol")) {
+        if errors
+            .iter()
+            .any(|e| e.message.contains("cannot find symbol"))
+        {
             recommendations.push(
                 "Error 'cannot find symbol': Import faltante o clase no encontrada. Verifica los imports y dependencias.".to_string(),
             );
         }
 
-        if errors.iter().any(|e| e.message.contains("incompatible types")) {
+        if errors
+            .iter()
+            .any(|e| e.message.contains("incompatible types"))
+        {
             recommendations.push(
                 "Error 'incompatible types': Conversión de tipos incorrecta. Revisa los tipos de datos y casteos.".to_string(),
             );
@@ -1912,7 +2110,8 @@ impl ProjectScanner {
         }
 
         if errors.is_empty() && warnings.is_empty() {
-            recommendations.push("✅ ¡Código Java sin errores ni warnings! Excelente trabajo.".to_string());
+            recommendations
+                .push("✅ ¡Código Java sin errores ni warnings! Excelente trabajo.".to_string());
         }
 
         Ok(recommendations)
@@ -1954,7 +2153,12 @@ impl ProjectScanner {
 
         let file = parts[0].to_string();
         let line_num = parts[1].parse::<usize>().unwrap_or(0);
-        let issue_type = if parts[2].trim().contains("error") { "error" } else { "warning" }.to_string();
+        let issue_type = if parts[2].trim().contains("error") {
+            "error"
+        } else {
+            "warning"
+        }
+        .to_string();
         let message = parts[3..].join(":").trim().to_string();
 
         // Intentar leer código fuente
@@ -1993,8 +2197,8 @@ impl ProjectScanner {
                             let line_num = line_num + 1;
 
                             // Detectar bucles seriales que podrían paralelizarse
-                            if line.contains("for ") && !line.contains("forall") && !line.contains("coforall") {
-                                if line.contains(" in ") && (line.contains("..") || line.contains("#")) {
+                            if line.contains("for ") && !line.contains("forall") && !line.contains("coforall")
+                                && line.contains(" in ") && (line.contains("..") || line.contains("#")) {
                                     issues.push(Issue {
                                         issue_type: "warning".to_string(),
                                         code: Some("PARALLELISM".to_string()),
@@ -2014,7 +2218,6 @@ impl ProjectScanner {
                                         ],
                                     });
                                 }
-                            }
 
                             // Detectar race conditions potenciales
                             if line.contains("forall") && line.contains("+=") {
@@ -2060,8 +2263,8 @@ impl ProjectScanner {
                             let line_num = line_num + 1;
 
                             // Detectar acceso no local a arrays distribuidos
-                            if line.contains("[") && line.contains("]") && !line.contains("local") {
-                                if line.contains("forall") || line.contains("coforall") {
+                            if line.contains("[") && line.contains("]") && !line.contains("local")
+                                && (line.contains("forall") || line.contains("coforall")) {
                                     issues.push(Issue {
                                         issue_type: "warning".to_string(),
                                         code: Some("LOCALITY".to_string()),
@@ -2081,11 +2284,10 @@ impl ProjectScanner {
                                         ],
                                     });
                                 }
-                            }
 
                             // Detectar distribuciones ineficientes
-                            if line.contains("dmapped") && line.contains("Block") {
-                                if !line.contains("cyclic") && !line.contains("replicated") {
+                            if line.contains("dmapped") && line.contains("Block")
+                                && !line.contains("cyclic") && !line.contains("replicated") {
                                     issues.push(Issue {
                                         issue_type: "info".to_string(),
                                         code: Some("DISTRIBUTION".to_string()),
@@ -2105,7 +2307,6 @@ impl ProjectScanner {
                                         ],
                                     });
                                 }
-                            }
                         }
                     }
                 }
@@ -2117,36 +2318,56 @@ impl ProjectScanner {
 
     /// Genera recomendaciones específicas para Chapel
     #[allow(dead_code)]
-    async fn generate_chapel_recommendations(&self, errors: &[Issue], warnings: &[Issue]) -> Result<Vec<String>> {
+    async fn generate_chapel_recommendations(
+        &self,
+        errors: &[Issue],
+        warnings: &[Issue],
+    ) -> Result<Vec<String>> {
         let mut recommendations = Vec::new();
 
-        if errors.iter().any(|e| e.message.contains("undeclared") || e.message.contains("undefined")) {
+        if errors
+            .iter()
+            .any(|e| e.message.contains("undeclared") || e.message.contains("undefined"))
+        {
             recommendations.push(
                 "Error: Variable o función no declarada. Verifica que todos los símbolos estén definidos antes de usarlos.".to_string(),
             );
         }
 
-        if warnings.iter().any(|w| w.code.as_ref().map_or(false, |c| c == "PARALLELISM")) {
+        if warnings
+            .iter()
+            .any(|w| w.code.as_ref().is_some_and(|c| c == "PARALLELISM"))
+        {
             recommendations.push(
                 "⚡ Optimización: Convierte bucles 'for' seriales a 'forall' para paralelización automática.".to_string(),
             );
         }
 
-        if warnings.iter().any(|w| w.code.as_ref().map_or(false, |c| c == "RACE_CONDITION")) {
+        if warnings
+            .iter()
+            .any(|w| w.code.as_ref().is_some_and(|c| c == "RACE_CONDITION"))
+        {
             recommendations.push(
                 "🔒 Seguridad: Posibles race conditions detectadas. Usa operaciones atómicas o sincronización.".to_string(),
             );
         }
 
-        if warnings.iter().any(|w| w.code.as_ref().map_or(false, |c| c == "LOCALITY")) {
+        if warnings
+            .iter()
+            .any(|w| w.code.as_ref().is_some_and(|c| c == "LOCALITY"))
+        {
             recommendations.push(
                 "🚀 Rendimiento: Mejora la locality de datos usando bloques 'local' en bucles paralelos.".to_string(),
             );
         }
 
-        if warnings.iter().any(|w| w.code.as_ref().map_or(false, |c| c == "DISTRIBUTION")) {
+        if warnings
+            .iter()
+            .any(|w| w.code.as_ref().is_some_and(|c| c == "DISTRIBUTION"))
+        {
             recommendations.push(
-                "⚖️ Balanceo: Experimenta con diferentes estrategias de distribución de datos.".to_string(),
+                "⚖️ Balanceo: Experimenta con diferentes estrategias de distribución de datos."
+                    .to_string(),
             );
         }
 
@@ -2157,7 +2378,9 @@ impl ProjectScanner {
         }
 
         if errors.is_empty() && warnings.is_empty() {
-            recommendations.push("✅ ¡Código Chapel sin errores ni warnings! Excelente trabajo en HPC.".to_string());
+            recommendations.push(
+                "✅ ¡Código Chapel sin errores ni warnings! Excelente trabajo en HPC.".to_string(),
+            );
         } else {
             recommendations.push("📚 Recursos Chapel: https://chapel-lang.org/docs/".to_string());
         }
@@ -2166,7 +2389,12 @@ impl ProjectScanner {
     }
 
     /// Análisis AVANZADO de dominios y arrays distribuidos en Chapel
-    fn analyze_chapel_domains(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_domains(
+        &self,
+        content: &str,
+        file: &str,
+        _project_path: &PathBuf,
+    ) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2174,39 +2402,54 @@ impl ProjectScanner {
             let line_num = line_num + 1;
 
             // Dominios sin distribución explícita
-            if line.contains("domain(") && !line.contains("dmapped") {
-                if line.contains("2D") || line.contains("3D") || line.contains("..") {
+            if line.contains("domain(") && !line.contains("dmapped")
+                && (line.contains("2D") || line.contains("3D") || line.contains("..")) {
                     issues.push(Issue {
                         issue_type: "warning".to_string(),
                         code: Some("DOMAIN_DISTRIBUTION".to_string()),
                         file: file.to_string(),
                         line: line_num,
                         column: None,
-                        message: "Dominio multidimensional sin estrategia de distribución explícita".to_string(),
+                        message:
+                            "Dominio multidimensional sin estrategia de distribución explícita"
+                                .to_string(),
                         source_code: Some(line.trim().to_string()),
                         solutions: vec![
                             Solution {
                                 title: "Agregar distribución Block".to_string(),
-                                description: "Distribuye el dominio usando Block para buen balanceo de carga".to_string(),
-                                url: "https://chapel-lang.org/docs/language/spec/domains.html".to_string(),
-                                example_code: Some("var D: domain(2) dmapped Block(boundingBox={1..N, 1..M});".to_string()),
+                                description:
+                                    "Distribuye el dominio usando Block para buen balanceo de carga"
+                                        .to_string(),
+                                url: "https://chapel-lang.org/docs/language/spec/domains.html"
+                                    .to_string(),
+                                example_code: Some(
+                                    "var D: domain(2) dmapped Block(boundingBox={1..N, 1..M});"
+                                        .to_string(),
+                                ),
                                 priority: 8,
                             },
                             Solution {
                                 title: "Usar Cyclic para afinidad de datos".to_string(),
-                                description: "Cyclic mantiene locality mejor para ciertos patrones de acceso".to_string(),
-                                url: "https://chapel-lang.org/docs/language/spec/domains.html".to_string(),
-                                example_code: Some("var D: domain(2) dmapped Cyclic(startIdx=(1,1));".to_string()),
+                                description:
+                                    "Cyclic mantiene locality mejor para ciertos patrones de acceso"
+                                        .to_string(),
+                                url: "https://chapel-lang.org/docs/language/spec/domains.html"
+                                    .to_string(),
+                                example_code: Some(
+                                    "var D: domain(2) dmapped Cyclic(startIdx=(1,1));".to_string(),
+                                ),
                                 priority: 7,
-                            }
+                            },
                         ],
                     });
                 }
-            }
 
             // Arrays sin dominios explícitos
-            if line.contains("var ") && line.contains("[") && line.contains("]") && !line.contains("domain(") {
-                if line.contains("real") || line.contains("int") || line.contains("complex") {
+            if line.contains("var ")
+                && line.contains("[")
+                && line.contains("]")
+                && !line.contains("domain(")
+                && (line.contains("real") || line.contains("int") || line.contains("complex")) {
                     issues.push(Issue {
                         issue_type: "info".to_string(),
                         code: Some("ARRAY_DOMAIN".to_string()),
@@ -2226,7 +2469,6 @@ impl ProjectScanner {
                         ],
                     });
                 }
-            }
 
             // Uso de reshape sin optimización
             if line.contains("reshape") && !line.contains("dmapped") {
@@ -2238,15 +2480,17 @@ impl ProjectScanner {
                     column: None,
                     message: "Uso de reshape puede causar movimiento costoso de datos".to_string(),
                     source_code: Some(line.trim().to_string()),
-                    solutions: vec![
-                        Solution {
-                            title: "Reconsiderar distribución inicial".to_string(),
-                            description: "Mejor diseña la distribución inicial para evitar reshapes costosos".to_string(),
-                            url: "https://chapel-lang.org/docs/language/spec/arrays.html".to_string(),
-                            example_code: Some("// Diseña la distribución correcta desde el inicio".to_string()),
-                            priority: 7,
-                        }
-                    ],
+                    solutions: vec![Solution {
+                        title: "Reconsiderar distribución inicial".to_string(),
+                        description:
+                            "Mejor diseña la distribución inicial para evitar reshapes costosos"
+                                .to_string(),
+                        url: "https://chapel-lang.org/docs/language/spec/arrays.html".to_string(),
+                        example_code: Some(
+                            "// Diseña la distribución correcta desde el inicio".to_string(),
+                        ),
+                        priority: 7,
+                    }],
                 });
             }
         }
@@ -2255,7 +2499,12 @@ impl ProjectScanner {
     }
 
     /// Análisis AVANZADO de paralelismo en Chapel
-    fn analyze_chapel_advanced_parallelism(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_advanced_parallelism(
+        &self,
+        content: &str,
+        file: &str,
+        _project_path: &PathBuf,
+    ) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2263,7 +2512,13 @@ impl ProjectScanner {
             let line_num = line_num + 1;
 
             // Task spawning sin gestión de recursos
-            if line.contains("begin") && !content.lines().skip(line_num).take(10).any(|l| l.contains("sync") || l.contains("waitFor")) {
+            if line.contains("begin")
+                && !content
+                    .lines()
+                    .skip(line_num)
+                    .take(10)
+                    .any(|l| l.contains("sync") || l.contains("waitFor"))
+            {
                 issues.push(Issue {
                     issue_type: "warning".to_string(),
                     code: Some("TASK_MANAGEMENT".to_string()),
@@ -2292,8 +2547,8 @@ impl ProjectScanner {
             }
 
             // Reducciones ineficientes
-            if line.contains("+=") && (line.contains("forall") || line.contains("coforall")) {
-                if !line.contains("reduce") && !line.contains("atomic") {
+            if line.contains("+=") && (line.contains("forall") || line.contains("coforall"))
+                && !line.contains("reduce") && !line.contains("atomic") {
                     issues.push(Issue {
                         issue_type: "performance".to_string(),
                         code: Some("INEFFICIENT_REDUCTION".to_string()),
@@ -2313,7 +2568,6 @@ impl ProjectScanner {
                         ],
                     });
                 }
-            }
 
             // Comunicación excesiva entre locales
             if line.contains("on ") && line.contains("Local") {
@@ -2323,17 +2577,18 @@ impl ProjectScanner {
                     file: file.to_string(),
                     line: line_num,
                     column: None,
-                    message: "Comunicación explícita 'on Locales' - considera locality-aware algorithms".to_string(),
+                    message:
+                        "Comunicación explícita 'on Locales' - considera locality-aware algorithms"
+                            .to_string(),
                     source_code: Some(line.trim().to_string()),
-                    solutions: vec![
-                        Solution {
-                            title: "Usar distribución de datos inteligente".to_string(),
-                            description: "Deja que Chapel maneje la distribución automáticamente".to_string(),
-                            url: "https://chapel-lang.org/docs/language/spec/locales.html".to_string(),
-                            example_code: Some("// Usa dmapped en lugar de 'on' manual".to_string()),
-                            priority: 8,
-                        }
-                    ],
+                    solutions: vec![Solution {
+                        title: "Usar distribución de datos inteligente".to_string(),
+                        description: "Deja que Chapel maneje la distribución automáticamente"
+                            .to_string(),
+                        url: "https://chapel-lang.org/docs/language/spec/locales.html".to_string(),
+                        example_code: Some("// Usa dmapped en lugar de 'on' manual".to_string()),
+                        priority: 8,
+                    }],
                 });
             }
         }
@@ -2342,7 +2597,12 @@ impl ProjectScanner {
     }
 
     /// Análisis AVANZADO de locality y memoria en Chapel
-    fn analyze_chapel_memory_locality(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_memory_locality(
+        &self,
+        content: &str,
+        file: &str,
+        _project_path: &PathBuf,
+    ) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2350,8 +2610,10 @@ impl ProjectScanner {
             let line_num = line_num + 1;
 
             // Acceso no-local en bucles críticos
-            if (line.contains("forall") || line.contains("coforall")) && line.contains("[") && line.contains("]") {
-                if !line.contains("local") && !line.contains("here") {
+            if (line.contains("forall") || line.contains("coforall"))
+                && line.contains("[")
+                && line.contains("]")
+                && !line.contains("local") && !line.contains("here") {
                     // Buscar patrones de acceso no-local
                     if line.contains("A[") || line.contains("arr[") {
                         issues.push(Issue {
@@ -2381,11 +2643,12 @@ impl ProjectScanner {
                         });
                     }
                 }
-            }
 
             // Asignaciones de memoria grandes sin consideración de distribución
-            if line.contains("var ") && (line.contains("real") || line.contains("int")) && line.contains("[") {
-                if line.contains("..1000") || line.contains("..10000") || line.contains("1..N") {
+            if line.contains("var ")
+                && (line.contains("real") || line.contains("int"))
+                && line.contains("[")
+                && (line.contains("..1000") || line.contains("..10000") || line.contains("1..N")) {
                     issues.push(Issue {
                         issue_type: "info".to_string(),
                         code: Some("MEMORY_DISTRIBUTION".to_string()),
@@ -2405,14 +2668,18 @@ impl ProjectScanner {
                         ],
                     });
                 }
-            }
         }
 
         Ok(issues)
     }
 
     /// Análisis de patrones anti-óptimos en Chapel
-    fn analyze_chapel_anti_patterns(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_anti_patterns(
+        &self,
+        content: &str,
+        file: &str,
+        _project_path: &PathBuf,
+    ) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2420,30 +2687,47 @@ impl ProjectScanner {
             let line_num = line_num + 1;
 
             // Uso de bucles while en lugar de paralelismo
-            if line.contains("while") && content.lines().skip(line_num).take(5).any(|l| l.contains("forall") || l.contains("coforall")) {
+            if line.contains("while")
+                && content
+                    .lines()
+                    .skip(line_num)
+                    .take(5)
+                    .any(|l| l.contains("forall") || l.contains("coforall"))
+            {
                 issues.push(Issue {
                     issue_type: "warning".to_string(),
                     code: Some("ANTI_PATTERN_WHILE".to_string()),
                     file: file.to_string(),
                     line: line_num,
                     column: None,
-                    message: "Uso de 'while' con paralelismo - considera algoritmos paralelos nativos".to_string(),
+                    message:
+                        "Uso de 'while' con paralelismo - considera algoritmos paralelos nativos"
+                            .to_string(),
                     source_code: Some(line.trim().to_string()),
-                    solutions: vec![
-                        Solution {
-                            title: "Reemplazar con algoritmos paralelos".to_string(),
-                            description: "Usa algoritmos paralelos en lugar de bucles while".to_string(),
-                            url: "https://chapel-lang.org/docs/language/spec/".to_string(),
-                            example_code: Some("// Usa reduce, scan, o algoritmos paralelos específicos".to_string()),
-                            priority: 7,
-                        }
-                    ],
+                    solutions: vec![Solution {
+                        title: "Reemplazar con algoritmos paralelos".to_string(),
+                        description: "Usa algoritmos paralelos en lugar de bucles while"
+                            .to_string(),
+                        url: "https://chapel-lang.org/docs/language/spec/".to_string(),
+                        example_code: Some(
+                            "// Usa reduce, scan, o algoritmos paralelos específicos".to_string(),
+                        ),
+                        priority: 7,
+                    }],
                 });
             }
 
             // Copias innecesarias de arrays
-            if line.contains("=") && line.contains("[") && line.contains("]") && !line.contains("ref") {
-                if content.lines().skip(line_num).take(3).any(|l| l.contains("forall") || l.contains("coforall")) {
+            if line.contains("=")
+                && line.contains("[")
+                && line.contains("]")
+                && !line.contains("ref")
+                && content
+                    .lines()
+                    .skip(line_num)
+                    .take(3)
+                    .any(|l| l.contains("forall") || l.contains("coforall"))
+                {
                     issues.push(Issue {
                         issue_type: "performance".to_string(),
                         code: Some("UNNECESSARY_COPY".to_string()),
@@ -2463,11 +2747,17 @@ impl ProjectScanner {
                         ],
                     });
                 }
-            }
 
             // Uso excesivo de variables globales
-            if line.contains("var ") && !line.contains("proc ") && !line.contains("iter ") && !line.contains("class ") {
-                if content.lines().take(line_num).any(|l| l.contains("module ")) {
+            if line.contains("var ")
+                && !line.contains("proc ")
+                && !line.contains("iter ")
+                && !line.contains("class ")
+                && content
+                    .lines()
+                    .take(line_num)
+                    .any(|l| l.contains("module "))
+                {
                     issues.push(Issue {
                         issue_type: "info".to_string(),
                         code: Some("GLOBAL_VARIABLE".to_string()),
@@ -2487,14 +2777,18 @@ impl ProjectScanner {
                         ],
                     });
                 }
-            }
         }
 
         Ok(issues)
     }
 
     /// Análisis de dependencias de tareas en Chapel
-    fn analyze_chapel_task_dependencies(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn analyze_chapel_task_dependencies(
+        &self,
+        content: &str,
+        file: &str,
+        _project_path: &PathBuf,
+    ) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2502,10 +2796,18 @@ impl ProjectScanner {
             let line_num = line_num + 1;
 
             // Dependencias circulares potenciales
-            if line.contains("begin") && content.lines().skip(line_num).take(20).any(|l| l.contains("waitFor") || l.contains("sync")) {
+            if line.contains("begin")
+                && content
+                    .lines()
+                    .skip(line_num)
+                    .take(20)
+                    .any(|l| l.contains("waitFor") || l.contains("sync"))
+            {
                 // Buscar patrones de dependencia circular
                 let next_lines: Vec<&str> = content.lines().skip(line_num).take(20).collect();
-                if next_lines.iter().any(|l| l.contains("begin")) && next_lines.iter().any(|l| l.contains("waitFor")) {
+                if next_lines.iter().any(|l| l.contains("begin"))
+                    && next_lines.iter().any(|l| l.contains("waitFor"))
+                {
                     issues.push(Issue {
                         issue_type: "warning".to_string(),
                         code: Some("CIRCULAR_DEPENDENCY".to_string()),
@@ -2528,7 +2830,13 @@ impl ProjectScanner {
             }
 
             // Tasks sin límites de recursos
-            if line.contains("coforall") && !content.lines().skip(line_num.saturating_sub(10)).take(15).any(|l| l.contains("numTasks") || l.contains("here.maxTaskPar")) {
+            if line.contains("coforall")
+                && !content
+                    .lines()
+                    .skip(line_num.saturating_sub(10))
+                    .take(15)
+                    .any(|l| l.contains("numTasks") || l.contains("here.maxTaskPar"))
+            {
                 issues.push(Issue {
                     issue_type: "performance".to_string(),
                     code: Some("UNBOUNDED_TASKS".to_string()),
@@ -2554,7 +2862,12 @@ impl ProjectScanner {
     }
 
     /// Sugerencias de optimización avanzadas para Chapel
-    fn suggest_chapel_optimizations(&self, content: &str, file: &str, _project_path: &PathBuf) -> Result<Vec<Issue>> {
+    fn suggest_chapel_optimizations(
+        &self,
+        content: &str,
+        file: &str,
+        _project_path: &PathBuf,
+    ) -> Result<Vec<Issue>> {
         let mut issues = Vec::new();
         let lines: Vec<&str> = content.lines().collect();
 
@@ -2562,7 +2875,13 @@ impl ProjectScanner {
             let line_num = line_num + 1;
 
             // Optimización: usar zippered iteration
-            if line.contains("forall") && content.lines().skip(line_num).take(3).any(|l| l.contains("forall")) {
+            if line.contains("forall")
+                && content
+                    .lines()
+                    .skip(line_num)
+                    .take(3)
+                    .any(|l| l.contains("forall"))
+            {
                 issues.push(Issue {
                     issue_type: "optimization".to_string(),
                     code: Some("ZIPPERED_ITERATION".to_string()),
@@ -2591,39 +2910,48 @@ impl ProjectScanner {
                     file: file.to_string(),
                     line: line_num,
                     column: None,
-                    message: "Optimización posible: usa operaciones promovidas para mejor rendimiento".to_string(),
+                    message:
+                        "Optimización posible: usa operaciones promovidas para mejor rendimiento"
+                            .to_string(),
                     source_code: Some(line.trim().to_string()),
-                    solutions: vec![
-                        Solution {
-                            title: "Usar operaciones promovidas".to_string(),
-                            description: "Las operaciones sobre arrays completos son más eficientes".to_string(),
-                            url: "https://chapel-lang.org/docs/language/spec/arrays.html".to_string(),
-                            example_code: Some("A = B + C; // en lugar de forall i do A[i] = B[i] + C[i]".to_string()),
-                            priority: 8,
-                        }
-                    ],
+                    solutions: vec![Solution {
+                        title: "Usar operaciones promovidas".to_string(),
+                        description: "Las operaciones sobre arrays completos son más eficientes"
+                            .to_string(),
+                        url: "https://chapel-lang.org/docs/language/spec/arrays.html".to_string(),
+                        example_code: Some(
+                            "A = B + C; // en lugar de forall i do A[i] = B[i] + C[i]".to_string(),
+                        ),
+                        priority: 8,
+                    }],
                 });
             }
 
             // Optimización: usar reduce en lugar de bucles manuales
-            if line.contains("forall") && (line.contains("sum") || line.contains("max") || line.contains("min")) {
+            if line.contains("forall")
+                && (line.contains("sum") || line.contains("max") || line.contains("min"))
+            {
                 issues.push(Issue {
                     issue_type: "optimization".to_string(),
                     code: Some("REDUCE_OPTIMIZATION".to_string()),
                     file: file.to_string(),
                     line: line_num,
                     column: None,
-                    message: "Optimización: usa 'reduce' en lugar de acumuladores manuales".to_string(),
+                    message: "Optimización: usa 'reduce' en lugar de acumuladores manuales"
+                        .to_string(),
                     source_code: Some(line.trim().to_string()),
-                    solutions: vec![
-                        Solution {
-                            title: "Usar reduce para mejor rendimiento".to_string(),
-                            description: "Las operaciones reduce están optimizadas y son más eficientes".to_string(),
-                            url: "https://chapel-lang.org/docs/language/spec/reductions.html".to_string(),
-                            example_code: Some("var total = + reduce A; // en lugar de bucles manuales".to_string()),
-                            priority: 9,
-                        }
-                    ],
+                    solutions: vec![Solution {
+                        title: "Usar reduce para mejor rendimiento".to_string(),
+                        description:
+                            "Las operaciones reduce están optimizadas y son más eficientes"
+                                .to_string(),
+                        url: "https://chapel-lang.org/docs/language/spec/reductions.html"
+                            .to_string(),
+                        example_code: Some(
+                            "var total = + reduce A; // en lugar de bucles manuales".to_string(),
+                        ),
+                        priority: 9,
+                    }],
                 });
             }
         }
@@ -2632,61 +2960,105 @@ impl ProjectScanner {
     }
 
     /// Genera recomendaciones HIPER-AVANZADAS para Chapel (200% aprovechamiento)
-    async fn generate_hyper_chapel_recommendations(&self, errors: &[Issue], warnings: &[Issue], performance_issues: &[Issue]) -> Result<Vec<String>> {
+    async fn generate_hyper_chapel_recommendations(
+        &self,
+        errors: &[Issue],
+        warnings: &[Issue],
+        performance_issues: &[Issue],
+    ) -> Result<Vec<String>> {
         let mut recommendations = Vec::new();
 
         // Análisis de errores críticos
-        if errors.iter().any(|e| e.message.contains("undeclared") || e.message.contains("undefined")) {
+        if errors
+            .iter()
+            .any(|e| e.message.contains("undeclared") || e.message.contains("undefined"))
+        {
             recommendations.push(
                 "🚨 ERROR CRÍTICO: Variables no declaradas. Chapel requiere declaración explícita de todos los símbolos.".to_string(),
             );
         }
 
         // Análisis de paralelismo avanzado
-        if warnings.iter().any(|w| w.code.as_ref().map_or(false, |c| c == "TASK_MANAGEMENT")) {
+        if warnings
+            .iter()
+            .any(|w| w.code.as_ref().is_some_and(|c| c == "TASK_MANAGEMENT"))
+        {
             recommendations.push(
                 "🔥 PARALELISMO CRÍTICO: Tasks 'begin' sin sincronización pueden causar race conditions catastróficas.".to_string(),
             );
         }
 
-        if performance_issues.iter().any(|p| p.code.as_ref().map_or(false, |c| c == "NON_LOCAL_ACCESS")) {
+        if performance_issues
+            .iter()
+            .any(|p| p.code.as_ref().is_some_and(|c| c == "NON_LOCAL_ACCESS"))
+        {
             recommendations.push(
                 "⚡ RENDIMIENTO CRÍTICO: Acceso no-local en bucles paralelos puede reducir rendimiento >100x.".to_string(),
             );
         }
 
         // Análisis de dominios y distribución
-        if warnings.iter().any(|w| w.code.as_ref().map_or(false, |c| c == "DOMAIN_DISTRIBUTION")) {
+        if warnings.iter().any(|w| {
+            w.code
+                .as_ref()
+                .is_some_and(|c| c == "DOMAIN_DISTRIBUTION")
+        }) {
             recommendations.push(
                 "🏗️ DISTRIBUCIÓN: Dominios sin distribución explícita pierden el poder de Chapel en múltiples nodos.".to_string(),
             );
         }
 
         // Análisis de optimizaciones
-        if performance_issues.iter().any(|p| p.code.as_ref().map_or(false, |c| c == "PROMOTED_OPERATIONS")) {
+        if performance_issues.iter().any(|p| {
+            p.code
+                .as_ref()
+                .is_some_and(|c| c == "PROMOTED_OPERATIONS")
+        }) {
             recommendations.push(
-                "🚀 OPTIMIZACIÓN: Usa operaciones promovidas para rendimiento 10-100x mejor.".to_string(),
+                "🚀 OPTIMIZACIÓN: Usa operaciones promovidas para rendimiento 10-100x mejor."
+                    .to_string(),
             );
         }
 
-        if performance_issues.iter().any(|p| p.code.as_ref().map_or(false, |c| c == "REDUCE_OPTIMIZATION")) {
+        if performance_issues.iter().any(|p| {
+            p.code
+                .as_ref()
+                .is_some_and(|c| c == "REDUCE_OPTIMIZATION")
+        }) {
             recommendations.push(
-                "⚡ REDUCE POWER: Las operaciones 'reduce' están altamente optimizadas en Chapel.".to_string(),
+                "⚡ REDUCE POWER: Las operaciones 'reduce' están altamente optimizadas en Chapel."
+                    .to_string(),
             );
         }
 
         // Análisis de patrones anti-óptimos
-        if warnings.iter().any(|w| w.code.as_ref().map_or(false, |c| c == "ANTI_PATTERN_WHILE")) {
+        if warnings
+            .iter()
+            .any(|w| w.code.as_ref().is_some_and(|c| c == "ANTI_PATTERN_WHILE"))
+        {
             recommendations.push(
-                "🛑 ANTI-PATTERN: Los bucles 'while' no aprovechan el paralelismo de Chapel.".to_string(),
+                "🛑 ANTI-PATTERN: Los bucles 'while' no aprovechan el paralelismo de Chapel."
+                    .to_string(),
             );
         }
 
         // Recomendaciones específicas de Chapel
-        recommendations.push("🎯 CHAPEL MASTERY: Usa 'dmapped Block' para distribución automática inteligente.".to_string());
-        recommendations.push("🔬 HPC EXPERTISE: Chapel compila a C/CUDA/OpenCL - aprovecha todo el hardware.".to_string());
-        recommendations.push("⚖️ LOAD BALANCING: Experimenta con Cyclic vs Block según patrones de acceso.".to_string());
-        recommendations.push("🎪 ADVANCED FEATURES: Explora 'zippered iteration' y 'promoted operations'.".to_string());
+        recommendations.push(
+            "🎯 CHAPEL MASTERY: Usa 'dmapped Block' para distribución automática inteligente."
+                .to_string(),
+        );
+        recommendations.push(
+            "🔬 HPC EXPERTISE: Chapel compila a C/CUDA/OpenCL - aprovecha todo el hardware."
+                .to_string(),
+        );
+        recommendations.push(
+            "⚖️ LOAD BALANCING: Experimenta con Cyclic vs Block según patrones de acceso."
+                .to_string(),
+        );
+        recommendations.push(
+            "🎪 ADVANCED FEATURES: Explora 'zippered iteration' y 'promoted operations'."
+                .to_string(),
+        );
 
         // Estadísticas avanzadas
         let total_issues = errors.len() + warnings.len() + performance_issues.len();
@@ -2700,14 +3072,23 @@ impl ProjectScanner {
             recommendations.push("🎉 CHAPEL MASTERPIECE: Código perfecto que aprovecha el 200% del potencial de Chapel!".to_string());
         }
 
-        recommendations.push("📚 CHAPEL BIBLE: https://chapel-lang.org/docs/language/spec/".to_string());
-        recommendations.push("🔬 HANDS-ON: Ejecuta con 'chpl --fast --specialize' para optimizaciones agresivas.".to_string());
+        recommendations
+            .push("📚 CHAPEL BIBLE: https://chapel-lang.org/docs/language/spec/".to_string());
+        recommendations.push(
+            "🔬 HANDS-ON: Ejecuta con 'chpl --fast --specialize' para optimizaciones agresivas."
+                .to_string(),
+        );
 
         Ok(recommendations)
     }
 
     /// Calcula quality score con bonus por optimizaciones avanzadas de Chapel
-    fn calculate_chapel_quality_score(&self, errors: &[Issue], warnings: &[Issue], performance_issues: &[Issue]) -> f32 {
+    fn calculate_chapel_quality_score(
+        &self,
+        errors: &[Issue],
+        warnings: &[Issue],
+        performance_issues: &[Issue],
+    ) -> f32 {
         let mut score = 100.0;
 
         // Penalizaciones estándar
@@ -2716,14 +3097,20 @@ impl ProjectScanner {
         score -= performance_issues.len() as f32 * 2.0;
 
         // Bonus por optimizaciones avanzadas
-        let optimization_bonus = performance_issues.iter()
+        let optimization_bonus = performance_issues
+            .iter()
             .filter(|p| p.issue_type == "optimization")
-            .count() as f32 * 1.0; // Bonus por detectar oportunidades de optimización
+            .count() as f32
+            * 1.0; // Bonus por detectar oportunidades de optimización
 
         score += optimization_bonus.min(20.0); // Máximo 20 puntos de bonus
 
         // Bonus por buen uso de Chapel
-        if warnings.iter().any(|w| w.code.as_ref().map_or(false, |c| c == "DOMAIN_DISTRIBUTION")) {
+        if warnings.iter().any(|w| {
+            w.code
+                .as_ref()
+                .is_some_and(|c| c == "DOMAIN_DISTRIBUTION")
+        }) {
             score -= 5.0; // Penalización por no usar distribución
         }
 
@@ -2761,7 +3148,8 @@ mod tests {
             Ok(analysis) => {
                 println!("✅ Análisis completado exitosamente!");
                 println!("📊 Quality Score: {:.1}/100", analysis.quality_score);
-                println!("📁 Total Issues: {}, ❌ Errores: {}, ⚠️ Warnings: {}",
+                println!(
+                    "📁 Total Issues: {}, ❌ Errores: {}, ⚠️ Warnings: {}",
                     analysis.total_issues,
                     analysis.errors.len(),
                     analysis.warnings.len()
@@ -2771,7 +3159,10 @@ mod tests {
                 assert!(analysis.total_issues >= 0, "Debería procesar los archivos");
 
                 // Verificar que hay recomendaciones
-                assert!(!analysis.recommendations.is_empty(), "Debería generar recomendaciones");
+                assert!(
+                    !analysis.recommendations.is_empty(),
+                    "Debería generar recomendaciones"
+                );
 
                 println!("🎯 Test completado - analizador ultra-avanzado funcionando!");
             }
@@ -2781,4 +3172,3 @@ mod tests {
         }
     }
 }
-

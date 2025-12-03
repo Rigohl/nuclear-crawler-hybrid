@@ -66,11 +66,30 @@ pub struct ProjectAnalyzer {
 }
 
 impl ProjectAnalyzer {
-    /// Crea nuevo analizador
-    pub fn new() -> Result<Self> {
+    /// Crea nuevo analizador con web_search personalizado
+    pub fn new(web_search: Arc<WebSearch>) -> Self {
+        Self { web_search }
+    }
+
+    /// Crea nuevo analizador con web_search por defecto
+    pub fn new_default() -> Result<Self> {
         Ok(Self {
             web_search: Arc::new(WebSearch::new_with_storage(None)?),
         })
+    }
+
+    /// Analiza un path (método simplificado)
+    pub async fn analyze(&self, path: &PathBuf) -> Result<serde_json::Value> {
+        let config = ProjectAnalysisConfig {
+            project_dir: path.clone(),
+            language: None,
+            search_modern_libs: true,
+            search_best_practices: true,
+            search_tools: true,
+        };
+
+        let result = self.analyze_project(config).await?;
+        Ok(serde_json::to_value(result)?)
     }
 
     /// Analiza proyecto completo

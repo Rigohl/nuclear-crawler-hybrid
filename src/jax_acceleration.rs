@@ -16,13 +16,25 @@ pub struct JaxAccelerator {
 }
 
 impl JaxAccelerator {
-    /// Crea un nuevo acelerador
-    pub fn new(num_workers: Option<usize>) -> Self {
+    /// Crea un nuevo acelerador (usa máximo de CPUs)
+    pub fn new() -> Self {
+        Self {
+            num_workers: num_cpus::get() * 2,
+        }
+    }
+    
+    /// Crea con número específico de workers
+    pub fn new_with_workers(num_workers: Option<usize>) -> Self {
         let num_workers = num_workers.unwrap_or_else(|| {
             num_cpus::get() * 2 // Doble de cores para máximo paralelismo
         });
 
         Self { num_workers }
+    }
+    
+    /// Verifica si JAX acceleration está disponible
+    pub fn is_available(&self) -> bool {
+        self.num_workers > 0
     }
 
     /// Procesa URLs en paralelo masivo (estilo JAX vectorization)

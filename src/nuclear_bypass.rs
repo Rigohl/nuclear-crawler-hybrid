@@ -177,8 +177,8 @@ impl NuclearBypass {
         };
 
         let stealth = StealthSystem::new(stealth_config);
-        let go_integration = GoIntegration::new(config.use_go);
-        let zig_integration = ZigIntegration::new(config.use_zig);
+        let go_integration = GoIntegration::new_with_config(config.use_go);
+        let zig_integration = ZigIntegration::new_with_config(config.use_zig);
 
         // Patrones de paywall conocidos
         let paywall_patterns = Self::init_paywall_patterns();
@@ -293,7 +293,8 @@ impl NuclearBypass {
 
         // Cachear si exitoso
         if result.success && self.config.cache_successful_bypasses {
-            self.successful_bypasses.insert(url.to_string(), result.bypass_type.clone());
+            self.successful_bypasses
+                .insert(url.to_string(), result.bypass_type.clone());
         }
 
         Ok(BypassResult {
@@ -394,7 +395,7 @@ impl NuclearBypass {
                     urlencoding::encode(url)
                 );
                 let response = self.fetch_with_stealth(&api_url).await?;
-                
+
                 // Parsear respuesta para obtener URL del archivo
                 if let Ok(json) = serde_json::from_str::<serde_json::Value>(&response) {
                     if let Some(snapshot) = json["archived_snapshots"]["closest"]["url"].as_str() {
@@ -419,20 +420,14 @@ impl NuclearBypass {
                 };
                 self.fetch_with_stealth(&bypass_url).await
             }
-            BypassMethod::ModifyReferer(referer) => {
-                self.fetch_with_referer(url, referer).await
-            }
+            BypassMethod::ModifyReferer(referer) => self.fetch_with_referer(url, referer).await,
             BypassMethod::AddUrlParam { key, value } => {
                 let separator = if url.contains('?') { "&" } else { "?" };
                 let bypass_url = format!("{}{}{}={}", url, separator, key, value);
                 self.fetch_with_stealth(&bypass_url).await
             }
-            BypassMethod::ModifyCookies(cookies) => {
-                self.fetch_with_cookies(url, cookies).await
-            }
-            BypassMethod::SiteSpecific(handler) => {
-                self.site_specific_bypass(url, handler).await
-            }
+            BypassMethod::ModifyCookies(cookies) => self.fetch_with_cookies(url, cookies).await,
+            BypassMethod::SiteSpecific(handler) => self.site_specific_bypass(url, handler).await,
             BypassMethod::InjectJs(_js) => {
                 // JavaScript injection requiere headless browser
                 // Por ahora, fallback a fetch normal
@@ -454,14 +449,16 @@ impl NuclearBypass {
             crate::go_integration::StealthHeadersGo::default()
         };
 
-        let user_agent = self.config.custom_user_agent.clone()
+        let user_agent = self
+            .config
+            .custom_user_agent
+            .clone()
             .unwrap_or_else(|| self.stealth.get_user_agent());
 
         let headers = self.stealth.get_headers(None);
         let anti_detection = self.stealth.get_anti_detection_headers();
 
-        let mut request = self.client.get(url)
-            .header("User-Agent", &user_agent);
+        let mut request = self.client.get(url).header("User-Agent", &user_agent);
 
         // Agregar headers stealth
         for (k, v) in headers {
@@ -484,7 +481,9 @@ impl NuclearBypass {
 
         // Usar Zig para procesar si está disponible
         if self.config.use_zig {
-            let processed = self.zig_integration.process_data_parallel(body.as_bytes())?;
+            let processed = self
+                .zig_integration
+                .process_data_parallel(body.as_bytes())?;
             return Ok(String::from_utf8_lossy(&processed).to_string());
         }
 
@@ -496,7 +495,9 @@ impl NuclearBypass {
         let user_agent = self.stealth.get_user_agent();
         let headers = self.stealth.get_headers(None);
 
-        let mut request = self.client.get(url)
+        let mut request = self
+            .client
+            .get(url)
             .header("User-Agent", &user_agent)
             .header("Referer", referer);
 
@@ -509,7 +510,11 @@ impl NuclearBypass {
     }
 
     /// Fetch con cookies específicas
-    async fn fetch_with_cookies(&self, url: &str, cookies: &HashMap<String, String>) -> Result<String> {
+    async fn fetch_with_cookies(
+        &self,
+        url: &str,
+        cookies: &HashMap<String, String>,
+    ) -> Result<String> {
         let user_agent = self.stealth.get_user_agent();
 
         let cookie_string: String = cookies
@@ -518,7 +523,9 @@ impl NuclearBypass {
             .collect::<Vec<_>>()
             .join("; ");
 
-        let response = self.client.get(url)
+        let response = self
+            .client
+            .get(url)
             .header("User-Agent", &user_agent)
             .header("Cookie", cookie_string)
             .send()
@@ -553,20 +560,20 @@ impl NuclearBypass {
                 // 1. Intentar con headers de navegador real
                 let headers = self.stealth.get_anti_detection_headers();
                 let mut request = self.client.get(url);
-                
+
                 for (k, v) in headers {
                     request = request.header(&k, &v);
                 }
-                
+
                 // 2. Simular comportamiento humano
                 tokio::time::sleep(Duration::from_millis(2000)).await;
-                
+
                 let response = request.send().await?;
-                
+
                 if response.status().is_success() {
                     return Ok(response.text().await?);
                 }
-                
+
                 Err(anyhow::anyhow!("Cloudflare bypass failed"))
             }
             _ => Err(anyhow::anyhow!("Unknown handler: {}", handler)),
@@ -587,32 +594,34 @@ impl NuclearBypass {
     pub async fn bypass_batch(&self, urls: Vec<String>) -> Vec<BypassResult> {
         use futures::future::join_all;
 
-        let futures: Vec<_> = urls
-            .iter()
-            .map(|url| self.bypass(url))
-            .collect();
+        let futures: Vec<_> = urls.iter().map(|url| self.bypass(url)).collect();
 
         let results = join_all(futures).await;
 
         results
             .into_iter()
-            .map(|r| r.unwrap_or_else(|e| BypassResult {
-                original_url: String::new(),
-                access_url: String::new(),
-                content: String::new(),
-                bypass_type: BypassType::Generic,
-                success: false,
-                message: e.to_string(),
-                metadata: HashMap::new(),
-                execution_time_ms: 0,
-            }))
+            .map(|r| {
+                r.unwrap_or_else(|e| BypassResult {
+                    original_url: String::new(),
+                    access_url: String::new(),
+                    content: String::new(),
+                    bypass_type: BypassType::Generic,
+                    success: false,
+                    message: e.to_string(),
+                    metadata: HashMap::new(),
+                    execution_time_ms: 0,
+                })
+            })
             .collect()
     }
 
     /// Estadísticas de bypass
     pub fn get_stats(&self) -> HashMap<String, usize> {
         let mut stats = HashMap::new();
-        stats.insert("cached_bypasses".to_string(), self.successful_bypasses.len());
+        stats.insert(
+            "cached_bypasses".to_string(),
+            self.successful_bypasses.len(),
+        );
         stats.insert("paywall_patterns".to_string(), self.paywall_patterns.len());
         stats
     }
@@ -642,7 +651,7 @@ mod tests {
     async fn test_nuclear_bypass() {
         let config = NuclearBypassConfig::default();
         let bypass = NuclearBypass::new(config).unwrap();
-        
+
         let stats = bypass.get_stats();
         assert!(stats["paywall_patterns"] > 0);
     }

@@ -12,7 +12,7 @@ use std::collections::HashMap;
 /// Usado por: scraper, web_search, nuclear_scraper, parallel_crawler
 pub fn extract_title(html: &str) -> String {
     let document = Html::parse_document(html);
-    
+
     // Intenta múltiples selectores
     let selectors = [
         "title",
@@ -20,20 +20,16 @@ pub fn extract_title(html: &str) -> String {
         "meta[name='twitter:title']",
         "h1",
     ];
-    
+
     for selector_str in &selectors {
         if let Ok(selector) = Selector::parse(selector_str) {
             if let Some(element) = document.select(&selector).next() {
                 let text = if selector_str.starts_with("meta") {
-                    element
-                        .value()
-                        .attr("content")
-                        .unwrap_or("")
-                        .to_string()
+                    element.value().attr("content").unwrap_or("").to_string()
                 } else {
                     element.text().collect::<String>()
                 };
-                
+
                 let text = text.trim();
                 if !text.is_empty() {
                     return text.to_string();
@@ -41,7 +37,7 @@ pub fn extract_title(html: &str) -> String {
             }
         }
     }
-    
+
     "Sin título".to_string()
 }
 
@@ -49,7 +45,7 @@ pub fn extract_title(html: &str) -> String {
 /// Usado por: scraper, web_search, nuclear_scraper
 pub fn extract_description(html: &str) -> String {
     let document = Html::parse_document(html);
-    
+
     // Intenta múltiples selectores de descripción
     let selectors = [
         "meta[name='description']",
@@ -57,20 +53,16 @@ pub fn extract_description(html: &str) -> String {
         "meta[name='twitter:description']",
         "p",
     ];
-    
+
     for selector_str in &selectors {
         if let Ok(selector) = Selector::parse(selector_str) {
             if let Some(element) = document.select(&selector).next() {
                 let text = if selector_str.starts_with("meta") {
-                    element
-                        .value()
-                        .attr("content")
-                        .unwrap_or("")
-                        .to_string()
+                    element.value().attr("content").unwrap_or("").to_string()
                 } else {
                     element.text().collect::<String>()
                 };
-                
+
                 let text = text.trim();
                 if !text.is_empty() && text.len() > 20 {
                     // Limita a 500 caracteres
@@ -79,7 +71,7 @@ pub fn extract_description(html: &str) -> String {
             }
         }
     }
-    
+
     "Sin descripción".to_string()
 }
 
@@ -99,7 +91,7 @@ pub fn extract_source(url: &str) -> String {
 pub fn extract_meta_tags(html: &str) -> HashMap<String, String> {
     let mut meta_tags = HashMap::new();
     let document = Html::parse_document(html);
-    
+
     if let Ok(selector) = Selector::parse("meta") {
         for element in document.select(&selector) {
             let name = element
@@ -107,15 +99,15 @@ pub fn extract_meta_tags(html: &str) -> HashMap<String, String> {
                 .attr("name")
                 .or_else(|| element.value().attr("property"))
                 .unwrap_or("");
-            
+
             let content = element.value().attr("content").unwrap_or("");
-            
+
             if !name.is_empty() && !content.is_empty() {
                 meta_tags.insert(name.to_string(), content.to_string());
             }
         }
     }
-    
+
     meta_tags
 }
 
@@ -123,11 +115,12 @@ pub fn extract_meta_tags(html: &str) -> HashMap<String, String> {
 /// Usado por: scraper
 pub fn extract_images(html: &str, base_url: &str) -> Result<Vec<ImageInfo>> {
     let document = Html::parse_document(html);
-    let selector = Selector::parse("img").map_err(|e| anyhow::anyhow!("Invalid img selector: {:?}", e))?;
+    let selector =
+        Selector::parse("img").map_err(|e| anyhow::anyhow!("Invalid img selector: {:?}", e))?;
     let base = url::Url::parse(base_url).context("Invalid base URL")?;
-    
+
     let mut images = Vec::new();
-    
+
     for element in document.select(&selector) {
         if let Some(src) = element.value().attr("src") {
             if let Ok(absolute_url) = base.join(src) {
@@ -141,7 +134,7 @@ pub fn extract_images(html: &str, base_url: &str) -> Result<Vec<ImageInfo>> {
             }
         }
     }
-    
+
     Ok(images)
 }
 
@@ -159,11 +152,12 @@ pub struct ImageInfo {
 /// Usado por: scraper, crawler
 pub fn extract_links(html: &str, base_url: &str) -> Result<Vec<LinkInfo>> {
     let document = Html::parse_document(html);
-    let selector = Selector::parse("a").map_err(|e| anyhow::anyhow!("Invalid a selector: {:?}", e))?;
+    let selector =
+        Selector::parse("a").map_err(|e| anyhow::anyhow!("Invalid a selector: {:?}", e))?;
     let base = url::Url::parse(base_url).context("Invalid base URL")?;
-    
+
     let mut links = Vec::new();
-    
+
     for element in document.select(&selector) {
         if let Some(href) = element.value().attr("href") {
             if let Ok(absolute_url) = base.join(href) {
@@ -176,7 +170,7 @@ pub fn extract_links(html: &str, base_url: &str) -> Result<Vec<LinkInfo>> {
             }
         }
     }
-    
+
     Ok(links)
 }
 
@@ -201,14 +195,16 @@ pub fn count_words(html: &str) -> usize {
 /// Usado por: web_search_enhanced
 pub fn detect_code_content(html: &str) -> bool {
     let code_indicators = ["<code>", "<pre>", "```", "class=\"highlight\""];
-    code_indicators.iter().any(|indicator| html.contains(indicator))
+    code_indicators
+        .iter()
+        .any(|indicator| html.contains(indicator))
 }
 
 /// Detecta el idioma del contenido HTML
 /// Usado por: web_search_enhanced
 pub fn detect_language(html: &str) -> String {
     let document = Html::parse_document(html);
-    
+
     // Intenta obtener del atributo lang
     if let Ok(selector) = Selector::parse("html") {
         if let Some(element) = document.select(&selector).next() {
@@ -217,7 +213,7 @@ pub fn detect_language(html: &str) -> String {
             }
         }
     }
-    
+
     // Intenta obtener de meta tags
     if let Ok(selector) = Selector::parse("meta[http-equiv='content-language']") {
         if let Some(element) = document.select(&selector).next() {
@@ -226,7 +222,7 @@ pub fn detect_language(html: &str) -> String {
             }
         }
     }
-    
+
     "es".to_string() // Default español
 }
 
@@ -235,13 +231,17 @@ pub fn detect_language(html: &str) -> String {
 pub fn extract_headings(html: &str) -> Result<Vec<HeadingInfo>> {
     let document = Html::parse_document(html);
     let mut headings = Vec::new();
-    
+
     // Pre-parse selectores estáticos
     let selectors: Vec<(&str, u8)> = vec![
-        ("h1", 1), ("h2", 2), ("h3", 3), 
-        ("h4", 4), ("h5", 5), ("h6", 6)
+        ("h1", 1),
+        ("h2", 2),
+        ("h3", 3),
+        ("h4", 4),
+        ("h5", 5),
+        ("h6", 6),
     ];
-    
+
     for (selector_str, level) in selectors {
         if let Ok(selector) = Selector::parse(selector_str) {
             for element in document.select(&selector) {
@@ -252,7 +252,7 @@ pub fn extract_headings(html: &str) -> Result<Vec<HeadingInfo>> {
             }
         }
     }
-    
+
     Ok(headings)
 }
 
@@ -267,20 +267,21 @@ pub struct HeadingInfo {
 /// Usado por: scraper
 pub fn extract_tables(html: &str) -> Result<Vec<TableData>> {
     let document = Html::parse_document(html);
-    let table_selector = Selector::parse("table").map_err(|e| anyhow::anyhow!("Invalid table selector: {:?}", e))?;
+    let table_selector =
+        Selector::parse("table").map_err(|e| anyhow::anyhow!("Invalid table selector: {:?}", e))?;
     let mut tables = Vec::new();
-    
+
     for table in document.select(&table_selector) {
         let mut headers = Vec::new();
         let mut rows = Vec::new();
-        
+
         // Extrae headers
         if let Ok(th_selector) = Selector::parse("th") {
             for th in table.select(&th_selector) {
                 headers.push(th.text().collect::<String>().trim().to_string());
             }
         }
-        
+
         // Extrae filas
         if let Ok(tr_selector) = Selector::parse("tr") {
             for tr in table.select(&tr_selector) {
@@ -295,10 +296,10 @@ pub fn extract_tables(html: &str) -> Result<Vec<TableData>> {
                 }
             }
         }
-        
+
         tables.push(TableData { headers, rows });
     }
-    
+
     Ok(tables)
 }
 
@@ -312,7 +313,7 @@ pub struct TableData {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_extract_title() {
         let html = r#"
@@ -323,19 +324,19 @@ mod tests {
         "#;
         assert_eq!(extract_title(html), "Test Title");
     }
-    
+
     #[test]
     fn test_extract_source() {
         assert_eq!(extract_source("https://example.com/path"), "example.com");
         assert_eq!(extract_source("invalid"), "Desconocido");
     }
-    
+
     #[test]
     fn test_count_words() {
         let html = "<p>Hello world this is a test</p>";
         assert_eq!(count_words(html), 6);
     }
-    
+
     #[test]
     fn test_detect_code_content() {
         assert!(detect_code_content("<pre>code here</pre>"));

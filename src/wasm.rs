@@ -262,44 +262,48 @@ impl WasmCrawler {
 
     /// Extrae datos estructurados del HTML
     fn extract_data(&self, html: &str) -> serde_json::Value {
-        use crate::scraper::Scraper;
+        // use crate::scraper::Scraper; // Eliminado
 
-        let scraper = Scraper::new();
+        // let scraper = Scraper::new(); // Eliminado
         let mut data = serde_json::Map::new();
 
-        // Extraer título
-        if let Some(title) = scraper.extract_title(html) {
-            data.insert("title".to_string(), serde_json::Value::String(title));
-        }
+        // Extraer título - DESHABILITADO (scraper no disponible)
+        // if let Some(title) = scraper.extract_title(html) {
+        //     data.insert("title".to_string(), serde_json::Value::String(title));
+        // }
 
-        // Extraer meta tags
-        let meta_tags = scraper.extract_meta_tags(html);
-        data.insert("meta".to_string(), serde_json::Value::Object(meta_tags));
+        // Extraer meta tags - DESHABILITADO (scraper no disponible)
+        // let meta_tags = scraper.extract_meta_tags(html);
+        // data.insert("meta".to_string(), serde_json::Value::Object(meta_tags));
 
-        // Extraer links (simplificado)
-        if let Ok(links) = scraper.extract_links(html, "http://example.com") {
-            let links_json: Vec<serde_json::Value> = links
-                .into_iter()
-                .map(serde_json::Value::String)
-                .collect();
-            data.insert("links".to_string(), serde_json::Value::Array(links_json));
-        }
+        // Extraer links - DESHABILITADO (scraper no disponible)
+        // if let Ok(links) = scraper.extract_links(html, "http://example.com") {
+        //     let links_json: Vec<serde_json::Value> =
+        //         links.into_iter().map(serde_json::Value::String).collect();
+        //     data.insert("links".to_string(), serde_json::Value::Array(links_json));
+        // }
 
-        // Extraer imágenes (simplificado)
-        if let Ok(images) = scraper.extract_images(html, "http://example.com") {
-            let images_json: Vec<serde_json::Value> = images
-                .into_iter()
-                .map(|img| {
-                    let mut img_obj = serde_json::Map::new();
-                    img_obj.insert("url".to_string(), serde_json::Value::String(img.url));
-                    if let Some(alt) = img.alt {
-                        img_obj.insert("alt".to_string(), serde_json::Value::String(alt));
-                    }
-                    serde_json::Value::Object(img_obj)
-                })
-                .collect();
-            data.insert("images".to_string(), serde_json::Value::Array(images_json));
-        }
+        // Extraer imágenes - DESHABILITADO (scraper no disponible)
+        // if let Ok(images) = scraper.extract_images(html, "http://example.com") {
+        //     let images_json: Vec<serde_json::Value> = images
+        //         .into_iter()
+        //         .map(|img| {
+        //             let mut img_obj = serde_json::Map::new();
+        //             img_obj.insert("url".to_string(), serde_json::Value::String(img.url));
+        //             if let Some(alt) = img.alt {
+        //                 img_obj.insert("alt".to_string(), serde_json::Value::String(alt));
+        //             }
+        //             serde_json::Value::Object(img_obj)
+        //         })
+        //         .collect();
+        //     data.insert("images".to_string(), serde_json::Value::Array(images_json));
+        // }
+
+        // Placeholder - retorna longitud del HTML
+        data.insert(
+            "html_length".to_string(),
+            serde_json::Value::Number(serde_json::Number::from(html.len())),
+        );
 
         serde_json::Value::Object(data)
     }

@@ -6,46 +6,39 @@
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 
-pub mod ai_smart;
-pub mod cache;
+pub mod ai_smart; // AI unificado (consolidado)
+pub mod cache; // Cache simple para nuclear_scraper
 pub mod config;
-pub mod crawler;
+pub mod core_tools; // 4 herramientas MCP consolidadas
 pub mod file_search;
-pub mod intelligence;
-pub mod mass_capture;
+pub mod intelligent_storage;
 pub mod massive_parallel_search;
-pub mod nuclear_scraper;
-// parser.rs consolidado en scraper.rs
-pub mod rate_limit;
-pub mod scraper;
-pub mod simple_mcp;
 pub mod mcp_axum_server;
+pub mod nuclear_scraper; // Scraper unificado (consolidado con mass_capture)
+pub mod parallel_crawler; // Crawler paralelo
+pub mod parser; // HTML parser
+pub mod rate_limit;
+pub mod simple_mcp;
 pub mod stats;
 pub mod stealth;
 pub mod utils;
-pub mod wasm;
-// wasm_mass_capture.rs consolidado en wasm.rs
-pub mod intelligent_storage;
+pub mod wasm; // WASM unificado (consolidado)
 pub mod web_search;
 
 // Integraciones en Rust puro (sin FFI externo)
+pub mod deep_web_search;
 pub mod go_integration;
-pub mod nim_integration;
-pub mod zig_integration;
 pub mod hf_integration;
+pub mod improvements;
 pub mod jax_acceleration;
 pub mod jax_pipeline;
 pub mod mojo_jax;
+pub mod nim_integration;
+pub mod nuclear_bypass;
 pub mod orchestration;
 pub mod project_analyzer;
 pub mod scan_project;
-pub mod deep_web_search;
-pub mod improvements;
-pub mod nuclear_bypass;
-
-// 🔥💥 NUEVOS MÓDULOS NUCLEARES EXTREMOS
-pub mod nuclear_unified_scraper;   // Scraper unificado modular
-// nuclear_extreme_crawler y nuclear_max_power consolidados en nuclear_unified_scraper
+pub mod zig_integration;
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;

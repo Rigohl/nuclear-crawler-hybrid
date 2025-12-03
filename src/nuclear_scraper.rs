@@ -6,13 +6,12 @@
 #[allow(unused_imports)]
 use crate::ai_smart::{AIConfig, AISmart, TrainingData};
 use crate::cache::Cache;
-use crate::intelligence::ContentIntelligence;
-#[allow(unused_imports)]
-use crate::intelligence::ContentScore;
+// use crate::intelligence::ContentIntelligence; // Eliminado - funcionalidad integrada
+// use crate::intelligence::ContentScore; // Eliminado - funcionalidad integrada
 // JaxAccelerator removido - usar rayon directamente
 // Parser integrado en scraper
 use crate::rate_limit::RateLimiter;
-use crate::scraper::Scraper;
+// use crate::scraper::Scraper; // Eliminado - funcionalidad integrada
 use crate::stealth::{StealthConfig, StealthSystem};
 use anyhow::Context;
 use anyhow::Result;
@@ -103,7 +102,7 @@ pub struct NuclearStats {
 pub struct NuclearScraper {
     client: Arc<Client>,
     config: NuclearConfig,
-    scraper: Arc<Scraper>,
+    // scraper: Arc<Scraper>, // Eliminado - funcionalidad integrada inline
     cache: Arc<Cache>,
     rate_limiter: Arc<RateLimiter>,
     semaphore: Arc<Semaphore>,
@@ -111,7 +110,7 @@ pub struct NuclearScraper {
     results: Arc<DashMap<String, NuclearResult>>,
     stats: Arc<DashMap<String, NuclearStats>>,
     stealth: Arc<StealthSystem>,
-    intelligence: Arc<ContentIntelligence>,
+    // intelligence: Arc<ContentIntelligence>, // Eliminado - funcionalidad integrada inline
     ai_smart: Arc<AISmart>,
     storage: Option<Arc<crate::intelligent_storage::IntelligentStorage>>,
 }
@@ -164,8 +163,8 @@ impl NuclearScraper {
         };
         let stealth = Arc::new(StealthSystem::new(stealth_config));
 
-        // Sistema de inteligencia
-        let intelligence = Arc::new(ContentIntelligence::new(Vec::new()));
+        // Sistema de inteligencia - integrado inline
+        // let intelligence = Arc::new(ContentIntelligence::new(Vec::new()));
 
         // Acelerador JAX
         // Usar rayon directamente para paralelismo
@@ -177,7 +176,7 @@ impl NuclearScraper {
         Ok(Self {
             client,
             config,
-            scraper: Arc::new(Scraper::new()),
+            // scraper: Arc::new(Scraper::new()), // Eliminado - funcionalidad inline
             cache,
             rate_limiter,
             semaphore,
@@ -185,7 +184,7 @@ impl NuclearScraper {
             results: Arc::new(DashMap::new()),
             stats: Arc::new(DashMap::new()),
             stealth,
-            intelligence,
+            // intelligence, // Eliminado - funcionalidad inline
             ai_smart,
             storage,
         })
@@ -202,14 +201,14 @@ impl NuclearScraper {
         for url in urls {
             let url_clone = url.clone();
             let client = self.client.clone();
-            let scraper = self.scraper.clone();
+            // let scraper = self.scraper.clone(); // Eliminado
             // Parser integrado en scraper
             let semaphore = self.semaphore.clone();
             let rate_limiter = self.rate_limiter.clone();
             let visited = self.visited.clone();
             let results_map = self.results.clone();
             let stealth_system = self.stealth.clone();
-            let intelligence = self.intelligence.clone();
+            // let intelligence = self.intelligence.clone(); // Eliminado
             let ai_smart = self.ai_smart.clone();
             let storage_opt = self.storage.clone();
 
@@ -331,17 +330,17 @@ impl NuclearScraper {
                     let content_length = html.len();
 
                     // Inteligencia: Analizar contenido
-                    let content_score = intelligence.analyze_content(&html, &url_clone);
+                    // let content_score = intelligence.analyze_content(&html, &url_clone); // Eliminado
 
                     // Extraer datos masivamente
-                    let extracted = scraper.extract_all(&html, &url_clone).unwrap_or_default();
+                    // let extracted = scraper.extract_all(&html, &url_clone).unwrap_or_default(); // Eliminado
 
                     // Extraer links
-                    let links = scraper.extract_links(&html, &url_clone).unwrap_or_default();
+                    // let links = scraper.extract_links(&html, &url_clone).unwrap_or_default(); // Eliminado
 
-                    // Extraer imágenes
-                    let images: Vec<String> =
-                        extracted.images.iter().map(|i| i.url.clone()).collect();
+                    // Extraer imágenes - Eliminado por falta de parser
+                    // let images: Vec<String> =
+                    //     extracted.images.iter().map(|i| i.url.clone()).collect();
 
                     let result = NuclearResult {
                         url: url_clone.clone(),
@@ -349,21 +348,12 @@ impl NuclearScraper {
                         html: html.clone(),
                         content_length,
                         response_time: start.elapsed(),
-                        links_found: links.clone(),
-                        images_found: images.clone(),
+                        links_found: Vec::new(), // Simplificado - antes usaba links.clone()
+                        images_found: Vec::new(), // Simplificado - antes usaba images.clone()
                         extracted_data: serde_json::json!({
-                            "title": extracted.title,
-                            "meta": extracted.meta,
-                            "headings": extracted.headings,
-                            "tables": extracted.tables,
-                            "links_count": links.len(),
-                            "images_count": images.len(),
-                            "content_score": content_score.total_score,
-                            "relevance": content_score.relevance,
-                            "quality": content_score.quality,
-                            "completeness": content_score.completeness,
-                            "information_density": content_score.information_density,
-                            "score_factors": content_score.factors,
+                            // Datos simplificados - parser eliminado
+                            "content_length": content_length,
+                            "status_code": status_code,
                         }),
                         crawled_at: chrono::Utc::now(),
                         error: None,

@@ -10,8 +10,8 @@
 
 use anyhow::Result;
 
-// FFI a Nim (solo si está compilado)
-#[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
+// FFI a Nim - se enlaza automáticamente desde build.rs si has_nim está definido
+#[cfg(all(has_nim, not(target_arch = "wasm32")))]
 #[link(name = "nuclear_nim", kind = "static")]
 extern "C" {
     /// Procesa HTML de forma ultra-rápida usando Nim
@@ -58,19 +58,25 @@ pub struct NimIntegration {
 }
 
 impl NimIntegration {
-    pub fn new(enabled: bool) -> Self {
-        Self { enabled }
+    /// Crea nueva integración Nim (auto-detecta disponibilidad)
+    pub fn new() -> Self {
+        Self { enabled: cfg!(has_nim) }
+    }
+    
+    /// Crea con configuración manual
+    pub fn new_with_config(enabled: bool) -> Self {
+        Self { enabled: enabled && cfg!(has_nim) }
+    }
+    
+    /// Verifica si Nim FFI está disponible
+    pub fn is_available(&self) -> bool {
+        self.enabled && cfg!(all(has_nim, not(target_arch = "wasm32")))
     }
 
     /// Parsea HTML de forma ultra-rápida
     pub fn parse_html_fast(&self, html: &str) -> Result<String> {
-        if !self.enabled {
-            return Ok(html.to_string());
-        }
-
-        // Intentar usar Nim si está disponible
-        #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
-        {
+        #[cfg(all(has_nim, not(target_arch = "wasm32")))]
+        if self.is_available() {
             let mut result_buffer = vec![0u8; html.len() * 2];
             let len = unsafe {
                 nim_parse_html_fast(
@@ -95,13 +101,8 @@ impl NimIntegration {
 
     /// Extrae texto limpio de HTML
     pub fn extract_text(&self, html: &str) -> Result<String> {
-        if !self.enabled {
-            return Ok(String::new());
-        }
-
-        // Intentar usar Nim si está disponible
-        #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
-        {
+        #[cfg(all(has_nim, not(target_arch = "wasm32")))]
+        if self.is_available() {
             let mut result_buffer = vec![0u8; html.len()];
             let len = unsafe {
                 nim_extract_text(
@@ -123,20 +124,14 @@ impl NimIntegration {
         // Fallback: extracción básica con regex
         let re = regex::Regex::new(r"<[^>]+>").unwrap_or_else(|_| regex::Regex::new("").unwrap());
         let text = re.replace_all(html, " ");
-        // Limpiar espacios múltiples
         let cleaned = regex::Regex::new(r"\s+").unwrap_or_else(|_| regex::Regex::new("").unwrap());
         Ok(cleaned.replace_all(&text, " ").trim().to_string())
     }
 
     /// Busca patrones en texto (ultra-rápido)
     pub fn search_patterns(&self, text: &str, pattern: &str) -> Result<Vec<usize>> {
-        if !self.enabled {
-            return Ok(vec![]);
-        }
-
-        // Intentar usar Nim si está disponible
-        #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
-        {
+        #[cfg(all(has_nim, not(target_arch = "wasm32")))]
+        if self.is_available() {
             let mut matches = vec![0usize; 1000];
             let count = unsafe {
                 nim_search_patterns(
@@ -168,9 +163,8 @@ impl NimIntegration {
 
     /// Hash rápido para deduplicación
     pub fn fast_hash(&self, data: &[u8]) -> u64 {
-        // Intentar usar Nim si está disponible
-        #[cfg(all(feature = "nim", has_nim, not(target_arch = "wasm32")))]
-        {
+        #[cfg(all(has_nim, not(target_arch = "wasm32")))]
+        if self.is_available() {
             return unsafe { nim_fast_hash(data.as_ptr(), data.len()) };
         }
 
@@ -180,5 +174,11 @@ impl NimIntegration {
         let mut hasher = DefaultHasher::new();
         data.hash(&mut hasher);
         hasher.finish()
+    }
+}
+
+impl Default for NimIntegration {
+    fn default() -> Self {
+        Self::new()
     }
 }

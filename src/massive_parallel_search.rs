@@ -5,7 +5,7 @@
 
 use anyhow::Result;
 use dashmap::DashMap;
-use rayon::prelude::*;
+use futures::stream::{self, StreamExt};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 #[allow(unused_imports)]
@@ -29,6 +29,9 @@ pub struct MassiveSearchResult {
     /// Datos extraídos
     pub data_extracted: serde_json::Value,
 
+    /// 🔥 NUEVO: Contenido de texto extraído (NO solo URLs)
+    pub extracted_text: Vec<ExtractedContent>,
+
     /// Calidad de datos (real = alta, sintético = baja)
     pub data_quality: f32,
 
@@ -40,6 +43,25 @@ pub struct MassiveSearchResult {
 
     /// Éxito
     pub success: bool,
+}
+
+/// 🔥 Contenido extraído de una página
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ExtractedContent {
+    /// URL de la página
+    pub url: String,
+    /// Título
+    pub title: String,
+    /// Descripción/resumen
+    pub description: String,
+    /// Texto del contenido principal (párrafos, artículos)
+    pub main_content: String,
+    /// Headings encontrados
+    pub headings: Vec<String>,
+    /// Snippets de código (si hay)
+    pub code_snippets: Vec<String>,
+    /// Tamaño del contenido
+    pub content_length: usize,
 }
 
 /// Sistema de búsqueda masiva paralela
@@ -61,7 +83,94 @@ impl MassiveParallelSearch {
         }
     }
 
-    /// Busca en MÚLTIPLES fuentes simultáneamente
+    /// 🔥 BÚSQUEDA MASIVA CON QUERY - Busca de verdad en motores de búsqueda
+    pub async fn search_with_query(
+        &self,
+        query: &str,
+        sources: Vec<String>,
+    ) -> Result<Vec<MassiveSearchResult>> {
+        println!("🔥 BÚSQUEDA MASIVA CON QUERY: {}", query);
+        
+        // Generar URLs de búsqueda REALES para cada fuente
+        let search_urls = self.generate_search_urls(query, &sources);
+        println!("   📍 URLs de búsqueda generadas: {}", search_urls.len());
+        
+        // Buscar en todas las URLs
+        self.search_massive_parallel(search_urls).await
+    }
+
+    /// 🔥 Genera URLs de búsqueda REALES para motores y sitios
+    fn generate_search_urls(&self, query: &str, sources: &[String]) -> Vec<String> {
+        let encoded_query = urlencoding::encode(query);
+        let mut urls = Vec::new();
+        
+        for source in sources {
+            let source_lower = source.to_lowercase();
+            
+            // 🔥 MOTORES DE BÚSQUEDA REALES
+            if source_lower.contains("duckduckgo") {
+                urls.push(format!("https://html.duckduckgo.com/html/?q={}", encoded_query));
+                urls.push(format!("https://duckduckgo.com/?q={}&t=h_&ia=web", encoded_query));
+            } else if source_lower.contains("bing") {
+                urls.push(format!("https://www.bing.com/search?q={}", encoded_query));
+                urls.push(format!("https://www.bing.com/search?q={}&first=10", encoded_query));
+            } else if source_lower.contains("brave") {
+                urls.push(format!("https://search.brave.com/search?q={}", encoded_query));
+            } else if source_lower.contains("yandex") {
+                urls.push(format!("https://yandex.com/search/?text={}", encoded_query));
+            } else if source_lower.contains("ecosia") {
+                urls.push(format!("https://www.ecosia.org/search?q={}", encoded_query));
+            } else if source_lower.contains("qwant") {
+                urls.push(format!("https://www.qwant.com/?q={}", encoded_query));
+            } else if source_lower.contains("startpage") {
+                urls.push(format!("https://www.startpage.com/sp/search?query={}", encoded_query));
+            } else if source_lower.contains("searx") {
+                urls.push(format!("https://searx.be/search?q={}", encoded_query));
+                urls.push(format!("https://searx.tiekoetter.com/search?q={}", encoded_query));
+            } else if source_lower.contains("mojeek") {
+                urls.push(format!("https://www.mojeek.com/search?q={}", encoded_query));
+            }
+            // 🔥 SITIOS ESPECÍFICOS CON BÚSQUEDA
+            else if source_lower.contains("github") {
+                urls.push(format!("https://github.com/search?q={}&type=repositories", encoded_query));
+                urls.push(format!("https://github.com/search?q={}&type=code", encoded_query));
+            } else if source_lower.contains("stackoverflow") {
+                urls.push(format!("https://stackoverflow.com/search?q={}", encoded_query));
+            } else if source_lower.contains("reddit") {
+                urls.push(format!("https://www.reddit.com/search/?q={}", encoded_query));
+                urls.push(format!("https://old.reddit.com/search?q={}", encoded_query));
+            } else if source_lower.contains("dev.to") {
+                urls.push(format!("https://dev.to/search?q={}", encoded_query));
+            } else if source_lower.contains("huggingface") {
+                urls.push(format!("https://huggingface.co/models?search={}", encoded_query));
+                urls.push(format!("https://huggingface.co/datasets?search={}", encoded_query));
+            } else if source_lower.contains("crates.io") {
+                urls.push(format!("https://crates.io/search?q={}", encoded_query));
+            } else if source_lower.contains("pypi") {
+                urls.push(format!("https://pypi.org/search/?q={}", encoded_query));
+            } else if source_lower.contains("npm") {
+                urls.push(format!("https://www.npmjs.com/search?q={}", encoded_query));
+            } else if source_lower.contains("arxiv") {
+                urls.push(format!("https://arxiv.org/search/?query={}&searchtype=all", encoded_query));
+            } else if source_lower.contains("medium") {
+                urls.push(format!("https://medium.com/search?q={}", encoded_query));
+            } else if source_lower.contains("wikipedia") {
+                urls.push(format!("https://en.wikipedia.org/w/index.php?search={}", encoded_query));
+            }
+            // Fuente genérica - intentar añadir /search
+            else if source.starts_with("http") {
+                urls.push(source.clone());
+            } else {
+                // Intentar múltiples formatos de búsqueda
+                urls.push(format!("https://{}/search?q={}", source, encoded_query));
+                urls.push(format!("https://www.{}/search?q={}", source, encoded_query));
+            }
+        }
+        
+        urls
+    }
+
+    /// Busca en MÚLTIPLES fuentes simultáneamente (sin query, URLs directas)
     pub async fn search_massive_parallel(
         &self,
         sources: Vec<String>,
@@ -85,34 +194,32 @@ impl MassiveParallelSearch {
             strategy.prioritize_real_data
         );
 
-        // Procesar en paralelo masivo
-        let results: Vec<Result<MassiveSearchResult>> = sources
-            .par_iter()
+        // Procesar en paralelo masivo usando async streams (NO rayon+block_on)
+        let scraper = self.scraper.clone();
+        let semaphore = self.semaphore.clone();
+        
+        let results: Vec<Result<MassiveSearchResult>> = stream::iter(sources)
             .map(|source| {
-                let source_clone = source.clone();
-                let scraper = self.scraper.clone();
-                let _ai_smart = self.ai_smart.clone();
-                let semaphore = self.semaphore.clone();
-
-                // Ejecutar en runtime async
-                let rt = tokio::runtime::Handle::current();
-                rt.block_on(async move {
+                let scraper = scraper.clone();
+                let semaphore = semaphore.clone();
+                async move {
                     let _permit = semaphore.acquire().await?;
                     let start = std::time::Instant::now();
 
                     // Buscar en esta fuente
-                    match Self::search_single_source(&source_clone, &scraper).await {
+                    match Self::search_single_source(&source, &scraper).await {
                         Ok(data) => {
                             let search_time = start.elapsed();
 
                             // Determinar calidad (datos reales = mejor)
-                            let is_real_data = Self::is_real_data_source(&source_clone);
+                            let is_real_data = Self::is_real_data_source(&source);
                             let data_quality = if is_real_data { 0.95 } else { 0.60 };
 
                             Ok(MassiveSearchResult {
-                                source: source_clone,
+                                source,
                                 urls_found: data.urls,
                                 data_extracted: data.content,
+                                extracted_text: data.extracted_content, // 🔥 NUEVO
                                 data_quality,
                                 is_real_data,
                                 search_time_ms: search_time.as_millis() as u64,
@@ -120,18 +227,21 @@ impl MassiveParallelSearch {
                             })
                         }
                         Err(_e) => Ok(MassiveSearchResult {
-                            source: source_clone,
+                            source,
                             urls_found: Vec::new(),
                             data_extracted: serde_json::json!({}),
+                            extracted_text: Vec::new(), // 🔥 NUEVO
                             data_quality: 0.0,
                             is_real_data: false,
                             search_time_ms: start.elapsed().as_millis() as u64,
                             success: false,
                         }),
                     }
-                })
+                }
             })
-            .collect();
+            .buffer_unordered(strategy.max_concurrent)
+            .collect()
+            .await;
 
         // Convertir resultados
         let mut final_results = Vec::new();
@@ -164,18 +274,297 @@ impl MassiveParallelSearch {
         Ok(final_results)
     }
 
-    /// Busca en una fuente individual
-    async fn search_single_source(source: &str, _scraper: &NuclearScraper) -> Result<SourceData> {
-        // Simular búsqueda (en producción sería scraping real)
-        // Por ahora retornamos datos simulados
+    /// Busca en una fuente individual - BÚSQUEDA REAL
+    async fn search_single_source(source: &str, scraper: &NuclearScraper) -> Result<SourceData> {
+        // 🔥 BÚSQUEDA REAL - NO SIMULADA
+        // Construir URL de búsqueda real
+        let search_url = if source.starts_with("http") {
+            source.to_string()
+        } else {
+            format!("https://{}", source)
+        };
+
+        // Hacer crawl real
+        let results = scraper.nuclear_crawl(vec![search_url.clone()]).await?;
+
+        // Extraer datos reales
+        let mut urls_found = Vec::new();
+        let mut content_parts = Vec::new();
+        let mut extracted_content = Vec::new(); // 🔥 NUEVO: Contenido extraído
+
+        for result in results {
+            if result.status_code == 200 && !result.html.is_empty() {
+                // Extraer URLs del HTML
+                let extracted_urls = Self::extract_urls_from_html(&result.html);
+                urls_found.extend(extracted_urls);
+
+                // 🔥 EXTRACCIÓN COMPLETA DE CONTENIDO
+                let title = Self::extract_title(&result.html);
+                let description = Self::extract_description(&result.html);
+                let main_content = Self::extract_main_content(&result.html);
+                let headings = Self::extract_headings(&result.html);
+                let code_snippets = Self::extract_code_snippets(&result.html);
+
+                content_parts.push(serde_json::json!({
+                    "url": result.url,
+                    "title": title,
+                    "status": result.status_code,
+                    "content_length": result.html.len(),
+                }));
+
+                // 🔥 Guardar contenido extraído
+                extracted_content.push(ExtractedContent {
+                    url: result.url.clone(),
+                    title,
+                    description,
+                    main_content,
+                    headings,
+                    code_snippets,
+                    content_length: result.html.len(),
+                });
+            }
+        }
+
+        // Deduplicar URLs
+        urls_found.sort();
+        urls_found.dedup();
+        urls_found.truncate(50); // Máximo 50 URLs por fuente
+
         Ok(SourceData {
-            urls: vec![format!("{}/result1", source), format!("{}/result2", source)],
+            urls: urls_found,
             content: serde_json::json!({
                 "source": source,
                 "type": "real_data",
                 "quality": "high",
+                "pages_crawled": content_parts.len(),
+                "pages": content_parts,
             }),
+            extracted_content, // 🔥 NUEVO
         })
+    }
+
+    /// 🔥 Extrae descripción/meta del HTML
+    fn extract_description(html: &str) -> String {
+        use regex::Regex;
+        
+        // Intentar meta description
+        if let Ok(re) = Regex::new(r#"(?i)<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']"#) {
+            if let Some(cap) = re.captures(html) {
+                if let Some(desc) = cap.get(1) {
+                    let text = desc.as_str().trim();
+                    if !text.is_empty() {
+                        return text.chars().take(500).collect();
+                    }
+                }
+            }
+        }
+        
+        // Intentar og:description
+        if let Ok(re) = Regex::new(r#"(?i)<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["']"#) {
+            if let Some(cap) = re.captures(html) {
+                if let Some(desc) = cap.get(1) {
+                    let text = desc.as_str().trim();
+                    if !text.is_empty() {
+                        return text.chars().take(500).collect();
+                    }
+                }
+            }
+        }
+        
+        // Intentar primer párrafo
+        if let Ok(re) = Regex::new(r"(?i)<p[^>]*>([^<]{50,500})</p>") {
+            if let Some(cap) = re.captures(html) {
+                if let Some(p) = cap.get(1) {
+                    return Self::clean_html_text(p.as_str());
+                }
+            }
+        }
+        
+        String::new()
+    }
+
+    /// 🔥 Extrae contenido principal del HTML (artículos, posts, etc)
+    fn extract_main_content(html: &str) -> String {
+        use regex::Regex;
+        let mut content = String::new();
+        
+        // Buscar contenedores de contenido principal
+        let content_selectors = [
+            r"(?is)<article[^>]*>(.*?)</article>",
+            r"(?is)<main[^>]*>(.*?)</main>",
+            r#"(?is)<div[^>]*class=["'][^"']*(?:content|post|article|entry|text)[^"']*["'][^>]*>(.*?)</div>"#,
+            r"(?is)<section[^>]*>(.*?)</section>",
+        ];
+        
+        for selector in content_selectors {
+            if let Ok(re) = Regex::new(selector) {
+                for cap in re.captures_iter(html) {
+                    if let Some(inner) = cap.get(1) {
+                        let text = Self::clean_html_text(inner.as_str());
+                        if text.len() > 100 {
+                            content.push_str(&text);
+                            content.push_str("\n\n");
+                            if content.len() > 5000 {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if content.len() > 5000 {
+                break;
+            }
+        }
+        
+        // Si no encontramos contenido, extraer todos los párrafos
+        if content.len() < 200 {
+            if let Ok(re) = Regex::new(r"(?is)<p[^>]*>(.*?)</p>") {
+                for cap in re.captures_iter(html) {
+                    if let Some(p) = cap.get(1) {
+                        let text = Self::clean_html_text(p.as_str());
+                        if text.len() > 30 {
+                            content.push_str(&text);
+                            content.push_str("\n");
+                            if content.len() > 5000 {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        content.chars().take(5000).collect()
+    }
+
+    /// 🔥 Extrae headings (h1-h3)
+    fn extract_headings(html: &str) -> Vec<String> {
+        use regex::Regex;
+        let mut headings = Vec::new();
+        
+        if let Ok(re) = Regex::new(r"(?i)<h[123][^>]*>(.*?)</h[123]>") {
+            for cap in re.captures_iter(html) {
+                if let Some(h) = cap.get(1) {
+                    let text = Self::clean_html_text(h.as_str());
+                    if !text.is_empty() && text.len() < 200 {
+                        headings.push(text);
+                    }
+                    if headings.len() >= 20 {
+                        break;
+                    }
+                }
+            }
+        }
+        
+        headings
+    }
+
+    /// 🔥 Extrae snippets de código
+    fn extract_code_snippets(html: &str) -> Vec<String> {
+        use regex::Regex;
+        let mut snippets = Vec::new();
+        
+        // Buscar <pre><code>
+        if let Ok(re) = Regex::new(r"(?is)<pre[^>]*><code[^>]*>(.*?)</code></pre>") {
+            for cap in re.captures_iter(html) {
+                if let Some(code) = cap.get(1) {
+                    let text = Self::decode_html_entities(code.as_str());
+                    if text.len() > 20 && text.len() < 2000 {
+                        snippets.push(text);
+                    }
+                    if snippets.len() >= 10 {
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // Buscar <code> standalone
+        if snippets.is_empty() {
+            if let Ok(re) = Regex::new(r"(?is)<code[^>]*>(.*?)</code>") {
+                for cap in re.captures_iter(html) {
+                    if let Some(code) = cap.get(1) {
+                        let text = Self::decode_html_entities(code.as_str());
+                        if text.len() > 20 && text.len() < 500 {
+                            snippets.push(text);
+                        }
+                        if snippets.len() >= 5 {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        snippets
+    }
+
+    /// Limpia texto HTML
+    fn clean_html_text(html: &str) -> String {
+        use regex::Regex;
+        
+        // Remover tags HTML
+        let text = if let Ok(re) = Regex::new(r"<[^>]+>") {
+            re.replace_all(html, " ").to_string()
+        } else {
+            html.to_string()
+        };
+        
+        // Decodificar entidades HTML
+        let text = Self::decode_html_entities(&text);
+        
+        // Limpiar espacios múltiples
+        let text = if let Ok(re) = Regex::new(r"\s+") {
+            re.replace_all(&text, " ").to_string()
+        } else {
+            text
+        };
+        
+        text.trim().to_string()
+    }
+
+    /// Decodifica entidades HTML
+    fn decode_html_entities(text: &str) -> String {
+        text.replace("&amp;", "&")
+            .replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&quot;", "\"")
+            .replace("&#39;", "'")
+            .replace("&nbsp;", " ")
+            .replace("&#x27;", "'")
+            .replace("&#x2F;", "/")
+            .replace("&apos;", "'")
+    }
+
+    /// Extrae URLs de HTML
+    fn extract_urls_from_html(html: &str) -> Vec<String> {
+        use regex::Regex;
+        let mut urls = Vec::new();
+
+        // Extraer hrefs
+        if let Ok(re) = Regex::new(r#"href=["']([^"']+)["']"#) {
+            for cap in re.captures_iter(html) {
+                if let Some(url) = cap.get(1) {
+                    let url_str = url.as_str();
+                    if url_str.starts_with("http") && !url_str.contains("login") && !url_str.contains("signup") {
+                        urls.push(url_str.to_string());
+                    }
+                }
+            }
+        }
+
+        urls
+    }
+
+    /// Extrae título de HTML
+    fn extract_title(html: &str) -> String {
+        use regex::Regex;
+        if let Ok(re) = Regex::new(r"(?i)<title[^>]*>(.*?)</title>") {
+            if let Some(cap) = re.captures(html) {
+                return cap.get(1).map(|m| m.as_str()).unwrap_or("").to_string();
+            }
+        }
+        "Sin título".to_string()
     }
 
     /// Determina si es fuente de datos reales
@@ -212,4 +601,5 @@ impl MassiveParallelSearch {
 struct SourceData {
     urls: Vec<String>,
     content: serde_json::Value,
+    extracted_content: Vec<ExtractedContent>, // 🔥 NUEVO
 }

@@ -46,9 +46,19 @@ pub struct MojoJaxProcessor {
 }
 
 impl MojoJaxProcessor {
-    /// Crea un nuevo procesador
-    pub fn new(config: MojoJaxConfig) -> Self {
+    /// Crea un nuevo procesador con config por defecto
+    pub fn new() -> Self {
+        Self { config: MojoJaxConfig::default() }
+    }
+    
+    /// Crea con configuración específica
+    pub fn new_with_config(config: MojoJaxConfig) -> Self {
         Self { config }
+    }
+    
+    /// Verifica si Mojo o JAX están disponibles
+    pub fn is_available(&self) -> bool {
+        self.config.use_mojo || self.config.use_jax
     }
 
     /// Procesa datos con Mojo (ultra-rápido)

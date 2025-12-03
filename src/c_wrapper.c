@@ -2,12 +2,8 @@
 // Estos símbolos son necesarios cuando Go/Zig se compilan con diferentes toolchains
 
 #ifdef _WIN32
-#include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <stdarg.h>
-#include <math.h>
-#include <float.h>
 
 // Stack protector symbols que Zig necesita
 // Estas funciones deben estar exportadas para que el linker las encuentre
@@ -34,14 +30,10 @@ __declspec(dllexport) void ___chkstk_ms(void) {
 // __isnan - SQLite necesita esta función
 // MSVC tiene _isnan, pero SQLite compilado con MinGW busca __isnan
 __declspec(dllexport) int __isnan(double x) {
-    // Usar _isnan de MSVC si está disponible, sino comparación manual
-    #ifdef _MSC_VER
-    return _isnan(x) ? 1 : 0;
-    #else
-    // Comparación manual para NaN
+    // Comparación manual para NaN (NaN != NaN)
     return (x != x) ? 1 : 0;
-    #endif
 }
+
 #else
 // Para GCC/MinGW
 uintptr_t __stack_chk_guard = 0xDEADBEEF;
@@ -57,19 +49,6 @@ void __chkstk_ms(void) {
 void ___chkstk_ms(void) {
     __chkstk_ms();
 }
-#endif
-
-// fprintf - Go compilado con gcc necesita este símbolo
-// El problema es que Go busca fprintf pero con un nombre mangled diferente
-// Intentamos exportar fprintf de manera que sea visible para el linker
-// Nota: fprintf ya está en msvcrt, pero Go compilado con gcc puede buscarlo con un nombre diferente
-
-// Para MSVC, fprintf ya está disponible, pero lo exportamos explícitamente
-#ifdef _MSC_VER
-// En MSVC, fprintf ya está disponible en msvcrt
-// No necesitamos hacer nada, pero podemos crear un alias si es necesario
-#else
-// Para GCC/MinGW, fprintf está disponible
 #endif
 
 #endif // _WIN32

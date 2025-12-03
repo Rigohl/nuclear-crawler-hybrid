@@ -13,7 +13,7 @@
 
 use anyhow::Result;
 use serde_json::Value;
-use std::collections::{HashMap, BinaryHeap};
+use std::collections::{BinaryHeap, HashMap};
 use std::hash::{Hash, Hasher};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, RwLock};
@@ -98,7 +98,7 @@ impl BloomFilter {
     pub fn new(expected_items: usize, false_positive_rate: f64) -> Self {
         let size = Self::optimal_size(expected_items, false_positive_rate);
         let num_hashes = Self::optimal_hashes(size, expected_items);
-        
+
         Self {
             bits: vec![false; size],
             num_hashes,
@@ -118,7 +118,7 @@ impl BloomFilter {
 
     fn hash_indices(&self, item: &str) -> Vec<usize> {
         let mut indices = Vec::with_capacity(self.num_hashes);
-        
+
         for i in 0..self.num_hashes {
             let mut hasher = std::collections::hash_map::DefaultHasher::new();
             item.hash(&mut hasher);
@@ -126,7 +126,7 @@ impl BloomFilter {
             let hash = hasher.finish() as usize;
             indices.push(hash % self.size);
         }
-        
+
         indices
     }
 
@@ -205,7 +205,7 @@ impl MetricsCollector {
     pub fn register(&self, name: &str, metric_type: MetricType) {
         let mut types = self.metric_types.write().unwrap();
         types.insert(name.to_string(), metric_type.clone());
-        
+
         match metric_type {
             MetricType::Counter => {
                 let mut counters = self.counters.write().unwrap();
@@ -248,7 +248,7 @@ impl MetricsCollector {
 
     pub fn export_prometheus(&self) -> String {
         let mut output = String::new();
-        
+
         if let Ok(counters) = self.counters.read() {
             for (name, counter) in counters.iter() {
                 output.push_str(&format!(
@@ -259,7 +259,7 @@ impl MetricsCollector {
                 ));
             }
         }
-        
+
         if let Ok(gauges) = self.gauges.read() {
             for (name, gauge) in gauges.iter() {
                 output.push_str(&format!(
@@ -270,7 +270,7 @@ impl MetricsCollector {
                 ));
             }
         }
-        
+
         if let Ok(histograms) = self.histograms.read() {
             for (name, values) in histograms.iter() {
                 if !values.is_empty() {
@@ -284,7 +284,7 @@ impl MetricsCollector {
                 }
             }
         }
-        
+
         output
     }
 }
@@ -322,12 +322,12 @@ impl<K: Eq + Hash + Clone, V: Clone> MemoryCache<K, V> {
 
     pub fn insert(&self, key: K, value: V) {
         let mut cache = self.cache.write().unwrap();
-        
+
         // Evict if at capacity
         if cache.len() >= self.max_size {
             // Remove expired entries first
             cache.retain(|_, entry| entry.expires_at > Instant::now());
-            
+
             // If still full, remove oldest
             if cache.len() >= self.max_size {
                 if let Some(key_to_remove) = cache.keys().next().cloned() {
@@ -335,11 +335,14 @@ impl<K: Eq + Hash + Clone, V: Clone> MemoryCache<K, V> {
                 }
             }
         }
-        
-        cache.insert(key, CacheEntry {
-            value,
-            expires_at: Instant::now() + self.default_ttl,
-        });
+
+        cache.insert(
+            key,
+            CacheEntry {
+                value,
+                expires_at: Instant::now() + self.default_ttl,
+            },
+        );
     }
 
     pub fn get(&self, key: &K) -> Option<V> {
@@ -420,7 +423,7 @@ pub struct EventBus {
 impl EventBus {
     pub fn new() -> Self {
         let (sender, mut receiver) = mpsc::channel::<(String, Value)>(1000);
-        
+
         // Background event processor
         tokio::spawn(async move {
             while let Some((event_type, _data)) = receiver.recv().await {
@@ -434,7 +437,8 @@ impl EventBus {
     }
 
     pub fn publish(&self, event_type: &str, data: Value) -> Result<()> {
-        self.sender.try_send((event_type.to_string(), data))
+        self.sender
+            .try_send((event_type.to_string(), data))
             .map_err(|e| anyhow::anyhow!("Failed to publish event: {}", e))
     }
 }
@@ -479,7 +483,7 @@ impl SessionManager {
             last_access: Instant::now(),
             data: HashMap::new(),
         };
-        
+
         self.sessions.write().unwrap().insert(id.clone(), session);
         id
     }
@@ -538,7 +542,10 @@ impl<T: Eq + Clone> PriorityQueue<T> {
     }
 
     pub fn push(&self, priority: i32, item: T) {
-        self.heap.write().unwrap().push(PriorityItem { priority, item });
+        self.heap
+            .write()
+            .unwrap()
+            .push(PriorityItem { priority, item });
     }
 
     pub fn pop(&self) -> Option<T> {
@@ -590,22 +597,22 @@ impl PluginManager {
     pub fn process_request(&self, data: &Value) -> Result<Value> {
         let plugins = self.plugins.read().unwrap();
         let mut result = data.clone();
-        
+
         for plugin in plugins.iter() {
             result = plugin.on_request(&result)?;
         }
-        
+
         Ok(result)
     }
 
     pub fn process_response(&self, data: &Value) -> Result<Value> {
         let plugins = self.plugins.read().unwrap();
         let mut result = data.clone();
-        
+
         for plugin in plugins.iter() {
             result = plugin.on_response(&result)?;
         }
-        
+
         Ok(result)
     }
 }
@@ -624,14 +631,14 @@ mod tests {
     fn test_circuit_breaker() {
         let mut cb = CircuitBreaker::new(3, 30);
         assert!(!cb.is_open());
-        
+
         cb.record_failure();
         cb.record_failure();
         assert!(!cb.is_open());
-        
+
         cb.record_failure();
         assert!(cb.is_open());
-        
+
         cb.record_success();
         assert!(!cb.is_open());
     }
@@ -641,7 +648,7 @@ mod tests {
         let mut bf = BloomFilter::new(1000, 0.01);
         bf.insert("hello");
         bf.insert("world");
-        
+
         assert!(bf.might_contain("hello"));
         assert!(bf.might_contain("world"));
         assert!(!bf.might_contain("notexist"));
@@ -651,9 +658,8 @@ mod tests {
     fn test_memory_cache() {
         let cache: MemoryCache<String, i32> = MemoryCache::new(10);
         cache.insert("key1".to_string(), 42);
-        
+
         assert_eq!(cache.get(&"key1".to_string()), Some(42));
         assert_eq!(cache.get(&"key2".to_string()), None);
     }
 }
-

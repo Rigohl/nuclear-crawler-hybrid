@@ -86,8 +86,18 @@ pub struct FileSearchResult {
 pub struct FileSearch;
 
 impl FileSearch {
-    /// Busca en archivos
-    pub fn search(config: FileSearchConfig) -> Result<Vec<FileSearchResult>> {
+    /// Crea nuevo buscador de archivos
+    pub fn new() -> Self {
+        Self
+    }
+
+    /// Busca en archivos (versión async)
+    pub async fn search(&self, config: FileSearchConfig) -> Result<Vec<FileSearchResult>> {
+        Self::search_sync(config)
+    }
+
+    /// Busca en archivos (versión sync)
+    pub fn search_sync(config: FileSearchConfig) -> Result<Vec<FileSearchResult>> {
         println!("📁 BÚSQUEDA EN ARCHIVOS");
         println!("   Término: {}", config.search_term);
         println!("   Directorio: {}", config.root_dir.display());
@@ -286,5 +296,11 @@ impl FileSearch {
         }
 
         Ok(results)
+    }
+}
+
+impl Default for FileSearch {
+    fn default() -> Self {
+        Self::new()
     }
 }

@@ -15,7 +15,7 @@ use tokio::task::JoinHandle;
 
 use crate::go_integration::GoIntegration;
 #[allow(unused_imports)]
-use crate::intelligence::ContentIntelligence;
+// use crate::intelligence::ContentIntelligence; // Eliminado
 use crate::mojo_jax::{MojoJaxConfig, MojoJaxProcessor};
 use crate::nuclear_scraper::{NuclearConfig, NuclearScraper};
 #[allow(unused_imports)]
@@ -86,8 +86,8 @@ impl Orchestrator {
             ..Default::default()
         };
 
-        let mojo_jax = Arc::new(MojoJaxProcessor::new(mojo_jax_config));
-        let go_integration = Arc::new(GoIntegration::new(config.use_go));
+        let mojo_jax = Arc::new(MojoJaxProcessor::new_with_config(mojo_jax_config));
+        let go_integration = Arc::new(GoIntegration::new_with_config(config.use_go));
 
         Ok(Self {
             config: config.clone(),
