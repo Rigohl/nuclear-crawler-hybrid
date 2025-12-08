@@ -1,0 +1,527 @@
+{
+  "deep_web_results": 0,
+  "massive_results": 18,
+  "query": "Rust programming",
+  "results": {
+    "deep_web": [],
+    "massive": [
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://huggingface.co/datasets?search=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [],
+        "is_real_data": true,
+        "search_time_ms": 2034,
+        "source": "https://huggingface.co/datasets?search=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [
+            {
+              "content_length": 265543,
+              "status": 200,
+              "title": "Repository search results · GitHub",
+              "url": "https://github.com/search?q=Rust%20programming&type=repositories"
+            }
+          ],
+          "pages_crawled": 1,
+          "quality": "high",
+          "source": "https://github.com/search?q=Rust%20programming&type=repositories",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [
+          {
+            "code_snippets": [],
+            "content_length": 265543,
+            "description": "GitHub is where people build software. More than 150 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
+            "headings": [
+              "Navigation Menu",
+              "Search code, repositories, users, issues, pull requests...",
+              "Use saved searches to filter your results more quickly",
+              "repositories Search Results · Rust programming",
+              "Filter by",
+              "Languages",
+              "Advanced",
+              "18.6k results",
+              "rust-lang/book",
+              "rustdesk/ rustdesk -server",
+              "rust-postgres/ rust -postgres",
+              "rust-lang/futures-rs",
+              "crossbeam-rs/crossbeam",
+              "CleanCut/ultimate_ rust _crash_course",
+              "rust-embedded/awesome-embedded- rust",
+              "awslabs/aws-sdk- rust",
+              "ruby/ruby",
+              "rust-lang/async-book",
+              "Sponsor open source projects you depend on",
+              "Sponsor open source projects you depend on"
+            ],
+            "main_content": "{\"payload\":{\"header_redesign_enabled\":false,\"results\":[{\"id\":\"47854924\",\"archived\":false,\"color\":\"#dea584\",\"followers\":17013,\"has_funding_file\":false,\"hl_name\":\"rust-lang/book\",\"hl_trunc_description\":\"The \\u003cem\\u003eRust\\u003c/em\\u003e \\u003cem\\u003eProgramming\\u003c/em\\u003e Language\",\"language\":\"Rust\",\"mirror\":false,\"owned_by_organization\":true,\"public\":true,\"repo\":{\"repository\":{\"id\":47854924,\"name\":\"book\",\"owner_id\":5430905,\"owner_login\":\"rust-lang\",\"updated_at\":\"2025-11-18T15:36:42.834Z\",\"has_issues\":true}},\"sponsorable\":false,\"topics\":[\"rust\",\"book\",\"mdbook\",\"rust-programming-language\"],\"type\":\"Public\",\"help_wanted_issues_count\":0,\"good_first_issue_issues_count\":0,\"starred_by_current_user\":false},{\"id\":\"299354666\",\"archived\":false,\"color\":\"#dea584\",\"followers\":9011,\"has_funding_file\":false,\"hl_name\":\"rustdesk/\\u003cem\\u003erustdesk\\u003c/em\\u003e-server\",\"hl_trunc_description\":\"RustDesk Server \\u003cem\\u003eProgram\\u003c/em\\u003e\",\"language\":\"Rust\",\"mirror\":false,\"owned_by_organization\":false,\"public\":true,\"repo\":{\"repository\":{\"id\":299354666,\"name\":\"rustdesk-server\",\"owner_id\":71636191,\"owner_login\":\"rustdesk\",\"updated_at\":\"2025-11-22T07:24:50.398Z\",\"has_issues\":true}},\"sponsorable\":true,\"topics\":[\"remote-control\",\"remote-desktop\",\"remote-access\",\"tauri\"],\"type\":\"Public\",\"help_wanted_issues_count\":4,\"good_first_issue_issues_count\":0,\"starred_by_current_user\":false},{\"id\":\"11599760\",\"archived\":false,\"color\":\"#dea584\",\"followers\":3851,\"has_funding_file\":false,\"hl_name\":\"rust-postgres/\\u003cem\\u003erust\\u003c/em\\u003e-postgres\",\"hl_trunc_description\":\"Native PostgreSQL driver for the \\u003cem\\u003eRust\\u003c/em\\u003e \\u003cem\\u003eprogramming\\u003c/em\\u003e language\",\"language\":\"Rust\",\"mirror\":false,\"owned_by_organization\":true,\"public\":true,\"repo\":{\"repository\":{\"id\":11599760,\"name\":\"rust-postgres\",\"owner_id\":232267682,\"owner_login\":\"rust-postgres\",\"updated_at\":\"2025-12-01T14:56:48.706Z\",\"has_issues\":true}},\"sponsorable\":false,\"topics\":[],\"type\":\"Public\",\"help_wanted_issues_count\":0,\"good_first_issue_issues_count\":0,\"starred_by_current_user\":false},{\"id\":\"55077261\",\"archived\":false,\"color\":\"#dea584\",\"followers\":5775,\"has_funding_file\":false,\"hl_name\":\"rust-lang/futures-rs\",\"hl_trunc_description\":\"Zero-cost asynchronous \\u003cem\\u003eprogramming\\u003c/em\\u003e in \\u003cem\\u003eRust\\u003c/em\\u003e\",\"language\":\"Rust\",\"mirror\":false,\"owned_by_organization\":true,\"public\":true,\"repo\":{\"repository\":{\"id\":55077261,\"name\":\"futures-rs\",\"owner_id\":5430905,\"owner_login\":\"rust-lang\",\"updated_at\":\"2025-07-19T09:01:30.658Z\",\"has_issues\":true}},\"sponsorable\":false,\"topics\":[\"async-foundations\"],\"type\":\"Public\",\"help_wanted_issues_count\":1,\"good_first_issue_issues_count\":0,\"starred_by_current_user\":false},{\"id\":\"35566048\",\"archived\":false,\"color\":\"#dea584\",\"followers\":8192,\"has_funding_file\":false,\"hl_name\":\"crossbeam-rs/crossbeam\",\"hl_trunc_description\":\"Tools for concurrent \\u003cem\\u003eprogramming\\u003c/em\\u003e in \\u003cem\\u003eRust\\u003c/em\\u003e\",\"language\":\"Rust\",\"mirror\":false,\"owned_by_organization\":true,\"public\":true,\"repo\":{\"repository\":{\"id\":35566048,\"name\":\"crossbeam\",\"owner_id\":26314159,\"owner_login\":\"crossbeam-rs\",\"updated_at\":\"2025-06-07T16:56:26.231Z\",\"has_issues\":true}},\"sponsorable\":false,\"topics\":[\"rust\",\"synchronization\",\"concurrency\",\"parallelism\",\"data-structures\",\"lock-free\",\"threads\"],\"type\":\"Public\",\"help_wanted_issues_count\":0,\"good_first_issue_issues_count\":1,\"starred_by_current_user\":false},{\"id\":\"241277775\",\"archived\":false,\"color\":\"#dea584\",\"followers\":2090,\"has_funding_file\":true,\"hl_name\":\"CleanCut/ultimate_\\u003cem\\u003erust\\u003c/em\\u003e_crash_course\",\"hl_trunc_description\":\"\\u003cem\\u003eRust\\u003c/em\\u003e \\u003cem\\u003eProgramming\\u003c/em\\u003e Fundamentals - one course to rule them all, one course to find them...\",\"language\":\"Rust\",\"mirror\":false,\"owned_by_organization\":false,\"public\":true,\"repo\":{\"repository\":{\"id\":241277775,\"name\":\"ultimate_rust_crash_course\",\"owner_id\":5838512,\"owner_login\":\"CleanCut\",\"updated_at\":\"2025-10-14T19:55:48.115Z\",\"has_issues\":true}},\"sponsorable\":true,\"topics\":[],\"type\":\"Public\",\"help_wanted_issues_count\":0,\"good_first_issue_issues_count\":0,\"starred_by_current_user\":false},{\"id\":\"127671976\",\"archived\":false,\"color\":null,\"followers\":7494,\"has_funding_file\":false,\"hl_name\":\"rust-embedded/awesome-embedded-\\u003cem\\u003erust\\u003c/em\\u003e\",\"hl_trunc_description\":\"Curated list of resources for Embedded and Low-level development in the \\u003cem\\u003eRust\\u003c/em\\u003e \\u003cem\\u003eprogramming\\u003c/em\\u003e language\",\"language\":null,\"mirror\":false,\"owned_by_organization\":true,\"public\":true,\"repo\":{\"repository\":{\"id\":127671976,\"name\":\"awesome-embedded-rust\",\"owner_id\":17707713,\"owner_login\":\"rust-embedded\",\"updated_at\":\"2025-11-14T08:22:19.181Z\",\"has_issues\":true}},\"sponsorable\":false,\"topics\":[\"rust\",\"awesome\",\"embedded\",\"libraries\",\"embedded-systems\",\"awesome-list\"],\"type\":\"Public\",\"help_wanted_issues_count\":1,\"good_first_issue_issues_count\":0,\"s",
+            "title": "Repository search results · GitHub",
+            "url": "https://github.com/search?q=Rust%20programming&type=repositories"
+          }
+        ],
+        "is_real_data": true,
+        "search_time_ms": 2413,
+        "source": "https://github.com/search?q=Rust%20programming&type=repositories",
+        "success": true,
+        "urls_found": [
+          "https://avatars.githubusercontent.com",
+          "https://docs.github.com",
+          "https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax",
+          "https://github-cloud.s3.amazonaws.com",
+          "https://github.blog",
+          "https://github.com/collections",
+          "https://github.com/customer-stories",
+          "https://github.com/enterprise",
+          "https://github.com/enterprise/startups",
+          "https://github.com/features",
+          "https://github.com/features/actions",
+          "https://github.com/features/code-review",
+          "https://github.com/features/code-search",
+          "https://github.com/features/codespaces",
+          "https://github.com/features/copilot",
+          "https://github.com/features/discussions",
+          "https://github.com/features/issues",
+          "https://github.com/features/models",
+          "https://github.com/features/spark",
+          "https://github.com/fluidicon.png",
+          "https://github.com/marketplace",
+          "https://github.com/mcp",
+          "https://github.com/partners",
+          "https://github.com/pricing",
+          "https://github.com/readme",
+          "https://github.com/resources/events",
+          "https://github.com/resources/whitepapers",
+          "https://github.com/search?q=Rust+programming&amp;type=code",
+          "https://github.com/search?q=Rust+programming&amp;type=discussions",
+          "https://github.com/search?q=Rust+programming&amp;type=issues",
+          "https://github.com/search?q=Rust+programming&amp;type=pullrequests",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories&amp;p=1",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories&amp;p=100",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories&amp;p=2",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories&amp;p=3",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories&amp;p=4",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories&amp;p=5",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories&amp;p=6",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories&amp;p=7",
+          "https://github.com/search?q=Rust+programming&amp;type=users",
+          "https://github.com/search?q=Rust+programming+is%3Aprivate&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming+is%3Apublic&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming+language%3AC%2B%2B&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming+language%3AC&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming+language%3AHTML&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming+language%3AJava&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming+language%3AJavaScript&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming+language%3AMakefile&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming+language%3APython&amp;type=repositories"
+        ]
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://huggingface.co/models?search=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [],
+        "is_real_data": true,
+        "search_time_ms": 3007,
+        "source": "https://huggingface.co/models?search=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://old.reddit.com/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [],
+        "is_real_data": true,
+        "search_time_ms": 3042,
+        "source": "https://old.reddit.com/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [
+            {
+              "content_length": 167827,
+              "status": 200,
+              "title": "Code search results · GitHub",
+              "url": "https://github.com/search?q=Rust%20programming&type=code"
+            }
+          ],
+          "pages_crawled": 1,
+          "quality": "high",
+          "source": "https://github.com/search?q=Rust%20programming&type=code",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [
+          {
+            "code_snippets": [],
+            "content_length": 167827,
+            "description": "GitHub is where people build software. More than 150 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
+            "headings": [
+              "Navigation Menu",
+              "Search code, repositories, users, issues, pull requests...",
+              "Use saved searches to filter your results more quickly",
+              "code Search Results · Rust programming",
+              "Filter by"
+            ],
+            "main_content": "{\"payload\":{\"header_redesign_enabled\":false,\"results\":[],\"type\":\"code\",\"page\":0,\"page_count\":null,\"elapsed_millis\":0,\"errors\":[],\"result_count\":0,\"facets\":[],\"protected_org_logins\":[],\"topics\":null,\"query_id\":\"\",\"logged_in\":false,\"sign_up_path\":\"/signup?source=code_search_results\",\"sign_in_path\":\"/login?return_to=https%3A%2F%2Fgithub.com%2Fsearch%3Fq%3DRust%2520programming%26type%3Dcode\",\"metadata\":null,\"warn_limited_results\":false},\"title\":\"Code search results\",\"appPayload\":{\"enabled_features\":{\"code_nav_ui_events\":false}}} .dFSFyi{background-color:var(--bgColor-default,var(--color-canvas-default,#ffffff));height:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/ .bSHMx{padding-top:4px;padding-left:8px;padding-right:8px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/ .eANmpH{-webkit-flex:1;-ms-flex:1;flex:1;}/*!sc*/ .cjtufU{font-size:14px;font-weight:400;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/ .jilJQ{height:20px;line-height:20px;padding-top:0;padding-bottom:0;padding-left:8px;padding-right:8px;}/*!sc*/ .glUdkM{background-color:var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));width:100%;height:20px;width:20px;margin-left:8px;border-radius:100px;}/*!sc*/ .hsonSS{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding-left:16px;padding-right:16px;padding-top:16px;padding-bottom:16px;-webkit-align-items:flex-start;-webkit-box-align:flex-start;-ms-flex-align:flex-start;align-items:flex-start;height:100%;}/*!sc*/ @media screen and (min-width:544px){.hsonSS{padding-left:16px;padding-right:16px;}}/*!sc*/ @media screen and (min-width:768px){.hsonSS{padding-left:24px;padding-right:24px;}}/*!sc*/ @media screen and (min-width:1012px){.hsonSS{padding-left:24px;padding-right:24px;}}/*!sc*/ .hMinKT{max-width:100%;min-width:0;height:100%;overflow:hidden;-webkit-flex:2;-ms-flex:2;flex:2;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/ .kThiwQ{-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;gap:8px;}/*!sc*/ .jZxUIM{-webkit-flex:2;-ms-flex:2;flex:2;}/*!sc*/ .dzhYrJ{display:block;}/*!sc*/ @media screen and (min-width:544px){.dzhYrJ{display:block;}}/*!sc*/ @media screen and (min-width:768px){.dzhYrJ{display:none;}}/*!sc*/ .jJQEtu{padding-left:4px;}/*!sc*/ .icgAzu{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;}/*!sc*/ .dXbdND{display:none;margin-right:8px;}/*!sc*/ .dCPDTG{display:none;}/*!sc*/ @media screen and (min-width:544px){.dCPDTG{display:none;}}/*!sc*/ @media screen and (min-width:768px){.dCPDTG{display:block;}}/*!sc*/ .dRbJib{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;padding-top:16px;gap:16px;}/*!sc*/ .dRbJib:empty{display:none;}/*!sc*/ .iXbsAl{display:inline-block;padding-top:16px;}/*!sc*/ @media screen and (min-width:544px){.iXbsAl{display:inline-block;}}/*!sc*/ @media screen and (min-width:768px){.iXbsAl{display:inline-block;}}/*!sc*/ @media screen and (min-width:1012px){.iXbsAl{display:none;}}/*!sc*/ .iXbsAl:empty{display:none;}/*!sc*/ .fxnGYr{padding-top:16px;height:100%;}/*!sc*/ .erYhJx{width:100%;min-width:0;height:100%;}/*!sc*/ .egpCzu{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:100%;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}/*!sc*/ .aHzPK{max-width:400px;}/*!sc*/ .cYzkYO{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-top:16px;}/*!sc*/ .cdqDYB{padding-top:16px;padding-bottom:16px;}/*!sc*/ @media screen and (min-width:544px){.cdqDYB{padding-top:16px;padding-bottom:16px;}}/*!sc*/ @media screen and (min-width:768px){.cdqDYB{padding-top:24px;padding-bottom:24px;}}/*!sc*/ @media screen and (min-width:1012px){.cdqDYB{padding-top:24px;padding-bottom:24px;}}/*!sc*/ data-styled.g1[id=\"Box-sc-62in7e-0\"]{content:\"dFSFyi,bSHMx,eANmpH,cjtufU,jilJQ,glUdkM,hsonSS,hMinKT,kThiwQ,jZxUIM,dzhYrJ,jJQEtu,icgAzu,dXbdND,dCPDTG,dRbJib,iXbsAl,fxnGYr,erYhJx,egpCzu,aHzPK,cYzkYO,cdqDYB,\"}/*!sc*/ .kBaPYa span{",
+            "title": "Code search results · GitHub",
+            "url": "https://github.com/search?q=Rust%20programming&type=code"
+          }
+        ],
+        "is_real_data": true,
+        "search_time_ms": 3476,
+        "source": "https://github.com/search?q=Rust%20programming&type=code",
+        "success": true,
+        "urls_found": [
+          "https://avatars.githubusercontent.com",
+          "https://docs.github.com",
+          "https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax",
+          "https://github-cloud.s3.amazonaws.com",
+          "https://github.blog",
+          "https://github.com/collections",
+          "https://github.com/customer-stories",
+          "https://github.com/enterprise",
+          "https://github.com/enterprise/startups",
+          "https://github.com/features",
+          "https://github.com/features/actions",
+          "https://github.com/features/code-review",
+          "https://github.com/features/code-search",
+          "https://github.com/features/codespaces",
+          "https://github.com/features/copilot",
+          "https://github.com/features/discussions",
+          "https://github.com/features/issues",
+          "https://github.com/features/models",
+          "https://github.com/features/spark",
+          "https://github.com/fluidicon.png",
+          "https://github.com/marketplace",
+          "https://github.com/mcp",
+          "https://github.com/partners",
+          "https://github.com/pricing",
+          "https://github.com/readme",
+          "https://github.com/resources/events",
+          "https://github.com/resources/whitepapers",
+          "https://github.com/search?q=Rust+programming&amp;type=code",
+          "https://github.com/search?q=Rust+programming&amp;type=discussions",
+          "https://github.com/search?q=Rust+programming&amp;type=issues",
+          "https://github.com/search?q=Rust+programming&amp;type=pullrequests",
+          "https://github.com/search?q=Rust+programming&amp;type=repositories",
+          "https://github.com/search?q=Rust+programming&amp;type=users",
+          "https://github.com/security/advanced-security",
+          "https://github.com/solutions/executive-insights",
+          "https://github.com/team",
+          "https://github.com/topics",
+          "https://github.com/trending",
+          "https://github.com/why-github",
+          "https://github.githubassets.com",
+          "https://github.githubassets.com/",
+          "https://github.githubassets.com/assets/appearance-settings.753d458774a2f782559b.module.css",
+          "https://github.githubassets.com/assets/apple-touch-icon-180x180-a80b8e11abe2.png",
+          "https://github.githubassets.com/assets/apple-touch-icon-92bd46d04241.png",
+          "https://github.githubassets.com/assets/blackbird-search.f380174e2732d0f67919.module.css",
+          "https://github.githubassets.com/assets/dark-4bce7af39e21.css",
+          "https://github.githubassets.com/assets/dark_colorblind-d152d6cd6879.css",
+          "https://github.githubassets.com/assets/dark_colorblind_high_contrast-fa4060c1a9da.css",
+          "https://github.githubassets.com/assets/dark_dimmed-045e6b6ac094.css",
+          "https://github.githubassets.com/assets/dark_dimmed_high_contrast-5de537db5e79.css"
+        ]
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://www.reddit.com/search/?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [],
+        "is_real_data": true,
+        "search_time_ms": 3491,
+        "source": "https://www.reddit.com/search/?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://arxiv.org/search/?query=Rust%20programming&searchtype=all",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [],
+        "is_real_data": true,
+        "search_time_ms": 3910,
+        "source": "https://arxiv.org/search/?query=Rust%20programming&searchtype=all",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://stackoverflow.com/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [],
+        "is_real_data": true,
+        "search_time_ms": 4165,
+        "source": "https://stackoverflow.com/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://dev.to/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [],
+        "is_real_data": true,
+        "search_time_ms": 4207,
+        "source": "https://dev.to/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://medium.com/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.949999988079071,
+        "extracted_text": [],
+        "is_real_data": true,
+        "search_time_ms": 4217,
+        "source": "https://medium.com/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://search.brave.com/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.6000000238418579,
+        "extracted_text": [],
+        "is_real_data": false,
+        "search_time_ms": 1978,
+        "source": "https://search.brave.com/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://www.bing.com/search?q=Rust%20programming&first=10",
+          "type": "real_data"
+        },
+        "data_quality": 0.6000000238418579,
+        "extracted_text": [],
+        "is_real_data": false,
+        "search_time_ms": 2424,
+        "source": "https://www.bing.com/search?q=Rust%20programming&first=10",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [
+            {
+              "content_length": 3187,
+              "status": 200,
+              "title": "crates.io: Rust Package Registry",
+              "url": "https://crates.io/search?q=Rust%20programming"
+            }
+          ],
+          "pages_crawled": 1,
+          "quality": "high",
+          "source": "https://crates.io/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.6000000238418579,
+        "extracted_text": [
+          {
+            "code_snippets": [],
+            "content_length": 3187,
+            "description": "",
+            "headings": [],
+            "main_content": "Sorry, it looks like we were not able to load the page. Please make sure your network connection works and you are using an up-to-date browser. If the issue persists, please visit our issue tracker to report the problem.\n",
+            "title": "crates.io: Rust Package Registry",
+            "url": "https://crates.io/search?q=Rust%20programming"
+          }
+        ],
+        "is_real_data": false,
+        "search_time_ms": 3128,
+        "source": "https://crates.io/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": [
+          "https://code.cdn.mozilla.net/fonts/fira.css",
+          "https://github.com/rust-lang/crates.io/issues/new/choose"
+        ]
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://searx.be/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.6000000238418579,
+        "extracted_text": [],
+        "is_real_data": false,
+        "search_time_ms": 3313,
+        "source": "https://searx.be/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://searx.tiekoetter.com/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.6000000238418579,
+        "extracted_text": [],
+        "is_real_data": false,
+        "search_time_ms": 4147,
+        "source": "https://searx.tiekoetter.com/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://html.duckduckgo.com/html/?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.6000000238418579,
+        "extracted_text": [],
+        "is_real_data": false,
+        "search_time_ms": 4409,
+        "source": "https://html.duckduckgo.com/html/?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://www.bing.com/search?q=Rust%20programming",
+          "type": "real_data"
+        },
+        "data_quality": 0.6000000238418579,
+        "extracted_text": [],
+        "is_real_data": false,
+        "search_time_ms": 4839,
+        "source": "https://www.bing.com/search?q=Rust%20programming",
+        "success": true,
+        "urls_found": []
+      },
+      {
+        "data_extracted": {
+          "pages": [],
+          "pages_crawled": 0,
+          "quality": "high",
+          "source": "https://duckduckgo.com/?q=Rust%20programming&t=h_&ia=web",
+          "type": "real_data"
+        },
+        "data_quality": 0.6000000238418579,
+        "extracted_text": [],
+        "is_real_data": false,
+        "search_time_ms": 5410,
+        "source": "https://duckduckgo.com/?q=Rust%20programming&t=h_&ia=web",
+        "success": true,
+        "urls_found": []
+      }
+    ],
+    "web": [
+      {
+        "description": "\n     search | RubyGems.org | your community gem host \n     \n     \n     \n     \n       \n       \n       \n       \n       \n       \n       \n       \n     \n     \n     \n     \n     \n     \n     \n    \n \n\n     \n \n    \n     {\n  \"imports\": {\n    \"jquery\": \"/assets/jquery-15a62848.js\",\n    \"@rails/ujs\": \"/assets/@",
+        "quality_score": 1.0,
+        "relevance": 1.0,
+        "source": "rubygems.org",
+        "title": "search | RubyGems.org | your community gem host",
+        "url": "https://rubygems.org/search?query=Rust%20programming"
+      },
+      {
+        "description": "\n    \n     \n      window.addEventListener('error', window.__err=function f(e){f.p=f.p||[];f.p.push(e)});\n     \n     \n      (function() {\n        const theme = document.cookie.match(/prefers-color-scheme=(light|dark|auto)/)?.[1]\n        if (theme) {\n          document.querySelector('html').setAttribu",
+        "quality_score": 1.0,
+        "relevance": 1.0,
+        "source": "pkg.go.dev",
+        "title": "Rust programming - Search Results - Go Packages",
+        "url": "https://pkg.go.dev/search?q=Rust%20programming"
+      },
+      {
+        "description": "Search results for Rust programming <iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MX6DBN9\" height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe> Sign in Help pub.dev Searching for packages Package scoring and pub points Flutter Using packages Developing packages and pl",
+        "quality_score": 1.0,
+        "relevance": 1.0,
+        "source": "pub.dev",
+        "title": "Search results for Rust programming",
+        "url": "https://pub.dev/packages?q=Rust%20programming"
+      },
+      {
+        "description": "Encontrado via búsqueda masiva paralela en https://github.com/search?q=Rust%20programming&type=repositories",
+        "quality_score": 0.949999988079071,
+        "relevance": 0.949999988079071,
+        "source": "https://github.com/search?q=Rust%20programming&type=repositories",
+        "title": "Resultado de https://github.com/search?q=Rust%20programming&type=repositories",
+        "url": "https://avatars.githubusercontent.com"
+      },
+      {
+        "description": "Encontrado via búsqueda masiva paralela en https://github.com/search?q=Rust%20programming&type=repositories",
+        "quality_score": 0.949999988079071,
+        "relevance": 0.949999988079071,
+        "source": "https://github.com/search?q=Rust%20programming&type=repositories",
+        "title": "Resultado de https://github.com/search?q=Rust%20programming&type=repositories",
+        "url": "https://docs.github.com"
+      }
+    ]
+  },
+  "strategy": "ScrapingStrategy { user_agent: \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\", delay_ms: 2000, headers: {}, retry_attempts: 3 }",
+  "tool": "websearch",
+  "total": 23,
+  "web_results": 5
+}
