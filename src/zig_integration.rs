@@ -1,21 +1,23 @@
-//! Módulo Zig Integration - Implementación Rust nativa
+//! Módulo Procesamiento Paralelo Estilo Zig - Implementación Rust Nativa
 //!
-//! Proporciona funcionalidad equivalente a Zig usando Rust puro:
-//! - Procesamiento paralelo con rayon (work-stealing)
-//! - Parsing HTML optimizado con scraper
-//! - Hash rápido con blake3 (SIMD optimizado)
+//! ⚠️ NOTA: Este módulo NO usa FFI de Zig. Es una implementación Rust pura
+//! que proporciona funcionalidad similar:
+//! - Procesamiento paralelo con rayon (work-stealing como threads de Zig)
+//! - Parsing HTML optimizado con scraper (crate de Rust)
+//! - Hash rápido con blake3 (SIMD optimizado en Rust)
 
 use anyhow::Result;
 use rayon::prelude::*;
 
-/// Integración Zig (implementación Rust nativa)
+/// Procesamiento Paralelo Estilo Zig (implementación Rust nativa con rayon)
+/// NO usa FFI de Zig - es Rust puro optimizado para paralelismo
 pub struct ZigIntegration {
     enabled: bool,
     num_threads: usize,
 }
 
 impl ZigIntegration {
-    /// Crea nueva integración (siempre disponible con Rust nativo)
+    /// Crea nueva instancia (siempre disponible - es Rust nativo)
     pub fn new() -> Self {
         let num_threads = num_cpus::get().max(1);
         Self {
@@ -33,7 +35,7 @@ impl ZigIntegration {
         }
     }
     
-    /// Siempre disponible (implementación Rust nativa)
+    /// Siempre disponible (implementación Rust nativa, no requiere Zig instalado)
     pub fn is_available(&self) -> bool {
         self.enabled
     }

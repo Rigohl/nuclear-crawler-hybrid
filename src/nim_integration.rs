@@ -1,12 +1,13 @@
-//! Integración con Nim - Operaciones críticas ultra-rápidas
+//! Módulo Procesamiento de Texto Estilo Nim - Implementación Rust Nativa
 //!
-//! Nim se usa para operaciones de bajo nivel que requieren máxima velocidad:
-//! - Parsing HTML ultra-rápido
+//! ⚠️ NOTA: Este módulo tiene FFI de Nim definido pero cfg(has_nim) está desactivado.
+//! En la práctica, SIEMPRE usa fallbacks de Rust puro para:
+//! - Parsing HTML (usa scraper crate)
 //! - Procesamiento de texto masivo
-//! - Operaciones de memoria optimizadas
-//! - Regex matching de alto rendimiento
+//! - Operaciones de memoria
+//! - Regex matching (fancy-regex crate)
 //!
-//! Si Nim no está disponible, usa implementaciones en Rust puro
+//! Para activar Nim real, se requiere compilar con has_nim feature y librería C de Nim.
 
 use anyhow::Result;
 
@@ -52,13 +53,14 @@ extern "C" {
     fn nim_fast_hash(data_ptr: *const u8, data_len: usize) -> u64;
 }
 
-/// Integración con Nim para operaciones críticas
+/// Procesamiento de Texto con fallback Rust (Nim FFI disponible pero no activado)
+/// En producción usa Rust puro porque cfg(has_nim) = false
 pub struct NimIntegration {
     enabled: bool,
 }
 
 impl NimIntegration {
-    /// Crea nueva integración Nim (auto-detecta disponibilidad)
+    /// Crea nueva instancia (detecta si Nim FFI está compilado - generalmente false)
     pub fn new() -> Self {
         Self { enabled: cfg!(has_nim) }
     }
@@ -68,7 +70,7 @@ impl NimIntegration {
         Self { enabled: enabled && cfg!(has_nim) }
     }
     
-    /// Verifica si Nim FFI está disponible
+    /// Verifica si Nim FFI está disponible (generalmente false - usa Rust nativo)
     pub fn is_available(&self) -> bool {
         self.enabled && cfg!(all(has_nim, not(target_arch = "wasm32")))
     }

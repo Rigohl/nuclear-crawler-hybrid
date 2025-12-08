@@ -1,15 +1,19 @@
-//! Módulo JAX Acceleration - Procesamiento Acelerado
+//! Módulo Aceleración Paralela Estilo JAX - Implementación Rust Nativa
 //!
-//! Usa técnicas similares a JAX para procesamiento paralelo masivo
-//! y aceleración de operaciones de scraping
+//! ⚠️ NOTA: Este módulo NO usa JAX/Python. Es una implementación Rust pura
+//! con rayon que proporciona procesamiento paralelo similar a JAX:
+//! - Vectorización con rayon
+//! - Procesamiento por batches
+//! - Pipeline paralelo
+//! - Map-reduce distribuido
 
 use rayon::prelude::*;
 #[allow(unused_imports)]
 use std::sync::Arc;
 use std::time::Instant;
 
-/// Procesador acelerado tipo JAX
-#[allow(dead_code)]
+/// Procesador acelerado estilo JAX (implementación Rust con rayon)
+/// NO usa JAX real - es Rust puro con paralelismo optimizado
 pub struct JaxAccelerator {
     /// Número de workers paralelos
     num_workers: usize,
@@ -32,7 +36,7 @@ impl JaxAccelerator {
         Self { num_workers }
     }
     
-    /// Verifica si JAX acceleration está disponible
+    /// Verifica si aceleración está disponible (siempre true - es Rust nativo)
     pub fn is_available(&self) -> bool {
         self.num_workers > 0
     }

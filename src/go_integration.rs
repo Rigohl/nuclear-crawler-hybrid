@@ -1,8 +1,9 @@
-//! Módulo Go Integration - Implementación Rust nativa
+//! Módulo Procesamiento Paralelo Estilo Go - Implementación Rust Nativa
 //!
-//! Proporciona funcionalidad equivalente a Go usando Rust puro:
+//! ⚠️ NOTA: Este módulo NO usa FFI de Go. Es una implementación Rust pura
+//! que proporciona funcionalidad similar para:
 //! - Headers stealth con rotación de User-Agents
-//! - Procesamiento paralelo de URLs con rayon
+//! - Procesamiento paralelo de URLs con rayon (work-stealing como goroutines)
 
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
@@ -22,13 +23,14 @@ static USER_AGENTS: &[&str] = &[
 
 static HEADER_INDEX: AtomicUsize = AtomicUsize::new(0);
 
-/// Integración Go (implementación Rust nativa)
+/// Procesamiento Paralelo Estilo Go (implementación Rust nativa con rayon)
+/// NO usa FFI de Go - es Rust puro optimizado para paralelismo
 pub struct GoIntegration {
     enabled: bool,
 }
 
 impl GoIntegration {
-    /// Crea nueva integración (siempre disponible con Rust nativo)
+    /// Crea nueva instancia (siempre disponible - es Rust nativo)
     pub fn new() -> Self {
         Self { enabled: true }
     }
@@ -38,7 +40,7 @@ impl GoIntegration {
         Self { enabled }
     }
     
-    /// Siempre disponible (implementación Rust nativa)
+    /// Siempre disponible (implementación Rust nativa, no requiere Go instalado)
     pub fn is_available(&self) -> bool {
         self.enabled
     }

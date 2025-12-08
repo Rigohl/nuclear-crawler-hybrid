@@ -22,7 +22,6 @@ use tower_http::trace::TraceLayer;
 #[derive(Clone)]
 pub struct McpServerState {
     mcp: Arc<RwLock<SimpleMcpServer>>,
-    config: Arc<McpServerConfig>,
 }
 
 /// Server Configuration
@@ -46,11 +45,10 @@ impl Default for McpServerConfig {
 }
 
 impl McpServerState {
-    pub fn new(config: McpServerConfig) -> Result<Self> {
+    pub fn new(_config: McpServerConfig) -> Result<Self> {
         let mcp = SimpleMcpServer::new()?;
         Ok(Self {
             mcp: Arc::new(RwLock::new(mcp)),
-            config: Arc::new(config),
         })
     }
 }

@@ -1,7 +1,10 @@
-//! Módulo Mojo + JAX - Aceleración Extrema
+//! Módulo Procesamiento Vectorizado Estilo Mojo/JAX - Implementación Rust Nativa
 //!
-//! Integración con Mojo (Python compilado) y JAX para procesamiento
-//! ultra-rápido de datos y operaciones matemáticas
+//! ⚠️ NOTA: Este módulo NO usa Mojo ni JAX reales. Es una implementación Rust pura
+//! con rayon que simula procesamiento similar:
+//! - Vectorización de datos con rayon
+//! - Procesamiento paralelo batch
+//! - Operaciones matemáticas en memoria
 
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
@@ -40,7 +43,8 @@ impl Default for MojoJaxConfig {
     }
 }
 
-/// Procesador Mojo + JAX
+/// Procesador vectorizado estilo Mojo/JAX (implementación Rust con rayon)
+/// NO usa Mojo ni JAX reales - es Rust puro con paralelismo
 pub struct MojoJaxProcessor {
     config: MojoJaxConfig,
 }
@@ -56,33 +60,31 @@ impl MojoJaxProcessor {
         Self { config }
     }
     
-    /// Verifica si Mojo o JAX están disponibles
+    /// Verifica si procesamiento está disponible (siempre true - usa Rust nativo)
     pub fn is_available(&self) -> bool {
         self.config.use_mojo || self.config.use_jax
     }
 
-    /// Procesa datos con Mojo (ultra-rápido)
+    /// Procesa datos con Rust nativo optimizado (simula Mojo)
+    /// NOTA: NO usa Mojo real, usa rayon para paralelismo
     pub fn process_with_mojo(&self, data: &[u8]) -> Result<Vec<u8>> {
         if !self.config.use_mojo {
             return Ok(data.to_vec());
         }
 
-        // Mojo es extremadamente rápido para procesamiento de datos
-        // Aquí simulamos llamada a Mojo (en producción sería FFI o subprocess)
-
-        // Para ahora, procesamiento optimizado en Rust
-        // En producción: llamar a binario Mojo compilado
+        // Procesamiento paralelo con Rust/rayon
+        // En un entorno real con Mojo, esto llamaría a FFI o subprocess
         Ok(self.fast_process_rust(data))
     }
 
-    /// Procesamiento rápido en Rust (simulando Mojo)
+    /// Procesamiento rápido en Rust con rayon (fallback cuando no hay Mojo)
     fn fast_process_rust(&self, data: &[u8]) -> Vec<u8> {
         use rayon::prelude::*;
 
-        // Procesamiento paralelo masivo
+        // Procesamiento paralelo con rayon
         data.par_chunks(1024)
             .map(|chunk| {
-                // Operaciones rápidas
+                // Operaciones vectorizadas
                 chunk.iter().map(|&b| b.wrapping_mul(2)).collect::<Vec<_>>()
             })
             .flatten()

@@ -1,22 +1,18 @@
-//! Módulo Web Search - Búsqueda Web con TODO el poder del crawler
+//! Módulo Web Search - Búsqueda Web con Múltiples Estrategias de Scraping
 //!
-//! 🔥🔥🔥 USA ABSOLUTAMENTE TODOS LOS MÓDULOS 🔥🔥🔥
-//! - Stealth: Headers anti-detección rotantes
-//! - AI Smart: Ranking inteligente y estrategias
-//! - Go Integration: Goroutines para paralelismo
-//! - Zig Integration: SIMD y parsing ultra-rápido
-//! - Nim Integration: Parser HTML alternativo
-//! - JAX Acceleration: Vectorización GPU/TPU
-//! - Mojo JAX: Bridge para procesamiento ML
-//! - Nuclear Bypass: Bypass de protecciones
-//! - Parallel Crawler: Crawling masivo paralelo
-//! - Massive Parallel Search: Búsqueda en 30K+ fuentes
-//! - Deep Web Search: Búsqueda en deep web
-//! - Rate Limiter: Control de velocidad
-//! - Cache: Cache inteligente
-//! - HF Integration: Hugging Face models
+//! Sistema integrado de búsqueda web que combina:
+//! - Stealth: Headers anti-detección rotantes (Rust nativo)
+//! - AI Smart: Ranking inteligente y estrategias (Rust)
+//! - Procesamiento Paralelo: Estilo Go/Zig/JAX con rayon (Rust nativo)
+//! - Nuclear Bypass: Bypass de protecciones anti-bot
+//! - Massive Parallel Search: Búsqueda en múltiples motores reales
+//! - Rate Limiter: Control de velocidad por dominio
+//! - Cache: Cache inteligente en memoria
 //!
-//! 🔥 NUCLEAR v4.0: 30,000 URLs ASYNC CON TODO INTEGRADO
+//! ⚠️ NOTA: Los módulos Go/Zig/Nim/JAX/Mojo son implementaciones Rust puras
+//! que emulan sus patrones de procesamiento, NO usan FFI real a esos lenguajes.
+//!
+//! 🔥 NUCLEAR v5.0: Búsqueda masiva en motores reales con scraping paralelo
 
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
@@ -25,26 +21,20 @@ use std::time::{Duration, Instant};
 use std::collections::HashMap;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 🔥 IMPORTAR ABSOLUTAMENTE TODOS LOS MÓDULOS
+// MÓDULOS INTEGRADOS PARA WEB SEARCH
 // ═══════════════════════════════════════════════════════════════════════════
-use crate::ai_smart::{AIConfig, AISmart};
-use crate::config::CrawlerConfig;
 use crate::nuclear_scraper::{NuclearConfig, NuclearScraper};
 use crate::stealth::{StealthConfig, StealthSystem};
-use crate::go_integration::GoIntegration;
-use crate::zig_integration::ZigIntegration;
-use crate::nim_integration::NimIntegration;
-use crate::jax_acceleration::JaxAccelerator;
-use crate::mojo_jax::MojoJaxProcessor;
+use crate::go_integration::GoIntegration;        // Rust nativo - procesamiento paralelo
+use crate::zig_integration::ZigIntegration;      // Rust nativo - parsing HTML
+use crate::nim_integration::NimIntegration;      // Rust nativo - extracción texto
+use crate::jax_acceleration::JaxAccelerator;     // Rust nativo - vectorización
+use crate::mojo_jax::MojoJaxProcessor;           // Rust nativo - procesamiento batch
 use crate::nuclear_bypass::NuclearBypass;
-use crate::parallel_crawler::ParallelCrawler;
 use crate::rate_limit::RateLimiter;
 use crate::cache::Cache;
 use crate::parser::HtmlParser;
-// 🔥🔥🔥 MÓDULOS ADICIONALES QUE FALTABAN 🔥🔥🔥
 use crate::massive_parallel_search::MassiveParallelSearch;
-use crate::hf_integration::HfIntegration;
-use crate::orchestration::Orchestrator;
 
 /// Configuración de búsqueda web
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -145,31 +135,23 @@ pub struct WebSearchResult {
     pub source: String,
 }
 
-/// Sistema de búsqueda web masiva
-/// 🔥🔥🔥 NUCLEAR v5.0: USA ABSOLUTAMENTE TODOS LOS MÓDULOS 🔥🔥🔥
+/// Sistema de búsqueda web con múltiples estrategias
+/// Combina scraping masivo, procesamiento paralelo y búsqueda en motores reales
 pub struct WebSearch {
-    // Core
+    // Core scraping
     scraper: Arc<NuclearScraper>,
-    ai_smart: Arc<AISmart>,
     stealth: Arc<StealthSystem>,
-    
-    // FFI Integrations (Rust nativo optimizado)
-    go_integration: Arc<GoIntegration>,
-    zig_integration: Arc<ZigIntegration>,
-    nim_integration: Arc<NimIntegration>,
-    
-    // Aceleradores
-    jax_accelerator: Arc<JaxAccelerator>,
-    mojo_processor: Arc<MojoJaxProcessor>,
-    
-    // Crawling avanzado
     nuclear_bypass: Arc<NuclearBypass>,
-    parallel_crawler: Arc<ParallelCrawler>,
     
-    // 🔥🔥🔥 NUEVOS MÓDULOS INTEGRADOS 🔥🔥🔥
+    // Procesamiento paralelo (implementaciones Rust nativas)
+    go_integration: Arc<GoIntegration>,       // Paralelismo + headers
+    zig_integration: Arc<ZigIntegration>,     // Parsing HTML rápido
+    nim_integration: Arc<NimIntegration>,     // Extracción de texto
+    jax_accelerator: Arc<JaxAccelerator>,     // Vectorización
+    mojo_processor: Arc<MojoJaxProcessor>,    // Procesamiento batch
+    
+    // Búsqueda masiva en motores reales
     massive_search: Arc<MassiveParallelSearch>,
-    hf_integration: Arc<HfIntegration>,
-    orchestrator: Arc<Orchestrator>,
     
     // Utilidades
     rate_limiter: Arc<RateLimiter>,
@@ -179,72 +161,58 @@ pub struct WebSearch {
 
 impl WebSearch {
     /// Crea nuevo sistema de búsqueda web con storage
-    /// 🔥 NUCLEAR v4.0: Inicializa TODOS los módulos
     pub fn new_with_storage(
         storage: Option<Arc<crate::intelligent_storage::IntelligentStorage>>,
     ) -> Result<Self> {
-        // Core
+        use crate::ai_smart::{AIConfig, AISmart};
+        
+        // Core scraping
         let nuclear_config = NuclearConfig::default();
         let scraper = Arc::new(NuclearScraper::new_with_storage(nuclear_config.clone(), storage)?);
-        let ai_config = AIConfig::default();
-        let ai_smart = Arc::new(AISmart::new(ai_config));
         let stealth = Arc::new(StealthSystem::new(StealthConfig::default()));
+        let nuclear_bypass = Arc::new(NuclearBypass::new(Default::default())?);
         
-        // FFI Integrations
+        // Procesamiento paralelo (implementaciones Rust nativas)
         let go_integration = Arc::new(GoIntegration::new());
         let zig_integration = Arc::new(ZigIntegration::new());
         let nim_integration = Arc::new(NimIntegration::new());
-        
-        // Aceleradores
         let jax_accelerator = Arc::new(JaxAccelerator::new());
         let mojo_processor = Arc::new(MojoJaxProcessor::new());
         
-        // Crawling avanzado
-        let nuclear_bypass = Arc::new(NuclearBypass::new(Default::default())?);
-        let crawler_config = CrawlerConfig::default();
-        let parallel_crawler = Arc::new(ParallelCrawler::new(crawler_config)?);
+        // Búsqueda masiva en motores
+        let ai_config = AIConfig::default();
+        let ai_smart = Arc::new(AISmart::new(ai_config));
+        let massive_search = Arc::new(MassiveParallelSearch::new(scraper.clone(), ai_smart.clone()));
         
         // Utilidades
         let rate_limiter = Arc::new(RateLimiter::new(100000, 10000)); // 100K req/s, burst 10K
         let cache = Arc::new(Cache::new(10000)); // 10K entradas max
         let html_parser = Arc::new(HtmlParser::new());
-        
-        // 🔥🔥🔥 NUEVOS MÓDULOS INTEGRADOS 🔥🔥🔥
-        let massive_search = Arc::new(MassiveParallelSearch::new(scraper.clone(), ai_smart.clone()));
-        let hf_integration = Arc::new(HfIntegration::new(Default::default())?);
-        let orchestrator = Arc::new(Orchestrator::new(Default::default())?);
 
         // Log módulos activos
-        eprintln!("🔥 WebSearch v5.0 - TODOS los módulos activos:");
-        eprintln!("   ✅ Go Integration: {}", go_integration.is_available());
-        eprintln!("   ✅ Zig Integration: {}", zig_integration.is_available());
-        eprintln!("   ✅ Nim Integration: {}", nim_integration.is_available());
-        eprintln!("   ✅ JAX Accelerator: {}", jax_accelerator.is_available());
-        eprintln!("   ✅ Mojo Processor: {}", mojo_processor.is_available());
+        eprintln!("🔥 WebSearch v5.0 - Módulos inicializados:");
+        eprintln!("   ✅ Procesamiento Paralelo (Go-style): {}", go_integration.is_available());
+        eprintln!("   ✅ Parsing HTML (Zig-style): {}", zig_integration.is_available());
+        eprintln!("   ✅ Extracción Texto (Nim-style): {}", nim_integration.is_available());
+        eprintln!("   ✅ Vectorización (JAX-style): {}", jax_accelerator.is_available());
+        eprintln!("   ✅ Batch Processing (Mojo-style): {}", mojo_processor.is_available());
         eprintln!("   ✅ Nuclear Bypass: activo");
-        eprintln!("   ✅ Parallel Crawler: activo");
         eprintln!("   ✅ Stealth System: activo");
-        eprintln!("   ✅ AI Smart: activo");
         eprintln!("   ✅ Rate Limiter: 100K req/s");
-        eprintln!("   ✅ Cache: activo");
+        eprintln!("   ✅ Cache: 10K entradas");
         eprintln!("   ✅ Massive Parallel Search: activo");
-        eprintln!("   ✅ HuggingFace Integration: activo");
-        eprintln!("   ✅ Orchestrator: activo");
+        eprintln!("   ⚠️ NOTA: Go/Zig/Nim/JAX/Mojo son implementaciones Rust nativas");
 
         Ok(Self {
             scraper,
-            ai_smart,
             stealth,
+            nuclear_bypass,
             go_integration,
             zig_integration,
             nim_integration,
             jax_accelerator,
             mojo_processor,
-            nuclear_bypass,
-            parallel_crawler,
             massive_search,
-            hf_integration,
-            orchestrator,
             rate_limiter,
             cache,
             html_parser,
@@ -557,12 +525,13 @@ impl WebSearch {
         }
 
         // ═══════════════════════════════════════════════════════════════
-        // 🔥 FASE 5: COMBINAR RESULTADOS DE MASSIVE SEARCH
+        // 🔥 FASE 5: COMBINAR RESULTADOS DE MASSIVE SEARCH + EXTRAER LINKS
         // ═══════════════════════════════════════════════════════════════
         
         // Convertir resultados de MassiveParallelSearch a WebSearchResult
         for massive_result in &massive_results {
             if massive_result.success && massive_result.is_real_data {
+                // Agregar URLs encontradas directamente
                 for url in &massive_result.urls_found {
                     if !processed_results.iter().any(|r| &r.url == url) {
                         processed_results.push(WebSearchResult {
@@ -573,6 +542,25 @@ impl WebSearch {
                             quality_score: massive_result.data_quality,
                             source: massive_result.source.clone(),
                         });
+                    }
+                }
+                
+                // 🔥 USAR extract_result_links para extraer links de contenido HTML
+                for extracted in &massive_result.extracted_text {
+                    if !extracted.main_content.is_empty() {
+                        let found_links = self.extract_result_links(&extracted.main_content, &extracted.url, &config.query);
+                        for link in found_links.iter().take(5) { // Limitar a 5 por página
+                            if !processed_results.iter().any(|r| &r.url == link) {
+                                processed_results.push(WebSearchResult {
+                                    url: link.clone(),
+                                    title: format!("Extraído de {}", extracted.title),
+                                    description: extracted.description.clone(),
+                                    relevance: 0.5, // Relevancia media para links extraídos
+                                    quality_score: 0.6,
+                                    source: massive_result.source.clone(),
+                                });
+                            }
+                        }
                     }
                 }
             }
@@ -609,8 +597,9 @@ impl WebSearch {
         Ok(processed_results)
     }
 
-    /// NUCLEAR: Extrae links de resultados de páginas de búsqueda
-    fn extract_result_links(&self, html: &str, _source_url: &str, query: &str) -> Vec<String> {
+    /// Extrae links relevantes de páginas de resultados de búsqueda
+    /// Filtra por relevancia al query y fuentes conocidas
+    pub fn extract_result_links(&self, html: &str, _source_url: &str, query: &str) -> Vec<String> {
         use regex::Regex;
         let mut links = Vec::new();
 
