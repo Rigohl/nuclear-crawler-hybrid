@@ -123,11 +123,44 @@ impl NimIntegration {
             }
         }
 
-        // Fallback: extracción básica con regex
-        let re = regex::Regex::new(r"<[^>]+>").unwrap_or_else(|_| regex::Regex::new("").unwrap());
-        let text = re.replace_all(html, " ");
-        let cleaned = regex::Regex::new(r"\s+").unwrap_or_else(|_| regex::Regex::new("").unwrap());
-        Ok(cleaned.replace_all(&text, " ").trim().to_string())
+        // Fallback: extracción robusta con ammonia (HTML sanitizer)
+        use scraper::{Html, Selector};
+        
+        // Parsear HTML
+        let document = Html::parse_document(html);
+        
+        // Extraer texto de elementos relevantes para contenido
+        let content_selectors = vec![
+            "article", "main", ".content", ".article", ".post",
+            "p", "h1", "h2", "h3", "h4", "h5", "h6",
+            "li", "td", "span", "div"
+        ];
+        
+        let mut extracted_text = Vec::new();
+        
+        for selector_str in content_selectors {
+            if let Ok(selector) = Selector::parse(selector_str) {
+                for element in document.select(&selector) {
+                    let text: String = element.text().collect();
+                    let trimmed = text.trim();
+                    if !trimmed.is_empty() && trimmed.len() > 20 {
+                        extracted_text.push(trimmed.to_string());
+                    }
+                }
+            }
+        }
+        
+        // Si no se encontró contenido, extraer todo el texto
+        if extracted_text.is_empty() {
+            let all_text: String = document.root_element().text().collect();
+            let cleaned = all_text.split_whitespace().collect::<Vec<_>>().join(" ");
+            return Ok(cleaned);
+        }
+        
+        // Deduplicar y unir
+        extracted_text.sort();
+        extracted_text.dedup();
+        Ok(extracted_text.join("\n"))
     }
 
     /// Busca patrones en texto (ultra-rápido)

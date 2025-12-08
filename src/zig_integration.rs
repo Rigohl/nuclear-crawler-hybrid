@@ -60,8 +60,8 @@ impl ZigIntegration {
         Ok(result)
     }
 
-    /// Parsea HTML de forma rápida usando scraper
-    /// Equivalente a parsing SIMD de Zig
+    /// Parsea HTML extrayendo múltiples selectores útiles para scraping
+    /// Usa scraper de Rust (optimizado, similar a parsing SIMD de Zig)
     pub fn parse_html_fast(&self, html: &str, selector: &str) -> Result<Vec<String>> {
         if !self.enabled {
             return Ok(vec![]);
@@ -71,15 +71,38 @@ impl ZigIntegration {
         
         let document = Html::parse_document(html);
         
-        // Intentar parsear el selector
+        // Intentar parsear el selector provisto
         let sel = match Selector::parse(selector) {
             Ok(s) => s,
-            Err(_) => return Ok(vec![]),
+            Err(_) => {
+                // Si falla, usar selectores comunes para scraping
+                let default_selectors = vec!["p", "article", "main", "div.content", ".text"];
+                let mut all_text = Vec::new();
+                
+                for sel_str in default_selectors {
+                    if let Ok(s) = Selector::parse(sel_str) {
+                        for element in document.select(&s) {
+                            let text: String = element.text().collect();
+                            if !text.trim().is_empty() {
+                                all_text.push(text);
+                            }
+                        }
+                    }
+                }
+                return Ok(all_text);
+            }
         };
 
         let results: Vec<String> = document
             .select(&sel)
-            .map(|element| element.text().collect::<String>())
+            .filter_map(|element| {
+                let text: String = element.text().collect();
+                if !text.trim().is_empty() {
+                    Some(text.trim().to_string())
+                } else {
+                    None
+                }
+            })
             .collect();
 
         Ok(results)

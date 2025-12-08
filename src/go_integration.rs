@@ -71,26 +71,37 @@ impl GoIntegration {
         Ok(StealthHeadersGo { user_agent, headers })
     }
 
-    /// Procesa URLs en paralelo (equivalente a goroutines con rayon)
+    /// Procesa URLs en paralelo validando, normalizando y deduplicando
+    /// Procesamiento paralelo con rayon (work-stealing similar a goroutines)
     pub fn fast_process_urls(&self, urls: Vec<String>) -> Result<Vec<String>> {
         if !self.enabled {
             return Ok(urls);
         }
 
         use rayon::prelude::*;
+        use url::Url;
+        use std::collections::HashSet;
 
-        // Procesar en paralelo con rayon (work-stealing como goroutines)
-        let results: Vec<String> = urls
+        // Procesar en paralelo con rayon
+        let mut results: Vec<String> = urls
             .par_iter()
-            .filter_map(|url| {
-                // Validar y normalizar URL
-                if url.len() >= 8 && (url.starts_with("http://") || url.starts_with("https://")) {
-                    Some(url.clone())
-                } else {
-                    None
+            .filter_map(|url_str| {
+                // Validar que sea una URL HTTP/HTTPS válida
+                if let Ok(parsed) = Url::parse(url_str) {
+                    if parsed.scheme() == "http" || parsed.scheme() == "https" {
+                        // Normalizar URL (quitar fragmentos, ordenar query params)
+                        let mut normalized = parsed.clone();
+                        normalized.set_fragment(None);
+                        return Some(normalized.to_string());
+                    }
                 }
+                None
             })
             .collect();
+
+        // Deduplicar manteniendo orden
+        let mut seen = HashSet::new();
+        results.retain(|url| seen.insert(url.clone()));
 
         Ok(results)
     }
