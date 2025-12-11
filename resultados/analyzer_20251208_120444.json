@@ -1,0 +1,198 @@
+{
+  "execution_time_ms": 4188,
+  "files_sample": [
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\.env.integrated",
+      "size_bytes": 995
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\cmd\\jarvixserver\\main.go",
+      "size_bytes": 3692
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\config.yaml",
+      "size_bytes": 2062
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\go.mod",
+      "size_bytes": 1613
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\go.sum",
+      "size_bytes": 1469
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\GUIA_COMPLETA_MEJORAS.md",
+      "size_bytes": 17189
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "size_bytes": 3282
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "size_bytes": 2321
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\permissions.go",
+      "size_bytes": 1240
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "size_bytes": 5691
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "size_bytes": 8839
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "size_bytes": 5575
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\command_executor.go",
+      "size_bytes": 2093
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "size_bytes": 16563
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\simulated_executor.go",
+      "size_bytes": 1813
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "size_bytes": 5940
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "size_bytes": 8385
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "size_bytes": 14581
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "size_bytes": 6827
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "size_bytes": 9724
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\mathgen.go",
+      "size_bytes": 13202
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "size_bytes": 8722
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "size_bytes": 1435
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "size_bytes": 8098
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\middleware\\advanced.go",
+      "size_bytes": 8112
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\middleware\\math_codegen.go",
+      "size_bytes": 12997
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\auth_handlers.go",
+      "size_bytes": 2045
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\command_handlers.go",
+      "size_bytes": 2157
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\handlers.go",
+      "size_bytes": 11460
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\handlers_extended.go",
+      "size_bytes": 3474
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\health_checker.go",
+      "size_bytes": 5034
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\mcp_advanced_server.go",
+      "size_bytes": 14664
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\metrics.go",
+      "size_bytes": 667
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "size_bytes": 17113
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\projects\\benchmark_suite.go",
+      "size_bytes": 14576
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\projects\\project_manager.go",
+      "size_bytes": 8422
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\registry\\service_registry.go",
+      "size_bytes": 5433
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\router\\consolidated.go",
+      "size_bytes": 10695
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\router\\setup.go",
+      "size_bytes": 7205
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "size_bytes": 7082
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\jarvixserver.exe",
+      "size_bytes": 11986944
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\MEJORAS_REGISTRO_CENTRALIZADO.md",
+      "size_bytes": 5776
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\start_all_8080_improved.ps1",
+      "size_bytes": 7732
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\start_integrated.ps1",
+      "size_bytes": 6450
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "c:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 35,
+      "js_ts_files": 0,
+      "other_files": 9,
+      "python_files": 0,
+      "rust_files": 0
+    },
+    "primary_language": "Go",
+    "total_files": 44,
+    "total_lines": 10347
+  },
+  "tool": "analyzer"
+}

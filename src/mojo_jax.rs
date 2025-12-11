@@ -45,17 +45,25 @@ pub struct MojoJaxProcessor {
     config: MojoJaxConfig,
 }
 
+impl Default for MojoJaxProcessor {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl MojoJaxProcessor {
     /// Crea un nuevo procesador con config por defecto
     pub fn new() -> Self {
-        Self { config: MojoJaxConfig::default() }
+        Self {
+            config: MojoJaxConfig::default(),
+        }
     }
-    
+
     /// Crea con configuración específica
     pub fn new_with_config(config: MojoJaxConfig) -> Self {
         Self { config }
     }
-    
+
     /// Verifica si Mojo o JAX están disponibles
     pub fn is_available(&self) -> bool {
         self.config.use_mojo || self.config.use_jax

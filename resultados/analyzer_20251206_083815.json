@@ -1,0 +1,21 @@
+{
+  "execution_time_ms": 2,
+  "files_sample": [],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\cognitio_analysis.jl",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 0,
+      "python_files": 0,
+      "rust_files": 0
+    },
+    "primary_language": "Mixed/Unknown",
+    "total_files": 0,
+    "total_lines": 0
+  },
+  "tool": "analyzer"
+}

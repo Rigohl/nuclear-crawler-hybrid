@@ -1,0 +1,134 @@
+{
+  "execution_time_ms": 419,
+  "files_sample": [
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\bayesian\\config.jl",
+      "size_bytes": 4779
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\CLEANUP.ps1",
+      "size_bytes": 5484
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\COGNITIO.jl",
+      "size_bytes": 16309
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\attention.jl",
+      "size_bytes": 2537
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\dataloader.jl",
+      "size_bytes": 4997
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\io.jl",
+      "size_bytes": 12330
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\jax_bridge.jl",
+      "size_bytes": 10653
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\lora.jl",
+      "size_bytes": 2302
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\loss_functions.jl",
+      "size_bytes": 6847
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\metrics.jl",
+      "size_bytes": 9267
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\multimodal.jl",
+      "size_bytes": 3416
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\optimizer.jl",
+      "size_bytes": 5537
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\rlhf.jl",
+      "size_bytes": 4839
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\rust_jax_bridge.jl",
+      "size_bytes": 5010
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\tokenizer.jl",
+      "size_bytes": 4540
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\transformer.jl",
+      "size_bytes": 6211
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\components\\utils.jl",
+      "size_bytes": 9886
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\EXAMPLE_HYBRID_USAGE.jl",
+      "size_bytes": 8952
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\FINAL_SUMMARY.txt",
+      "size_bytes": 21225
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\HybridBridge.jl",
+      "size_bytes": 17409
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\INSTALLATION_GUIDE.md",
+      "size_bytes": 8074
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\INSTALL_DEPENDENCIES.ps1",
+      "size_bytes": 11203
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\models\\cognitio_transformer_v12.bson",
+      "size_bytes": 2271515
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\Project.toml",
+      "size_bytes": 2298
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\README.md",
+      "size_bytes": 6499
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\test_includes.jl",
+      "size_bytes": 1753
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\tokenizer\\merges.txt",
+      "size_bytes": 5939
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\tokenizer\\vocab.json",
+      "size_bytes": 2505
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 28,
+      "python_files": 0,
+      "rust_files": 0
+    },
+    "primary_language": "Mixed/Unknown",
+    "total_files": 28,
+    "total_lines": 6141
+  },
+  "tool": "analyzer"
+}

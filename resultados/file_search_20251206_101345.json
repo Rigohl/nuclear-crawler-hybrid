@@ -1,0 +1,191 @@
+{
+  "execution_time_ms": 35,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\lib.rs",
+      "line_content": "pub struct MCPServer {",
+      "line_number": 36,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\lib.rs",
+      "line_content": "impl MCPServer {",
+      "line_number": 43,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\lib.rs",
+      "line_content": "impl MCPServer {",
+      "line_number": 2004,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\lib.rs",
+      "line_content": "let server = MCPServer::new();",
+      "line_number": 2396,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\lib.rs",
+      "line_content": "let server = MCPServer::new();",
+      "line_number": 2415,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\lib.rs",
+      "line_content": "impl Default for MCPServer {",
+      "line_number": 2429,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\main_backup.rs",
+      "line_content": "use memory_p_parallel::MCPServer;",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\main_backup.rs",
+      "line_content": "mcp: MCPServer,",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\main_backup.rs",
+      "line_content": "let mcp = MCPServer::new();",
+      "line_number": 21,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\optimized_server.rs",
+      "line_content": "use memory_p_parallel::MCPServer;",
+      "line_number": 11,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\optimized_server.rs",
+      "line_content": "mcp: MCPServer,",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\backup_20251206_034138\\src\\optimized_server.rs",
+      "line_content": "let mcp = MCPServer::new();",
+      "line_number": 22,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\sixsigma_implementation.ps1",
+      "line_content": "# FASE 5: Actualizar MCPServer con mejoras",
+      "line_number": 248,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\sixsigma_implementation.ps1",
+      "line_content": "Write-Host \"`n🔧 FASE 5: Integrando mejoras en MCPServer...\" -ForegroundColor Yellow",
+      "line_number": 249,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\sixsigma_implementation.ps1",
+      "line_content": "Write-Host \"✅ MCPServer actualizado con mejoras SixSigma\" -ForegroundColor Green",
+      "line_number": 271,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\sixsigma_implementation.ps1",
+      "line_content": "Write-Host \"✅ MCPServer: OPTIMIZADO\" -ForegroundColor Green",
+      "line_number": 309,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\lib.rs",
+      "line_content": "pub struct MCPServer {",
+      "line_number": 184,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\lib.rs",
+      "line_content": "impl MCPServer {",
+      "line_number": 194,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "line_content": "use memory_p_parallel::{MCPAIToolkit2025, MCPServer};",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "line_content": "let mcp_server = MCPServer::new();",
+      "line_number": 27,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main_backup.rs",
+      "line_content": "use memory_p_parallel::MCPServer;",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main_backup.rs",
+      "line_content": "mcp: MCPServer,",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main_backup.rs",
+      "line_content": "let mcp = MCPServer::new();",
+      "line_number": 21,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\optimized_server.rs",
+      "line_content": "use memory_p_parallel::MCPServer;",
+      "line_number": 11,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\optimized_server.rs",
+      "line_content": "mcp: MCPServer,",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\optimized_server.rs",
+      "line_content": "let mcp = MCPServer::new();",
+      "line_number": 22,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P",
+  "search_term": "MCPServer",
+  "tool": "file_research",
+  "total_matches": 26
+}

@@ -14,6 +14,7 @@ use std::sync::Arc;
 use std::time::Instant;
 use url::Url;
 
+use crate::content_extractor::ContentExtractor; // 🔥 EXTRACCIÓN REAL
 use crate::nuclear_bypass::{NuclearBypass, NuclearBypassConfig};
 use crate::nuclear_scraper::NuclearScraper;
 use crate::web_search::WebSearch;
@@ -74,7 +75,7 @@ pub enum DeepWebSource {
     PremiumAPIs,
 }
 
-/// Resultado de búsqueda deep web
+/// Resultado de búsqueda deep web con EXTRACCIÓN REAL
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DeepWebSearchResult {
     /// URL encontrada
@@ -85,6 +86,26 @@ pub struct DeepWebSearchResult {
 
     /// Descripción
     pub description: String,
+
+    /// 🔥 Texto principal extraído
+    #[serde(default)]
+    pub main_text: String,
+
+    /// 🔥 Resumen del contenido
+    #[serde(default)]
+    pub summary: String,
+
+    /// 🔥 Número de palabras
+    #[serde(default)]
+    pub word_count: usize,
+
+    /// 🔥 Headings encontrados
+    #[serde(default)]
+    pub headings: Vec<String>,
+
+    /// 🔥 Snippets de código
+    #[serde(default)]
+    pub code_snippets: Vec<String>,
 
     /// Tipo de contenido
     pub content_type: String,
@@ -671,6 +692,22 @@ impl DeepWebSearch {
         // Extraer metadata
         let metadata = self.extract_metadata(html, url);
 
+        // 🔥 EXTRACCIÓN REAL de contenido usando ContentExtractor
+        let extractor = ContentExtractor::new();
+        let extracted = extractor.extract_all(html, url).ok();
+        
+        let (main_text, summary, word_count, headings, code_snippets) = if let Some(ext) = extracted {
+            (
+                ext.main_text.chars().take(3000).collect(), // Deep web: más texto
+                ext.summary,
+                ext.word_count,
+                ext.headings,
+                ext.code_snippets.into_iter().map(|c| c.code).take(10).collect(), // Más código
+            )
+        } else {
+            (String::new(), String::new(), 0, Vec::new(), Vec::new())
+        };
+
         // Filtrar por tipo de búsqueda
         if !self.matches_search_type(&config.search_type, &content_type, is_premium) {
             return Ok(None);
@@ -680,6 +717,11 @@ impl DeepWebSearch {
             url: url.clone(),
             title,
             description,
+            main_text,
+            summary,
+            word_count,
+            headings,
+            code_snippets,
             content_type,
             is_premium,
             access_methods: Vec::new(),

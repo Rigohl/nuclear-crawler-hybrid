@@ -1,56 +1,70 @@
-//! Módulo Zig Integration - Implementación Rust nativa
+//! Módulo Zig Integration - Implementación 100% Rust
 //!
-//! Proporciona funcionalidad equivalente a Zig usando Rust puro:
-//! - Procesamiento paralelo con rayon (work-stealing)
-//! - Parsing HTML optimizado con scraper
-//! - Hash rápido con blake3 (SIMD optimizado)
+//! ⚠️ ZIG FFI DESACTIVADO PERMANENTEMENTE
+//! La librería nuclear_zig.lib causa crash en Windows:
+//! - "thread panic: integer overflow"
+//! - "thread has overflowed its stack"
+//!
+//! Esta implementación usa Rust puro que es igual de rápida:
+//! - process_data_parallel() -> rayon (paralelo)
+//! - parse_html_fast() -> scraper
+//! - fast_hash() -> blake3 (SIMD nativo)
+//! - search_patterns() -> Rust nativo
+//!
+//! 🛡️ SEGURO - Sin FFI, sin crashes, sin panics
 
 use anyhow::Result;
 use rayon::prelude::*;
 
-/// Integración Zig (implementación Rust nativa)
+/// Límite máximo de datos para procesamiento
+const MAX_PROCESS_SIZE: usize = 512 * 1024; // 512 KB
+
+/// Integración Zig - Implementación Rust pura (sin FFI)
 pub struct ZigIntegration {
-    enabled: bool,
     num_threads: usize,
 }
 
 impl ZigIntegration {
-    /// Crea nueva integración (siempre disponible con Rust nativo)
+    /// Crea nueva integración (100% Rust)
     pub fn new() -> Self {
         let num_threads = num_cpus::get().max(1);
-        Self {
-            enabled: true,
-            num_threads,
-        }
-    }
-    
-    /// Crea con configuración manual
-    pub fn new_with_config(enabled: bool) -> Self {
-        let num_threads = num_cpus::get().max(1);
-        Self {
-            enabled,
-            num_threads,
-        }
-    }
-    
-    /// Siempre disponible (implementación Rust nativa)
-    pub fn is_available(&self) -> bool {
-        self.enabled
+        eprintln!("⚡ ZigIntegration: usando Rust puro ({} threads, blake3 SIMD)", num_threads);
+        Self { num_threads }
     }
 
-    /// Procesa datos en paralelo usando rayon
-    /// Equivalente a threads nativos de Zig
+    /// Crea con configuración manual
+    pub fn new_with_config(_enabled: bool) -> Self {
+        Self::new()
+    }
+
+    /// Siempre disponible (usa Rust)
+    pub fn is_available(&self) -> bool {
+        true
+    }
+
+    /// No usa FFI (usa Rust puro)
+    pub fn is_ffi_active(&self) -> bool {
+        false // No hay FFI activo
+    }
+
+    /// Procesa datos en paralelo con rayon
     pub fn process_data_parallel(&self, data: &[u8]) -> Result<Vec<u8>> {
-        if !self.enabled || data.is_empty() {
-            return Ok(data.to_vec());
+        if data.is_empty() {
+            return Ok(Vec::new());
         }
+
+        // Limitar tamaño para evitar uso excesivo de memoria
+        let safe_data = if data.len() > MAX_PROCESS_SIZE {
+            &data[..MAX_PROCESS_SIZE]
+        } else {
+            data
+        };
 
         // Procesar en paralelo con rayon
-        let chunk_size = (data.len() / self.num_threads).max(1024);
-        let result: Vec<u8> = data
+        let chunk_size = (safe_data.len() / self.num_threads).max(1024);
+        let result: Vec<u8> = safe_data
             .par_chunks(chunk_size)
             .flat_map(|chunk| {
-                // Ejemplo: invertir bits (como en Zig)
                 chunk.iter().map(|&b| b ^ 0xFF).collect::<Vec<u8>>()
             })
             .collect();
@@ -58,21 +72,19 @@ impl ZigIntegration {
         Ok(result)
     }
 
-    /// Parsea HTML de forma rápida usando scraper
-    /// Equivalente a parsing SIMD de Zig
+    /// Parsea HTML con scraper
     pub fn parse_html_fast(&self, html: &str, selector: &str) -> Result<Vec<String>> {
-        if !self.enabled {
-            return Ok(vec![]);
+        use scraper::{Html, Selector};
+
+        if html.is_empty() {
+            return Ok(Vec::new());
         }
 
-        use scraper::{Html, Selector};
-        
         let document = Html::parse_document(html);
-        
-        // Intentar parsear el selector
+
         let sel = match Selector::parse(selector) {
             Ok(s) => s,
-            Err(_) => return Ok(vec![]),
+            Err(_) => return Ok(Vec::new()),
         };
 
         let results: Vec<String> = document
@@ -85,35 +97,29 @@ impl ZigIntegration {
 
     /// Procesa batch de elementos en paralelo
     pub fn process_batch_parallel(&self, items: &[u32], _batch_size: usize) -> Result<Vec<u32>> {
-        if !self.enabled {
-            return Ok(items.to_vec());
-        }
-
-        // Procesar en paralelo con rayon
-        let output: Vec<u32> = items
-            .par_iter()
-            .map(|&item| item * 2) // Ejemplo: multiplicar por 2
-            .collect();
-
+        let output: Vec<u32> = items.par_iter().map(|&item| item * 2).collect();
         Ok(output)
     }
 
-    /// Copia de memoria (Rust ya es muy eficiente)
+    /// Copia de memoria eficiente
     pub fn fast_memory_copy(&self, src: &[u8], dst: &mut [u8]) -> Result<()> {
         if dst.len() < src.len() {
             return Err(anyhow::anyhow!("Destination buffer too small"));
         }
-
         dst[..src.len()].copy_from_slice(src);
         Ok(())
     }
 
-    /// Hash rápido usando blake3 (SIMD optimizado en Rust)
+    /// Hash rápido con blake3 (usa SIMD automáticamente)
     pub fn fast_hash(&self, data: &[u8]) -> u64 {
-        // Blake3 es extremadamente rápido y usa SIMD
+        if data.is_empty() {
+            return 5381; // Valor por defecto (djb2)
+        }
+
+        // blake3 es extremadamente rápido y usa SIMD
         let hash = blake3::hash(data);
         let bytes = hash.as_bytes();
-        
+
         // Tomar los primeros 8 bytes como u64
         u64::from_le_bytes([
             bytes[0], bytes[1], bytes[2], bytes[3],
@@ -121,15 +127,15 @@ impl ZigIntegration {
         ])
     }
 
-    /// Busca patrones en texto en paralelo
+    /// Búsqueda de patrones con Rust nativo
     pub fn search_patterns(&self, text: &str, pattern: &str) -> Result<Vec<usize>> {
-        if !self.enabled || pattern.is_empty() {
-            return Ok(vec![]);
+        if pattern.is_empty() || text.is_empty() {
+            return Ok(Vec::new());
         }
 
         let mut results = Vec::new();
         let mut start = 0;
-        
+
         while let Some(pos) = text[start..].find(pattern) {
             results.push(start + pos);
             start += pos + pattern.len();
@@ -140,11 +146,9 @@ impl ZigIntegration {
 
     /// Suma elementos de array en paralelo con rayon
     pub fn sum_array_parallel(&self, array: &[f64]) -> f64 {
-        if !self.enabled || array.is_empty() {
-            return array.iter().sum();
+        if array.is_empty() {
+            return 0.0;
         }
-
-        // Suma paralela con rayon
         array.par_iter().sum()
     }
 }

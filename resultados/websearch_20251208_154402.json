@@ -1,0 +1,367 @@
+{
+  "modules_used": {
+    "cache": true,
+    "deep_web_search": true,
+    "go_ffi": true,
+    "hf_integration": true,
+    "intelligent_storage": true,
+    "jax_accelerator": true,
+    "jax_pipeline": true,
+    "massive_parallel": true,
+    "mojo_processor": true,
+    "nim_html": true,
+    "nuclear_bypass": true,
+    "real_search_engines": true,
+    "stealth_system": true,
+    "zig_simd": false
+  },
+  "queries": [
+    "file system monitoring Go Windows",
+    "concurrency patterns local development Go Windows"
+  ],
+  "queries_count": 2,
+  "results": [
+    {
+      "config": {
+        "all_modules": [
+          "WebSearch",
+          "RealSearchEngines",
+          "DeepWebSearch",
+          "MassiveParallelSearch",
+          "ParallelCrawler",
+          "NuclearScraper",
+          "HuggingFace",
+          "JAXPipeline",
+          "JAXAccelerator",
+          "MojoProcessor",
+          "StealthSystem",
+          "NuclearBypass",
+          "GoFFI",
+          "ZigSIMD",
+          "NimParser",
+          "BloomFilter",
+          "CircuitBreaker",
+          "IntelligentStorage",
+          "HtmlParser",
+          "AISmart",
+          "MemoryCache",
+          "RateLimiter",
+          "Orchestrator"
+        ],
+        "max_parallel": 500,
+        "max_results": 150,
+        "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+        "timeout_secs": 35,
+        "total_modules": 23
+      },
+      "execution_time_ms": 50465,
+      "modules_active": 23,
+      "modules_used": [
+        "WebSearch",
+        "RealSearchEngines",
+        "DeepWebSearch",
+        "MassiveParallelSearch",
+        "ParallelCrawler",
+        "NuclearScraper",
+        "HuggingFace",
+        "JAXPipeline",
+        "JAXAccelerator",
+        "MojoProcessor",
+        "StealthSystem",
+        "NuclearBypass",
+        "GoFFI",
+        "ZigSIMD",
+        "NimParser",
+        "BloomFilter",
+        "CircuitBreaker",
+        "IntelligentStorage",
+        "HtmlParser",
+        "AISmart",
+        "MemoryCache",
+        "RateLimiter",
+        "Orchestrator"
+      ],
+      "query": "file system monitoring Go Windows",
+      "results": [
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Cross-platform filesystem notifications for Go. - GitHub",
+          "url": "https://github.com/fsnotify/fsnotify"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Building a Real-time File Monitoring System in Go: A Complete Guide",
+          "url": "https://medium.com/@FAANG/building-a-real-time-file-monitoring-system-in-go-a-complete-guide-7cf3b5e842af"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "The file system rabbit hole: Building FSWatcher in Go",
+          "url": "https://dev.to/asoseil/the-file-system-rabbit-hole-building-fswatcher-in-go-136o"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "fsnotify Go Implementation for File and Directory Monitoring",
+          "url": "https://www.alldevstack.com/fsnotify/intro.html"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "fsnotify package - github.com/fsnotify/fsnotify - Go Packages",
+          "url": "https://pkg.go.dev/github.com/fsnotify/fsnotify"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Process Monitor - Sysinternals | Microsoft Learn",
+          "url": "https://learn.microsoft.com/en-us/sysinternals/downloads/procmon"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "How to monitor Windows files and which tools to use",
+          "url": "https://www.techtarget.com/searchenterprisedesktop/tip/How-to-monitor-Windows-files-and-which-tools-to-use"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "End-to-end Windows file monitoring with FIM and Windows Security ...",
+          "url": "https://nxlog.co/news-and-blog/posts/windows-file-monitoring-with-fim-and-windows-security-auditing"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Efficient File System Monitoring in Go with fsnotify and Push ... - Medium",
+          "url": "https://medium.com/@adamszpilewicz/efficient-file-system-monitoring-in-go-with-fsnotify-and-push-mechanism-9fa59342d6a4"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Complete Walkthrough Guide: File Integrity Monitoring (FIM) on Windows",
+          "url": "https://dev.to/samueladeduntan/complete-walkthrough-guide-file-integrity-monitoring-fim-on-windows-1mnl"
+        }
+      ],
+      "statistics": {
+        "ai_ranked": 10,
+        "bloom_deduplicated": 10,
+        "bypass_attempts": 0,
+        "cache_entries": 15,
+        "circuit_breaker_state": "CLOSED",
+        "crawler_pages": 8,
+        "deep_web_results": 0,
+        "go_ffi_active": 1,
+        "html_parsed": 0,
+        "huggingface_items": 0,
+        "jax_accelerator_processed": 10,
+        "jax_pipeline_processed": 0,
+        "massive_parallel_processed": 10,
+        "mojo_active": 1,
+        "nim_parser_active": 1,
+        "real_engines_results": 10,
+        "scraper_pages": 5,
+        "stealth_headers": 11,
+        "storage_items": 76,
+        "websearch_results": 10,
+        "zig_simd_active": 1
+      },
+      "status": "completed",
+      "total_results": 10,
+      "type": "mega_massive_search"
+    },
+    {
+      "config": {
+        "all_modules": [
+          "WebSearch",
+          "RealSearchEngines",
+          "DeepWebSearch",
+          "MassiveParallelSearch",
+          "ParallelCrawler",
+          "NuclearScraper",
+          "HuggingFace",
+          "JAXPipeline",
+          "JAXAccelerator",
+          "MojoProcessor",
+          "StealthSystem",
+          "NuclearBypass",
+          "GoFFI",
+          "ZigSIMD",
+          "NimParser",
+          "BloomFilter",
+          "CircuitBreaker",
+          "IntelligentStorage",
+          "HtmlParser",
+          "AISmart",
+          "MemoryCache",
+          "RateLimiter",
+          "Orchestrator"
+        ],
+        "max_parallel": 500,
+        "max_results": 150,
+        "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+        "timeout_secs": 35,
+        "total_modules": 23
+      },
+      "execution_time_ms": 50182,
+      "modules_active": 23,
+      "modules_used": [
+        "WebSearch",
+        "RealSearchEngines",
+        "DeepWebSearch",
+        "MassiveParallelSearch",
+        "ParallelCrawler",
+        "NuclearScraper",
+        "HuggingFace",
+        "JAXPipeline",
+        "JAXAccelerator",
+        "MojoProcessor",
+        "StealthSystem",
+        "NuclearBypass",
+        "GoFFI",
+        "ZigSIMD",
+        "NimParser",
+        "BloomFilter",
+        "CircuitBreaker",
+        "IntelligentStorage",
+        "HtmlParser",
+        "AISmart",
+        "MemoryCache",
+        "RateLimiter",
+        "Orchestrator"
+      ],
+      "query": "concurrency patterns local development Go Windows",
+      "results": [
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Mastering Go Concurrency: Essential Patterns for High-Performance ...",
+          "url": "https://dev.to/nithinbharathwaj/mastering-go-concurrency-essential-patterns-for-high-performance-systems-1ko6"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Go Wiki: LearnConcurrency - The Go Programming Language",
+          "url": "https://go.dev/wiki/LearnConcurrency"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Go Concurrency Rocks",
+          "url": "https://www.concurrency.rocks/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Go Concurrency Patterns | Modern Application Development",
+          "url": "https://codezup.com/go-concurrency-patterns-for-modern-applications/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Go Concurrency Patterns: Goroutines and Channels - Marc Nuri",
+          "url": "https://blog.marcnuri.com/go-concurrency-goroutines-and-channels"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "10 Essential Go Concurrency Patterns for Efficient and Scalable Code",
+          "url": "https://jsschools.com/golang/10-essential-go-concurrency-patterns-for-efficient/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Go Concurrency Patterns - Complete Guide - Rafiul Alam",
+          "url": "https://alamrafiul.com/concurrency-patterns/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Go - Concurrency and Parallelism - GeeksforGeeks",
+          "url": "https://www.geeksforgeeks.org/go-language/go-concurrency-and-parallelism/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Go Concurrency Patterns: A Deep Dive - Medium",
+          "url": "https://medium.com/@gopinathr143/go-concurrency-patterns-a-deep-dive-a2750f98a102"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Creating Concurrent Applications in Go: Best Practices and Patterns",
+          "url": "https://hemaks.org/posts/creating-concurrent-applications-in-go-best-practices-and-patterns/"
+        }
+      ],
+      "statistics": {
+        "ai_ranked": 10,
+        "bloom_deduplicated": 10,
+        "bypass_attempts": 0,
+        "cache_entries": 16,
+        "circuit_breaker_state": "CLOSED",
+        "crawler_pages": 8,
+        "deep_web_results": 0,
+        "go_ffi_active": 1,
+        "html_parsed": 0,
+        "huggingface_items": 0,
+        "jax_accelerator_processed": 10,
+        "jax_pipeline_processed": 0,
+        "massive_parallel_processed": 10,
+        "mojo_active": 1,
+        "nim_parser_active": 1,
+        "real_engines_results": 10,
+        "scraper_pages": 5,
+        "stealth_headers": 11,
+        "storage_items": 76,
+        "websearch_results": 10,
+        "zig_simd_active": 1
+      },
+      "status": "completed",
+      "total_results": 10,
+      "type": "mega_massive_search"
+    }
+  ],
+  "tool": "websearch",
+  "total_execution_time_ms": 100652
+}

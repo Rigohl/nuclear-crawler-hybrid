@@ -1,0 +1,1409 @@
+{
+  "execution_time_ms": 1661,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "$ErrorActionPreference = \"Stop\"",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "$null = Get-Command $Command -ErrorAction Stop",
+      "line_number": 29,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_workers.ps1",
+      "line_content": "$ErrorActionPreference = 'Stop'",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_workers.ps1",
+      "line_content": "if (Get-Command mingw32-make -ErrorAction SilentlyContinue) {",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_workers.ps1",
+      "line_content": "} elseif (Get-Command make -ErrorAction SilentlyContinue) {",
+      "line_number": 28,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\cmd\\jarvixserver\\main.go",
+      "line_content": "log.Printf(\"error al ejecutar JarvixServer: %v\", err)",
+      "line_number": 63,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\cmd\\jarvixserver\\main.go",
+      "line_content": "log.Printf(\"error en apagado: %v\", err)",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\GUIA_COMPLETA_MEJORAS.md",
+      "line_content": "- ✅ **0 errores**, 0 warnings",
+      "line_number": 478,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\GUIA_COMPLETA_MEJORAS.md",
+      "line_content": "- Error rates",
+      "line_number": 522,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "func (lc *LocalConfig) LoadTokens() (*TokenStorage, error) {",
+      "line_number": 47,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "return nil, fmt.Errorf(\"crear directorio: %w\", err)",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "return nil, fmt.Errorf(\"leer archivo de tokens: %w\", err)",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "return nil, fmt.Errorf(\"parsear tokens: %w\", err)",
+      "line_number": 78,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "func (lc *LocalConfig) SaveTokens(storage *TokenStorage) error {",
+      "line_number": 86,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "func (lc *LocalConfig) saveToFile(storage *TokenStorage) error {",
+      "line_number": 95,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "return fmt.Errorf(\"serializar tokens: %w\", err)",
+      "line_number": 98,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "return fmt.Errorf(\"escribir archivo de tokens: %w\", err)",
+      "line_number": 102,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "line_content": "am.writeError(w, http.StatusUnauthorized, \"token no proporcionado\")",
+      "line_number": 47,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "line_content": "am.writeError(w, http.StatusUnauthorized, \"formato inválido: usa 'Bearer <token>'\")",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "line_content": "am.logger.Warn(\"Token inválido\", zap.Error(err))",
+      "line_number": 63,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "line_content": "am.writeError(w, http.StatusUnauthorized, \"token no válido\")",
+      "line_number": 64,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "line_content": "// writeError escribe un error JSON.",
+      "line_number": 77,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "line_content": "func (am *AuthMiddlewareSimple) writeError(w http.ResponseWriter, status int, message string) {",
+      "line_number": 78,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "line_content": "\"error\": message,",
+      "line_number": 82,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\permissions.go",
+      "line_content": "func generateRandomToken(length int) (string, error) {",
+      "line_number": 17,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "func NewSimpleTokenManager(localConfig *LocalConfig, logger *zap.Logger) (*SimpleTokenManager, error) {",
+      "line_number": 21,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "func (stm *SimpleTokenManager) RegisterClient(name, endpoint string) (*Token, error) {",
+      "line_number": 43,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"cliente '%s' ya registrado\", name)",
+      "line_number": 49,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "stm.logger.Error(\"Error guardando tokens\", zap.Error(err))",
+      "line_number": 92,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "func (stm *SimpleTokenManager) ValidateToken(tokenValue string) (*Token, error) {",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token vacío\")",
+      "line_number": 106,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token no válido\")",
+      "line_number": 115,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token no encontrado\")",
+      "line_number": 123,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token inactivo\")",
+      "line_number": 128,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token expirado\")",
+      "line_number": 133,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "stm.logger.Warn(\"Error guardando token actualizado\", zap.Error(err))",
+      "line_number": 142,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "func (stm *SimpleTokenManager) GetClient(name string) (*LocalClient, error) {",
+      "line_number": 149,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"cliente '%s' no encontrado\", name)",
+      "line_number": 155,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "func (stm *SimpleTokenManager) RevokeToken(tokenID string) error {",
+      "line_number": 190,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "return fmt.Errorf(\"token '%s' no encontrado\", tokenID)",
+      "line_number": 196,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "func generateRandomTokenLocal(length int) (string, error) {",
+      "line_number": 229,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "func (tm *TokenManager) GenerateToken(name, serviceName string, tokenType TokenType) (*Token, error) {",
+      "line_number": 82,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"error creando JWT: %w\", err)",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "func (tm *TokenManager) ValidateToken(tokenValue string) (*Token, error) {",
+      "line_number": 139,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token vacío\")",
+      "line_number": 141,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "token, err := jwt.Parse(tokenValue, func(token *jwt.Token) (interface{}, error) {",
+      "line_number": 145,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"método de firma inesperado: %v\", token.Header[\"alg\"])",
+      "line_number": 147,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "tm.logger.Warn(\"JWT inválido\", zap.Error(err))",
+      "line_number": 153,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token no válido\")",
+      "line_number": 154,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token inválido\")",
+      "line_number": 158,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"claims inválidos\")",
+      "line_number": 164,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"ID de token faltante\")",
+      "line_number": 169,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token no encontrado\")",
+      "line_number": 177,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"token inactivo\")",
+      "line_number": 182,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "func (tm *TokenManager) RegisterClient(name, endpoint string, metadata map[string]string) (*ClientRegistration, error) {",
+      "line_number": 193,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"cliente '%s' ya registrado\", name)",
+      "line_number": 198,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "func (tm *TokenManager) GetClient(name string) (*ClientRegistration, error) {",
+      "line_number": 221,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"cliente '%s' no encontrado\", name)",
+      "line_number": 227,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "func (tm *TokenManager) UpdateHeartbeat(clientName string) error {",
+      "line_number": 247,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return fmt.Errorf(\"cliente '%s' no encontrado\", clientName)",
+      "line_number": 253,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "func (tm *TokenManager) RevokeToken(tokenID string) error {",
+      "line_number": 261,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return fmt.Errorf(\"token '%s' no encontrado\", tokenID)",
+      "line_number": 267,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "func (tm *TokenManager) AddPermission(tokenID, permission string) error {",
+      "line_number": 292,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "return fmt.Errorf(\"token '%s' no encontrado\", tokenID)",
+      "line_number": 298,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "func (tm *TokenManager) generateRandomToken(length int) (string, error) {",
+      "line_number": 334,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "func (b *BibliotecaBridge) GetStats() (*BibliotecaStats, error) {",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "b.logger.Error(\"BIBLIOTECA_CENTRAL not found\", zap.String(\"path\", b.bibliotecaPath))",
+      "line_number": 92,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "return nil, fmt.Errorf(\"BIBLIOTECA_CENTRAL no encontrada en: %s\", b.bibliotecaPath)",
+      "line_number": 93,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "err := filepath.Walk(b.bibliotecaPath, func(path string, info os.FileInfo, err error) error {",
+      "line_number": 97,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "return nil, fmt.Errorf(\"error escaneando BIBLIOTECA_CENTRAL: %v\", err)",
+      "line_number": 121,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "func (b *BibliotecaBridge) SyncWithBiblioteca() error {",
+      "line_number": 138,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "return fmt.Errorf(\"sync failed: %v\", err)",
+      "line_number": 150,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "func (b *BibliotecaBridge) LoadNuclearResults() ([]NuclearResult, error) {",
+      "line_number": 158,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "return nil, fmt.Errorf(\"error leyendo directorio nuclear: %v\", err)",
+      "line_number": 169,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\command_executor.go",
+      "line_content": "func (c *CommandExecutor) Execute(ctx context.Context, job *jobs.Job) (any, error) {",
+      "line_number": 52,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\command_executor.go",
+      "line_content": "return nil, fmt.Errorf(\"marshal payload: %w\", err)",
+      "line_number": 61,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\command_executor.go",
+      "line_content": "return nil, fmt.Errorf(\"worker %s failed (%s): %w - stderr: %s\",",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) AnalyzeMetrics(metricName string) (*TimeSeriesMetric, error) {",
+      "line_number": 145,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "return nil, fmt.Errorf(\"métrica '%s' no encontrada\", metricName)",
+      "line_number": 154,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) AnalyzeSystemHealth() (*SystemHealthAnalysis, error) {",
+      "line_number": 207,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) ExportMetrics(config *ExportConfig) (*ExportResult, error) {",
+      "line_number": 276,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "return result, fmt.Errorf(\"formato de exportación desconocido: %s\", config.Format)",
+      "line_number": 300,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) exportJSON(config *ExportConfig, result *ExportResult) error {",
+      "line_number": 317,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) exportBinary(config *ExportConfig, result *ExportResult) error {",
+      "line_number": 364,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) exportHDF5(config *ExportConfig, result *ExportResult) error {",
+      "line_number": 380,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) exportCSV(config *ExportConfig, result *ExportResult) error {",
+      "line_number": 396,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) ExecuteNimCommand(command string, args map[string]interface{}) (map[string]interface{}, error) {",
+      "line_number": 445,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "return nil, fmt.Errorf(\"Nim controller no configurado\")",
+      "line_number": 447,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\metrics_analyzer.go",
+      "line_content": "func (ma *MetricsAnalyzer) OptimizeServerWithNim(targetMetric string, targetValue float64) (map[string]interface{}, error) {",
+      "line_number": 473,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\simulated_executor.go",
+      "line_content": "func (e *SimulatedExecutor) Execute(ctx context.Context, job *jobs.Job) (any, error) {",
+      "line_number": 56,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "p.logger.Error(\"BrowserMCP health check failed\", zap.Error(err))",
+      "line_number": 82,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "http.Error(w, `{\"status\":\"unhealthy\",\"error\":\"BrowserMCP not reachable\"}`, http.StatusServiceUnavailable)",
+      "line_number": 83,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "p.logger.Error(\"BrowserMCP status check failed\", zap.Error(err))",
+      "line_number": 98,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "http.Error(w, `{\"error\":\"BrowserMCP not available\"}`, http.StatusServiceUnavailable)",
+      "line_number": 99,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "http.Error(w, `{\"error\":\"Invalid metric format\"}`, http.StatusBadRequest)",
+      "line_number": 129,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "func (p *BrowserMCPProxy) CheckConnection() error {",
+      "line_number": 160,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "return fmt.Errorf(\"BrowserMCP not reachable: %w\", err)",
+      "line_number": 163,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "return fmt.Errorf(\"BrowserMCP unhealthy: status %d\", resp.StatusCode)",
+      "line_number": 168,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "func (p *BrowserMCPProxy) ForwardRequest(endpoint string, method string, body interface{}) (*http.Response, error) {",
+      "line_number": 175,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "return nil, fmt.Errorf(\"marshal request body: %w\", err)",
+      "line_number": 180,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "return nil, fmt.Errorf(\"create request: %w\", err)",
+      "line_number": 187,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "p.logger.Error(\"BrowserMCP health check failed\", zap.Error(err))",
+      "line_number": 201,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "c.JSON(http.StatusServiceUnavailable, gin.H{\"status\": \"unhealthy\", \"error\": \"BrowserMCP not reachable\"})",
+      "line_number": 202,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "p.logger.Error(\"BrowserMCP status check failed\", zap.Error(err))",
+      "line_number": 215,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "c.JSON(http.StatusServiceUnavailable, gin.H{\"error\": \"BrowserMCP not available\"})",
+      "line_number": 216,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "c.JSON(http.StatusBadRequest, gin.H{\"error\": \"Invalid metric format\"})",
+      "line_number": 257,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "Fn       func(context.Context) error",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "Result   chan error",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "func (p *GoroutinePool) Submit(task *Task) error {",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "return fmt.Errorf(\"pool cerrado\")",
+      "line_number": 123,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "return fmt.Errorf(\"cola llena, timeout\")",
+      "line_number": 135,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "return fmt.Errorf(\"pool cerrado\")",
+      "line_number": 137,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "zap.Error(err))",
+      "line_number": 185,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "func (p *GoroutinePool) Shutdown(ctx context.Context) error {",
+      "line_number": 302,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "ErrorMessage  string",
+      "line_number": 39,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) GetExperimentStatus(experimentID string) (*QuantumExperimentStatus, error) {",
+      "line_number": 98,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "return nil, fmt.Errorf(\"experimento quantum '%s' no encontrado\", experimentID)",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) CreateQuantumState(qubits int) (*QuantumState, error) {",
+      "line_number": 159,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) ApplyHadamard(stateID string, qubit int) (*QuantumOperation, error) {",
+      "line_number": 183,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "return nil, fmt.Errorf(\"estado quantum '%s' no encontrado\", stateID)",
+      "line_number": 189,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) ApplyPauliX(stateID string, qubit int) (*QuantumOperation, error) {",
+      "line_number": 220,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "return nil, fmt.Errorf(\"estado quantum '%s' no encontrado\", stateID)",
+      "line_number": 226,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) ApplyPhaseShift(stateID string, phase float64) (*QuantumOperation, error) {",
+      "line_number": 256,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "return nil, fmt.Errorf(\"estado quantum '%s' no encontrado\", stateID)",
+      "line_number": 262,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) Measure(stateID string) (string, error) {",
+      "line_number": 293,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "return \"\", fmt.Errorf(\"estado quantum '%s' no encontrado\", stateID)",
+      "line_number": 299,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) DebugQuantumState(stateID string) (map[string]interface{}, error) {",
+      "line_number": 327,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "return nil, fmt.Errorf(\"estado quantum '%s' no encontrado\", stateID)",
+      "line_number": 333,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) CreateQuantumExperiment(name string, totalOps int) (*QuantumExperimentStatus, error) {",
+      "line_number": 361,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "func (qs *QuantumSystem) ExecuteQuantumBatch(expID string, operations []map[string]interface{}) error {",
+      "line_number": 389,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "return fmt.Errorf(\"experimento quantum '%s' no encontrado\", expID)",
+      "line_number": 395,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "var err error",
+      "line_number": 409,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "ErrorMessage: \"Tipo de operación desconocida\",",
+      "line_number": 425,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "op.ErrorMessage = err.Error()",
+      "line_number": 430,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "func (s *Scheduler) Schedule(taskID, category string, priority int, fn func(context.Context) error) error {",
+      "line_number": 37,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "return fmt.Errorf(\"circuit breaker abierto para categoría: %s\", category)",
+      "line_number": 41,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "return fmt.Errorf(\"rate limit excedido para categoría: %s\", category)",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "Result:   make(chan error, 1),",
+      "line_number": 58,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "func (s *Scheduler) ScheduleWithResult(ctx context.Context, taskID, category string, priority int, fn func(context.Context) error) error {",
+      "line_number": 82,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "return fmt.Errorf(\"circuit breaker abierto para categoría: %s\", category)",
+      "line_number": 86,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "return fmt.Errorf(\"rate limit excedido para categoría: %s\", category)",
+      "line_number": 93,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "Result:   make(chan error, 1),",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "Error       string            `json:\"error,omitempty\"`",
+      "line_number": 50,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "func (em *ExperimentManager) StartExperiment(ctx context.Context, expID string) error {",
+      "line_number": 98,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "return fmt.Errorf(\"experiment %s not found\", expID)",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "return fmt.Errorf(\"experiment %s is already running\", expID)",
+      "line_number": 110,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "em.failExperiment(exp, fmt.Errorf(\"unsupported experiment type: %s\", exp.Type))",
+      "line_number": 149,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "func (em *ExperimentManager) failExperiment(exp *Experiment, err error) {",
+      "line_number": 270,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "exp.Error = err.Error()",
+      "line_number": 275,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "em.logger.Error(\"Experiment failed\", zap.String(\"id\", exp.ID), zap.Error(err))",
+      "line_number": 278,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "func (em *ExperimentManager) GetExperiment(expID string) (*Experiment, error) {",
+      "line_number": 293,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "return nil, fmt.Errorf(\"experiment %s not found\", expID)",
+      "line_number": 299,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "func (em *ExperimentManager) StopExperiment(expID string) error {",
+      "line_number": 319,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "return fmt.Errorf(\"experiment %s is not running\", expID)",
+      "line_number": 325,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\mathgen.go",
+      "line_content": "func (mg *MathGenerator) GenerateMassiveMathCode(ctx context.Context, language string, complexity int, count int) (*MathCode, error) {",
+      "line_number": 46,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "func (qm *QuantumManager) RunQuantumExperiment(ctx context.Context, exp *QuantumExperiment) error {",
+      "line_number": 160,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "return fmt.Errorf(\"failed to apply gate %d: %w\", i, err)",
+      "line_number": 180,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "func (qm *QuantumManager) applyGate(state *QuantumState, gate QuantumGate) error {",
+      "line_number": 193,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "return fmt.Errorf(\"unsupported gate size: %d qubits\", gate.Qubits)",
+      "line_number": 200,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "func (qm *QuantumManager) applySingleQubitGate(state *QuantumState, gate QuantumGate) error {",
+      "line_number": 204,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "func (qm *QuantumManager) applyTwoQubitGate(state *QuantumState, gate QuantumGate) error {",
+      "line_number": 220,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "return fmt.Errorf(\"two-qubit gate requires at least 2 qubits\")",
+      "line_number": 222,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "func (qm *QuantumManager) measureQuantumState(exp *QuantumExperiment) error {",
+      "line_number": 245,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "\"errors\"",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "Execute(ctx context.Context, job *Job) (any, error)",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "Error     string            `json:\"error,omitempty\"`",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "func (s *Store) Get(id string) (*Job, error) {",
+      "line_number": 68,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "if err := s.db.First(&job, \"id = ?\", id).Error; err != nil {",
+      "line_number": 72,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "return nil, errors.New(\"job not found\")",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "func (j *Job) BeforeSave(tx *gorm.DB) error {",
+      "line_number": 78,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "func (j *Job) AfterFind(tx *gorm.DB) error {",
+      "line_number": 91,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "Error     string",
+      "line_number": 40,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "func (m *MCPManager) Register(cfg MCPConfig) error {",
+      "line_number": 68,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return fmt.Errorf(\"MCP '%s' ya está registrado\", cfg.Name)",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "m.logger.Error(\"Error al auto-iniciar MCP\", zap.String(\"name\", cfg.Name), zap.Error(err))",
+      "line_number": 88,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "func (m *MCPManager) Start(name string) error {",
+      "line_number": 97,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return fmt.Errorf(\"MCP '%s' no está registrado\", name)",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return fmt.Errorf(\"MCP '%s' ya está en ejecución\", name)",
+      "line_number": 110,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "instance.Error = \"\"",
+      "line_number": 122,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "instance.Error = err.Error()",
+      "line_number": 126,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return fmt.Errorf(\"error al iniciar MCP '%s': %w\", name, err)",
+      "line_number": 128,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "instance.Error = err.Error()",
+      "line_number": 152,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "m.logger.Error(\"MCP terminó con error\",",
+      "line_number": 153,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "zap.Error(err))",
+      "line_number": 155,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "func (m *MCPManager) Stop(name string) error {",
+      "line_number": 166,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return fmt.Errorf(\"MCP '%s' no está registrado\", name)",
+      "line_number": 172,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return fmt.Errorf(\"MCP '%s' no está en ejecución\", name)",
+      "line_number": 179,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "m.logger.Warn(\"Error al matar proceso MCP\",",
+      "line_number": 191,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "zap.Error(err))",
+      "line_number": 193,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "func (m *MCPManager) GetStatus(name string) (*MCPInstance, error) {",
+      "line_number": 204,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return nil, fmt.Errorf(\"MCP '%s' no está registrado\", name)",
+      "line_number": 210,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "Error:     instance.Error,",
+      "line_number": 222,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "Error:     instance.Error,",
+      "line_number": 241,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "func (m *MCPManager) Unregister(name string) error {",
+      "line_number": 251,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return fmt.Errorf(\"MCP '%s' no está registrado\", name)",
+      "line_number": 257,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return fmt.Errorf(\"MCP '%s' debe estar detenido antes de eliminarlo\", name)",
+      "line_number": 265,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "func (m *MCPManager) Shutdown(ctx context.Context) error {",
+      "line_number": 275,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "m.logger.Warn(\"Error al detener MCP durante shutdown\",",
+      "line_number": 288,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "zap.Error(err))",
+      "line_number": 290,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "func (i *MCPInstance) MarshalJSON() ([]byte, error) {",
+      "line_number": 313,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI",
+  "search_term": "error",
+  "tool": "file_research",
+  "total_matches": 449
+}

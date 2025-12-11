@@ -15,6 +15,12 @@ pub struct JaxAccelerator {
     num_workers: usize,
 }
 
+impl Default for JaxAccelerator {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl JaxAccelerator {
     /// Crea un nuevo acelerador (usa máximo de CPUs)
     pub fn new() -> Self {
@@ -22,7 +28,7 @@ impl JaxAccelerator {
             num_workers: num_cpus::get() * 2,
         }
     }
-    
+
     /// Crea con número específico de workers
     pub fn new_with_workers(num_workers: Option<usize>) -> Self {
         let num_workers = num_workers.unwrap_or_else(|| {
@@ -31,7 +37,7 @@ impl JaxAccelerator {
 
         Self { num_workers }
     }
-    
+
     /// Verifica si JAX acceleration está disponible
     pub fn is_available(&self) -> bool {
         self.num_workers > 0

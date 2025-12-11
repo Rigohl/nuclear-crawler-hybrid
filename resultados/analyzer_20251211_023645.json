@@ -1,0 +1,22 @@
+{
+  "errors": [],
+  "execution_time_ms": 1072,
+  "modules_used": {
+    "cargo_check": true,
+    "code_fixes": false,
+    "internet_search": false,
+    "ultra_analyzer": true,
+    "web_search": true
+  },
+  "path": ".",
+  "status": "success",
+  "summary": {
+    "rust_files": 48,
+    "total_errors": 0,
+    "total_files": 531,
+    "total_lines": 23602,
+    "total_warnings": 0
+  },
+  "tool": "analyzer",
+  "warnings": []
+}

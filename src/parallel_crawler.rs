@@ -78,8 +78,6 @@ impl ParallelCrawler {
         let client = Client::builder()
             .timeout(Duration::from_secs(config.timeout_seconds))
             .user_agent(&config.user_agent)
-            .gzip(true)
-            .brotli(true)
             .cookie_store(true)
             .pool_max_idle_per_host(100)
             .pool_idle_timeout(Duration::from_secs(30))

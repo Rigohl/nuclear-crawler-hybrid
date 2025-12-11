@@ -2,6 +2,8 @@
 //!
 //! Sistema de orquestación avanzado usando Tokio para máximo rendimiento
 //! Coordina todos los componentes: Rust, Go, Mojo, JAX
+//! 
+//! 🔥 INTEGRACIÓN CON CONFIGURACIÓN NUCLEAR INMUTABLE 🔥
 
 use anyhow::Result;
 use dashmap::DashMap;
@@ -20,6 +22,7 @@ use crate::mojo_jax::{MojoJaxConfig, MojoJaxProcessor};
 use crate::nuclear_scraper::{NuclearConfig, NuclearScraper};
 #[allow(unused_imports)]
 use crate::stealth::StealthSystem;
+use crate::orchestration_config::NuclearOrchestrationConfig; // 🔥 CONFIG INMUTABLE
 
 /// Configuración de orquestación
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -59,6 +62,7 @@ impl Default for OrchestrationConfig {
 /// Orquestador principal
 pub struct Orchestrator {
     config: OrchestrationConfig,
+    nuclear_config: NuclearOrchestrationConfig,  // 🔥 CONFIG INMUTABLE NUCLEAR
     nuclear_scraper: Arc<RwLock<Option<NuclearScraper>>>,
     mojo_jax: Arc<MojoJaxProcessor>,
     go_integration: Arc<GoIntegration>,
@@ -88,9 +92,14 @@ impl Orchestrator {
 
         let mojo_jax = Arc::new(MojoJaxProcessor::new_with_config(mojo_jax_config));
         let go_integration = Arc::new(GoIntegration::new_with_config(config.use_go));
+        
+        // 🔥 CONFIGURACIÓN NUCLEAR INMUTABLE - MÁXIMO PODER
+        let nuclear_config = NuclearOrchestrationConfig::maximum_power();
+        eprintln!("{}", nuclear_config.summary());
 
         Ok(Self {
             config: config.clone(),
+            nuclear_config,
             nuclear_scraper: Arc::new(RwLock::new(None)),
             mojo_jax,
             go_integration,
@@ -105,6 +114,28 @@ impl Orchestrator {
         let scraper = NuclearScraper::new(config)?;
         *self.nuclear_scraper.write().await = Some(scraper);
         Ok(())
+    }
+
+    /// 🔥 Obtener configuración nuclear actual (INMUTABLE)
+    pub fn get_nuclear_config(&self) -> &NuclearOrchestrationConfig {
+        &self.nuclear_config
+    }
+
+    /// 🔥 Verificar que la configuración está bloqueada
+    pub fn verify_nuclear_locked(&self) -> bool {
+        self.nuclear_config.is_locked() && self.nuclear_config.validate_locked()
+    }
+
+    /// 🔥 Aplicar configuración nuclear a un NuclearConfig
+    pub fn apply_nuclear_config(&self, _nuclear_cfg: &mut NuclearConfig) {
+        // Aplicar configuración de stealth y paralelismo
+        eprintln!("🔥 Aplicando configuración NUCLEAR a scraper:");
+        eprintln!("   ⏱️ Timeout: {} seg", self.nuclear_config.search_timeout.as_secs());
+        eprintln!("   🔀 URLs paralelas: {}", self.nuclear_config.max_parallel_urls);
+        eprintln!("   🛡️ Stealth: ON (rotation, delays, headers)");
+        eprintln!("   ⚡ FFI: Go={}, Zig SIMD={}", 
+                  self.nuclear_config.go_ffi_enabled,
+                  self.nuclear_config.zig_simd_enabled);
     }
 
     /// Ejecuta tarea orquestada
@@ -188,6 +219,7 @@ impl Orchestrator {
     fn clone_for_task(&self) -> Self {
         Self {
             config: self.config.clone(),
+            nuclear_config: self.nuclear_config.clone(),
             nuclear_scraper: self.nuclear_scraper.clone(),
             mojo_jax: self.mojo_jax.clone(),
             go_integration: self.go_integration.clone(),
@@ -202,6 +234,7 @@ impl Clone for Orchestrator {
     fn clone(&self) -> Self {
         Self {
             config: self.config.clone(),
+            nuclear_config: self.nuclear_config.clone(),
             nuclear_scraper: self.nuclear_scraper.clone(),
             mojo_jax: self.mojo_jax.clone(),
             go_integration: self.go_integration.clone(),

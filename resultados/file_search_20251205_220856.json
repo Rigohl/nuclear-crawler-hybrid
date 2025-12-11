@@ -1,0 +1,1059 @@
+{
+  "execution_time_ms": 59,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "let test_url = all_results.first().map(|r| r.url.clone()).unwrap_or_default();",
+      "line_number": 884,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "if !test_url.is_empty() {",
+      "line_number": 885,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "self.nuclear_bypass.bypass(&test_url),",
+      "line_number": 888,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 496,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "line_content": "mod tests {",
+      "line_number": 497,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "line_content": "#[test]",
+      "line_number": 500,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "line_content": "fn test_content_extraction() {",
+      "line_number": 501,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "line_content": "<title>Test Page</title>",
+      "line_number": 505,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "line_content": "<meta name=\"description\" content=\"This is a test page\">",
+      "line_number": 506,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "line_content": "let result = extractor.extract_all(html, \"https://test.com\").unwrap();",
+      "line_number": 520,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "line_content": "assert_eq!(result.title, \"Test Page\");",
+      "line_number": 522,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 445,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "mod tests {",
+      "line_number": 446,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "#[test]",
+      "line_number": 449,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "fn test_ffi_status() {",
+      "line_number": 450,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "#[test]",
+      "line_number": 456,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "fn test_hybrid_go() {",
+      "line_number": 457,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "#[test]",
+      "line_number": 464,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "fn test_hybrid_zig() {",
+      "line_number": 465,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "line_content": "let data = b\"test data\";",
+      "line_number": 467,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\hf_integration.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 452,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\hf_integration.rs",
+      "line_content": "mod tests {",
+      "line_number": 453,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\hf_integration.rs",
+      "line_content": "#[test]",
+      "line_number": 456,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\hf_integration.rs",
+      "line_content": "fn test_hf_config_default() {",
+      "line_number": 457,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\hf_integration.rs",
+      "line_content": "#[test]",
+      "line_number": 463,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\hf_integration.rs",
+      "line_content": "fn test_generate_search_urls() {",
+      "line_number": 464,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 683,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "line_content": "mod tests {",
+      "line_number": 684,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "line_content": "#[test]",
+      "line_number": 687,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "line_content": "fn test_circuit_breaker() {",
+      "line_number": 688,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "line_content": "#[test]",
+      "line_number": 703,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "line_content": "fn test_bloom_filter() {",
+      "line_number": 704,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "line_content": "#[test]",
+      "line_number": 714,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "line_content": "fn test_memory_cache() {",
+      "line_number": 715,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 426,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "mod tests {",
+      "line_number": 427,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "async fn create_test_storage() -> (IntelligentStorage, TempDir) {",
+      "line_number": 431,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": ".expect(\"Error creando storage de test\");",
+      "line_number": 434,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 438,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "async fn test_storage_creation() {",
+      "line_number": 439,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "let (storage, _temp_dir) = create_test_storage().await;",
+      "line_number": 440,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 446,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "async fn test_save_and_retrieve_search() {",
+      "line_number": 447,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "let (storage, _temp_dir) = create_test_storage().await;",
+      "line_number": 448,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "title: \"Test\".to_string(),",
+      "line_number": 452,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "description: \"Test description\".to_string(),",
+      "line_number": 453,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "source: \"test\".to_string(),",
+      "line_number": 456,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": ".save_search(\"test query\", results.clone(), None)",
+      "line_number": 460,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "assert_eq!(searches[0].query, \"test query\");",
+      "line_number": 468,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 472,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "async fn test_search_history() {",
+      "line_number": 473,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "let (storage, _temp_dir) = create_test_storage().await;",
+      "line_number": 474,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "title: \"Test\".to_string(),",
+      "line_number": 478,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "description: \"Test description\".to_string(),",
+      "line_number": 479,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "source: \"test\".to_string(),",
+      "line_number": 482,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 494,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "async fn test_url_history() {",
+      "line_number": 495,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "let (storage, _temp_dir) = create_test_storage().await;",
+      "line_number": 496,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 508,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "async fn test_stats() {",
+      "line_number": 509,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "let (storage, _temp_dir) = create_test_storage().await;",
+      "line_number": 510,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "title: \"Test 1\".to_string(),",
+      "line_number": 515,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "source: \"test\".to_string(),",
+      "line_number": 519,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "title: \"Test 2\".to_string(),",
+      "line_number": 523,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": "source: \"test\".to_string(),",
+      "line_number": 527,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "line_content": ".save_search(\"test query\", results, None)",
+      "line_number": 532,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\lib.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 71,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\lib.rs",
+      "line_content": "mod tests {",
+      "line_number": 72,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\lib.rs",
+      "line_content": "#[test]",
+      "line_number": 75,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\lib.rs",
+      "line_content": "fn test_version() {",
+      "line_number": 76,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\nuclear_bypass.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 714,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\nuclear_bypass.rs",
+      "line_content": "mod tests {",
+      "line_number": 715,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\nuclear_bypass.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 718,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\nuclear_bypass.rs",
+      "line_content": "async fn test_nuclear_bypass() {",
+      "line_number": 719,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\orchestration_config.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 287,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\orchestration_config.rs",
+      "line_content": "mod tests {",
+      "line_number": 288,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\orchestration_config.rs",
+      "line_content": "#[test]",
+      "line_number": 291,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\orchestration_config.rs",
+      "line_content": "fn test_maximum_power_locked() {",
+      "line_number": 292,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 416,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "line_content": "mod tests {",
+      "line_number": 417,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 420,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "line_content": "async fn test_parallel_crawler_creation() {",
+      "line_number": 421,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 427,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "line_content": "async fn test_add_urls_parallel() {",
+      "line_number": 428,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "line_content": "#[test]",
+      "line_number": 442,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "line_content": "fn test_extract_links() {",
+      "line_number": 443,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\real_search_engines.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 916,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\real_search_engines.rs",
+      "line_content": "mod tests {",
+      "line_number": 917,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\real_search_engines.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 920,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\real_search_engines.rs",
+      "line_content": "async fn test_real_search_engine() {",
+      "line_number": 921,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\real_search_engines.rs",
+      "line_content": "// Test DuckDuckGo",
+      "line_number": 924,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "\"Tienes {} warnings. Considera instalar 'revive' para un linting más avanzado: go install github.com/mgechev/revive@latest\"",
+      "line_number": 1946,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 3153,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "mod tests {",
+      "line_number": 3154,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "#[tokio::test]",
+      "line_number": 3158,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "async fn test_ultra_advanced_chapel_analyzer() {",
+      "line_number": 3159,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "println!(\"🎯 Test completado - analizador ultra-avanzado funcionando!\");",
+      "line_number": 3187,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 313,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "mod tests {",
+      "line_number": 314,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "#[test]",
+      "line_number": 317,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "fn test_extract_title() {",
+      "line_number": 318,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "<head><title>Test Title</title></head>",
+      "line_number": 321,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "assert_eq!(extract_title(html), \"Test Title\");",
+      "line_number": 325,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "#[test]",
+      "line_number": 328,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "fn test_extract_source() {",
+      "line_number": 329,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "#[test]",
+      "line_number": 334,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "fn test_count_words() {",
+      "line_number": 335,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "let html = \"<p>Hello world this is a test</p>\";",
+      "line_number": 336,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "#[test]",
+      "line_number": 340,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "line_content": "fn test_detect_code_content() {",
+      "line_number": 341,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 321,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "mod tests {",
+      "line_number": 322,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "#[test]",
+      "line_number": 325,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "fn test_calculate_relevance() {",
+      "line_number": 326,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "#[test]",
+      "line_number": 332,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "fn test_calculate_quality() {",
+      "line_number": 333,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "#[test]",
+      "line_number": 348,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "fn test_calculate_authority_score() {",
+      "line_number": 349,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "#[test]",
+      "line_number": 357,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "line_content": "fn test_calculate_security_score() {",
+      "line_number": 358,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 2030,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "mod tests {",
+      "line_number": 2031,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "#[test]",
+      "line_number": 2034,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "fn test_web_search_config_default() {",
+      "line_number": 2035,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "#[test]",
+      "line_number": 2043,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "fn test_calculate_relevance() {",
+      "line_number": 2044,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "#[test]",
+      "line_number": 2055,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "fn test_extract_title() {",
+      "line_number": 2056,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let html = \"<html><head><title>Test Page</title></head></html>\";",
+      "line_number": 2060,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "assert_eq!(title, \"Test Page\");",
+      "line_number": 2063,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "#[test]",
+      "line_number": 2066,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "fn test_extract_source() {",
+      "line_number": 2067,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "#[test]",
+      "line_number": 2075,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "fn test_calculate_quality() {",
+      "line_number": 2076,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let html = \"<html><head><meta name=\\\"description\\\" content=\\\"test\\\"></head><body>Content</body></html>\";",
+      "line_number": 2080,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "#[test]",
+      "line_number": 2087,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "fn test_prepare_search_urls() {",
+      "line_number": 2088,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "#[test]",
+      "line_number": 2104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "fn test_alternative_sources() {",
+      "line_number": 2105,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "#[cfg(test)]",
+      "line_number": 162,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "mod tests {",
+      "line_number": 163,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "#[test]",
+      "line_number": 166,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "fn test_zig_integration() {",
+      "line_number": 167,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "#[test]",
+      "line_number": 174,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "fn test_fast_hash() {",
+      "line_number": 175,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "let data = b\"test\";",
+      "line_number": 177,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "#[test]",
+      "line_number": 182,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "fn test_search_patterns() {",
+      "line_number": 183,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "#[test]",
+      "line_number": 191,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "line_content": "fn test_sum_parallel() {",
+      "line_number": 192,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src",
+  "search_term": "test",
+  "tool": "file_research",
+  "total_matches": 150
+}

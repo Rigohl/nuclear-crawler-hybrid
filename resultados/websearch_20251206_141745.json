@@ -1,0 +1,170 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 53091,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "JAX Julia PyCall bridge",
+  "results": [
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Calling Python function JIT compiled with JAX from Julia without ...",
+      "url": "https://discourse.julialang.org/t/calling-python-function-jit-compiled-with-jax-from-julia-without-overhead/123552"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "GitHub - PhilipVinc/Jax.jl",
+      "url": "https://github.com/PhilipVinc/Jax.jl"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Interfacing with Python Using PyCall.jl | 20. Integration Patterns and ...",
+      "url": "https://softwarepatternslexicon.com/julia/integration-patterns-and-interoperability/interfacing-with-python-using-pycall-jl/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Home · PythonCall & JuliaCall - GitHub Pages",
+      "url": "https://juliapy.github.io/PythonCall.jl/stable/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Calling Python Code with PyCall in Julia Programming Language",
+      "url": "https://piembsystech.com/calling-python-code-with-pycall-in-julia-programming-language/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Readme · PyCall.jl",
+      "url": "https://docs.juliahub.com/PyCall/GkzkC/1.96.2/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Julia PyCall Python: Calling Python Code in Julia - tech-champion.com",
+      "url": "https://tech-champion.com/courses/mastering-julia-programming-from-basics-to-advanced-scientific-computing/lessons/interfacing-and-deployment-in-julia-programming/topics/calling-python-from-julia-a-guide-to-pycall-jl/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "I want Best Practices for Working With Python & Julia Together",
+      "url": "https://discourse.julialang.org/t/i-want-best-practices-for-working-with-python-julia-together/131700"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "GitHub - rejuvyesh/PyCallChainRules.jl: Differentiate python calls from ...",
+      "url": "https://github.com/rejuvyesh/PyCallChainRules.jl"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "PyCall.jl for DL | Python Julia Interop - apxml.com",
+      "url": "https://apxml.com/courses/julia-deep-learning/chapter-5-advanced-topics-gpu-computing/interoperability-python-julia-dl"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 10,
+    "bloom_deduplicated": 10,
+    "bypass_attempts": 0,
+    "cache_entries": 1,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 8,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 0,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 10,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 10,
+    "mojo_active": 1,
+    "nim_parser_active": 1,
+    "real_engines_results": 10,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 10,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 10,
+  "type": "mega_massive_search"
+}

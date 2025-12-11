@@ -1,0 +1,8 @@
+C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID\target\debug\deps\icu_normalizer-a75ac9a843071f7e.d: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\lib.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\properties.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\provider.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\uts46.rs
+
+C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID\target\debug\deps\libicu_normalizer-a75ac9a843071f7e.rmeta: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\lib.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\properties.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\provider.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\uts46.rs
+
+C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\lib.rs:
+C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\properties.rs:
+C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\provider.rs:
+C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\uts46.rs:

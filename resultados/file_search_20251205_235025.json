@@ -1,0 +1,44 @@
+{
+  "execution_time_ms": 10,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "self.report_metrics(metrics).await?;",
+      "line_number": 94,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "self.report_metrics(metrics).await?;",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "async fn report_metrics(&self, metrics: MetricsCollector) -> Result<()> {",
+      "line_number": 242,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "self.report_metrics(metrics).await?;",
+      "line_number": 106,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "async fn report_metrics(&self, metrics: MetricsCollector) -> Result<()> {",
+      "line_number": 381,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "search_term": "report_metrics",
+  "tool": "file_research",
+  "total_matches": 5
+}

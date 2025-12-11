@@ -1,0 +1,1409 @@
+{
+  "execution_time_ms": 158643,
+  "matches": [
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "**ESTADO**: ✅ **TODOS LOS ERRORES CORREGIDOS - LISTO PARA USAR**",
+      "line_number": 3,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "- Qué errores había",
+      "line_number": 40,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "2. **ANALISIS_ERRORES_Y_SOLUCIONES.md** (15 min)",
+      "line_number": 44,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "- Causa raíz de cada error",
+      "line_number": 46,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "→ Resumen visual de 3 errores corregidos",
+      "line_number": 99,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "📄 ANALISIS_ERRORES_Y_SOLUCIONES.md     (400 líneas)",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "→ Causa raíz de cada error",
+      "line_number": 105,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "→ Manejo robusto de errores de red",
+      "line_number": 120,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "### Si el validador reporta errores:",
+      "line_number": 181,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "2. Leer: `ANALISIS_ERRORES_Y_SOLUCIONES.md`",
+      "line_number": 184,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "## 📊 ERRORES CORREGIDOS EN ESTA FASE",
+      "line_number": 201,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "| Error | Problema | Solución | Archivo |",
+      "line_number": 203,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\00_EMPEZAR_AQUI.md",
+      "line_content": "✅ ANALISIS_ERRORES_Y_SOLUCIONES.md     (LISTO)",
+      "line_number": 221,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ACELERACION_EXTREMA_TOTAL.ps1",
+      "line_content": "if ($_ -match \"Successfully tagged\" -or $_ -match \"ERROR\" -or $_ -match \"error\") {",
+      "line_number": 47,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ACELERACION_EXTREMA_TOTAL.ps1",
+      "line_content": "Write-Host $_ -ForegroundColor $(if ($_ -match \"ERROR\" -or $_ -match \"error\") { \"Red\" } else { \"Green\" })",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ACELERACION_EXTREMA_TOTAL.ps1",
+      "line_content": "Write-Host \"   ❌ Error: $_\" -ForegroundColor Red",
+      "line_number": 69,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "# 🔴 ANÁLISIS DE ERRORES Y SOLUCIONES - CHAPEL DOCKER WINDOWS",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "Se identificaron **3 categorías de errores** en fases anteriores del proyecto Chapel. Todas han sido **corregidas** con soluciones específicas implementadas.",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "## 🔴 ERROR 1: Timeout en Descarga de Archivos Grandes",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "RequestError: Timed out downloading...",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "ERROR: Descarga interrumpida después de 30 segundos",
+      "line_number": 17,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "@error \"Descarga fallida: $e\"",
+      "line_number": 50,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "## 🔴 ERROR 2: Comando PowerShell incompatible con Windows",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "# ❌ Error: tail: The term 'tail' is not recognized...",
+      "line_number": 82,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "# ❌ ERROR: Las líneas últimas no se pueden obtener",
+      "line_number": 83,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "Get-Content logfile.txt | Select-String \"error\"",
+      "line_number": 107,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "# Ejecutar sin errores",
+      "line_number": 129,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "## 🔴 ERROR 3: Rutas Windows >260 caracteres (Limitación del SO)",
+      "line_number": 137,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "| Error | Archivo Anterior | Problema | Solución | Archivo Nuevo |",
+      "line_number": 206,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "✅ Manejo de errores: Try-catch en cada función",
+      "line_number": 246,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "✅ Colores: Verde (éxito), Rojo (error), Amarillo (espera)",
+      "line_number": 247,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "# ✅ Todas las acciones funcionan sin errores",
+      "line_number": 255,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "✅ Git clone: Sin errores de ruta",
+      "line_number": 267,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "# ✅ Imagen construida sin errores de ruta",
+      "line_number": 276,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "❌ ERRORES (0)          ← ¡Ninguno!",
+      "line_number": 294,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\ANALISIS_ERRORES_Y_SOLUCIONES.md",
+      "line_content": "**✅ TODOS LOS ERRORES IDENTIFICADOS Y CORREGIDOS**",
+      "line_number": 337,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_docker_build.ps1",
+      "line_content": "Write-Host \"❌ Error durante la construcción: $_\" -ForegroundColor $Red",
+      "line_number": 140,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_docker_build.ps1",
+      "line_content": "Write-Host \"❌ Error ejecutando contenedor: $_\" -ForegroundColor $Red",
+      "line_number": 185,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_docker_build.ps1",
+      "line_content": "Write-Host \"❌ Error durante la prueba: $_\" -ForegroundColor $Red",
+      "line_number": 268,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_docker_build_fixed.ps1",
+      "line_content": "Write-Host \"❌ Error: $_\" -ForegroundColor $Red",
+      "line_number": 79,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_docker_build_fixed.ps1",
+      "line_content": "Write-Host \"❌ Error: $_\" -ForegroundColor $Red",
+      "line_number": 91,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* made many other improvements in terms of bug fixes, errors, docs, etc.",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* adjusted internal module error-checking code to avoid inlining overheads",
+      "line_number": 210,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks",
+      "line_number": 235,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message for having a `c_ptr` in a record that is recursive",
+      "line_number": 238,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages for Build Issues",
+      "line_number": 240,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the errors when the runtime for the current configuration is missing",
+      "line_number": 242,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the errors for using an unsupported configuration for sanitizers",
+      "line_number": 243,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when casting Chapel functions to pointers",
+      "line_number": 263,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when casting to `atomic`",
+      "line_number": 264,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when using generically managed class fields",
+      "line_number": 268,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an erroneous error about forwarding cycles with `owned` classes",
+      "line_number": 270,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when calling a type method from a parallel loop",
+      "line_number": 271,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when writing a parallel iterator type method",
+      "line_number": 272,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed errors about missing runtimes when `CHPL_HOME` is set in a Spack view",
+      "line_number": 274,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed a compiler error when building for NVIDIA GPUs with clang 14",
+      "line_number": 289,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* clarified error when homebrew-based `pkg-config` fails to find a dependence",
+      "line_number": 340,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- fixed ambiguity errors when selecting routines subject to `param` narrowing",
+      "line_number": 368,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* made many other improvements in terms of bug fixes, errors, docs, etc.",
+      "line_number": 425,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* enabled displaying 'dyno' resolution errors in `chpl-language-server` (CLS)",
+      "line_number": 509,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added errors for setting `CHPL_*` environment variables to invalid values",
+      "line_number": 551,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error for trying to use a Cray XC with GASNet (no longer supported)",
+      "line_number": 563,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the wording of error messages for unsupported ROCm versions",
+      "line_number": 570,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks",
+      "line_number": 572,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages for incorrect types with `minmax` reduce intents",
+      "line_number": 574,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved errors when storing reduce intent results into outer variable",
+      "line_number": 575,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved formatting of `chpldoc`-related links that appeared in errors",
+      "line_number": 576,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks for Libraries",
+      "line_number": 579,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* converted halts into thrown errors in the `Python` and `Image` modules",
+      "line_number": 581,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved errors for invalid inputs and too-large images in the `Image` module",
+      "line_number": 583,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message for `numBits(bool)`",
+      "line_number": 584,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error for a reduce intent like `minmax(2*int) reduce sum`",
+      "line_number": 600,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added missing checks for errors in reduction kernel wrappers",
+      "line_number": 612,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed error messages about incorrect memory allocators in `printchplenv`",
+      "line_number": 618,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error message for variables declared without an initializer or type",
+      "line_number": 649,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* made many other improvements in terms of bug fixes, errors, docs, etc.",
+      "line_number": 704,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an option to turn off `Python` module error handling for performance",
+      "line_number": 770,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* removed deprecated `CodepointSplittingError` from the `Errors` module",
+      "line_number": 804,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "(see https://chapel-lang.org/docs/2.4/platforms/udp.html#i-get-worker-failed-dnslookup-on-master-host-name-error-messages)",
+      "line_number": 834,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed a compilation error about missing `inet_aton()` on FreeBSD 13 and 14",
+      "line_number": 892,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks",
+      "line_number": 899,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages for out-of-bounds accesses to tuple elements",
+      "line_number": 901,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved and added detailed error messages for use-before-definition errors",
+      "line_number": 902,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added specialized error messages for defining a variable in terms of itself",
+      "line_number": 903,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages reported by the `Sort` module for unsupported types",
+      "line_number": 904,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error for `extern` return types in multilocale programs",
+      "line_number": 921,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when erroneously writing `super.init` twice",
+      "line_number": 922,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when assigning a type to a value",
+      "line_number": 923,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* removed an extraneous error when using `--no-ieee-float` with the C backend",
+      "line_number": 927,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* partially fixed a bug with catching errors thrown from `fromJson`",
+      "line_number": 937,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* squashed `pathchk` error output from `./configure` commands",
+      "line_number": 962,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added support for bad split-initialization detection and errors",
+      "line_number": 997,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added detailed errors for failed implicit `super` calls",
+      "line_number": 998,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- added support for `compilerError()` and `compilerWarning()` routines",
+      "line_number": 1014,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* made many other improvements in terms of bug fixes, errors, docs, etc.",
+      "line_number": 1058,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved errors thrown by `Image.mediaPipe` when `ffmpeg` is missing",
+      "line_number": 1093,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when `CHPL_LOCALE_MODEL=gpu` and `CHPL_GPU=none`",
+      "line_number": 1146,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved errors for improper uses of built-in `chapel-py` classes",
+      "line_number": 1163,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages for incorrect `CHPL_NETWORK_ATOMICS` settings",
+      "line_number": 1219,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added a proper error message for invalid `CHPL_LOCALE_MODEL` settings",
+      "line_number": 1220,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks",
+      "line_number": 1230,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added a missing error when modifying `const ref` or default-`const` varargs",
+      "line_number": 1232,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message for mixing `return;` and `return x;` in a routine",
+      "line_number": 1233,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages for invalid qualified inheritance expressions",
+      "line_number": 1234,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message when trying to split-initialize using tuple syntax",
+      "line_number": 1235,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message for `main()` with a `type`/`param` return intent",
+      "line_number": 1236,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message when calling `popBack()` on an empty list",
+      "line_number": 1237,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when applying parentheses to a paren-less method",
+      "line_number": 1260,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed a constness error for task-private class variables",
+      "line_number": 1266,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed constness errors due to iterables of types that contain `owned` classes",
+      "line_number": 1267,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when returning iterable expression by `ref`",
+      "line_number": 1268,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* resolved internal errors in certain `forwarding` statement cases",
+      "line_number": 1269,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* prevented an infinite loop when printing errors in Chapel module code",
+      "line_number": 1272,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed a bounds-checking error when multiplying a `bigint` by a `uint`",
+      "line_number": 1278,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error with `CHPL_GPU=amd` and HPE/Cray hugepages modules",
+      "line_number": 1287,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- fixed a bug that could lead to missing error messages",
+      "line_number": 1294,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- fixed errors triggered by resolving calls in `OwnedObject`",
+      "line_number": 1295,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- fixed memory errors due to de-allocated data stored in error messages",
+      "line_number": 1297,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* made many other user-driven improvements w.r.t. bugs, errors, features, tools",
+      "line_number": 1403,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* made `sendPosixSignal()` throw an `IllegalArgumentError` for bad signals",
+      "line_number": 1479,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message for calling `sort()` on unsupported types",
+      "line_number": 1481,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* removed deprecated `IllegalArgumentError` overloads in the 'Errors' module",
+      "line_number": 1519,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message when a vendor's SDK can't be found",
+      "line_number": 1549,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* documented which errors can be thrown from 'Subprocess' procedures",
+      "line_number": 1605,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* noted errors from `spawn`/`spawnshell` may be delayed until later calls",
+      "line_number": 1607,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved errors for `CHPL_TARGET_COMPILER`/`CHPL_TARGET_CC` mismatches",
+      "line_number": 1646,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks",
+      "line_number": 1671,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error when incorrectly modifying `const [in]` or default varargs",
+      "line_number": 1673,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error when modifying `const` `sync` variables",
+      "line_number": 1674,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages when `const` `c_array`s are passed to `c_ptr` formals",
+      "line_number": 1675,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved task intent errors for tuples",
+      "line_number": 1676,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added a user error when constructing incomplete `extern` types",
+      "line_number": 1677,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message for incorrect placement of intent keywords",
+      "line_number": 1678,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error for attempted uses of `sync nothing`, which is not supported",
+      "line_number": 1680,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message for casting abstract `enum`s to numeric types",
+      "line_number": 1681,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message for incorrectly formatted `with` clauses",
+      "line_number": 1682,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved errors for generic anonymous functions",
+      "line_number": 1684,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error when creating an associative domain of `owned` classes",
+      "line_number": 1686,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error message when `sparse subdomain` is used incorrectly",
+      "line_number": 1687,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error message when accidentally creating special method iterators",
+      "line_number": 1688,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error when using same location for `chpldoc` output and Sphinx files",
+      "line_number": 1689,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added a user error when `getFieldRef()` is used on a `type` field",
+      "line_number": 1690,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an incorrect error about missing constructor arguments in some cases",
+      "line_number": 1714,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed \"using value as type\" errors in certain conditional type expressions",
+      "line_number": 1715,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when `out` is used with a default value and no type",
+      "line_number": 1717,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when returning a `ref` to a value of different type",
+      "line_number": 1718,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when using first-class fns as arguments to classes",
+      "line_number": 1719,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed compilation errors due to runtime types under `--baseline`",
+      "line_number": 1720,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed various errors when bulk transferring GPU arrays",
+      "line_number": 1740,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- improved error messages for out-of-order field initialization",
+      "line_number": 1796,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- fixed an error resolving initializers w/ generic fields following concrete",
+      "line_number": 1797,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- fixed an error for ambiguities btwn locals and paren-less procs in methods",
+      "line_number": 1806,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- improved performance of `runAndTrackErrors` API function",
+      "line_number": 1808,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* 'IO' routines like `advanceThrough()` now throw errors for empty separators",
+      "line_number": 1898,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- adjusted error messages to display additional information on hover",
+      "line_number": 1954,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- ensured redefinition errors are issued as intended in more cases",
+      "line_number": 1955,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages when Python versions don't match in `chapel-py` tools",
+      "line_number": 1963,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved Mason error messages when dependencies are missing",
+      "line_number": 1968,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* removed some accidentally documented `ioerror()` routines in the 'OS' module",
+      "line_number": 2055,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* updated `revcomp-fast.chpl` to reflect changes in thrown errors",
+      "line_number": 2068,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error message if the user attempts to set `CHPL_RE2=system`",
+      "line_number": 2081,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages when the Clang version doesn't match LLVM",
+      "line_number": 2082,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added `printchplenv --ignore-errors` to continue past errors encountered",
+      "line_number": 2084,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed regex escape sequences generating errors with Python 3.12",
+      "line_number": 2093,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks",
+      "line_number": 2110,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved errors when modifying `const` shadow variables in nested `forall`s",
+      "line_number": 2112,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error message for calling `export proc`s with wrong number of args",
+      "line_number": 2113,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error message for improper uses of `_`, the 'throwaway' variable",
+      "line_number": 2114,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error when using `var` intents with `foreach` loops",
+      "line_number": 2115,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed a bug with error-handling and reductions within `forall` loops",
+      "line_number": 2139,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an erroneous error message with certain uses of parenless procs",
+      "line_number": 2141,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed 'symbol not found' errors when checking imports due to module order",
+      "line_number": 2142,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed a bug where `export` declarations could hit 'missing `override`' errors",
+      "line_number": 2144,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an error when compiling `chpl` with GCC 13 when using LLVM <= 14",
+      "line_number": 2150,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed the error message for using `CHPL_TASKS=fifo` with GPU support",
+      "line_number": 2154,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed errors concerning rank-change array views on GPU memory",
+      "line_number": 2155,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages for `gpuSort()` when called from the wrong locale",
+      "line_number": 2156,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an off-by-one error in the 'Zarr' IO module's chunk index calculations",
+      "line_number": 2173,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- improved error messages for compile-time out-of-bounds errors on tuples",
+      "line_number": 2238,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- fixed a bug where unpacked tuple assignment caused false constness errors",
+      "line_number": 2245,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved the error generated when using `setBlockSize` improperly",
+      "line_number": 2436,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error-checking logic when `libfabric` is missing",
+      "line_number": 2540,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks",
+      "line_number": 2547,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved error messages when a `record` is `const` due to shadow variables",
+      "line_number": 2552,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error message for invalid assignments from tuples to domains",
+      "line_number": 2553,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* improved locations reported by the compiler's detailed error messages",
+      "line_number": 2554,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* `--print-additional-errors` now also shows some speculative errors",
+      "line_number": 2625,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- made calling `.type` on a type emit an error",
+      "line_number": 2656,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- added detection of infinite recursions during resolution, printing an error",
+      "line_number": 2657,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "- eliminated incorrect error messages involving type queries",
+      "line_number": 2658,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added a new `--detailed-errors` flag to opt-in to better compiler errors",
+      "line_number": 2700,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* changed `binaryDeserializer` to throw an error when reading strings/bytes",
+      "line_number": 2749,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added `--[no-]detailed-errors` to request error messages with more detail",
+      "line_number": 2886,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "Error Messages / Semantic Checks",
+      "line_number": 2898,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error when two files define a top-level module with the same name",
+      "line_number": 2900,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added an error for `ref` declarations with incorrect declared types",
+      "line_number": 2901,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* added a compiler error when casting to a generic subclass in unsupported ways",
+      "line_number": 2904,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* made code locations of `extern record` consistent with `record` in errors",
+      "line_number": 2908,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping\\chapel_libraries\\Chapel_Main_Repository\\CHANGES.md",
+      "line_content": "* fixed an internal error when returning a generic type by `ref`",
+      "line_number": 2918,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel-mcp\\mcp-scraping",
+  "search_term": "ERROR",
+  "tool": "file_research",
+  "total_matches": 500
+}

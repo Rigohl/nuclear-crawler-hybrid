@@ -1,0 +1,800 @@
+{
+  "execution_time_ms": 316,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "Write-ColoredOutput \"  ❌ Build failed - executable not found\" $Red",
+      "line_number": 68,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "Write-ColoredOutput \"  ❌ Build failed: $($_.Exception.Message)\" $Red",
+      "line_number": 72,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "Write-ColoredOutput \"  ❌ Build failed - executable not found\" $Red",
+      "line_number": 144,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "Write-ColoredOutput \"  ❌ Build failed: $($_.Exception.Message)\" $Red",
+      "line_number": 148,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "Write-ColoredOutput \"  ❌ Some tests failed\" $Red",
+      "line_number": 173,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "Write-ColoredOutput \"  ❌ Test execution failed: $($_.Exception.Message)\" $Red",
+      "line_number": 177,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "Write-ColoredOutput \"❌ Build failed, skipping tests\" $Red",
+      "line_number": 231,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_test_workers.ps1",
+      "line_content": "Write-ColoredOutput \"`n❌ Operation failed!\" $Red",
+      "line_number": 247,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\build_workers.ps1",
+      "line_content": "if ($LASTEXITCODE -ne 0) { throw \"Nim build failed\" }",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\biblioteca_bridge.go",
+      "line_content": "return fmt.Errorf(\"sync failed: %v\", err)",
+      "line_number": 150,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\command_executor.go",
+      "line_content": "return nil, fmt.Errorf(\"worker %s failed (%s): %w - stderr: %s\",",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "p.logger.Error(\"BrowserMCP health check failed\", zap.Error(err))",
+      "line_number": 82,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "p.logger.Error(\"BrowserMCP status check failed\", zap.Error(err))",
+      "line_number": 98,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "p.logger.Error(\"BrowserMCP health check failed\", zap.Error(err))",
+      "line_number": 201,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "p.logger.Error(\"BrowserMCP status check failed\", zap.Error(err))",
+      "line_number": 215,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "tasksFailed    int64",
+      "line_number": 66,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "atomic.AddInt64(&p.tasksFailed, 1)",
+      "line_number": 182,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "TasksFailed:    int(atomic.LoadInt64(&p.tasksFailed)),",
+      "line_number": 282,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "TasksFailed    int `json:\"tasks_failed\"`",
+      "line_number": 295,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "zap.Int(\"tasks_failed\", stats.TasksFailed))",
+      "line_number": 318,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "Status             string // \"pending\", \"running\", \"completed\", \"failed\"",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "FailedOperations   int64",
+      "line_number": 52,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "atomic.AddInt64(&exp.FailedOperations, 1)",
+      "line_number": 432,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\quantum_system.go",
+      "line_content": "totalSuccess := status.CompletedOperations - status.FailedOperations",
+      "line_number": 473,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "StatusFailed     ExperimentStatus = \"failed\"",
+      "line_number": 34,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "// failExperiment marks an experiment as failed",
+      "line_number": 269,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "exp.Status = StatusFailed",
+      "line_number": 273,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\experiment.go",
+      "line_content": "em.logger.Error(\"Experiment failed\", zap.String(\"id\", exp.ID), zap.Error(err))",
+      "line_number": 278,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\experiment\\quantum.go",
+      "line_content": "return fmt.Errorf(\"failed to apply gate %d: %w\", i, err)",
+      "line_number": 180,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "StatusFailed   Status = \"failed\"",
+      "line_number": 27,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "panic(\"failed to connect database\")",
+      "line_number": 56,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "StatusFailed   MCPStatus = \"failed\"",
+      "line_number": 31,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "instance.Status = StatusFailed",
+      "line_number": 125,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "instance.Status = StatusFailed",
+      "line_number": 151,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\middleware\\math_codegen.go",
+      "line_content": "FailedRequests      int64",
+      "line_number": 85,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\command_handlers.go",
+      "line_content": "\"failed\":     0,",
+      "line_number": 75,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\handlers.go",
+      "line_content": "s.logger.Error(\"Failed to get BIBLIOTECA_CENTRAL stats\", zap.Error(err))",
+      "line_number": 219,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\handlers.go",
+      "line_content": "s.logger.Error(\"Optimized sync failed\", zap.Error(err))",
+      "line_number": 248,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\handlers.go",
+      "line_content": "s.logger.Error(\"Failed to load Nuclear Crawler results\", zap.Error(err))",
+      "line_number": 283,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\health_checker.go",
+      "line_content": "zap.Int(\"tasks_failed\", stats.TasksFailed),",
+      "line_number": 149,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\mcp_advanced_server.go",
+      "line_content": "RequestsFailed    int64",
+      "line_number": 116,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\mcp_advanced_server.go",
+      "line_content": "\"requests_failed\":     atomic.LoadInt64(&s.serveMetrics.RequestsFailed),",
+      "line_number": 478,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusBadRequest, gin.H{\"error\": \"failed to read body\"})",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"failed to create stdin pipe\"})",
+      "line_number": 68,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"failed to create stdout pipe\"})",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"failed to start worker\"})",
+      "line_number": 78,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"failed to read worker output\"})",
+      "line_number": 91,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"worker execution failed: \" + err.Error()})",
+      "line_number": 97,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusBadRequest, gin.H{\"error\": \"failed to read body\"})",
+      "line_number": 111,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"failed to create stdin pipe\"})",
+      "line_number": 125,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"failed to create stdout pipe\"})",
+      "line_number": 130,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"failed to start worker\"})",
+      "line_number": 135,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"failed to read worker output\"})",
+      "line_number": 148,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"worker execution failed: \" + err.Error()})",
+      "line_number": 154,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "logger.Error(\"Failed to create TRAE CLI proxy\", zap.Error(err))",
+      "line_number": 376,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "job.Status = jobs.StatusFailed",
+      "line_number": 526,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "job.Status = jobs.StatusFailed",
+      "line_number": 539,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "job.Status = jobs.StatusFailed",
+      "line_number": 595,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\projects\\project_manager.go",
+      "line_content": "ExecFailed   ExecutionStatus = \"failed\"",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\projects\\project_manager.go",
+      "line_content": "execution.Status = ExecFailed",
+      "line_number": 212,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "p.logger.Error(\"Failed to decode metrics\", zap.Error(err))",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "p.logger.Error(\"Failed to create request\", zap.Error(err))",
+      "line_number": 134,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "p.logger.Error(\"Failed to forward request\", zap.Error(err))",
+      "line_number": 148,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "return fmt.Errorf(\"failed to create health check request: %w\", err)",
+      "line_number": 188,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "return fmt.Errorf(\"TRAE CLI health check failed: %w\", err)",
+      "line_number": 193,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "return nil, fmt.Errorf(\"failed to marshal request body: %w\", err)",
+      "line_number": 210,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "return nil, fmt.Errorf(\"failed to create request: %w\", err)",
+      "line_number": 218,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "return nil, fmt.Errorf(\"request failed: %w\", err)",
+      "line_number": 227,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "return nil, fmt.Errorf(\"failed to decode response: %w\", err)",
+      "line_number": 233,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"Failed to create request\"})",
+      "line_number": 306,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "c.JSON(http.StatusBadGateway, gin.H{\"error\": \"Proxy request failed\"})",
+      "line_number": 319,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Failed to install Chocolatey: $($_.Exception.Message)\" -ForegroundColor Red",
+      "line_number": 53,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Failed to install Nim: $($_.Exception.Message)\" -ForegroundColor Red",
+      "line_number": 67,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Failed to install MSYS2: $($_.Exception.Message)\" -ForegroundColor Red",
+      "line_number": 93,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Failed to install MSYS2 dependencies: $($_.Exception.Message)\" -ForegroundColor Red",
+      "line_number": 112,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Failed to install libsentiment: $($_.Exception.Message)\" -ForegroundColor Red",
+      "line_number": 139,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ $($ver.Name) verification failed\" -ForegroundColor Red",
+      "line_number": 162,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ $($ver.Name) verification failed: $($_.Exception.Message)\" -ForegroundColor Red",
+      "line_number": 165,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Failed to build Nim scraper\" -ForegroundColor Red",
+      "line_number": 181,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Failed to build C sentiment analyzer\" -ForegroundColor Red",
+      "line_number": 192,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Failed to build workers: $($_.Exception.Message)\" -ForegroundColor Red",
+      "line_number": 197,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Nim scraper test failed\" -ForegroundColor Red",
+      "line_number": 211,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ C sentiment analyzer test failed\" -ForegroundColor Red",
+      "line_number": 220,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\setup_workers_windows.ps1",
+      "line_content": "Write-Host \"❌ Worker tests failed: $($_.Exception.Message)\" -ForegroundColor Red",
+      "line_number": 224,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\verify_workers_setup.ps1",
+      "line_content": "Write-Host \"❌ Nim scraper: Test failed\" -ForegroundColor Red",
+      "line_number": 98,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\verify_workers_setup.ps1",
+      "line_content": "Write-Host \"❌ Nim scraper: Test failed\" -ForegroundColor Red",
+      "line_number": 114,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\verify_workers_setup.ps1",
+      "line_content": "Write-Host \"❌ JARVIXSERVER help check failed\" -ForegroundColor Red",
+      "line_number": 136,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\workers\\c\\sentiment_analyzer.c",
+      "line_content": "strcpy(result.error, \"Memory allocation failed\");",
+      "line_number": 67,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\workers\\c\\sentiment_analyzer.c",
+      "line_content": "fprintf(stderr, \"[ERROR] Failed to create thread %d\\n\", i);",
+      "line_number": 151,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\workers\\c\\sentiment_analyzer.c",
+      "line_content": "fprintf(stderr, \"[ERROR] JSON parsing failed: %s\\n\", error.text);",
+      "line_number": 226,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\workers\\c\\sentiment_analyzer.c",
+      "line_content": "fprintf(stderr, \"[ERROR] Memory allocation failed\\n\");",
+      "line_number": 259,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\workers\\c\\sentiment_analyzer.c",
+      "line_content": "fprintf(stderr, \"[ERROR] Memory allocation failed\\n\");",
+      "line_number": 277,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\workers\\nim\\scraper.nim",
+      "line_content": "stderr.writeLine(fmt\"[ERROR] Failed to scrape {url} - Status: {result.statusCode}\")",
+      "line_number": 83,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\workers\\test_workers.py",
+      "line_content": "print(\"⚠️  Workers exist but integration checks failed\")",
+      "line_number": 272,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\bin\\server_http.rs",
+      "line_content": "(StatusCode::INTERNAL_SERVER_ERROR, Json(error_response(format!(\"Failed to execute cargo: {}\", e)))).into_response()",
+      "line_number": 188,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\bin\\server_http.rs",
+      "line_content": "(StatusCode::INTERNAL_SERVER_ERROR, Json(error_response(format!(\"Analysis failed: {}\", e)))).into_response()",
+      "line_number": 202,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\bin\\server_http.rs",
+      "line_content": "(StatusCode::INTERNAL_SERVER_ERROR, Json(error_response(format!(\"Repair failed: {}\", e)))).into_response()",
+      "line_number": 214,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\bin\\server_http.rs",
+      "line_content": ".map_err(|e| format!(\"Failed to run cargo fix: {}\", e))?;",
+      "line_number": 337,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\bin\\server_http.rs",
+      "line_content": ".expect(\"Failed to bind port 3001\");",
+      "line_number": 402,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\bin\\server_http.rs",
+      "line_content": ".expect(\"Failed to start server\");",
+      "line_number": 417,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": ".expect(\"Failed to set spinner template\"),",
+      "line_number": 215,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": ".expect(\"Failed to set progress template\"),",
+      "line_number": 243,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": ".expect(\"Failed to set repair spinner template\"),",
+      "line_number": 198,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "let failed = results.len() - successful;",
+      "line_number": 481,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "println!(\"  • Reparaciones fallidas: {}\", failed.to_string().red());",
+      "line_number": 487,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "Err(anyhow::anyhow!(\"Cargo command failed: {}\", stderr))",
+      "line_number": 43,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "\"Cargo command failed with exit code: {:?}\",",
+      "line_number": 62,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "line_content": "\"Failed to send metrics: {}\",",
+      "line_number": 140,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "let failed = results.len() - successful;",
+      "line_number": 64,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "\"repairs_failed\".to_string(),",
+      "line_number": 71,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "Value::Number(serde_json::Number::from(failed)),",
+      "line_number": 72,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "log::warn!(\"Failed to serialize metrics to JSON: {}\", e);",
+      "line_number": 100,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "serde_json::json!({\"error\": \"serialization_failed\"})",
+      "line_number": 101,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI",
+  "search_term": "failed",
+  "tool": "file_research",
+  "total_matches": 113
+}

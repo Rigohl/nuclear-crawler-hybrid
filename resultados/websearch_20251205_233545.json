@@ -1,0 +1,170 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 50381,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "cargo help all commands rust",
+  "results": [
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Cargo Commands - The Cargo Book - Learn Rust",
+      "url": "https://doc.rust-lang.org/cargo/commands/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Cargo Commands - The Cargo Book - rustwiki.org",
+      "url": "https://rustwiki.org/en/cargo/commands/index.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "List of Rust Cargo Commands - Code2care",
+      "url": "https://code2care.org/rust/list-rust-cargo-commands/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Cargo commands - RustStack.Org",
+      "url": "https://ruststack.org/cargo-commands/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "cargo help - The Cargo Book - cargo-book.irust.net",
+      "url": "https://cargo-book.irust.net/en-us/commands/cargo-help.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "johnnysecond/rust-cargo-cheatsheet - GitHub",
+      "url": "https://github.com/johnnysecond/rust-cargo-cheatsheet"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Cargo & Rust Cheat Sheet - All The Essentials In a Single Source - JFrog",
+      "url": "https://jfrog.com/cheat-sheet/cargo-rust-made-easy/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "cargo help - The Cargo Book - Learn Rust",
+      "url": "https://doc.rust-lang.org/cargo/commands/cargo-help.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How to Use the Command 'cargo help' (with examples)",
+      "url": "https://commandmasters.com/commands/cargo-help-common/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Cargo Commands - The Cargo Book - GitHub Pages",
+      "url": "https://dirname.github.io/rust-std-doc/cargo/commands/index.html"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 10,
+    "bloom_deduplicated": 7,
+    "bypass_attempts": 0,
+    "cache_entries": 3,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 5,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 0,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 10,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 10,
+    "mojo_active": 1,
+    "nim_parser_active": 1,
+    "real_engines_results": 10,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 10,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 10,
+  "type": "mega_massive_search"
+}

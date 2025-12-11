@@ -1,0 +1,681 @@
+{
+  "execution_time_ms": 57,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\bin\\server_pro.rs",
+      "line_content": ".unwrap()",
+      "line_number": 915,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\bin\\server_stdio.rs",
+      "line_content": ".unwrap()",
+      "line_number": 550,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let processor = ChapelProcessor::new().unwrap();",
+      "line_number": 693,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let processor = ChapelProcessor::new().unwrap();",
+      "line_number": 702,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let compressed = processor.compress_data(original).unwrap();",
+      "line_number": 705,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let decompressed = processor.decompress_data(&compressed).unwrap();",
+      "line_number": 710,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let processor = ChapelProcessor::new().unwrap();",
+      "line_number": 718,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "processor.add_url(\"https://example.com\").unwrap();",
+      "line_number": 725,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "processor.add_url(\"https://test.org\").unwrap();",
+      "line_number": 726,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "processor.add_url(\"https://rust-lang.org\").unwrap();",
+      "line_number": 727,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let processor = ChapelProcessor::new().unwrap();",
+      "line_number": 737,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let processor = ChapelProcessor::new().unwrap();",
+      "line_number": 753,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let processor = ChapelProcessor::new().unwrap();",
+      "line_number": 762,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let result = processor.benchmark_full(10000).unwrap();",
+      "line_number": 764,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let processor = ChapelProcessor::new().unwrap();",
+      "line_number": 776,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let results = processor.process_urls_parallel(urls.clone(), 5000, 10).unwrap();",
+      "line_number": 784,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let processor = ChapelProcessor::new().unwrap();",
+      "line_number": 794,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "processor.add_url(\"https://example1.com\").unwrap();",
+      "line_number": 797,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "processor.add_url(\"https://example2.com\").unwrap();",
+      "line_number": 798,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "processor.add_url(\"https://example3.com\").unwrap();",
+      "line_number": 799,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "processor.add_url(\"https://example4.com\").unwrap();",
+      "line_number": 800,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "processor.add_url(\"https://example5.com\").unwrap();",
+      "line_number": 801,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let stats = processor.parallel_scrape(1000).unwrap();",
+      "line_number": 803,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\chapel_integration.rs",
+      "line_content": "let info = get_chapel_info().unwrap();",
+      "line_number": 816,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\clone_optimizer.rs",
+      "line_content": "self.value.as_ref().unwrap()",
+      "line_number": 129,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\clone_optimizer.rs",
+      "line_content": "self.value.as_mut().unwrap()",
+      "line_number": 135,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\cloud_persistence.rs",
+      "line_content": ".unwrap()",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\credentials\\mod.rs",
+      "line_content": ".unwrap();",
+      "line_number": 102,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\credentials\\mod.rs",
+      "line_content": "assert!(manager.verify_password(&id, \"secure_password\").unwrap());",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\credentials\\mod.rs",
+      "line_content": "assert!(!manager.verify_password(&id, \"wrong_password\").unwrap());",
+      "line_number": 105,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\database_persistence.rs",
+      "line_content": ".unwrap()",
+      "line_number": 265,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "Regex::new(r#\"class=\"g-recaptcha\"#).unwrap(),",
+      "line_number": 91,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "Regex::new(r#\"data-sitekey\"#).unwrap(),",
+      "line_number": 92,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "Regex::new(r#\"grecaptcha\\.ready\"#).unwrap(),",
+      "line_number": 95,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "Regex::new(r#\"grecaptcha\\.execute\"#).unwrap(),",
+      "line_number": 96,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "Regex::new(r#\"class=\"h-captcha\"#).unwrap(),",
+      "line_number": 99,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "Regex::new(r#\"hcaptcha\\.render\"#).unwrap(),",
+      "line_number": 100,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "image_captcha_patterns: vec![Regex::new(r#\"captcha.*image\"#).unwrap()],",
+      "line_number": 102,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "audio_captcha_patterns: vec![Regex::new(r#\"captcha.*audio\"#).unwrap()],",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "funcaptcha_patterns: vec![Regex::new(r#\"class=\"funcaptcha\"#).unwrap()],",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "geetest_patterns: vec![Regex::new(r#\"geetest\"#).unwrap()],",
+      "line_number": 105,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\captcha_handler.rs",
+      "line_content": "cloudflare_patterns: vec![Regex::new(r#\"__cf_chl\"#).unwrap()],",
+      "line_number": 106,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": ".unwrap(),",
+      "line_number": 76,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "phone_regex: Regex::new(r\"(?i)(?:phone|tel|telephone|móvil|celular|numero)\").unwrap(),",
+      "line_number": 77,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "url_regex: Regex::new(r\"(?i)(?:website|url|site|web|sitio)\").unwrap(),",
+      "line_number": 78,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "date_regex: Regex::new(r\"(?i)(?:date|fecha|birth|nacimiento|dob)\").unwrap(),",
+      "line_number": 79,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "let form_pattern = Regex::new(r\"(?s)<form[^>]*>(.*?)</form>\").unwrap();",
+      "line_number": 86,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "let input_pattern = Regex::new(r#\"<input\\s+([^>]*)/?>\"#).unwrap();",
+      "line_number": 140,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "let select_pattern = Regex::new(r#\"<select\\s+([^>]*)>(.*?)</select>\"#).unwrap();",
+      "line_number": 149,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "let textarea_pattern = Regex::new(r#\"<textarea\\s+([^>]*)>(.*?)</textarea>\"#).unwrap();",
+      "line_number": 160,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "let option_pattern = Regex::new(r#\"<option[^>]*>([^<]*)</option>\"#).unwrap();",
+      "line_number": 253,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\forms\\detection.rs",
+      "line_content": "let input_pattern = Regex::new(r#\"<input\\s+([^>]*)/?>\"#).unwrap();",
+      "line_number": 322,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\parallel_benchmark.rs",
+      "line_content": "assert_eq!(err.unwrap(), msg.as_str());",
+      "line_number": 162,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\parallel_benchmark.rs",
+      "line_content": "assert_eq!(failed.status.error_message().unwrap(), \"Test error\");",
+      "line_number": 317,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\rate_limit.rs",
+      "line_content": "let _permit = self.semaphore.acquire().await.unwrap();",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\rate_limit.rs",
+      "line_content": "let mut last = self.last_request.lock().unwrap();",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": "let selector = Selector::parse(\"a[href]\").unwrap();",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": ".select(&Selector::parse(\"title\").unwrap())",
+      "line_number": 123,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": ".select(&Selector::parse(\"meta\").unwrap())",
+      "line_number": 131,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": "let email_regex = Regex::new(r\"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\").unwrap();",
+      "line_number": 142,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": "let phone_regex = Regex::new(r\"\\+?[\\d\\s\\-\\(\\)]{10,}\").unwrap();",
+      "line_number": 152,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": ".select(&Selector::parse(\"a[href]\").unwrap())",
+      "line_number": 165,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": ".select(&Selector::parse(\"img\").unwrap())",
+      "line_number": 182,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": ".select(&Selector::parse(\"script[src]\").unwrap())",
+      "line_number": 197,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": ".select(&Selector::parse(\"link[rel='stylesheet']\").unwrap())",
+      "line_number": 204,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraper.rs",
+      "line_content": ".select(&Selector::parse(\"form\").unwrap())",
+      "line_number": 229,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraping\\parser.rs",
+      "line_content": "let results = results.unwrap();",
+      "line_number": 635,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraping\\parser.rs",
+      "line_content": "let results = results.unwrap();",
+      "line_number": 658,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\scraping\\parser.rs",
+      "line_content": "let results = results.unwrap();",
+      "line_number": 673,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\social_media_intelligence.rs",
+      "line_content": "assert!(report[\"summary\"][\"total_posts\"].as_u64().unwrap() > 0);",
+      "line_number": 473,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\token_optimization.rs",
+      "line_content": ".unwrap()",
+      "line_number": 173,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\token_optimization.rs",
+      "line_content": ".unwrap()",
+      "line_number": 206,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\token_optimization.rs",
+      "line_content": "let result = optimizer.optimize_prompt(prompt).unwrap();",
+      "line_number": 334,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\token_optimization.rs",
+      "line_content": "let analysis = analyze_token_cost(prompt, 0.002).unwrap();",
+      "line_number": 360,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": ".unwrap(),",
+      "line_number": 66,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "regex: Regex::new(r\"(?i)(<script|javascript:|onerror=|onload=|onclick=)\").unwrap(),",
+      "line_number": 79,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "regex: Regex::new(r\"(?i)<form.*method=.*post\").unwrap(),",
+      "line_number": 92,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "regex: Regex::new(r\"(?i)(password|api_key|secret|token|credit_card)\\s*=\").unwrap(),",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "regex: Regex::new(r\"(?i)(tlsv1\\.|sslv3|sslv2|md5|sha1)\").unwrap(),",
+      "line_number": 117,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "regex: Regex::new(r\"(?i)(serialize|pickle|unserialize|deserialize)\").unwrap(),",
+      "line_number": 129,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "regex: Regex::new(r\"(?i)(<!ENTITY|SYSTEM|PUBLIC|DOCTYPE)\").unwrap(),",
+      "line_number": 142,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "regex: Regex::new(r\"(?i)(exec|system|passthru|shell_exec|proc_open)\\s*\\(\").unwrap(),",
+      "line_number": 154,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "regex: Regex::new(r\"(?i)(\\.\\.\\/|\\.\\.\\\\|\\.\\./|\\.\\.\\)\").unwrap(),",
+      "line_number": 167,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\vulnerability_scanner.rs",
+      "line_content": "*severity_map.get_mut(&pattern.severity).unwrap() += 1;",
+      "line_number": 210,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_automation.rs",
+      "line_content": "static ref EMAIL_REGEX: Regex = Regex::new(r\"[^@]+@[^@]+\\.[^@]+\").unwrap();",
+      "line_number": 17,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_automation.rs",
+      "line_content": "Regex::new(r\"\\+?1?\\s*\\(?(\\d{3})\\)?[\\s.-]?(\\d{3})[\\s.-]?(\\d{4})\").unwrap();",
+      "line_number": 19,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_automation.rs",
+      "line_content": "let re = Regex::new(r#\"data-sitekey=\"([^\"]+)\"\"#).unwrap();",
+      "line_number": 343,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_automation.rs",
+      "line_content": "assert_eq!(captcha.unwrap().challenge_type, \"google_recaptcha\");",
+      "line_number": 416,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_browser_enhancement.rs",
+      "line_content": "let window = web_sys::window().unwrap();",
+      "line_number": 102,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_browser_enhancement.rs",
+      "line_content": "let document = window.document().unwrap();",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_browser_enhancement.rs",
+      "line_content": "let window = web_sys::window().unwrap();",
+      "line_number": 126,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_browser_enhancement.rs",
+      "line_content": "let document = window.document().unwrap();",
+      "line_number": 127,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_browser_enhancement.rs",
+      "line_content": "let body = document.body().unwrap();",
+      "line_number": 128,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_browser_enhancement.rs",
+      "line_content": "let window_height = window.inner_height()?.as_f64().unwrap();",
+      "line_number": 132,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\wasm_browser_enhancement.rs",
+      "line_content": "let window = web_sys::window().unwrap();",
+      "line_number": 198,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src\\workflow_orchestrator.rs",
+      "line_content": "let execution = result.unwrap();",
+      "line_number": 439,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\src",
+  "search_term": "unwrap()",
+  "tool": "file_research",
+  "total_matches": 96
+}

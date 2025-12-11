@@ -1,0 +1,1003 @@
+{
+  "execution_time_ms": 10,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\build.rs",
+      "line_content": "// Esto es necesario porque el enum CargoCommand con clap es muy grande",
+      "line_number": 10,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.toml",
+      "line_content": "description = \"Enhanced Rust CLI with advanced cargo commands, repair tools, and JARVIXSERVER integration\"",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.toml",
+      "line_content": "categories = [\"command-line-utilities\", \"development-tools\"]",
+      "line_number": 10,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "> **Fuente:** https://doc.rust-lang.org/cargo/commands/",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Uso:** `cargo [OPTIONS] [SUBCOMMAND]`",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo.html)",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Uso:** `cargo help [SUBCOMMAND]`",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-help.html)",
+      "line_number": 32,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-version.html)",
+      "line_number": 38,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-bench.html)",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-build.html)",
+      "line_number": 58,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-check.html)",
+      "line_number": 64,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-clean.html)",
+      "line_number": 70,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-clippy.html)",
+      "line_number": 76,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-doc.html)",
+      "line_number": 85,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-fetch.html)",
+      "line_number": 91,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-fix.html)",
+      "line_number": 97,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-fmt.html)",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Uso:** `cargo miri [OPTIONS] [SUBCOMMAND]`",
+      "line_number": 107,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-miri.html)",
+      "line_number": 109,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Uso:** `cargo report <SUBCOMMAND>`",
+      "line_number": 113,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-report.html)",
+      "line_number": 115,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-run.html)",
+      "line_number": 124,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-rustc.html)",
+      "line_number": 130,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-rustdoc.html)",
+      "line_number": 136,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-test.html)",
+      "line_number": 147,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-add.html)",
+      "line_number": 161,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-info.html)",
+      "line_number": 167,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-generate-lockfile.html)",
+      "line_number": 173,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-locate-project.html)",
+      "line_number": 179,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-metadata.html)",
+      "line_number": 185,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-pkgid.html)",
+      "line_number": 191,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-remove.html)",
+      "line_number": 197,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-tree.html)",
+      "line_number": 206,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-update.html)",
+      "line_number": 212,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-vendor.html)",
+      "line_number": 218,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-init.html)",
+      "line_number": 232,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-install.html)",
+      "line_number": 242,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-new.html)",
+      "line_number": 252,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-search.html)",
+      "line_number": 258,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-uninstall.html)",
+      "line_number": 264,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-login.html)",
+      "line_number": 274,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-logout.html)",
+      "line_number": 280,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-owner.html)",
+      "line_number": 286,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-package.html)",
+      "line_number": 295,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-publish.html)",
+      "line_number": 304,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-yank.html)",
+      "line_number": 310,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "**Link:** [Comandos Deprecados - Documentación Oficial](https://doc.rust-lang.org/cargo/commands/deprecated-and-removed.html)",
+      "line_number": 319,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "//! # CLI Module - Command Line Interface",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "use clap::{Parser, Subcommand};",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "use crate::commands::{",
+      "line_number": 8,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "build::BuildCommand,",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "repair::RepairCommand,",
+      "line_number": 10,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "analyze::AnalyzeCommand,",
+      "line_number": 11,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "metrics::MetricsCommand,",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "cargo::CargoCommand,",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "#[command(name = \"trae\")]",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "#[command(version = \"0.1.0\")]",
+      "line_number": 19,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "#[command(about = \"Total Rust Analysis Engine - Enhanced cargo with advanced tooling\")]",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "#[command(long_about = None)]",
+      "line_number": 21,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "#[command(subcommand)]",
+      "line_number": 35,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "pub command: Commands,",
+      "line_number": 36,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "#[derive(Subcommand, Debug)]",
+      "line_number": 39,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "pub enum Commands {",
+      "line_number": 40,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "/// Enhanced build commands with analysis and repair",
+      "line_number": 41,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Build(BuildCommand),",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Repair(RepairCommand),",
+      "line_number": 45,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Analyze(AnalyzeCommand),",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Metrics(MetricsCommand),",
+      "line_number": 51,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "/// Execute enhanced cargo commands",
+      "line_number": 53,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Cargo(CargoCommand),",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "/// Show all available cargo commands (from CARGO_COMMANDS.md)",
+      "line_number": 56,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "#[command(name = \"help-cargo\")]",
+      "line_number": 57,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "match &self.command {",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::Build(cmd) => cmd.execute(self).await,",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::Repair(cmd) => cmd.execute(self).await,",
+      "line_number": 75,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::Analyze(cmd) => cmd.execute(self).await,",
+      "line_number": 76,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::Metrics(cmd) => cmd.execute(self).await,",
+      "line_number": 77,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::Cargo(cmd) => cmd.execute(self).await,",
+      "line_number": 78,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::HelpCargo => self.show_cargo_help().await,",
+      "line_number": 79,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::Init { force } => self.init_config(*force).await,",
+      "line_number": 80,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::Doctor => self.run_doctor().await,",
+      "line_number": 81,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "use crate::utils::docs::show_cargo_commands;",
+      "line_number": 86,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "show_cargo_commands().await",
+      "line_number": 87,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\analyze.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\analyze.rs",
+      "line_content": "//! # Analyze Command - Deep code analysis and optimization",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\analyze.rs",
+      "line_content": "pub struct AnalyzeCommand {",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\analyze.rs",
+      "line_content": "impl AnalyzeCommand {",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "//! # Build Command - Enhanced cargo build with analysis",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "pub struct BuildCommand {",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "impl BuildCommand {",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "let repair_command = crate::commands::repair::RepairCommand {",
+      "line_number": 232,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "// repair_command.execute_auto_repair().await?;",
+      "line_number": 241,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "//! # Enhanced Cargo Commands",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "pub struct CargoCommand {",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "/// Cargo subcommand to execute",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "#[arg(value_name = \"COMMAND\")]",
+      "line_number": 14,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "pub command: String,",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "impl CargoCommand {",
+      "line_number": 22,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "println!(\"{}\", format!(\"🚀 Ejecutando cargo {} mejorado...\", self.command).cyan().bold());",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\metrics.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\metrics.rs",
+      "line_content": "//! # Metrics Command - Manage metrics and reporting",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\metrics.rs",
+      "line_content": "pub struct MetricsCommand {",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\metrics.rs",
+      "line_content": "impl MetricsCommand {",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\mod.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\mod.rs",
+      "line_content": "//! # Commands Module - All command implementations",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "//! # Repair Command - Automatic code repair and fixing",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "pub struct RepairCommand {",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "impl RepairCommand {",
+      "line_number": 62,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "command: \"cargo clippy --fix --allow-dirty --allow-no-vcs\".to_string(),",
+      "line_number": 206,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "command: \"cargo fmt\".to_string(),",
+      "line_number": 226,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "println!(\"     {}: {}\", \"Comando\".green(), issue.command.blue());",
+      "line_number": 271,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "let command_parts: Vec<&str> = issue.command.split_whitespace().collect();",
+      "line_number": 306,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "if command_parts.len() > 1 {",
+      "line_number": 307,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "match executor.execute_with_output(&command_parts[1..]).await {",
+      "line_number": 308,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "format!(\"Se ejecutaría: {}\", issue.command)",
+      "line_number": 351,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "pub command: String,",
+      "line_number": 406,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "//! # Cargo Executor - Enhanced cargo command execution",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "use std::process::{Command, Stdio};",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "use tokio::process::Command as TokioCommand;",
+      "line_number": 7,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "let mut cmd = TokioCommand::new(\"cargo\");",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "Err(anyhow::anyhow!(\"Cargo command failed: {}\", stderr))",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "let mut cmd = TokioCommand::new(\"cargo\");",
+      "line_number": 47,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "line_content": "Err(anyhow::anyhow!(\"Cargo command failed with exit code: {:?}\", status.code()))",
+      "line_number": 60,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "line_content": "if let Ok(output) = std::process::Command::new(\"rustc\").arg(\"--version\").output() {",
+      "line_number": 46,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "line_content": "if let Ok(output) = std::process::Command::new(\"cargo\").arg(\"--version\").output() {",
+      "line_number": 69,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "line_content": "std::process::Command::new(\"cargo\")",
+      "line_number": 95,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\main.rs",
+      "line_content": "mod commands;",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\main.rs",
+      "line_content": "║  • Advanced cargo commands with repair & analysis               ║",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "use crate::commands::repair::RepairResult;",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "pub command: String,",
+      "line_number": 17,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "pub fn new(command: String) -> Self {",
+      "line_number": 27,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "command,",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\docs.rs",
+      "line_content": "pub async fn show_cargo_commands() -> Result<()> {",
+      "line_number": 8,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\docs.rs",
+      "line_content": "println!(\"{}\", \"📖 CARGO COMMANDS - Documentación Oficial de Rust\".cyan().bold());",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\docs.rs",
+      "line_content": "let cargo_commands_content = include_str!(\"../../CARGO_COMMANDS.md\");",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\docs.rs",
+      "line_content": "let lines: Vec<&str> = cargo_commands_content.lines().collect();",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\docs.rs",
+      "line_content": "println!(\"{}\", \"📄 Documentación completa disponible en: CARGO_COMMANDS.md\".yellow());",
+      "line_number": 35,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "search_term": "Command",
+  "tool": "file_research",
+  "total_matches": 142
+}

@@ -1,0 +1,170 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 50870,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "rust parallel computing 2025 updates",
+  "results": [
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Rust's Fearless Concurrency: Revolutionizing Parallel Programming in 2025",
+      "url": "https://dev.to/ramasundaram_s/rusts-fearless-concurrency-revolutionizing-parallel-programming-in-2025-2032"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Fearless Concurrency - The Rust Programming Language",
+      "url": "https://doc.rust-lang.org/book/ch16-00-concurrency.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Rust Makes Progress On Async Rust Experience, Stabilizing ... - Phoronix",
+      "url": "https://www.phoronix.com/news/Rust-Projects-Mid-2025"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "[2502.15536v1] NPB-Rust: NAS Parallel Benchmarks in Rust",
+      "url": "https://arxiv.org/abs/2502.15536v1"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "6 Essential Rust Features for High-Performance GPU and Parallel ...",
+      "url": "https://elitedev.in/rust/6-essential-rust-features-for-high-performance-gpu/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Promoting Parallel Front End - Rust Project Goals",
+      "url": "https://rust-lang.github.io/rust-project-goals/2025h2/parallel-front-end.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "rayon-rs/rayon: Rayon: A data parallelism library for Rust - GitHub",
+      "url": "https://github.com/rayon-rs/rayon"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Rust Foundation's 2025 Technology Report Showcases Year of Rust ...",
+      "url": "https://rustfoundation.org/media/rust-foundations-2025-technology-report-showcases-year-of-rust-security-advancements-ecosystem-resilience-strategic-partnerships/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Rust in 2025: The Future of Systems Programming is Here",
+      "url": "https://blog.devgenius.io/rust-in-2025-the-future-of-systems-programming-is-here-53accd2d223d"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Combining concurrency, parallelism, and streaming in Rust for Big Data ...",
+      "url": "https://www.slingacademy.com/article/combining-concurrency-parallelism-and-streaming-in-rust-for-big-data/"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 10,
+    "bloom_deduplicated": 10,
+    "bypass_attempts": 0,
+    "cache_entries": 4,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 8,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 0,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 10,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 10,
+    "mojo_active": 1,
+    "nim_parser_active": 1,
+    "real_engines_results": 10,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 10,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 10,
+  "type": "mega_massive_search"
+}

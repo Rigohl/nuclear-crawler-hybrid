@@ -1,0 +1,186 @@
+{
+  "execution_time_ms": 29,
+  "files_sample": [
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ai_smart.rs",
+      "size_bytes": 16255
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\consolidate_results.rs",
+      "size_bytes": 11090
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "size_bytes": 74036
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\cache.rs",
+      "size_bytes": 4481
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\config.rs",
+      "size_bytes": 3412
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\content_extractor.rs",
+      "size_bytes": 17731
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "size_bytes": 19572
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\c_wrapper.c",
+      "size_bytes": 1356
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "size_bytes": 44713
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\ffi_dynamic.rs",
+      "size_bytes": 15255
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\file_search.rs",
+      "size_bytes": 9153
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\go_integration.rs",
+      "size_bytes": 5690
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\hf_integration.rs",
+      "size_bytes": 15391
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\improvements.rs",
+      "size_bytes": 23939
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\intelligent_storage.rs",
+      "size_bytes": 17687
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\jax_acceleration.rs",
+      "size_bytes": 3431
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\jax_pipeline.rs",
+      "size_bytes": 8649
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\lib.rs",
+      "size_bytes": 2274
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\massive_parallel_search.rs",
+      "size_bytes": 23033
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\mcp_axum_server.rs",
+      "size_bytes": 14812
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\mojo_jax.rs",
+      "size_bytes": 6309
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\nim_integration.rs",
+      "size_bytes": 10279
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\nuclear_bypass.rs",
+      "size_bytes": 30390
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\nuclear_scraper.rs",
+      "size_bytes": 22434
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\orchestration.rs",
+      "size_bytes": 8359
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\orchestration_config.rs",
+      "size_bytes": 14544
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parallel_crawler.rs",
+      "size_bytes": 14756
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\parser.rs",
+      "size_bytes": 3425
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\project_analyzer.rs",
+      "size_bytes": 8960
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\rate_limit.rs",
+      "size_bytes": 2604
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\real_search_engines.rs",
+      "size_bytes": 31149
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "size_bytes": 127204
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "size_bytes": 73065
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\stats.rs",
+      "size_bytes": 6059
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\stealth.rs",
+      "size_bytes": 8617
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\html_extraction.rs",
+      "size_bytes": 10568
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\mod.rs",
+      "size_bytes": 3175
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\utils\\scoring.rs",
+      "size_bytes": 10313
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\wasm.rs",
+      "size_bytes": 9721
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "size_bytes": 93626
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\zig_integration.rs",
+      "size_bytes": 5620
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 1,
+      "python_files": 0,
+      "rust_files": 40
+    },
+    "primary_language": "Rust",
+    "total_files": 41,
+    "total_lines": 22371
+  },
+  "tool": "analyzer"
+}

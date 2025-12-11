@@ -1,0 +1,16 @@
+{
+  "execution_time_ms": 120,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\performance_patterns.rs",
+      "line_content": "pub fn chunked_parallel_process<T, F, R>(",
+      "line_number": 359,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src",
+  "search_term": "pub fn chunked_parallel_process",
+  "tool": "file_research",
+  "total_matches": 1
+}

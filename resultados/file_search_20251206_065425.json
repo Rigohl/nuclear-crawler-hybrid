@@ -1,0 +1,51 @@
+{
+  "execution_time_ms": 6,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs",
+      "line_content": "use crate::adaptive_ml::MLToolkit;",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs",
+      "line_content": "ml_toolkit: Arc<MLToolkit>,",
+      "line_number": 38,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs",
+      "line_content": "ml_toolkit: Arc::new(MLToolkit::new()),",
+      "line_number": 78,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs.backup",
+      "line_content": "use crate::adaptive_ml::MLToolkit;",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs.backup",
+      "line_content": "ml_toolkit: Arc<MLToolkit>,",
+      "line_number": 38,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs.backup",
+      "line_content": "ml_toolkit: Arc::new(MLToolkit::new()),",
+      "line_number": 78,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P",
+  "search_term": "MLToolkit",
+  "tool": "file_research",
+  "total_matches": 6
+}

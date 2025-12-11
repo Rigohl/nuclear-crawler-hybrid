@@ -1,0 +1,170 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 54148,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "Rust Tokio async Zig FFI parallelism",
+  "results": [
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Tokio: A Deep Dive into Concurrency Vs. Parallelism",
+      "url": "https://ianbull.com/posts/tokio-parallel"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "GitHub - aaronriekenberg/rust-parallel: Fast command line app in rust ...",
+      "url": "https://github.com/aaronriekenberg/rust-parallel"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How to reuse Tokio runtime in Rust FFI library - Stack Overflow",
+      "url": "https://stackoverflow.com/questions/68317698/how-to-reuse-tokio-runtime-in-rust-ffi-library"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Escaping from sync to async world with tokio, and vice-versa",
+      "url": "https://blog.lazym.io/2024/07/16/Escaping-from-sync-to-async-world-and-vice-versa/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Async in depth | Tokio - An asynchronous Rust runtime",
+      "url": "https://tokio.rs/tokio/tutorial/async"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Master Async Rust with Tokio: Build Concurrent Systems",
+      "url": "https://codezup.com/master-async-rust-tokio/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How to correctly process many files in parallel with tokio?",
+      "url": "https://users.rust-lang.org/t/how-to-correctly-process-many-files-in-parallel-with-tokio/110823"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Practical Guide to Async Rust and Tokio - Medium",
+      "url": "https://medium.com/@OlegKubrakov/practical-guide-to-async-rust-and-tokio-99e818c11965"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Mastering Concurrency in Rust: Advanced Patterns with Async/Await and Tokio",
+      "url": "https://omid.dev/2024/06/15/mastering-concurrency-in-rust/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Benchmark of different Async approaches in Rust",
+      "url": "https://vorner.github.io/async-bench.html"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 10,
+    "bloom_deduplicated": 10,
+    "bypass_attempts": 0,
+    "cache_entries": 6,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 8,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 0,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 10,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 10,
+    "mojo_active": 1,
+    "nim_parser_active": 1,
+    "real_engines_results": 10,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 10,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 10,
+  "type": "mega_massive_search"
+}

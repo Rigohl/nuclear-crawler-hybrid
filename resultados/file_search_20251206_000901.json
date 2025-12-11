@@ -1,0 +1,16 @@
+{
+  "execution_time_ms": 84,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\main.rs",
+      "line_content": "use log::{error, info, warn};",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "search_term": "use log::{error, info, warn};",
+  "tool": "file_research",
+  "total_matches": 1
+}

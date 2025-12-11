@@ -1,0 +1,170 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 52969,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "ventajas de usar C para workers externos en Go",
+  "results": [
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Using Go with and C (Static and Dynamic) Libraries - GitHub",
+      "url": "https://github.com/lxwagn/using-go-with-c-libraries"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Go by Example: Worker Pools",
+      "url": "https://gobyexample.com/worker-pools"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Implementación práctica de workers con canales y goroutines en Go",
+      "url": "https://platzi.com/cursos/go/implementacion-practica-de-workers-con-c/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Ventajas y Desventajas del Lenguaje de Programación C",
+      "url": "https://programacionpro.com/ventajas-y-desventajas-del-lenguaje-de-programacion-c/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "7 Patrones de Concurrencia en Go que Deberías Conocer",
+      "url": "https://carlos.lat/blog/7-patrones-concurrencia-go/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How to Call C and C++ Code from Go (Golang) - GitHub Pages",
+      "url": "https://friendlyuser.github.io/posts/tech/go/how_to_call_c_cplusplus_from_go/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Ventajas y Desventajas del Lenguaje C: Todo lo que Necesitas Saber",
+      "url": "https://ventajas.org/ventajas-y-desventajas-del-lenguaje-c/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Concurrencia en Go Optimizada con Pool de Trabajadores",
+      "url": "https://www.q2bstudio.com/nuestro-blog/13414/concurrencia-en-go-optimizada-con-pool-de-trabajadores"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Buffalo - Rapid Web Development in Go",
+      "url": "https://gobuffalo.io/es/documentation/guides/workers/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Concurrencia en Golang III - DEV Community",
+      "url": "https://dev.to/tomaslingotti/concurrencia-en-golang-iii-4g6c"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 10,
+    "bloom_deduplicated": 10,
+    "bypass_attempts": 0,
+    "cache_entries": 5,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 8,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 0,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 10,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 10,
+    "mojo_active": 1,
+    "nim_parser_active": 1,
+    "real_engines_results": 10,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 10,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 10,
+  "type": "mega_massive_search"
+}

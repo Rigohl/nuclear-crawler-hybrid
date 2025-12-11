@@ -1,0 +1,16 @@
+{
+  "execution_time_ms": 5,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs",
+      "line_content": "async fn zig_parallel_metrics(&self, num_tasks: usize) -> Value {",
+      "line_number": 1456,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P",
+  "search_term": "zig_parallel_metrics",
+  "tool": "file_research",
+  "total_matches": 1
+}

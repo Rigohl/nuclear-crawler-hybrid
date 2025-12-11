@@ -1,0 +1,23 @@
+{
+  "execution_time_ms": 5,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "if advanced_collector.operations.len() > 0 {",
+      "line_number": 91,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "let full_report = advanced_collector.report();",
+      "line_number": 92,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src",
+  "search_term": "advanced_collector",
+  "tool": "file_research",
+  "total_matches": 2
+}

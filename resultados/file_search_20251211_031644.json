@@ -1,0 +1,16 @@
+{
+  "execution_time_ms": 3,
+  "matches": [
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\performance_patterns.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    }
+  ],
+  "path": "c:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src",
+  "search_term": "performance_patterns.rs",
+  "tool": "file_research",
+  "total_matches": 1
+}

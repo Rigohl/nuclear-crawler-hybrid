@@ -1,0 +1,656 @@
+warning: unexpected `cfg` condition name: `has_nim`
+  --> src\nim_integration.rs:18:11
+   |
+18 | #[cfg(all(has_nim, not(target_arch = "wasm32")))]
+   |           ^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition name: `has_nim`
+  --> src\nim_integration.rs:62:28
+   |
+62 |         let nim_ffi = cfg!(has_nim);
+   |                            ^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `has_nim`
+  --> src\nim_integration.rs:84:18
+   |
+84 | ...   cfg!(all(has_nim, not(target_arch = "wasm32...
+   |                ^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `has_nim`
+  --> src\nim_integration.rs:94:19
+   |
+94 | ...   #[cfg(all(has_nim, not(target_arch = "wasm3...
+   |                 ^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `has_nim`
+   --> src\nim_integration.rs:140:19
+    |
+140 | ...   #[cfg(all(has_nim, not(target_arch = "wasm...
+    |                 ^^^^^^^
+    |
+    = help: consider using a Cargo feature instead
+    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+             [lints.rust]
+             unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+    = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `has_nim`
+   --> src\nim_integration.rs:191:19
+    |
+191 | ...   #[cfg(all(has_nim, not(target_arch = "wasm...
+    |                 ^^^^^^^
+    |
+    = help: consider using a Cargo feature instead
+    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+             [lints.rust]
+             unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+    = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `has_nim`
+   --> src\nim_integration.rs:249:19
+    |
+249 | ...   #[cfg(all(has_nim, not(target_arch = "wasm...
+    |                 ^^^^^^^
+    |
+    = help: consider using a Cargo feature instead
+    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+             [lints.rust]
+             unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_nim)'] }
+    = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(has_nim)");` to the top of the `build.rs`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: `nuclear-crawler-hybrid` (lib) generated 7 warnings
+   Compiling nuclear-crawler-hybrid v0.1.0 (C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID)
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:49:5
+   |
+49 | use nuclear_crawler_lib::deep_web_search::{DeepWebSearch, DeepWebSearchConfig, DeepWebSearchType, DeepWebSource};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+49 - use nuclear_crawler_lib::deep_web_search::{DeepWebSearch, DeepWebSearchConfig, DeepWebSearchType, DeepWebSource};
+49 + use nuclear_crawler_hybrid::deep_web_search::{DeepWebSearch, DeepWebSearchConfig, DeepWebSearchType, DeepWebSource};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:50:5
+   |
+50 | use nuclear_crawler_lib::massive_parallel_search::MassiveParallelSearch;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+50 - use nuclear_crawler_lib::massive_parallel_search::MassiveParallelSearch;
+50 + use nuclear_crawler_hybrid::massive_parallel_search::MassiveParallelSearch;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:51:5
+   |
+51 | use nuclear_crawler_lib::nuclear_scraper::{NuclearConfig, NuclearScraper};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+51 - use nuclear_crawler_lib::nuclear_scraper::{NuclearConfig, NuclearScraper};
+51 + use nuclear_crawler_hybrid::nuclear_scraper::{NuclearConfig, NuclearScraper};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:52:5
+   |
+52 | use nuclear_crawler_lib::parallel_crawler::ParallelCrawler;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+52 - use nuclear_crawler_lib::parallel_crawler::ParallelCrawler;
+52 + use nuclear_crawler_hybrid::parallel_crawler::ParallelCrawler;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:53:5
+   |
+53 | use nuclear_crawler_lib::real_search_engines::RealSearchEngine;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+53 - use nuclear_crawler_lib::real_search_engines::RealSearchEngine;
+53 + use nuclear_crawler_hybrid::real_search_engines::RealSearchEngine;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:54:5
+   |
+54 | use nuclear_crawler_lib::web_search::{WebSearch, WebSearchConfig};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+54 - use nuclear_crawler_lib::web_search::{WebSearch, WebSearchConfig};
+54 + use nuclear_crawler_hybrid::web_search::{WebSearch, WebSearchConfig};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:57:5
+   |
+57 | use nuclear_crawler_lib::nuclear_bypass::{NuclearBypass, NuclearBypassConfig};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+57 - use nuclear_crawler_lib::nuclear_bypass::{NuclearBypass, NuclearBypassConfig};
+57 + use nuclear_crawler_hybrid::nuclear_bypass::{NuclearBypass, NuclearBypassConfig};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:58:5
+   |
+58 | use nuclear_crawler_lib::stealth::{StealthConfig, StealthSystem};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+58 - use nuclear_crawler_lib::stealth::{StealthConfig, StealthSystem};
+58 + use nuclear_crawler_hybrid::stealth::{StealthConfig, StealthSystem};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:62:5
+   |
+62 | use nuclear_crawler_lib::go_integration::GoIntegration;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+62 - use nuclear_crawler_lib::go_integration::GoIntegration;
+62 + use nuclear_crawler_hybrid::go_integration::GoIntegration;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:63:5
+   |
+63 | use nuclear_crawler_lib::nim_integration::NimIntegration;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+63 - use nuclear_crawler_lib::nim_integration::NimIntegration;
+63 + use nuclear_crawler_hybrid::nim_integration::NimIntegration;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:64:5
+   |
+64 | use nuclear_crawler_lib::zig_integration::ZigIntegration;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+64 - use nuclear_crawler_lib::zig_integration::ZigIntegration;
+64 + use nuclear_crawler_hybrid::zig_integration::ZigIntegration;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:67:5
+   |
+67 | use nuclear_crawler_lib::jax_acceleration::JaxAccelerator;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+67 - use nuclear_crawler_lib::jax_acceleration::JaxAccelerator;
+67 + use nuclear_crawler_hybrid::jax_acceleration::JaxAccelerator;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:68:5
+   |
+68 | use nuclear_crawler_lib::jax_pipeline::{JaxPipeline, JaxPipelineConfig};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+68 - use nuclear_crawler_lib::jax_pipeline::{JaxPipeline, JaxPipelineConfig};
+68 + use nuclear_crawler_hybrid::jax_pipeline::{JaxPipeline, JaxPipelineConfig};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:69:5
+   |
+69 | use nuclear_crawler_lib::mojo_jax::MojoJaxProcessor;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+69 - use nuclear_crawler_lib::mojo_jax::MojoJaxProcessor;
+69 + use nuclear_crawler_hybrid::mojo_jax::MojoJaxProcessor;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:72:5
+   |
+72 | use nuclear_crawler_lib::ai_smart::{AIConfig, AISmart};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+72 - use nuclear_crawler_lib::ai_smart::{AIConfig, AISmart};
+72 + use nuclear_crawler_hybrid::ai_smart::{AIConfig, AISmart};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:73:5
+   |
+73 | use nuclear_crawler_lib::hf_integration::HfIntegration;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+73 - use nuclear_crawler_lib::hf_integration::HfIntegration;
+73 + use nuclear_crawler_hybrid::hf_integration::HfIntegration;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:74:5
+   |
+74 | use nuclear_crawler_lib::project_analyzer::ProjectAnalyzer;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+74 - use nuclear_crawler_lib::project_analyzer::ProjectAnalyzer;
+74 + use nuclear_crawler_hybrid::project_analyzer::ProjectAnalyzer;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:75:5
+   |
+75 | use nuclear_crawler_lib::scan_project::ProjectScanner;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+75 - use nuclear_crawler_lib::scan_project::ProjectScanner;
+75 + use nuclear_crawler_hybrid::scan_project::ProjectScanner;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:78:5
+   |
+78 | use nuclear_crawler_lib::cache::Cache;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+78 - use nuclear_crawler_lib::cache::Cache;
+78 + use nuclear_crawler_hybrid::cache::Cache;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:79:5
+   |
+79 | use nuclear_crawler_lib::improvements::{BloomFilter, CircuitBreaker, MemoryCache};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+79 - use nuclear_crawler_lib::improvements::{BloomFilter, CircuitBreaker, MemoryCache};
+79 + use nuclear_crawler_hybrid::improvements::{BloomFilter, CircuitBreaker, MemoryCache};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:80:5
+   |
+80 | use nuclear_crawler_lib::intelligent_storage::IntelligentStorage;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+80 - use nuclear_crawler_lib::intelligent_storage::IntelligentStorage;
+80 + use nuclear_crawler_hybrid::intelligent_storage::IntelligentStorage;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:83:5
+   |
+83 | use nuclear_crawler_lib::config::CrawlerConfig;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+83 - use nuclear_crawler_lib::config::CrawlerConfig;
+83 + use nuclear_crawler_hybrid::config::CrawlerConfig;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:84:5
+   |
+84 | use nuclear_crawler_lib::file_search::{FileSearch, FileSearchConfig};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+84 - use nuclear_crawler_lib::file_search::{FileSearch, FileSearchConfig};
+84 + use nuclear_crawler_hybrid::file_search::{FileSearch, FileSearchConfig};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:85:5
+   |
+85 | use nuclear_crawler_lib::orchestration::{OrchestrationConfig, Orchestrator};
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+85 - use nuclear_crawler_lib::orchestration::{OrchestrationConfig, Orchestrator};
+85 + use nuclear_crawler_hybrid::orchestration::{OrchestrationConfig, Orchestrator};
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:86:5
+   |
+86 | use nuclear_crawler_lib::parser::HtmlParser;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+86 - use nuclear_crawler_lib::parser::HtmlParser;
+86 + use nuclear_crawler_hybrid::parser::HtmlParser;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:87:5
+   |
+87 | use nuclear_crawler_lib::rate_limit::RateLimiter;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+87 - use nuclear_crawler_lib::rate_limit::RateLimiter;
+87 + use nuclear_crawler_hybrid::rate_limit::RateLimiter;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:88:5
+   |
+88 | use nuclear_crawler_lib::stats::StatsSystem;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+88 - use nuclear_crawler_lib::stats::StatsSystem;
+88 + use nuclear_crawler_hybrid::stats::StatsSystem;
+   |
+
+error[E0432]: unresolved import `nuclear_crawler_lib`
+  --> src\bin\nuclear_ultimate.rs:61:5
+   |
+61 | use nuclear_crawler_lib::ffi_dynamic;
+   |     ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   |
+help: there is a crate or module with a similar name
+   |
+61 - use nuclear_crawler_lib::ffi_dynamic;
+61 + use nuclear_crawler_hybrid::ffi_dynamic;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   --> src\bin\nuclear_ultimate.rs:748:38
+    |
+748 |                     all_results.push(nuclear_crawler_lib::web_search::WebSearchResult {
+    |                                      ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+    |
+help: there is a crate or module with a similar name
+    |
+748 -                     all_results.push(nuclear_crawler_lib::web_search::WebSearchResult {
+748 +                     all_results.push(nuclear_crawler_hybrid::web_search::WebSearchResult {
+    |
+help: consider importing this module
+    |
+ 33 + use nuclear_crawler_hybrid::web_search;
+    |
+help: if you import `web_search`, refer to it directly
+    |
+748 -                     all_results.push(nuclear_crawler_lib::web_search::WebSearchResult {
+748 +                     all_results.push(web_search::WebSearchResult {
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   --> src\bin\nuclear_ultimate.rs:776:38
+    |
+776 |                     all_results.push(nuclear_crawler_lib::web_search::WebSearchResult {
+    |                                      ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+    |
+help: there is a crate or module with a similar name
+    |
+776 -                     all_results.push(nuclear_crawler_lib::web_search::WebSearchResult {
+776 +                     all_results.push(nuclear_crawler_hybrid::web_search::WebSearchResult {
+    |
+help: consider importing this module
+    |
+ 33 + use nuclear_crawler_hybrid::web_search;
+    |
+help: if you import `web_search`, refer to it directly
+    |
+776 -                     all_results.push(nuclear_crawler_lib::web_search::WebSearchResult {
+776 +                     all_results.push(web_search::WebSearchResult {
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   --> src\bin\nuclear_ultimate.rs:977:17
+    |
+977 |                 nuclear_crawler_lib::improvements::CircuitState::Closed => "CLOSED",
+    |                 ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+    |
+help: there is a crate or module with a similar name
+    |
+977 -                 nuclear_crawler_lib::improvements::CircuitState::Closed => "CLOSED",
+977 +                 nuclear_crawler_hybrid::improvements::CircuitState::Closed => "CLOSED",
+    |
+help: consider importing this enum
+    |
+ 33 + use nuclear_crawler_hybrid::improvements::CircuitState;
+    |
+help: if you import `CircuitState`, refer to it directly
+    |
+977 -                 nuclear_crawler_lib::improvements::CircuitState::Closed => "CLOSED",
+977 +                 CircuitState::Closed => "CLOSED",
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   --> src\bin\nuclear_ultimate.rs:978:17
+    |
+978 |                 nuclear_crawler_lib::improvements::CircuitState::Open => "OPEN",
+    |                 ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+    |
+help: there is a crate or module with a similar name
+    |
+978 -                 nuclear_crawler_lib::improvements::CircuitState::Open => "OPEN",
+978 +                 nuclear_crawler_hybrid::improvements::CircuitState::Open => "OPEN",
+    |
+help: consider importing this enum
+    |
+ 33 + use nuclear_crawler_hybrid::improvements::CircuitState;
+    |
+help: if you import `CircuitState`, refer to it directly
+    |
+978 -                 nuclear_crawler_lib::improvements::CircuitState::Open => "OPEN",
+978 +                 CircuitState::Open => "OPEN",
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+   --> src\bin\nuclear_ultimate.rs:979:17
+    |
+979 |                 nuclear_crawler_lib::improvements::CircuitState::HalfOpen => "HALF_OPEN",
+    |                 ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+    |
+help: there is a crate or module with a similar name
+    |
+979 -                 nuclear_crawler_lib::improvements::CircuitState::HalfOpen => "HALF_OPEN",
+979 +                 nuclear_crawler_hybrid::improvements::CircuitState::HalfOpen => "HALF_OPEN",
+    |
+help: consider importing this enum
+    |
+ 33 + use nuclear_crawler_hybrid::improvements::CircuitState;
+    |
+help: if you import `CircuitState`, refer to it directly
+    |
+979 -                 nuclear_crawler_lib::improvements::CircuitState::HalfOpen => "HALF_OPEN",
+979 +                 CircuitState::HalfOpen => "HALF_OPEN",
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+    --> src\bin\nuclear_ultimate.rs:1236:54
+     |
+1236 |                         match serde_json::from_str::<nuclear_crawler_lib::cargo_parser::CompilerMessage>(line) {
+     |                                                      ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+     |
+help: there is a crate or module with a similar name
+     |
+1236 -                         match serde_json::from_str::<nuclear_crawler_lib::cargo_parser::CompilerMessage>(line) {
+1236 +                         match serde_json::from_str::<nuclear_crawler_hybrid::cargo_parser::CompilerMessage>(line) {
+     |
+help: consider importing this module
+     |
+  33 + use nuclear_crawler_hybrid::cargo_parser;
+     |
+help: if you import `cargo_parser`, refer to it directly
+     |
+1236 -                         match serde_json::from_str::<nuclear_crawler_lib::cargo_parser::CompilerMessage>(line) {
+1236 +                         match serde_json::from_str::<cargo_parser::CompilerMessage>(line) {
+     |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `nuclear_crawler_lib`
+    --> src\bin\nuclear_ultimate.rs:1239:63
+     |
+1239 | ...                   if let Some(mut result) = nuclear_crawler_lib::ultra_analyzer::UltraAnalysisResult::from_compiler_message(&msg) {
+     |                                                 ^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `nuclear_crawler_lib`
+     |
+help: there is a crate or module with a similar name
+     |
+1239 -                                     if let Some(mut result) = nuclear_crawler_lib::ultra_analyzer::UltraAnalysisResult::from_compiler_message(&msg) {
+1239 +                                     if let Some(mut result) = nuclear_crawler_hybrid::ultra_analyzer::UltraAnalysisResult::from_compiler_message(&msg) {
+     |
+help: consider importing this struct
+     |
+  33 + use nuclear_crawler_hybrid::ultra_analyzer::UltraAnalysisResult;
+     |
+help: if you import `UltraAnalysisResult`, refer to it directly
+     |
+1239 -                                     if let Some(mut result) = nuclear_crawler_lib::ultra_analyzer::UltraAnalysisResult::from_compiler_message(&msg) {
+1239 +                                     if let Some(mut result) = UltraAnalysisResult::from_compiler_message(&msg) {
+     |
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> src\bin\nuclear_ultimate.rs:577:16
+    |
+577 |         if let Some(cached) = self.memory_cache.get(&cache_key) {
+    |                ^^^^^^^^^^^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+note: required by a bound in `Some`
+   --> C:\Users\DELL\scoop\persist\rustup\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\option.rs:594:17
+    |
+594 | pub enum Option<T> {
+    |                 ^ required by this bound in `Some`
+...
+602 |     Some(#[stable(feature = "rust1", since = "1.0.0")] T),
+    |     ---- required by a bound in this tuple variant
+
+error[E0624]: associated function `new` is private
+   --> src\bin\nuclear_ultimate.rs:703:50
+    |
+703 |                 Err(tokio::time::error::Elapsed::new())
+    |                                                  ^^^ private associated function
+    |
+   ::: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tokio-1.48.0\src\time\error.rs:106:5
+    |
+106 |     pub(crate) fn new() -> Self {
+    |     --------------------------- private associated function defined here
+
+error[E0624]: associated function `new` is private
+   --> src\bin\nuclear_ultimate.rs:709:50
+    |
+709 |                 Err(tokio::time::error::Elapsed::new())
+    |                                                  ^^^ private associated function
+    |
+   ::: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tokio-1.48.0\src\time\error.rs:106:5
+    |
+106 |     pub(crate) fn new() -> Self {
+    |     --------------------------- private associated function defined here
+
+error[E0624]: associated function `new` is private
+   --> src\bin\nuclear_ultimate.rs:715:50
+    |
+715 |                 Err(tokio::time::error::Elapsed::new())
+    |                                                  ^^^ private associated function
+    |
+   ::: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tokio-1.48.0\src\time\error.rs:106:5
+    |
+106 |     pub(crate) fn new() -> Self {
+    |     --------------------------- private associated function defined here
+
+error[E0624]: associated function `new` is private
+   --> src\bin\nuclear_ultimate.rs:721:50
+    |
+721 |                 Err(tokio::time::error::Elapsed::new())
+    |                                                  ^^^ private associated function
+    |
+   ::: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tokio-1.48.0\src\time\error.rs:106:5
+    |
+106 |     pub(crate) fn new() -> Self {
+    |     --------------------------- private associated function defined here
+
+error[E0282]: type annotations needed
+   --> src\bin\nuclear_ultimate.rs:685:164
+    |
+685 |           let (web_results, real_results, deep_results, hf_results, bypass_results, scraper_results, jax_results, massive_results, crawler_results, bloom_results) = toki...
+    |  ____________________________________________________________________________________________________________________________________________________________________^
+686 | |             // B├║squedas principales (1s) - Go FFI maneja 100K goroutines
+687 | |             tokio::time::timeout(Duration::from_secs(1), self.web_search.search(web_config)),
+688 | |             tokio::time::timeout(Duration::from_secs(1), self.real_search_engine.search_all_engines(&query_clone, 500, 1)),  // Ô¼å´©Å 100ÔåÆ500 (Go FFI extremo)
+...   |
+727 | |             },
+728 | |         );
+    | |_________^ cannot infer type
+    |
+    = note: this error originates in the macro `$crate::join` which comes from the expansion of the macro `tokio::join` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+Some errors have detailed explanations: E0277, E0282, E0432, E0433, E0624.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `nuclear-crawler-hybrid` (bin "nuclear-mcp") due to 42 previous errors

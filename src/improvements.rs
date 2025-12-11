@@ -1,10 +1,10 @@
 //! 🚀 NUCLEAR CRAWLER - 10 MEJORAS ULTRA
 //! ========================================
 //! 1. Circuit Breaker - Tolerancia a fallos
-//! 2. Bloom Filter - Deduplicación O(1)
+//! 2. Bloom Filter - Deduplicación O(1) 🔥 RAYON PARALELO
 //! 3. Semaphore Rate Limiter - Control de concurrencia
-//! 4. Metrics Collector - Prometheus compatible
-//! 5. Memory Cache - Cache en memoria con TTL
+//! 4. Metrics Collector - Prometheus compatible 🔥 RAYON PARALELO
+//! 5. Memory Cache - Cache en memoria con TTL 🔥 RAYON PARALELO
 //! 6. Smart Retry - Reintentos inteligentes
 //! 7. Event Bus - Pub/Sub asíncrono
 //! 8. Session Manager - Gestión de sesiones
@@ -12,6 +12,7 @@
 //! 10. Plugin Manager - Sistema de plugins
 
 use anyhow::Result;
+use rayon::prelude::*;
 use serde_json::Value;
 use std::collections::{BinaryHeap, HashMap};
 use std::hash::{Hash, Hasher};
@@ -116,18 +117,32 @@ impl BloomFilter {
         k.ceil() as usize
     }
 
+    /// 🔥 RAYON PARALELO: Calcula hash indices para item
     fn hash_indices(&self, item: &str) -> Vec<usize> {
-        let mut indices = Vec::with_capacity(self.num_hashes);
-
-        for i in 0..self.num_hashes {
-            let mut hasher = std::collections::hash_map::DefaultHasher::new();
-            item.hash(&mut hasher);
-            i.hash(&mut hasher);
-            let hash = hasher.finish() as usize;
-            indices.push(hash % self.size);
+        // Usar Rayon para calcular hashes en paralelo cuando hay muchos hashes
+        if self.num_hashes >= 4 {
+            (0..self.num_hashes)
+                .into_par_iter()
+                .map(|i| {
+                    let mut hasher = std::collections::hash_map::DefaultHasher::new();
+                    item.hash(&mut hasher);
+                    i.hash(&mut hasher);
+                    let hash = hasher.finish() as usize;
+                    hash % self.size
+                })
+                .collect()
+        } else {
+            // Para pocos hashes, secuencial es más rápido
+            let mut indices = Vec::with_capacity(self.num_hashes);
+            for i in 0..self.num_hashes {
+                let mut hasher = std::collections::hash_map::DefaultHasher::new();
+                item.hash(&mut hasher);
+                i.hash(&mut hasher);
+                let hash = hasher.finish() as usize;
+                indices.push(hash % self.size);
+            }
+            indices
         }
-
-        indices
     }
 
     pub fn insert(&mut self, item: &str) {
@@ -246,46 +261,64 @@ impl MetricsCollector {
         }
     }
 
+    /// 🔥 RAYON PARALELO: Export Prometheus format
     pub fn export_prometheus(&self) -> String {
-        let mut output = String::new();
+        let mut parts: Vec<String> = Vec::new();
 
         if let Ok(counters) = self.counters.read() {
-            for (name, counter) in counters.iter() {
-                output.push_str(&format!(
-                    "# TYPE {} counter\n{} {}\n\n",
-                    name,
-                    name,
-                    counter.load(Ordering::Relaxed)
-                ));
-            }
+            // Usar par_iter para formatear counters en paralelo
+            let counter_parts: Vec<String> = counters
+                .par_iter()
+                .map(|(name, counter)| {
+                    format!(
+                        "# TYPE {} counter\n{} {}\n\n",
+                        name,
+                        name,
+                        counter.load(Ordering::Relaxed)
+                    )
+                })
+                .collect();
+            parts.extend(counter_parts);
         }
 
         if let Ok(gauges) = self.gauges.read() {
-            for (name, gauge) in gauges.iter() {
-                output.push_str(&format!(
-                    "# TYPE {} gauge\n{} {}\n\n",
-                    name,
-                    name,
-                    gauge.load(Ordering::Relaxed)
-                ));
-            }
+            // Usar par_iter para formatear gauges en paralelo
+            let gauge_parts: Vec<String> = gauges
+                .par_iter()
+                .map(|(name, gauge)| {
+                    format!(
+                        "# TYPE {} gauge\n{} {}\n\n",
+                        name,
+                        name,
+                        gauge.load(Ordering::Relaxed)
+                    )
+                })
+                .collect();
+            parts.extend(gauge_parts);
         }
 
         if let Ok(histograms) = self.histograms.read() {
-            for (name, values) in histograms.iter() {
-                if !values.is_empty() {
-                    let sum: f64 = values.iter().sum();
-                    let count = values.len();
-                    let avg = sum / count as f64;
-                    output.push_str(&format!(
-                        "# TYPE {} histogram\n{}_sum {}\n{}_count {}\n{}_avg {:.2}\n\n",
-                        name, name, sum, name, count, name, avg
-                    ));
-                }
-            }
+            // Usar par_iter para calcular y formatear histograms en paralelo
+            let histogram_parts: Vec<String> = histograms
+                .par_iter()
+                .filter_map(|(name, values)| {
+                    if !values.is_empty() {
+                        let sum: f64 = values.par_iter().sum();
+                        let count = values.len();
+                        let avg = sum / count as f64;
+                        Some(format!(
+                            "# TYPE {} histogram\n{}_sum {}\n{}_count {}\n{}_avg {:.2}\n\n",
+                            name, name, sum, name, count, name, avg
+                        ))
+                    } else {
+                        None
+                    }
+                })
+                .collect();
+            parts.extend(histogram_parts);
         }
 
-        output
+        parts.join("")
     }
 }
 
@@ -311,7 +344,7 @@ pub struct MemoryCache<K, V> {
     default_ttl: Duration,
 }
 
-impl<K: Eq + Hash + Clone, V: Clone> MemoryCache<K, V> {
+impl<K: Eq + Hash + Clone + Send + Sync, V: Clone + Send + Sync> MemoryCache<K, V> {
     pub fn new(max_size: usize) -> Self {
         Self {
             cache: RwLock::new(HashMap::new()),
@@ -320,13 +353,37 @@ impl<K: Eq + Hash + Clone, V: Clone> MemoryCache<K, V> {
         }
     }
 
+    /// 🔥 RAYON PARALELO: Insert con eviction paralela
     pub fn insert(&self, key: K, value: V) {
         let mut cache = self.cache.write().unwrap();
 
         // Evict if at capacity
         if cache.len() >= self.max_size {
-            // Remove expired entries first
-            cache.retain(|_, entry| entry.expires_at > Instant::now());
+            // 🔥 RAYON: Recolectar entradas y filtrar expiradas en paralelo
+            let now = Instant::now();
+            
+            // Recopilar claves y tiempos de expiración
+            let entries: Vec<(K, Instant)> = cache
+                .iter()
+                .map(|(k, entry)| (k.clone(), entry.expires_at))
+                .collect();
+            
+            // Filtrar claves expiradas en paralelo con Rayon
+            let expired_keys: Vec<K> = entries
+                .into_par_iter()
+                .filter_map(|(k, expires_at)| {
+                    if expires_at <= now {
+                        Some(k)
+                    } else {
+                        None
+                    }
+                })
+                .collect();
+            
+            // Eliminar expiradas
+            for key in expired_keys {
+                cache.remove(&key);
+            }
 
             // If still full, remove oldest
             if cache.len() >= self.max_size {

@@ -1,0 +1,22 @@
+{
+  "errors": [],
+  "execution_time_ms": 0,
+  "modules_used": {
+    "cargo_check": true,
+    "code_fixes": false,
+    "internet_search": false,
+    "ultra_analyzer": true,
+    "web_search": true
+  },
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+  "status": "success",
+  "summary": {
+    "rust_files": 0,
+    "total_errors": 0,
+    "total_files": 0,
+    "total_lines": 0,
+    "total_warnings": 0
+  },
+  "tool": "analyzer",
+  "warnings": []
+}

@@ -1,0 +1,13 @@
+cargo::rustc-check-cfg=cfg(has_go)
+cargo::rustc-check-cfg=cfg(has_zig)
+cargo::rustc-check-cfg=cfg(has_nim)
+cargo:rustc-link-search=native=C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID/go
+cargo:rustc-link-lib=static=stealth_go_msvc
+cargo:rustc-cfg=has_go
+cargo:rustc-link-lib=dylib=msvcrt
+cargo:rustc-link-lib=dylib=legacy_stdio_definitions
+cargo:rustc-link-lib=dylib=ws2_32
+cargo:rustc-link-lib=dylib=winmm
+cargo:rustc-link-lib=dylib=ntdll
+cargo:rerun-if-changed=build.rs
+cargo:rerun-if-changed=go/stealth_go_msvc.lib

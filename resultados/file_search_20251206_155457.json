@@ -1,0 +1,317 @@
+{
+  "execution_time_ms": 21,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\GUIA_COMPLETA_MEJORAS.md",
+      "line_content": "type EndpointDefinition struct {",
+      "line_number": 68,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "type LocalConfig struct {",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "type TokenStorage struct {",
+      "line_number": 23,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\local_config.go",
+      "line_content": "type LocalClient struct {",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\middleware.go",
+      "line_content": "type AuthMiddlewareSimple struct {",
+      "line_number": 11,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\simple_token_manager.go",
+      "line_content": "type SimpleTokenManager struct {",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "type Token struct {",
+      "line_number": 23,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "type ClientRegistration struct {",
+      "line_number": 41,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\auth\\token_manager.go",
+      "line_content": "type TokenManager struct {",
+      "line_number": 52,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\command_executor.go",
+      "line_content": "type CommandExecutor struct {",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\bridge\\simulated_executor.go",
+      "line_content": "type SimulatedExecutor struct {",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "type BrowserMCPProxy struct {",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\browsermcp\\proxy.go",
+      "line_content": "type MetricEvent struct {",
+      "line_number": 27,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "type Task struct {",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "type PoolConfig struct {",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "type GoroutinePool struct {",
+      "line_number": 47,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\pool.go",
+      "line_content": "type PoolStats struct {",
+      "line_number": 290,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "type Scheduler struct {",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "type RateLimiter struct {",
+      "line_number": 163,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\engine\\scheduler.go",
+      "line_content": "type CircuitBreaker struct {",
+      "line_number": 209,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "type Job struct {",
+      "line_number": 21,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\jobs\\job.go",
+      "line_content": "type Store struct {",
+      "line_number": 34,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "type MCPConfig struct {",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "type MCPInstance struct {",
+      "line_number": 35,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "type MCPManager struct {",
+      "line_number": 47,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\mcp\\mcp_manager.go",
+      "line_content": "return json.Marshal(struct {",
+      "line_number": 317,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\auth_handlers.go",
+      "line_content": "var req struct {",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\command_handlers.go",
+      "line_content": "type CommandResult struct {",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\handlers.go",
+      "line_content": "var req struct {",
+      "line_number": 155,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\health_checker.go",
+      "line_content": "type HealthChecker struct {",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "type ServerConfig struct {",
+      "line_number": 31,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "type Server struct {",
+      "line_number": 50,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\orchestrator\\server.go",
+      "line_content": "type submitRequest struct {",
+      "line_number": 433,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\projects\\project_manager.go",
+      "line_content": "type ProjectConfig struct {",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\projects\\project_manager.go",
+      "line_content": "type Execution struct {",
+      "line_number": 47,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\projects\\project_manager.go",
+      "line_content": "type ProjectManager struct {",
+      "line_number": 62,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\projects\\project_manager.go",
+      "line_content": "return json.Marshal(&struct {",
+      "line_number": 305,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\registry\\service_registry.go",
+      "line_content": "type Service struct {",
+      "line_number": 33,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\registry\\service_registry.go",
+      "line_content": "type ServiceRegistry struct {",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\router\\consolidated.go",
+      "line_content": "type EndpointDefinition struct {",
+      "line_number": 25,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\router\\consolidated.go",
+      "line_content": "type ConsolidatedRouter struct {",
+      "line_number": 35,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\router\\setup.go",
+      "line_content": "type HandlerRegistry struct {",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "type TraeProxy struct {",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER\\internal\\trae\\proxy.go",
+      "line_content": "type MetricEvent struct {",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\JARVIXSERVER",
+  "search_term": "struct {",
+  "tool": "file_research",
+  "total_matches": 44
+}

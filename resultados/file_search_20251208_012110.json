@@ -1,0 +1,30 @@
+{
+  "execution_time_ms": 1,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "line_content": "use memory_p_parallel::{MCPAIToolkit2025, MCPServer, MCPToolInvocation};",
+      "line_number": 7,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "line_content": "use memory_p_parallel::mega_tools::{MCPCompute, MCPAnalyze, MCPWeb, MCPOrchestrate};",
+      "line_number": 8,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "line_content": "use memory_p_parallel::{get_search_cache, set_cached_search, get_cached_search};",
+      "line_number": 117,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src",
+  "search_term": "use memory_p_parallel::",
+  "tool": "file_research",
+  "total_matches": 3
+}

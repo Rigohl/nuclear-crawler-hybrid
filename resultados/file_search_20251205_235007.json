@@ -1,0 +1,51 @@
+{
+  "execution_time_ms": 9,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "jarvix::client::JarvixClient,",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "if let Some(client) = JarvixClient::new().await? {",
+      "line_number": 243,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "jarvix::client::JarvixClient,",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "if let Some(client) = JarvixClient::new().await? {",
+      "line_number": 382,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "line_content": "pub struct JarvixClient {",
+      "line_number": 11,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "line_content": "impl JarvixClient {",
+      "line_number": 17,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "search_term": "JarvixClient",
+  "tool": "file_research",
+  "total_matches": 6
+}

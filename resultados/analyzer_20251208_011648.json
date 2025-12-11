@@ -1,0 +1,222 @@
+{
+  "execution_time_ms": 603,
+  "files_sample": [
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\.gitignore",
+      "size_bytes": 19
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\00_INDICE_GENERAL.md",
+      "size_bytes": 8831
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\ANALISIS_HERRAMIENTAS.md",
+      "size_bytes": 23575
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\ANALISIS_VISUAL.txt",
+      "size_bytes": 14116
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_code.chpl",
+      "size_bytes": 1673
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_code_fixed",
+      "size_bytes": 2712432
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_code_fixed.chpl",
+      "size_bytes": 1151
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_cognitio",
+      "size_bytes": 2334112
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_cognitio.chpl",
+      "size_bytes": 2788
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_dependencies",
+      "size_bytes": 2755056
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_dependencies.chpl",
+      "size_bytes": 2613
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_performance",
+      "size_bytes": 2796648
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_performance.chpl",
+      "size_bytes": 1414
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\analyze_project.chpl",
+      "size_bytes": 1120
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\ARCHIVO_INFO.md",
+      "size_bytes": 7367
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\build.log",
+      "size_bytes": 1093
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\build.rs",
+      "size_bytes": 6270
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\build_output.txt",
+      "size_bytes": 1038
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\Cargo.lock",
+      "size_bytes": 60292
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\Cargo.toml",
+      "size_bytes": 1496
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\cognitio_advanced_analysis.chpl",
+      "size_bytes": 5056
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\cognitio_advanced_analysis.ps1",
+      "size_bytes": 8190
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\cognitio_advanced_analysis.sh",
+      "size_bytes": 6999
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\comparative_analysis_cognitio_hf.chpl",
+      "size_bytes": 10379
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\CONFIRMACION_FINAL.txt",
+      "size_bytes": 8493
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\data\\mnist_cache.json",
+      "size_bytes": 1106602
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\Dockerfile.extreme",
+      "size_bytes": 41
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\docs\\CONSOLIDATED_ARCHITECTURE.md",
+      "size_bytes": 11271
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\docs\\HYBRID_STRATEGY.md",
+      "size_bytes": 7162
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\extreme_analysis",
+      "size_bytes": 2344520
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\extreme_analysis_fixed.chpl",
+      "size_bytes": 1562
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\extreme_chapel_analysis.chpl",
+      "size_bytes": 1807
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\extreme_proposal",
+      "size_bytes": 2351128
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\extreme_system_proposal.chpl",
+      "size_bytes": 3166
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\HERRAMIENTAS_ANALISIS.json",
+      "size_bytes": 21817
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\HERRAMIENTAS_COMPARATIVA.csv",
+      "size_bytes": 3403
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\MATRIZ_DECISION.md",
+      "size_bytes": 18748
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\mcp-http-config.json",
+      "size_bytes": 191
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\parallel_benchmark",
+      "size_bytes": 2722712
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\parallel_benchmark.chpl",
+      "size_bytes": 1568
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\README.md",
+      "size_bytes": 9753
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\RESULTADO_FINAL.md",
+      "size_bytes": 14687
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\RESUMEN_EJECUTIVO.txt",
+      "size_bytes": 4669
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\schema_check.json",
+      "size_bytes": 83
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\server.log",
+      "size_bytes": 6327
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\server_err.log",
+      "size_bytes": 0
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\SIXSIGMA_NUCLEAR_ANALYSIS_REPORT.md",
+      "size_bytes": 8570
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\adaptive_ml.rs",
+      "size_bytes": 27452
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\file_operations.rs",
+      "size_bytes": 2249
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\hybrid_strategy.rs",
+      "size_bytes": 5303
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 49,
+      "python_files": 0,
+      "rust_files": 11
+    },
+    "primary_language": "Rust",
+    "total_files": 68,
+    "total_lines": 15460
+  },
+  "tool": "analyzer"
+}

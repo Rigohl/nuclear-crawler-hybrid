@@ -1,0 +1,506 @@
+{
+  "execution_time_ms": 10,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\build.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\build.rs",
+      "line_content": "//! Build script para trae-cli",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\build.rs",
+      "line_content": "// Solo ejecutar post-build en release",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.lock",
+      "line_content": "\"clap_builder\",",
+      "line_number": 209,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.lock",
+      "line_content": "name = \"clap_builder\"",
+      "line_number": 214,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.toml",
+      "line_content": "keywords = [\"cli\", \"rust\", \"cargo\", \"build-tools\", \"repair\"]",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.toml",
+      "line_content": "[build-dependencies]",
+      "line_number": 52,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.toml",
+      "line_content": "# Para el build script que ya tenemos",
+      "line_number": 53,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "### [🏗️ Comandos de Build](#%EF%B8%8F-comandos-de-build)",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "## 🏗️ Comandos de Build",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "### `cargo build`",
+      "line_number": 50,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Uso:** `cargo build [OPTIONS]`",
+      "line_number": 52,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Link:** [Documentación oficial](https://doc.rust-lang.org/cargo/commands/cargo-build.html)",
+      "line_number": 58,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- `--build`: Añade como build dependency",
+      "line_number": 159,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "- **Comandos de Build:** 15",
+      "line_number": 336,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "line_content": "`#rust` `#cargo` `#cli` `#build-tools` `#package-management` `#rustlang` `#development-tools`",
+      "line_number": 345,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "build::BuildCommand,",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "/// Enhanced build commands with analysis and repair",
+      "line_number": 41,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Build(BuildCommand),",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "Commands::Build(cmd) => cmd.execute(self).await,",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "//! # Build Command - Enhanced cargo build with analysis",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "//! Comando de build mejorado con análisis automático y reporte de métricas",
+      "line_number": 3,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "pub struct BuildCommand {",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "/// Build in release mode",
+      "line_number": 21,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "/// Build specific target",
+      "line_number": 25,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "/// Build all packages in workspace",
+      "line_number": 33,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "/// Run automatic analysis after build",
+      "line_number": 37,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "/// Benchmark build time",
+      "line_number": 45,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "impl BuildCommand {",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "info!(\"🏗️ Iniciando build mejorado con TRAE CLI\");",
+      "line_number": 56,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "let mut metrics = MetricsCollector::new(\"build\".to_string());",
+      "line_number": 59,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "// Mostrar configuración del build",
+      "line_number": 61,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "self.show_build_config(cli);",
+      "line_number": 62,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "self.pre_build_analysis().await?;",
+      "line_number": 66,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "// Ejecutar build",
+      "line_number": 69,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "let build_result = self.execute_build(cli).await;",
+      "line_number": 70,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "let build_duration = start_time.elapsed();",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "metrics.record_build_time(build_duration);",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "metrics.record_build_result(build_result.is_ok());",
+      "line_number": 75,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "match build_result {",
+      "line_number": 77,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "println!(\"{} Build completado exitosamente en {:.2}s\",",
+      "line_number": 79,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "\"✅\".green(), build_duration.as_secs_f64());",
+      "line_number": 80,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "self.post_build_analysis(&artifacts).await?;",
+      "line_number": 84,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "println!(\"{} Build falló: {}\", \"❌\".red(), e);",
+      "line_number": 102,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "fn show_build_config(&self, _cli: &TraeCli) {",
+      "line_number": 119,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "println!(\"{}\", \"📋 Configuración del Build:\".cyan().bold());",
+      "line_number": 120,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "async fn pre_build_analysis(&self) -> Result<()> {",
+      "line_number": 145,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "warn!(\"⚠️ Se encontraron issues críticos que podrían afectar el build\");",
+      "line_number": 160,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "async fn execute_build(&self, _cli: &TraeCli) -> Result<Vec<String>> {",
+      "line_number": 167,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "println!(\"{}\", \"🚀 Ejecutando cargo build...\".cyan());",
+      "line_number": 168,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "let mut build_args = vec![\"build\".to_string()];",
+      "line_number": 177,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "build_args.push(\"--release\".to_string());",
+      "line_number": 181,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "build_args.extend_from_slice(&[\"--target\".to_string(), target.clone()]);",
+      "line_number": 185,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "build_args.extend_from_slice(&[\"--features\".to_string(), self.features.join(\",\")]);",
+      "line_number": 189,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "build_args.push(\"--workspace\".to_string());",
+      "line_number": 193,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "build_args.extend_from_slice(&self.cargo_args);",
+      "line_number": 197,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "let result = executor.execute_with_output(&build_args).await;",
+      "line_number": 199,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "progress.finish_with_message(\"Build completado ✓\".to_string());",
+      "line_number": 201,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "async fn post_build_analysis(&self, artifacts: &[String]) -> Result<()> {",
+      "line_number": 213,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "client.report_build_metrics(metrics).await?;",
+      "line_number": 249,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\mod.rs",
+      "line_content": "pub mod build;",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "/// Clean and rebuild",
+      "line_number": 41,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "Build,",
+      "line_number": 473,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "line_content": "pub async fn report_build_metrics(&self, metrics: MetricsCollector) -> Result<()> {",
+      "line_number": 29,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "line_content": "\"type\": \"build_metrics\",",
+      "line_number": 31,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\main.rs",
+      "line_content": "env_logger::Builder::from_default_env()",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "pub fn record_build_time(&mut self, duration: Duration) {",
+      "line_number": 40,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "self.metrics.insert(\"build_time_ms\".to_string(),",
+      "line_number": 41,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "pub fn record_build_result(&mut self, success: bool) {",
+      "line_number": 46,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "line_content": "self.metrics.insert(\"build_success\".to_string(), Value::Bool(success));",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "search_term": "Build",
+  "tool": "file_research",
+  "total_matches": 71
+}

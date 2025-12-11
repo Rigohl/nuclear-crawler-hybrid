@@ -1,11 +1,14 @@
 //! Módulo Massive Parallel Search
 //!
+//! 🔥 RAYON PARALELO: generate_search_urls, extract_urls, process batches
+//!
 //! Sistema que aprende a buscar en MÚLTIPLES lugares simultáneamente
 //! Aprovecha que datos REALES son mejores y busca en paralelo masivo
 
 use anyhow::Result;
 use dashmap::DashMap;
 use futures::stream::{self, StreamExt};
+use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 #[allow(unused_imports)]
@@ -90,84 +93,89 @@ impl MassiveParallelSearch {
         sources: Vec<String>,
     ) -> Result<Vec<MassiveSearchResult>> {
         println!("🔥 BÚSQUEDA MASIVA CON QUERY: {}", query);
-        
+
         // Generar URLs de búsqueda REALES para cada fuente
         let search_urls = self.generate_search_urls(query, &sources);
         println!("   📍 URLs de búsqueda generadas: {}", search_urls.len());
-        
+
         // Buscar en todas las URLs
         self.search_massive_parallel(search_urls).await
     }
 
-    /// 🔥 Genera URLs de búsqueda REALES para motores y sitios
+    /// 🔥 RAYON PARALELO: Genera URLs de búsqueda REALES para motores y sitios
     fn generate_search_urls(&self, query: &str, sources: &[String]) -> Vec<String> {
-        let encoded_query = urlencoding::encode(query);
-        let mut urls = Vec::new();
+        let encoded_query = urlencoding::encode(query).to_string();
         
-        for source in sources {
-            let source_lower = source.to_lowercase();
-            
-            // 🔥 MOTORES DE BÚSQUEDA REALES
-            if source_lower.contains("duckduckgo") {
-                urls.push(format!("https://html.duckduckgo.com/html/?q={}", encoded_query));
-                urls.push(format!("https://duckduckgo.com/?q={}&t=h_&ia=web", encoded_query));
-            } else if source_lower.contains("bing") {
-                urls.push(format!("https://www.bing.com/search?q={}", encoded_query));
-                urls.push(format!("https://www.bing.com/search?q={}&first=10", encoded_query));
-            } else if source_lower.contains("brave") {
-                urls.push(format!("https://search.brave.com/search?q={}", encoded_query));
-            } else if source_lower.contains("yandex") {
-                urls.push(format!("https://yandex.com/search/?text={}", encoded_query));
-            } else if source_lower.contains("ecosia") {
-                urls.push(format!("https://www.ecosia.org/search?q={}", encoded_query));
-            } else if source_lower.contains("qwant") {
-                urls.push(format!("https://www.qwant.com/?q={}", encoded_query));
-            } else if source_lower.contains("startpage") {
-                urls.push(format!("https://www.startpage.com/sp/search?query={}", encoded_query));
-            } else if source_lower.contains("searx") {
-                urls.push(format!("https://searx.be/search?q={}", encoded_query));
-                urls.push(format!("https://searx.tiekoetter.com/search?q={}", encoded_query));
-            } else if source_lower.contains("mojeek") {
-                urls.push(format!("https://www.mojeek.com/search?q={}", encoded_query));
-            }
-            // 🔥 SITIOS ESPECÍFICOS CON BÚSQUEDA
-            else if source_lower.contains("github") {
-                urls.push(format!("https://github.com/search?q={}&type=repositories", encoded_query));
-                urls.push(format!("https://github.com/search?q={}&type=code", encoded_query));
-            } else if source_lower.contains("stackoverflow") {
-                urls.push(format!("https://stackoverflow.com/search?q={}", encoded_query));
-            } else if source_lower.contains("reddit") {
-                urls.push(format!("https://www.reddit.com/search/?q={}", encoded_query));
-                urls.push(format!("https://old.reddit.com/search?q={}", encoded_query));
-            } else if source_lower.contains("dev.to") {
-                urls.push(format!("https://dev.to/search?q={}", encoded_query));
-            } else if source_lower.contains("huggingface") {
-                urls.push(format!("https://huggingface.co/models?search={}", encoded_query));
-                urls.push(format!("https://huggingface.co/datasets?search={}", encoded_query));
-            } else if source_lower.contains("crates.io") {
-                urls.push(format!("https://crates.io/search?q={}", encoded_query));
-            } else if source_lower.contains("pypi") {
-                urls.push(format!("https://pypi.org/search/?q={}", encoded_query));
-            } else if source_lower.contains("npm") {
-                urls.push(format!("https://www.npmjs.com/search?q={}", encoded_query));
-            } else if source_lower.contains("arxiv") {
-                urls.push(format!("https://arxiv.org/search/?query={}&searchtype=all", encoded_query));
-            } else if source_lower.contains("medium") {
-                urls.push(format!("https://medium.com/search?q={}", encoded_query));
-            } else if source_lower.contains("wikipedia") {
-                urls.push(format!("https://en.wikipedia.org/w/index.php?search={}", encoded_query));
-            }
-            // Fuente genérica - intentar añadir /search
-            else if source.starts_with("http") {
-                urls.push(source.clone());
-            } else {
-                // Intentar múltiples formatos de búsqueda
-                urls.push(format!("https://{}/search?q={}", source, encoded_query));
-                urls.push(format!("https://www.{}/search?q={}", source, encoded_query));
-            }
-        }
-        
-        urls
+        // Usar Rayon para generar URLs en paralelo
+        sources
+            .par_iter()
+            .flat_map(|source| {
+                let source_lower = source.to_lowercase();
+                let eq = &encoded_query;
+                let mut urls = Vec::new();
+
+                // 🔥 MOTORES DE BÚSQUEDA REALES
+                if source_lower.contains("duckduckgo") {
+                    urls.push(format!("https://html.duckduckgo.com/html/?q={}", eq));
+                    urls.push(format!("https://duckduckgo.com/?q={}&t=h_&ia=web", eq));
+                } else if source_lower.contains("bing") {
+                    urls.push(format!("https://www.bing.com/search?q={}", eq));
+                    urls.push(format!("https://www.bing.com/search?q={}&first=10", eq));
+                } else if source_lower.contains("brave") {
+                    urls.push(format!("https://search.brave.com/search?q={}", eq));
+                } else if source_lower.contains("yandex") {
+                    urls.push(format!("https://yandex.com/search/?text={}", eq));
+                } else if source_lower.contains("ecosia") {
+                    urls.push(format!("https://www.ecosia.org/search?q={}", eq));
+                } else if source_lower.contains("qwant") {
+                    urls.push(format!("https://www.qwant.com/?q={}", eq));
+                } else if source_lower.contains("startpage") {
+                    urls.push(format!("https://www.startpage.com/sp/search?query={}", eq));
+                } else if source_lower.contains("searx") {
+                    urls.push(format!("https://searx.be/search?q={}", eq));
+                    urls.push(format!("https://searx.tiekoetter.com/search?q={}", eq));
+                } else if source_lower.contains("mojeek") {
+                    urls.push(format!("https://www.mojeek.com/search?q={}", eq));
+                }
+                // 🔥 SITIOS ESPECÍFICOS CON BÚSQUEDA
+                else if source_lower.contains("github") {
+                    urls.push(format!("https://github.com/search?q={}&type=repositories", eq));
+                    urls.push(format!("https://github.com/search?q={}&type=code", eq));
+                } else if source_lower.contains("stackoverflow") {
+                    urls.push(format!("https://stackoverflow.com/search?q={}", eq));
+                } else if source_lower.contains("reddit") {
+                    urls.push(format!("https://www.reddit.com/search/?q={}", eq));
+                    urls.push(format!("https://old.reddit.com/search?q={}", eq));
+                } else if source_lower.contains("dev.to") {
+                    urls.push(format!("https://dev.to/search?q={}", eq));
+                } else if source_lower.contains("huggingface") {
+                    urls.push(format!("https://huggingface.co/models?search={}", eq));
+                    urls.push(format!("https://huggingface.co/datasets?search={}", eq));
+                } else if source_lower.contains("crates.io") {
+                    urls.push(format!("https://crates.io/search?q={}", eq));
+                } else if source_lower.contains("pypi") {
+                    urls.push(format!("https://pypi.org/search/?q={}", eq));
+                } else if source_lower.contains("npm") {
+                    urls.push(format!("https://www.npmjs.com/search?q={}", eq));
+                } else if source_lower.contains("arxiv") {
+                    urls.push(format!("https://arxiv.org/search/?query={}&searchtype=all", eq));
+                } else if source_lower.contains("medium") {
+                    urls.push(format!("https://medium.com/search?q={}", eq));
+                } else if source_lower.contains("wikipedia") {
+                    urls.push(format!("https://en.wikipedia.org/w/index.php?search={}", eq));
+                }
+                // Fuente genérica - intentar añadir /search
+                else if source.starts_with("http") {
+                    urls.push(source.clone());
+                } else {
+                    // Intentar múltiples formatos de búsqueda
+                    urls.push(format!("https://{}/search?q={}", source, eq));
+                    urls.push(format!("https://www.{}/search?q={}", source, eq));
+                }
+
+                urls
+            })
+            .collect()
     }
 
     /// Busca en MÚLTIPLES fuentes simultáneamente (sin query, URLs directas)
@@ -197,7 +205,7 @@ impl MassiveParallelSearch {
         // Procesar en paralelo masivo usando async streams (NO rayon+block_on)
         let scraper = self.scraper.clone();
         let semaphore = self.semaphore.clone();
-        
+
         let results: Vec<Result<MassiveSearchResult>> = stream::iter(sources)
             .map(|source| {
                 let scraper = scraper.clone();
@@ -346,9 +354,11 @@ impl MassiveParallelSearch {
     /// 🔥 Extrae descripción/meta del HTML
     fn extract_description(html: &str) -> String {
         use regex::Regex;
-        
+
         // Intentar meta description
-        if let Ok(re) = Regex::new(r#"(?i)<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']"#) {
+        if let Ok(re) =
+            Regex::new(r#"(?i)<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']"#)
+        {
             if let Some(cap) = re.captures(html) {
                 if let Some(desc) = cap.get(1) {
                     let text = desc.as_str().trim();
@@ -358,9 +368,11 @@ impl MassiveParallelSearch {
                 }
             }
         }
-        
+
         // Intentar og:description
-        if let Ok(re) = Regex::new(r#"(?i)<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["']"#) {
+        if let Ok(re) = Regex::new(
+            r#"(?i)<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["']"#,
+        ) {
             if let Some(cap) = re.captures(html) {
                 if let Some(desc) = cap.get(1) {
                     let text = desc.as_str().trim();
@@ -370,7 +382,7 @@ impl MassiveParallelSearch {
                 }
             }
         }
-        
+
         // Intentar primer párrafo
         if let Ok(re) = Regex::new(r"(?i)<p[^>]*>([^<]{50,500})</p>") {
             if let Some(cap) = re.captures(html) {
@@ -379,7 +391,7 @@ impl MassiveParallelSearch {
                 }
             }
         }
-        
+
         String::new()
     }
 
@@ -387,7 +399,7 @@ impl MassiveParallelSearch {
     fn extract_main_content(html: &str) -> String {
         use regex::Regex;
         let mut content = String::new();
-        
+
         // Buscar contenedores de contenido principal
         let content_selectors = [
             r"(?is)<article[^>]*>(.*?)</article>",
@@ -395,7 +407,7 @@ impl MassiveParallelSearch {
             r#"(?is)<div[^>]*class=["'][^"']*(?:content|post|article|entry|text)[^"']*["'][^>]*>(.*?)</div>"#,
             r"(?is)<section[^>]*>(.*?)</section>",
         ];
-        
+
         for selector in content_selectors {
             if let Ok(re) = Regex::new(selector) {
                 for cap in re.captures_iter(html) {
@@ -415,7 +427,7 @@ impl MassiveParallelSearch {
                 break;
             }
         }
-        
+
         // Si no encontramos contenido, extraer todos los párrafos
         if content.len() < 200 {
             if let Ok(re) = Regex::new(r"(?is)<p[^>]*>(.*?)</p>") {
@@ -424,7 +436,7 @@ impl MassiveParallelSearch {
                         let text = Self::clean_html_text(p.as_str());
                         if text.len() > 30 {
                             content.push_str(&text);
-                            content.push_str("\n");
+                            content.push('\n');
                             if content.len() > 5000 {
                                 break;
                             }
@@ -433,7 +445,7 @@ impl MassiveParallelSearch {
                 }
             }
         }
-        
+
         content.chars().take(5000).collect()
     }
 
@@ -441,7 +453,7 @@ impl MassiveParallelSearch {
     fn extract_headings(html: &str) -> Vec<String> {
         use regex::Regex;
         let mut headings = Vec::new();
-        
+
         if let Ok(re) = Regex::new(r"(?i)<h[123][^>]*>(.*?)</h[123]>") {
             for cap in re.captures_iter(html) {
                 if let Some(h) = cap.get(1) {
@@ -455,7 +467,7 @@ impl MassiveParallelSearch {
                 }
             }
         }
-        
+
         headings
     }
 
@@ -463,7 +475,7 @@ impl MassiveParallelSearch {
     fn extract_code_snippets(html: &str) -> Vec<String> {
         use regex::Regex;
         let mut snippets = Vec::new();
-        
+
         // Buscar <pre><code>
         if let Ok(re) = Regex::new(r"(?is)<pre[^>]*><code[^>]*>(.*?)</code></pre>") {
             for cap in re.captures_iter(html) {
@@ -478,7 +490,7 @@ impl MassiveParallelSearch {
                 }
             }
         }
-        
+
         // Buscar <code> standalone
         if snippets.is_empty() {
             if let Ok(re) = Regex::new(r"(?is)<code[^>]*>(.*?)</code>") {
@@ -495,31 +507,31 @@ impl MassiveParallelSearch {
                 }
             }
         }
-        
+
         snippets
     }
 
     /// Limpia texto HTML
     fn clean_html_text(html: &str) -> String {
         use regex::Regex;
-        
+
         // Remover tags HTML
         let text = if let Ok(re) = Regex::new(r"<[^>]+>") {
             re.replace_all(html, " ").to_string()
         } else {
             html.to_string()
         };
-        
+
         // Decodificar entidades HTML
         let text = Self::decode_html_entities(&text);
-        
+
         // Limpiar espacios múltiples
         let text = if let Ok(re) = Regex::new(r"\s+") {
             re.replace_all(&text, " ").to_string()
         } else {
             text
         };
-        
+
         text.trim().to_string()
     }
 
@@ -546,7 +558,10 @@ impl MassiveParallelSearch {
             for cap in re.captures_iter(html) {
                 if let Some(url) = cap.get(1) {
                     let url_str = url.as_str();
-                    if url_str.starts_with("http") && !url_str.contains("login") && !url_str.contains("signup") {
+                    if url_str.starts_with("http")
+                        && !url_str.contains("login")
+                        && !url_str.contains("signup")
+                    {
                         urls.push(url_str.to_string());
                     }
                 }

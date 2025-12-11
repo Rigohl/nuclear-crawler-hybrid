@@ -1,0 +1,9 @@
+C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID\target\debug\deps\wasm_bindgen_futures-57d9c965cc912d68.d: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\lib.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\queue.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\task\singlethread.rs
+
+C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID\target\debug\deps\libwasm_bindgen_futures-57d9c965cc912d68.rlib: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\lib.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\queue.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\task\singlethread.rs
+
+C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID\target\debug\deps\libwasm_bindgen_futures-57d9c965cc912d68.rmeta: C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\lib.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\queue.rs C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\task\singlethread.rs
+
+C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\lib.rs:
+C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\queue.rs:
+C:\Users\DELL\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wasm-bindgen-futures-0.4.56\src\task\singlethread.rs:

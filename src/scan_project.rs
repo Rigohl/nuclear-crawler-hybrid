@@ -1395,21 +1395,23 @@ impl ProjectScanner {
 
         // SQL Injection
         if (line.contains("db.Query(") || line.contains("db.Exec("))
-            && (line.contains("fmt.Sprintf") || line.contains("string+")) {
-                vulnerabilities.push(SecurityIssue {
-                    vulnerability_type: "SQL Injection".to_string(),
-                    severity: 9,
-                    file: path.to_string_lossy().to_string(),
-                    line: line_num,
-                    description: "Posible SQL injection mediante concatenación de strings".to_string(),
-                    vulnerable_code: Some(line.trim().to_string()),
-                    recommendations: vec![
-                        "Usa prepared statements: db.Query('SELECT * FROM table WHERE id = ?', userID)".to_string(),
-                        "Considera usar librerías ORM para prevenir SQL injection".to_string(),
-                    ],
-                    cwe_id: Some("CWE-89".to_string()),
-                });
-            }
+            && (line.contains("fmt.Sprintf") || line.contains("string+"))
+        {
+            vulnerabilities.push(SecurityIssue {
+                vulnerability_type: "SQL Injection".to_string(),
+                severity: 9,
+                file: path.to_string_lossy().to_string(),
+                line: line_num,
+                description: "Posible SQL injection mediante concatenación de strings".to_string(),
+                vulnerable_code: Some(line.trim().to_string()),
+                recommendations: vec![
+                    "Usa prepared statements: db.Query('SELECT * FROM table WHERE id = ?', userID)"
+                        .to_string(),
+                    "Considera usar librerías ORM para prevenir SQL injection".to_string(),
+                ],
+                cwe_id: Some("CWE-89".to_string()),
+            });
+        }
 
         vulnerabilities
     }
@@ -1425,8 +1427,9 @@ impl ProjectScanner {
 
         // SQL Injection
         if (line.contains("executeQuery(") || line.contains("executeUpdate("))
-            && (line.contains("+") || line.contains("format(")) {
-                vulnerabilities.push(SecurityIssue {
+            && (line.contains("+") || line.contains("format("))
+        {
+            vulnerabilities.push(SecurityIssue {
                     vulnerability_type: "SQL Injection".to_string(),
                     severity: 9,
                     file: path.to_string_lossy().to_string(),
@@ -1439,7 +1442,7 @@ impl ProjectScanner {
                     ],
                     cwe_id: Some("CWE-89".to_string()),
                 });
-            }
+        }
 
         vulnerabilities
     }
@@ -1454,65 +1457,75 @@ impl ProjectScanner {
         let mut vulnerabilities = Vec::new();
 
         // Deadlock potencial en sincronización
-        if line.contains("sync") && line.contains("waitFor")
-            && (line.contains("forall") || line.contains("coforall")) {
-                vulnerabilities.push(SecurityIssue {
-                    vulnerability_type: "Deadlock Risk".to_string(),
-                    severity: 7,
-                    file: path.to_string_lossy().to_string(),
-                    line: line_num,
-                    description: "Posible deadlock en código paralelo con sincronización"
+        if line.contains("sync")
+            && line.contains("waitFor")
+            && (line.contains("forall") || line.contains("coforall"))
+        {
+            vulnerabilities.push(SecurityIssue {
+                vulnerability_type: "Deadlock Risk".to_string(),
+                severity: 7,
+                file: path.to_string_lossy().to_string(),
+                line: line_num,
+                description: "Posible deadlock en código paralelo con sincronización".to_string(),
+                vulnerable_code: Some(line.trim().to_string()),
+                recommendations: vec![
+                    "Evita sincronización compleja en bucles paralelos".to_string(),
+                    "Usa 'atomic' variables en lugar de 'sync' cuando sea posible".to_string(),
+                    "Considera reestructurar el algoritmo para evitar dependencias circulares"
                         .to_string(),
-                    vulnerable_code: Some(line.trim().to_string()),
-                    recommendations: vec![
-                        "Evita sincronización compleja en bucles paralelos".to_string(),
-                        "Usa 'atomic' variables en lugar de 'sync' cuando sea posible".to_string(),
-                        "Considera reestructurar el algoritmo para evitar dependencias circulares"
-                            .to_string(),
-                    ],
-                    cwe_id: Some("CWE-833".to_string()),
-                });
-            }
+                ],
+                cwe_id: Some("CWE-833".to_string()),
+            });
+        }
 
         // Data race en variables compartidas
-        if (line.contains("forall") || line.contains("coforall")) && line.contains("=")
-            && !line.contains("atomic") && !line.contains("sync") && !line.contains("single") {
-                vulnerabilities.push(SecurityIssue {
-                    vulnerability_type: "Data Race".to_string(),
-                    severity: 8,
-                    file: path.to_string_lossy().to_string(),
-                    line: line_num,
-                    description: "Posible data race en variable compartida en bucle paralelo"
+        if (line.contains("forall") || line.contains("coforall"))
+            && line.contains("=")
+            && !line.contains("atomic")
+            && !line.contains("sync")
+            && !line.contains("single")
+        {
+            vulnerabilities.push(SecurityIssue {
+                vulnerability_type: "Data Race".to_string(),
+                severity: 8,
+                file: path.to_string_lossy().to_string(),
+                line: line_num,
+                description: "Posible data race en variable compartida en bucle paralelo"
+                    .to_string(),
+                vulnerable_code: Some(line.trim().to_string()),
+                recommendations: vec![
+                    "Usa variables 'atomic' para operaciones thread-safe: var x: atomic int;"
                         .to_string(),
-                    vulnerable_code: Some(line.trim().to_string()),
-                    recommendations: vec![
-                        "Usa variables 'atomic' para operaciones thread-safe: var x: atomic int;"
-                            .to_string(),
-                        "Considera usar 'single' para asignaciones únicas".to_string(),
-                        "Revisa si la variable debe ser privada al hilo/task".to_string(),
-                    ],
-                    cwe_id: Some("CWE-362".to_string()),
-                });
-            }
+                    "Considera usar 'single' para asignaciones únicas".to_string(),
+                    "Revisa si la variable debe ser privada al hilo/task".to_string(),
+                ],
+                cwe_id: Some("CWE-362".to_string()),
+            });
+        }
 
         // Buffer overflow en arrays distribuidos
-        if line.contains("[") && line.contains("]") && (line.contains("..") || line.contains("#"))
-            && !line.contains("domain") && !line.contains("check") {
-                vulnerabilities.push(SecurityIssue {
-                    vulnerability_type: "Array Bounds".to_string(),
-                    severity: 6,
-                    file: path.to_string_lossy().to_string(),
-                    line: line_num,
-                    description: "Acceso a array sin verificación de límites".to_string(),
-                    vulnerable_code: Some(line.trim().to_string()),
-                    recommendations: vec![
-                        "Verifica límites de arrays: if i >= arr.domain.low && i <= arr.domain.high".to_string(),
-                        "Usa dominios para acceso seguro: arr[arr.domain]".to_string(),
-                        "Considera usar 'try' para acceso seguro".to_string(),
-                    ],
-                    cwe_id: Some("CWE-125".to_string()),
-                });
-            }
+        if line.contains("[")
+            && line.contains("]")
+            && (line.contains("..") || line.contains("#"))
+            && !line.contains("domain")
+            && !line.contains("check")
+        {
+            vulnerabilities.push(SecurityIssue {
+                vulnerability_type: "Array Bounds".to_string(),
+                severity: 6,
+                file: path.to_string_lossy().to_string(),
+                line: line_num,
+                description: "Acceso a array sin verificación de límites".to_string(),
+                vulnerable_code: Some(line.trim().to_string()),
+                recommendations: vec![
+                    "Verifica límites de arrays: if i >= arr.domain.low && i <= arr.domain.high"
+                        .to_string(),
+                    "Usa dominios para acceso seguro: arr[arr.domain]".to_string(),
+                    "Considera usar 'try' para acceso seguro".to_string(),
+                ],
+                cwe_id: Some("CWE-125".to_string()),
+            });
+        }
 
         // Información sensible en código HPC
         let lower_line = line.to_lowercase();
@@ -2402,55 +2415,57 @@ impl ProjectScanner {
             let line_num = line_num + 1;
 
             // Dominios sin distribución explícita
-            if line.contains("domain(") && !line.contains("dmapped")
-                && (line.contains("2D") || line.contains("3D") || line.contains("..")) {
-                    issues.push(Issue {
-                        issue_type: "warning".to_string(),
-                        code: Some("DOMAIN_DISTRIBUTION".to_string()),
-                        file: file.to_string(),
-                        line: line_num,
-                        column: None,
-                        message:
-                            "Dominio multidimensional sin estrategia de distribución explícita"
+            if line.contains("domain(")
+                && !line.contains("dmapped")
+                && (line.contains("2D") || line.contains("3D") || line.contains(".."))
+            {
+                issues.push(Issue {
+                    issue_type: "warning".to_string(),
+                    code: Some("DOMAIN_DISTRIBUTION".to_string()),
+                    file: file.to_string(),
+                    line: line_num,
+                    column: None,
+                    message: "Dominio multidimensional sin estrategia de distribución explícita"
+                        .to_string(),
+                    source_code: Some(line.trim().to_string()),
+                    solutions: vec![
+                        Solution {
+                            title: "Agregar distribución Block".to_string(),
+                            description:
+                                "Distribuye el dominio usando Block para buen balanceo de carga"
+                                    .to_string(),
+                            url: "https://chapel-lang.org/docs/language/spec/domains.html"
                                 .to_string(),
-                        source_code: Some(line.trim().to_string()),
-                        solutions: vec![
-                            Solution {
-                                title: "Agregar distribución Block".to_string(),
-                                description:
-                                    "Distribuye el dominio usando Block para buen balanceo de carga"
-                                        .to_string(),
-                                url: "https://chapel-lang.org/docs/language/spec/domains.html"
+                            example_code: Some(
+                                "var D: domain(2) dmapped Block(boundingBox={1..N, 1..M});"
                                     .to_string(),
-                                example_code: Some(
-                                    "var D: domain(2) dmapped Block(boundingBox={1..N, 1..M});"
-                                        .to_string(),
-                                ),
-                                priority: 8,
-                            },
-                            Solution {
-                                title: "Usar Cyclic para afinidad de datos".to_string(),
-                                description:
-                                    "Cyclic mantiene locality mejor para ciertos patrones de acceso"
-                                        .to_string(),
-                                url: "https://chapel-lang.org/docs/language/spec/domains.html"
+                            ),
+                            priority: 8,
+                        },
+                        Solution {
+                            title: "Usar Cyclic para afinidad de datos".to_string(),
+                            description:
+                                "Cyclic mantiene locality mejor para ciertos patrones de acceso"
                                     .to_string(),
-                                example_code: Some(
-                                    "var D: domain(2) dmapped Cyclic(startIdx=(1,1));".to_string(),
-                                ),
-                                priority: 7,
-                            },
-                        ],
-                    });
-                }
+                            url: "https://chapel-lang.org/docs/language/spec/domains.html"
+                                .to_string(),
+                            example_code: Some(
+                                "var D: domain(2) dmapped Cyclic(startIdx=(1,1));".to_string(),
+                            ),
+                            priority: 7,
+                        },
+                    ],
+                });
+            }
 
             // Arrays sin dominios explícitos
             if line.contains("var ")
                 && line.contains("[")
                 && line.contains("]")
                 && !line.contains("domain(")
-                && (line.contains("real") || line.contains("int") || line.contains("complex")) {
-                    issues.push(Issue {
+                && (line.contains("real") || line.contains("int") || line.contains("complex"))
+            {
+                issues.push(Issue {
                         issue_type: "info".to_string(),
                         code: Some("ARRAY_DOMAIN".to_string()),
                         file: file.to_string(),
@@ -2468,7 +2483,7 @@ impl ProjectScanner {
                             }
                         ],
                     });
-                }
+            }
 
             // Uso de reshape sin optimización
             if line.contains("reshape") && !line.contains("dmapped") {
@@ -2547,9 +2562,12 @@ impl ProjectScanner {
             }
 
             // Reducciones ineficientes
-            if line.contains("+=") && (line.contains("forall") || line.contains("coforall"))
-                && !line.contains("reduce") && !line.contains("atomic") {
-                    issues.push(Issue {
+            if line.contains("+=")
+                && (line.contains("forall") || line.contains("coforall"))
+                && !line.contains("reduce")
+                && !line.contains("atomic")
+            {
+                issues.push(Issue {
                         issue_type: "performance".to_string(),
                         code: Some("INEFFICIENT_REDUCTION".to_string()),
                         file: file.to_string(),
@@ -2567,7 +2585,7 @@ impl ProjectScanner {
                             }
                         ],
                     });
-                }
+            }
 
             // Comunicación excesiva entre locales
             if line.contains("on ") && line.contains("Local") {
@@ -2613,10 +2631,12 @@ impl ProjectScanner {
             if (line.contains("forall") || line.contains("coforall"))
                 && line.contains("[")
                 && line.contains("]")
-                && !line.contains("local") && !line.contains("here") {
-                    // Buscar patrones de acceso no-local
-                    if line.contains("A[") || line.contains("arr[") {
-                        issues.push(Issue {
+                && !line.contains("local")
+                && !line.contains("here")
+            {
+                // Buscar patrones de acceso no-local
+                if line.contains("A[") || line.contains("arr[") {
+                    issues.push(Issue {
                             issue_type: "performance".to_string(),
                             code: Some("NON_LOCAL_ACCESS".to_string()),
                             file: file.to_string(),
@@ -2641,15 +2661,16 @@ impl ProjectScanner {
                                 }
                             ],
                         });
-                    }
                 }
+            }
 
             // Asignaciones de memoria grandes sin consideración de distribución
             if line.contains("var ")
                 && (line.contains("real") || line.contains("int"))
                 && line.contains("[")
-                && (line.contains("..1000") || line.contains("..10000") || line.contains("1..N")) {
-                    issues.push(Issue {
+                && (line.contains("..1000") || line.contains("..10000") || line.contains("1..N"))
+            {
+                issues.push(Issue {
                         issue_type: "info".to_string(),
                         code: Some("MEMORY_DISTRIBUTION".to_string()),
                         file: file.to_string(),
@@ -2667,7 +2688,7 @@ impl ProjectScanner {
                             }
                         ],
                     });
-                }
+            }
         }
 
         Ok(issues)
@@ -2727,26 +2748,29 @@ impl ProjectScanner {
                     .skip(line_num)
                     .take(3)
                     .any(|l| l.contains("forall") || l.contains("coforall"))
-                {
-                    issues.push(Issue {
-                        issue_type: "performance".to_string(),
-                        code: Some("UNNECESSARY_COPY".to_string()),
-                        file: file.to_string(),
-                        line: line_num,
-                        column: None,
-                        message: "Copia potencialmente innecesaria de array antes de bucle paralelo".to_string(),
-                        source_code: Some(line.trim().to_string()),
-                        solutions: vec![
-                            Solution {
-                                title: "Usar 'ref' para evitar copia".to_string(),
-                                description: "Pasa por referencia para evitar copias costosas".to_string(),
-                                url: "https://chapel-lang.org/docs/language/spec/procedures.html".to_string(),
-                                example_code: Some("proc processArray(ref A: [] real) { /* modifica A directamente */ }".to_string()),
-                                priority: 8,
-                            }
-                        ],
-                    });
-                }
+            {
+                issues.push(Issue {
+                    issue_type: "performance".to_string(),
+                    code: Some("UNNECESSARY_COPY".to_string()),
+                    file: file.to_string(),
+                    line: line_num,
+                    column: None,
+                    message: "Copia potencialmente innecesaria de array antes de bucle paralelo"
+                        .to_string(),
+                    source_code: Some(line.trim().to_string()),
+                    solutions: vec![Solution {
+                        title: "Usar 'ref' para evitar copia".to_string(),
+                        description: "Pasa por referencia para evitar copias costosas".to_string(),
+                        url: "https://chapel-lang.org/docs/language/spec/procedures.html"
+                            .to_string(),
+                        example_code: Some(
+                            "proc processArray(ref A: [] real) { /* modifica A directamente */ }"
+                                .to_string(),
+                        ),
+                        priority: 8,
+                    }],
+                });
+            }
 
             // Uso excesivo de variables globales
             if line.contains("var ")
@@ -2757,8 +2781,8 @@ impl ProjectScanner {
                     .lines()
                     .take(line_num)
                     .any(|l| l.contains("module "))
-                {
-                    issues.push(Issue {
+            {
+                issues.push(Issue {
                         issue_type: "info".to_string(),
                         code: Some("GLOBAL_VARIABLE".to_string()),
                         file: file.to_string(),
@@ -2776,7 +2800,7 @@ impl ProjectScanner {
                         }
                         ],
                     });
-                }
+            }
         }
 
         Ok(issues)
@@ -2998,33 +3022,30 @@ impl ProjectScanner {
         }
 
         // Análisis de dominios y distribución
-        if warnings.iter().any(|w| {
-            w.code
-                .as_ref()
-                .is_some_and(|c| c == "DOMAIN_DISTRIBUTION")
-        }) {
+        if warnings
+            .iter()
+            .any(|w| w.code.as_ref().is_some_and(|c| c == "DOMAIN_DISTRIBUTION"))
+        {
             recommendations.push(
                 "🏗️ DISTRIBUCIÓN: Dominios sin distribución explícita pierden el poder de Chapel en múltiples nodos.".to_string(),
             );
         }
 
         // Análisis de optimizaciones
-        if performance_issues.iter().any(|p| {
-            p.code
-                .as_ref()
-                .is_some_and(|c| c == "PROMOTED_OPERATIONS")
-        }) {
+        if performance_issues
+            .iter()
+            .any(|p| p.code.as_ref().is_some_and(|c| c == "PROMOTED_OPERATIONS"))
+        {
             recommendations.push(
                 "🚀 OPTIMIZACIÓN: Usa operaciones promovidas para rendimiento 10-100x mejor."
                     .to_string(),
             );
         }
 
-        if performance_issues.iter().any(|p| {
-            p.code
-                .as_ref()
-                .is_some_and(|c| c == "REDUCE_OPTIMIZATION")
-        }) {
+        if performance_issues
+            .iter()
+            .any(|p| p.code.as_ref().is_some_and(|c| c == "REDUCE_OPTIMIZATION"))
+        {
             recommendations.push(
                 "⚡ REDUCE POWER: Las operaciones 'reduce' están altamente optimizadas en Chapel."
                     .to_string(),
@@ -3106,11 +3127,10 @@ impl ProjectScanner {
         score += optimization_bonus.min(20.0); // Máximo 20 puntos de bonus
 
         // Bonus por buen uso de Chapel
-        if warnings.iter().any(|w| {
-            w.code
-                .as_ref()
-                .is_some_and(|c| c == "DOMAIN_DISTRIBUTION")
-        }) {
+        if warnings
+            .iter()
+            .any(|w| w.code.as_ref().is_some_and(|c| c == "DOMAIN_DISTRIBUTION"))
+        {
             score -= 5.0; // Penalización por no usar distribución
         }
 
@@ -3155,8 +3175,8 @@ mod tests {
                     analysis.warnings.len()
                 );
 
-                // Verificar que se generaron algunos issues o recomendaciones
-                assert!(analysis.total_issues >= 0, "Debería procesar los archivos");
+                // Verificar que el análisis se completó exitosamente
+                assert!(analysis.quality_score >= 0.0 && analysis.quality_score <= 1.0, "El score de calidad debería estar entre 0.0 y 1.0");
 
                 // Verificar que hay recomendaciones
                 assert!(

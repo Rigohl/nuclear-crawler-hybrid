@@ -1,0 +1,54 @@
+{
+  "execution_time_ms": 123,
+  "files_sample": [
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\adaptive_ml.rs",
+      "size_bytes": 27452
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\file_operations.rs",
+      "size_bytes": 2249
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\lib.rs",
+      "size_bytes": 26644
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "size_bytes": 9992
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs",
+      "size_bytes": 50320
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\parallel_executor.rs",
+      "size_bytes": 1737
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\real_data.rs",
+      "size_bytes": 20124
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\zig_ffi.rs",
+      "size_bytes": 15516
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 0,
+      "python_files": 0,
+      "rust_files": 8
+    },
+    "primary_language": "Rust",
+    "total_files": 8,
+    "total_lines": 3963
+  },
+  "tool": "analyzer"
+}

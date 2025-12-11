@@ -1,0 +1,30 @@
+{
+  "execution_time_ms": 5,
+  "matches": [
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\COGNITIO.jl",
+      "line_content": "@enum ComputeBackend begin",
+      "line_number": 57,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\COGNITIO.jl",
+      "line_content": "function get_device(backend::ComputeBackend=DEFAULT_DEVICE)",
+      "line_number": 88,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO\\COGNITIO.jl",
+      "line_content": "function load_safetensors(path::String; device::ComputeBackend=DEFAULT_DEVICE)::Union{Dict, Nothing}",
+      "line_number": 254,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\MODEL\\COGNITIO\\COGNITIO",
+  "search_term": "ComputeBackend",
+  "tool": "file_research",
+  "total_matches": 3
+}

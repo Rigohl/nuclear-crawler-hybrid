@@ -1,0 +1,77 @@
+{
+  "errors": [
+    {
+      "column": 27,
+      "error_code": "E0382",
+      "error_message": "borrow of moved value: `autonomous_agent`",
+      "exact_line": "        autonomous_agent: autonomous_agent.clone(), // Compartir con handlers",
+      "file": "src\\main.rs",
+      "fix_suggestions": [],
+      "internet_solutions": [
+        {
+          "relevance": 0.949999988079071,
+          "snippet": "Encontrado via búsqueda masiva paralela en https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "source": "Web",
+          "title": "Resultado de https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "url": "https://sea1.discourse-cdn.com/flex019/stylesheets/automation_ce3272f0bc093490eadbdbd0391613cdbdacc8c7.css?__ws=users.rust-lang.org"
+        },
+        {
+          "relevance": 0.949999988079071,
+          "snippet": "Encontrado via búsqueda masiva paralela en https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "source": "Web",
+          "title": "Resultado de https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "url": "https://sea1.discourse-cdn.com/flex019/stylesheets/checklist_ce3272f0bc093490eadbdbd0391613cdbdacc8c7.css?__ws=users.rust-lang.org"
+        },
+        {
+          "relevance": 0.949999988079071,
+          "snippet": "Encontrado via búsqueda masiva paralela en https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "source": "Web",
+          "title": "Resultado de https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "url": "https://sea1.discourse-cdn.com/flex019/stylesheets/color_definitions_light-default_-1_1_6881d3e137617fc646ae477c1a535bb75dc5b679.css?__ws=users.rust-lang.org"
+        },
+        {
+          "relevance": 0.949999988079071,
+          "snippet": "Encontrado via búsqueda masiva paralela en https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "source": "Web",
+          "title": "Resultado de https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "url": "https://sea1.discourse-cdn.com/flex019/stylesheets/common_ce3272f0bc093490eadbdbd0391613cdbdacc8c7.css?__ws=users.rust-lang.org"
+        },
+        {
+          "relevance": 0.949999988079071,
+          "snippet": "Encontrado via búsqueda masiva paralela en https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "source": "Web",
+          "title": "Resultado de https://users.rust-lang.org/search?q=E0382%20borrow%20of%20moved%20value%3A%20%60autonomous_agent%60%20site%3Astackoverflow.com%20OR%20site%3Agithub.com%20OR%20site%3Areddit.com%2Fr%2Frust",
+          "url": "https://sea1.discourse-cdn.com/flex019/stylesheets/common_theme_1_a7759afea1ec51d1bb1bca145c6cbba261e17dec.css?__ws=users.rust-lang.org"
+        }
+      ],
+      "line": 281,
+      "source_snippet": "        web_tool,\n        analyze_tool,\n        edit_tool,\n        session_results: Arc::new(Mutex::new(HashMap::new())),\n        autonomous_agent: autonomous_agent.clone(), // Compartir con handlers\n    };\n\n    // Build router with MCP endpoints\n    // ✅ VS Code necesita GET y POST para el protocolo MCP\n    let app = Router::new()"
+    }
+  ],
+  "execution_time_ms": 41028,
+  "modules_used": {
+    "cargo_check": true,
+    "code_fixes": false,
+    "internet_search": true,
+    "ultra_analyzer": true,
+    "web_search": true
+  },
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P",
+  "status": "success",
+  "summary": {
+    "rust_files": 24,
+    "total_errors": 1,
+    "total_files": 62,
+    "total_lines": 11369,
+    "total_warnings": 1
+  },
+  "tool": "analyzer",
+  "warnings": [
+    {
+      "error_code": "unused_variables",
+      "error_message": "unused variable: `state`",
+      "file": "src\\main.rs",
+      "line": 415
+    }
+  ]
+}

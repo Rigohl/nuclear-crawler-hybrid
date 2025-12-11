@@ -1,0 +1,1658 @@
+{
+  "modules_used": {
+    "cache": true,
+    "deep_web_search": true,
+    "go_ffi": true,
+    "hf_integration": true,
+    "intelligent_storage": true,
+    "jax_accelerator": true,
+    "jax_pipeline": true,
+    "massive_parallel": true,
+    "mojo_processor": true,
+    "nim_html": true,
+    "nuclear_bypass": true,
+    "real_search_engines": true,
+    "stealth_system": true,
+    "zig_simd": false
+  },
+  "queries": [
+    "comparación Rust vs Go para servidores locales",
+    "librerías poderosas en Go para servidores",
+    "lenguajes alternativos para servidores potentes con menos código"
+  ],
+  "queries_count": 3,
+  "results": [
+    {
+      "config": {
+        "all_modules": [
+          "WebSearch",
+          "RealSearchEngines",
+          "DeepWebSearch",
+          "MassiveParallelSearch",
+          "ParallelCrawler",
+          "NuclearScraper",
+          "HuggingFace",
+          "JAXPipeline",
+          "JAXAccelerator",
+          "MojoProcessor",
+          "StealthSystem",
+          "NuclearBypass",
+          "GoFFI",
+          "ZigSIMD",
+          "NimParser",
+          "BloomFilter",
+          "CircuitBreaker",
+          "IntelligentStorage",
+          "HtmlParser",
+          "AISmart",
+          "MemoryCache",
+          "RateLimiter",
+          "Orchestrator"
+        ],
+        "max_parallel": 500,
+        "max_results": 150,
+        "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+        "timeout_secs": 35,
+        "total_modules": 23
+      },
+      "execution_time_ms": 66041,
+      "modules_active": 23,
+      "modules_used": [
+        "WebSearch",
+        "RealSearchEngines",
+        "DeepWebSearch",
+        "MassiveParallelSearch",
+        "ParallelCrawler",
+        "NuclearScraper",
+        "HuggingFace",
+        "JAXPipeline",
+        "JAXAccelerator",
+        "MojoProcessor",
+        "StealthSystem",
+        "NuclearBypass",
+        "GoFFI",
+        "ZigSIMD",
+        "NimParser",
+        "BloomFilter",
+        "CircuitBreaker",
+        "IntelligentStorage",
+        "HtmlParser",
+        "AISmart",
+        "MemoryCache",
+        "RateLimiter",
+        "Orchestrator"
+      ],
+      "query": "comparación Rust vs Go para servidores locales",
+      "results": [
+        {
+          "description": "\n   \n   \n   \n   \n   \n   comparación Rust vs Go para servidores locales at DuckDuckGo \n   \n   \n   \n   \n   \n   \n   \n   \n   \n \n\n \n   \n\n   \n     \n   \n\n   \n     \n\n     \n       \n\n       \n         \n           \n           \n         \n\n        \n        \n        \n        \n\n         \n           \n            \n  ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "html.duckduckgo.com",
+          "title": "comparación Rust vs Go para servidores locales at DuckDuckGo",
+          "url": "https://html.duckduckgo.com/html/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&s=120"
+        },
+        {
+          "description": "\n   \n   \n   \n   \n   \n   comparación Rust vs Go para servidores locales at DuckDuckGo \n   \n   \n   \n   \n   \n   \n   \n   \n   \n \n\n \n   \n\n   \n     \n   \n\n   \n     \n\n     \n       \n\n       \n         \n           \n           \n         \n\n        \n        \n        \n        \n\n         \n           \n            \n  ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "html.duckduckgo.com",
+          "title": "comparación Rust vs Go para servidores locales at DuckDuckGo",
+          "url": "https://html.duckduckgo.com/html/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&s=150"
+        },
+        {
+          "description": "\n   \n   \n   \n   \n   \n   comparación Rust vs Go para servidores locales at DuckDuckGo \n   \n   \n   \n   \n   \n   \n   \n   \n   \n \n\n \n   \n\n   \n     \n   \n\n   \n     \n\n     \n       \n\n       \n         \n           \n           \n         \n\n        \n        \n        \n        \n\n         \n           \n            \n  ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "html.duckduckgo.com",
+          "title": "comparación Rust vs Go para servidores locales at DuckDuckGo",
+          "url": "https://html.duckduckgo.com/html/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&s=30"
+        },
+        {
+          "description": "\n   \n   \n   \n   \n   \n   comparación Rust vs Go para servidores locales at DuckDuckGo \n   \n   \n   \n   \n   \n   \n   \n   \n   \n \n\n \n   \n\n   \n     \n   \n\n   \n     \n\n     \n       \n\n       \n         \n           \n           \n         \n\n        \n        \n        \n        \n\n         \n           \n            \n  ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "html.duckduckgo.com",
+          "title": "comparación Rust vs Go para servidores locales at DuckDuckGo",
+          "url": "https://html.duckduckgo.com/html/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&s=60"
+        },
+        {
+          "description": "\n   \n   \n   \n   \n   \n   comparación Rust vs Go para servidores locales at DuckDuckGo \n   \n   \n   \n   \n   \n   \n   \n   \n   \n \n\n \n   \n\n   \n     \n   \n\n   \n     \n\n     \n       \n\n       \n         \n           \n           \n         \n\n        \n        \n        \n        \n\n         \n           \n            \n  ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "html.duckduckgo.com",
+          "title": "comparación Rust vs Go para servidores locales at DuckDuckGo",
+          "url": "https://html.duckduckgo.com/html/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&s=90"
+        },
+        {
+          "description": "\n   \n   \n   \n   \n   \n   comparación Rust vs Go para servidores locales at DuckDuckGo \n   \n   \n   \n   \n   \n   \n   \n   \n   \n \n\n \n   \n\n   \n     \n   \n\n   \n     \n\n     \n       \n\n       \n         \n           \n           \n         \n\n        \n        \n        \n        \n\n         \n           \n            \n  ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "html.duckduckgo.com",
+          "title": "comparación Rust vs Go para servidores locales at DuckDuckGo",
+          "url": "https://html.duckduckgo.com/html/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales"
+        },
+        {
+          "description": "\n \n \n \n \n \n \n \n \n comparación Rust vs Go para servidores locales - Mojeek Search \n \n \n \n \n \n \n \n \n \n \n ✕ Mojeek User Survey \n Search Web Images News Substack Company About Press & Media Careers Contact Us Products Mojeek Ads Focus Web Search API Site Search API Simple Search Boxes Help & Support Sup",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "www.mojeek.com",
+          "title": "comparación Rust vs Go para servidores locales - Mojeek Search",
+          "url": "https://www.mojeek.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=10"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=2"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=3"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=4"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=5"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=6"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=7"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=8"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&page=9"
+        },
+        {
+          "description": "Medium html{box-sizing:border-box;-webkit-text-size-adjust:100%}*, *:before, *:after{box-sizing:inherit}body{margin:0;padding:0;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;color:rgba(0,0,0,0.8);position:relative;min-height:100vh}h1, h2, h3, h4, h5, h6, dl, dd, ol, ul, menu, ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "medium.com",
+          "title": "Medium",
+          "url": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales"
+        },
+        {
+          "description": "\n     \n     Search Results for comparación Rust vs Go para servidores locales - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n     ",
+          "quality_score": 1.0,
+          "relevance": 1.0,
+          "source": "dev.to",
+          "title": "Search Results for comparación Rust vs Go para servidores locales - DEV Community",
+          "url": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://arxiv.org/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://arxiv.org/search/advanced"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://cornell.edu/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://github.com/arXiv/arxiv-search/releases"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/about"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/about/donate.html"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/about/ourmembers.html"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/help"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/help/contact.html"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/help/license/index.html"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/help/policies/privacy_policy.html"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/help/subscribe"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://info.arxiv.org/help/web_accessibility.html"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/base/1.0.0a5/css/arxivstyle.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/apple-touch-icon.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon-16x16.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon-32x32.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon.ico"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/safari-pinned-tab.svg"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/site.webmanifest"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/search/0.5.6/css/bulma-tooltip.min.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://static.arxiv.org/static/search/0.5.6/css/search.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://status.arxiv.org"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://subscribe.sorryapp.com/24846f03/email/new"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "title": "Resultado de https://arxiv.org/search/?query=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales&searchtype=all",
+          "url": "https://subscribe.sorryapp.com/24846f03/slack/new"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://apply.workable.com/huggingface/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://huggingface.co/models?search=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://fonts.gstatic.com"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.google.com/recaptcha/challengepage"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.google.com/recaptcha/challengepage/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.gstatic.com/_/mss/boq-recaptcha/_/ss/k=boq-recaptcha.RecaptchaChallengePageUi.MjouWtgnQWM.L.W.O/am=oAAM2AIg/d=1/ed=1/rs=AP105ZiI0WYKegHVGUOyW8G1ejdnx6YO3A/m=challengeview,_b,_tp"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://blog.medium.com/?source=search_post---two_column_layout_sidebar-----------------------------------------"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://glyph.medium.com/css/unbound.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://help.medium.com/hc/en-us?source=search_post---two_column_layout_sidebar-----------------------------------------"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://miro.medium.com/v2/5d8de952517e8160e40ef9841c781cdc14a5db313057fa3c3de41c6f5b494b19"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://miro.medium.com/v2/resize:fill:1000:1000/7*GAOKVe--MXbEJmV9230oOQ.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://miro.medium.com/v2/resize:fill:120:120/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://miro.medium.com/v2/resize:fill:152:152/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://miro.medium.com/v2/resize:fill:240:240/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://miro.medium.com/v2/resize:fill:304:304/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://policy.medium.com/medium-privacy-policy-f03bf92035c9?source=search_post---two_column_layout_sidebar-----------------------------------------"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://policy.medium.com/medium-rules-30e5502c4eb4?source=search_post---two_column_layout_sidebar-----------------------------------------"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://policy.medium.com/medium-terms-of-service-9db0094a1e0f?source=search_post---two_column_layout_sidebar-----------------------------------------"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://rsci.app.link/s1cSf8zJT3?%7Efeature=LoOpenInAppButton&amp;%7Echannel=other&amp;%7Estage=mobileNavBar&amp;source=---two_column_layout_nav-----------------------------------------"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://speechify.com/medium?source=search_post---two_column_layout_sidebar-----------------------------------------"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://status.medium.com/?source=search_post---two_column_layout_sidebar-----------------------------------------"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.google.com"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://medium.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.gstatic.com"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://aistudio.google.com/?utm_source=partner&amp;utm_medium=partner&amp;utm_campaign=FY25-Global-DEVpartnership-sponsorship-AIS&amp;utm_content=-&amp;utm_term=-&bb=146443"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://assets.dev.to/assets/crayons-98d64176d3c80084bfc156b30d3cb255984cf0534815e2f01dba15c82604ea30.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://assets.dev.to/assets/minimal-044fc0591881caab0b36d4290b5fda0e31f8f3762e63d2e084a7ad8e34ad0f35.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://assets.dev.to/assets/views-5ab5484fff90044985c295f5f08e7359dda43c10871c3b39a9fa6210cdaf1648.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://dev.to"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://dev.to/open-search.xml"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://dev.to/search"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://dev.to/t/opensource"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://dev.to/t/rails"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://media2.dev.to/dynamic/image/width=128,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://media2.dev.to/dynamic/image/width=152,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://media2.dev.to/dynamic/image/width=167,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://media2.dev.to/dynamic/image/width=180,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://media2.dev.to/dynamic/image/width=192,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://media2.dev.to/dynamic/image/width=32,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://neon.tech/?ref=devto&bb=146443"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://shop.forem.com/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.algolia.com/developers/?utm_source=devto&amp;utm_medium=referral&bb=146443"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.algolia.com/developers/?utm_source=devto&utm_medium=referral"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://dev.to/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.forem.com"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://kaggle.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.gstatic.com/_/mss/boq-recaptcha/_/ss/k=boq-recaptcha.RecaptchaChallengePageUi.ls_g3FFgfWA.L.B1.O/am=oAAM2AIg/d=1/ed=1/rs=AP105Zh7ye2JvxqP__MqTuB03YuPJmDdGg/m=challengeview,_b,_tp"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://redditinc.com"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://support.reddithelp.com/hc/sections/38303584022676-Accessibility"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/policies/privacy-policy"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;sort=comments&amp;iId=006e8a4f-5508-4d74-83d2-bc3cb6f8ed54"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;sort=hot&amp;iId=ce8d46b2-54d1-424a-aa2c-316246d033ea"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;sort=new&amp;iId=9adf52ba-12ce-4153-8674-3dc9f7888c99"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;sort=relevance&amp;iId=f6cac5bf-011a-4898-bdc1-70cc0e0c199b"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;sort=top&amp;iId=e57ea75b-2773-4a0e-acac-687269d8cab1"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;t=all&amp;iId=a8b9a3b8-4899-4dfa-a844-73b4bfa94ab3"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;t=day&amp;iId=ef115d75-4674-40ad-90d2-8291e6dff1ef"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;t=hour&amp;iId=9cdd2794-23b9-491e-9b3c-689280e35026"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;t=month&amp;iId=7517acfc-8c7d-45f7-a424-deb58571e974"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;t=week&amp;iId=4b75bb04-2290-49af-a714-ee753aaa3e22"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.reddit.com/search/?q=comparaci%C3%B3n+Rust+vs+Go+para+servidores+locales&amp;type=posts&amp;t=year&amp;iId=ffbe53dd-84b2-479c-9990-4b2b1e8ee8c8"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditinc.com/policies/content-policy"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditinc.com/policies/user-agreement"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/assets/favicon/120x120.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/assets/favicon/128x128.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/assets/favicon/152x152.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/assets/favicon/180x180.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/assets/favicon/192x192.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/assets/favicon/64x64.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/assets/favicon/76x76.png"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/assets/favicon/manifest.json"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/google-one-tap-client-css-C556qdmX.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/header-client-css-BYPk6fcZ.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/header-large-client-css-Du4QHoPm.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/hui-grid-client-css-DP-dfyG4.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/nsfw-bypassable-modal-client-css-BQOI-7PB.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/qr-code-persistent-button-upsell-client-css-Bgh5zqyM.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/search-input-desktop-client-css-DI52dqkR.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/search-results-page-client-css-CStkmd7E.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/search-sdui-answers-preview-client-css-CDLZihTf.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://www.reddit.com/search/?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://www.redditstatic.com/shreddit/search-sdui-post-client-css-BOwZnIs0.css"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://apnews.com/article/mormon-church-shooting-michigan-dcb79ee701b0b8076bf73e30e10ba2b7"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://apnews.com/article/north-carolina-shooting-attack-waterfront-194ad399bbdab604c799c7f60f63ed8c"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://awfulannouncing.com/nba/local-ratings-decline-regional-sports-networks.html"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://clips.twitch.tv/SpinelessSparklyMangetoutDoubleRainbow-2QeFFSo7DG60FsUr"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://en.wikipedia.org/wiki/QAnon"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://espnpressroom.com/us/press-releases/2025/09/espns-2025-mlb-game-viewership-up-21-percent-from-last-year/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://github.com/Kobzol/cargo-pgo"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://github.com/PrismaPhonic/palindrome-finder"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://i.redd.it/c08gopwz5d6f1.jpeg"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://i.redd.it/fe0qkvfpnv911.jpg"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://i.redd.it/jxxj1ymbpj4f1.jpeg"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://itunes.apple.com/us/app/reddit-the-official-app/id1064216828?mt=8"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/contact/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/help/contentpolicy/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/help/healthycommunities/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/help/privacypolicy"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/help/privacypolicy/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/help/useragreement"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/help/useragreement/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/premium/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/r/AITAH/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/r/AITAH/comments/1ivtd7f/aitah_for_withholding_sex_because_my_husband_wont/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/r/Art/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/r/AskReddit/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/r/BORUpdates/"
+        },
+        {
+          "description": "Encontrado via búsqueda masiva paralela en https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "quality_score": 0.949999988079071,
+          "relevance": 0.949999988079071,
+          "source": "https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "title": "Resultado de https://old.reddit.com/search?q=comparaci%C3%B3n%20Rust%20vs%20Go%20para%20servidores%20locales",
+          "url": "https://old.reddit.com/r/BORUpdates/comments/1ojzrmx/ive_stopped_doing_the_fun_extra_office_stuff/"
+        }
+      ],
+      "statistics": {
+        "ai_ranked": 160,
+        "bloom_deduplicated": 160,
+        "bypass_attempts": 1,
+        "cache_entries": 0,
+        "circuit_breaker_state": "CLOSED",
+        "crawler_pages": 8,
+        "deep_web_results": 0,
+        "go_ffi_active": 1,
+        "html_parsed": 10,
+        "huggingface_items": 0,
+        "jax_accelerator_processed": 100,
+        "jax_pipeline_processed": 0,
+        "massive_parallel_processed": 30,
+        "mojo_active": 1,
+        "nim_parser_active": 50,
+        "real_engines_results": 10,
+        "scraper_pages": 5,
+        "stealth_headers": 11,
+        "storage_items": 76,
+        "websearch_results": 160,
+        "zig_simd_active": 1
+      },
+      "status": "completed",
+      "total_results": 160,
+      "type": "mega_massive_search"
+    },
+    {
+      "config": {
+        "all_modules": [
+          "WebSearch",
+          "RealSearchEngines",
+          "DeepWebSearch",
+          "MassiveParallelSearch",
+          "ParallelCrawler",
+          "NuclearScraper",
+          "HuggingFace",
+          "JAXPipeline",
+          "JAXAccelerator",
+          "MojoProcessor",
+          "StealthSystem",
+          "NuclearBypass",
+          "GoFFI",
+          "ZigSIMD",
+          "NimParser",
+          "BloomFilter",
+          "CircuitBreaker",
+          "IntelligentStorage",
+          "HtmlParser",
+          "AISmart",
+          "MemoryCache",
+          "RateLimiter",
+          "Orchestrator"
+        ],
+        "max_parallel": 500,
+        "max_results": 150,
+        "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+        "timeout_secs": 35,
+        "total_modules": 23
+      },
+      "execution_time_ms": 56242,
+      "modules_active": 23,
+      "modules_used": [
+        "WebSearch",
+        "RealSearchEngines",
+        "DeepWebSearch",
+        "MassiveParallelSearch",
+        "ParallelCrawler",
+        "NuclearScraper",
+        "HuggingFace",
+        "JAXPipeline",
+        "JAXAccelerator",
+        "MojoProcessor",
+        "StealthSystem",
+        "NuclearBypass",
+        "GoFFI",
+        "ZigSIMD",
+        "NimParser",
+        "BloomFilter",
+        "CircuitBreaker",
+        "IntelligentStorage",
+        "HtmlParser",
+        "AISmart",
+        "MemoryCache",
+        "RateLimiter",
+        "Orchestrator"
+      ],
+      "query": "librerías poderosas en Go para servidores",
+      "results": [
+        {
+          "description": "In this guide, we share 22 Go libraries that have proven reliable across multiple production systems we've built. We cover essential tools for HTTP routing, database access, messaging, observability, and testing - all based on our experience leading Go teams. For each library, we explain its key strengths and provide practical usage tips. We also highlight common mistakes to avoid when using ...",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "The Go libraries that never failed us: 22 libraries you need to know",
+          "url": "https://threedots.tech/post/list-of-recommended-libraries/"
+        },
+        {
+          "description": "• Potential benefits for web server projects Explore these carefully selected Go libraries, to expand your toolkit and find new possibilities for your web server projects. Speed Up Your Server with Fiber Fiber is a Go web framework inspired by Express, offering familiar syntax with Go's performance benefits. Key features include:",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "10 Go Libraries to Supercharge Your Web Server Projects",
+          "url": "https://dev.to/stellaacharoiro/10-go-libraries-to-supercharge-your-web-server-projects-1ei6"
+        },
+        {
+          "description": "Awesome Go has no monthly fee, but we have employees who work hard to keep it running. With money raised, we can repay the effort of each person involved! You can see how we calculate our billing and distribution as it is open to the entire community. Want to be a supporter of the project click here. A curated list of awesome Go frameworks, libraries, and software. Inspired by awesome-python ...",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Construyendo APIs REST en Go: Guía completa - glukhov.org",
+          "url": "https://www.glukhov.org/es/post/2025/11/implementing-api-in-go/"
+        },
+        {
+          "description": "Discover the top 10 essential Go packages every developer should know. Improve your Go programming skills with powerful standard library packages for web development, concurrency, logging, and more.",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "10 Librerías de Go Que Deberías Conocer - Parte 1",
+          "url": "https://nubecolectiva.com/blog/10-librerias-de-go-que-deberias-conocer-parte-1/"
+        },
+        {
+          "description": "Mercure - Server and library to dispatch server-sent updates using the Mercure protocol (built on top of Server-Sent Events). messagebus - messagebus is a Go simple async message bus, perfect for using as event bus when doing event sourcing, CQRS, DDD.",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "GitHub - avelino/awesome-go: A curated list of awesome Go frameworks ...",
+          "url": "https://github.com/avelino/awesome-go"
+        },
+        {
+          "description": "These 10 Go libraries can transform your development workflow, helping you build faster, cleaner, and more maintainable applications. Whether it's routing with Gin, database management with GORM, or testing with Testify, these tools save time and reduce complexity.",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Top 10 Must-Know Go Packages for Developers",
+          "url": "https://gomasterylab.com/articles/essential-go-packages"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "A curated list of awesome Go frameworks, libraries and software ...",
+          "url": "https://awesome-go.com/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "12 Indispensable Go Paquetes y Librerías - Envato Tuts+",
+          "url": "https://code.tutsplus.com/es/12-indispensable-go-packages-and-libraries--cms-29008t"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Top 10 Must-Have Go Libraries for Faster Development",
+          "url": "https://observabilityguy.medium.com/top-10-must-have-go-libraries-for-faster-development-56d65cbd7398"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Bibliotecas Go que utilizo en casi todos los proyectos - ICHI.PRO",
+          "url": "https://ichi.pro/es/bibliotecas-go-que-utilizo-en-casi-todos-los-proyectos-33703312271845"
+        }
+      ],
+      "statistics": {
+        "ai_ranked": 10,
+        "bloom_deduplicated": 10,
+        "bypass_attempts": 0,
+        "cache_entries": 1,
+        "circuit_breaker_state": "CLOSED",
+        "crawler_pages": 8,
+        "deep_web_results": 0,
+        "go_ffi_active": 1,
+        "html_parsed": 6,
+        "huggingface_items": 0,
+        "jax_accelerator_processed": 10,
+        "jax_pipeline_processed": 0,
+        "massive_parallel_processed": 10,
+        "mojo_active": 1,
+        "nim_parser_active": 6,
+        "real_engines_results": 10,
+        "scraper_pages": 5,
+        "stealth_headers": 11,
+        "storage_items": 76,
+        "websearch_results": 10,
+        "zig_simd_active": 1
+      },
+      "status": "completed",
+      "total_results": 10,
+      "type": "mega_massive_search"
+    },
+    {
+      "config": {
+        "all_modules": [
+          "WebSearch",
+          "RealSearchEngines",
+          "DeepWebSearch",
+          "MassiveParallelSearch",
+          "ParallelCrawler",
+          "NuclearScraper",
+          "HuggingFace",
+          "JAXPipeline",
+          "JAXAccelerator",
+          "MojoProcessor",
+          "StealthSystem",
+          "NuclearBypass",
+          "GoFFI",
+          "ZigSIMD",
+          "NimParser",
+          "BloomFilter",
+          "CircuitBreaker",
+          "IntelligentStorage",
+          "HtmlParser",
+          "AISmart",
+          "MemoryCache",
+          "RateLimiter",
+          "Orchestrator"
+        ],
+        "max_parallel": 500,
+        "max_results": 150,
+        "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+        "timeout_secs": 35,
+        "total_modules": 23
+      },
+      "execution_time_ms": 59207,
+      "modules_active": 23,
+      "modules_used": [
+        "WebSearch",
+        "RealSearchEngines",
+        "DeepWebSearch",
+        "MassiveParallelSearch",
+        "ParallelCrawler",
+        "NuclearScraper",
+        "HuggingFace",
+        "JAXPipeline",
+        "JAXAccelerator",
+        "MojoProcessor",
+        "StealthSystem",
+        "NuclearBypass",
+        "GoFFI",
+        "ZigSIMD",
+        "NimParser",
+        "BloomFilter",
+        "CircuitBreaker",
+        "IntelligentStorage",
+        "HtmlParser",
+        "AISmart",
+        "MemoryCache",
+        "RateLimiter",
+        "Orchestrator"
+      ],
+      "query": "lenguajes alternativos para servidores potentes con menos código",
+      "results": [
+        {
+          "description": "Este artículo explorará diez de los mejores lenguajes de codificación del lado del servidor. La lista incluye NodeJS, Kotlin, GO, Solidity, etc.",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Los 10 mejores lenguajes de codificación del lado del servidor",
+          "url": "https://blog.back4app.com/es/los-10-mejores-lenguajes-de-codificacion-del-lado-del-servidor/"
+        },
+        {
+          "description": "La habilidad de Facebook para procesar y entregar contenido dinámico y personalizado a cada usuario es un testimonio del poder de la programación del lado del servidor. Similarmente, Google (Google.com) y su YouTube (YouTube.com) dependen en gran medida de la programación del lado del servidor.",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Las 11 mejores plataformas de desarrollo de código bajo y sin código ...",
+          "url": "https://www.guru99.com/es/best-low-code-development-platforms.html"
+        },
+        {
+          "description": "Descubre los mejores lenguajes de programación backend: características clave y desventajas de cada uno. Explora opciones del lado del servidor.",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "17 Alternativas de software sin código y de código reducido - Konfuzio",
+          "url": "https://konfuzio.com/es/sin-codigo/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Lenguajes de programación del lado del servidor: PHP, Python, Java, etc",
+          "url": "https://www.todopedia.online/lenguajes-programacion-del-lado-del-servidor-php-python-java-etc-79762"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Los 10 mejores lenguajes para el desarrollo web en 2025",
+          "url": "https://www.dualmedia.com/es/los-10-mejores-lenguajes-para-el-desarrollo-web-en-2025/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Las 10 mejores PHP alternatives - IONOS México",
+          "url": "https://www.ionos.mx/digitalguide/paginas-web/desarrollo-web/alternativas-a-php/"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Lenguajes del lado del servidor 【Características】 - Axarnet",
+          "url": "https://axarnet.es/blog/lenguajes-del-lado-del-servidor"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Top lenguajes backend de libre uso | Rootstack",
+          "url": "https://rootstack.com/es/blog/top-lenguajes-backend-de-libre-uso"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Las mejores alternativas Open Source para Servidores de Aplicaciones",
+          "url": "https://somoslibres.org/index.php/44-nieuws/tecnologia/12364-las-mejores-alternativas-open-source-para-servidores-de-aplicaciones"
+        },
+        {
+          "description": "",
+          "quality_score": 0.8999999761581421,
+          "relevance": 0.949999988079071,
+          "source": "real_engine:DuckDuckGo",
+          "title": "Los 10 principales lenguajes de programación de backend",
+          "url": "https://blog.back4app.com/es/lenguajes-de-programacion-de-backend/"
+        }
+      ],
+      "statistics": {
+        "ai_ranked": 10,
+        "bloom_deduplicated": 10,
+        "bypass_attempts": 0,
+        "cache_entries": 2,
+        "circuit_breaker_state": "CLOSED",
+        "crawler_pages": 8,
+        "deep_web_results": 0,
+        "go_ffi_active": 1,
+        "html_parsed": 3,
+        "huggingface_items": 0,
+        "jax_accelerator_processed": 10,
+        "jax_pipeline_processed": 0,
+        "massive_parallel_processed": 10,
+        "mojo_active": 1,
+        "nim_parser_active": 3,
+        "real_engines_results": 10,
+        "scraper_pages": 5,
+        "stealth_headers": 11,
+        "storage_items": 76,
+        "websearch_results": 10,
+        "zig_simd_active": 1
+      },
+      "status": "completed",
+      "total_results": 10,
+      "type": "mega_massive_search"
+    }
+  ],
+  "tool": "websearch",
+  "total_execution_time_ms": 181512
+}

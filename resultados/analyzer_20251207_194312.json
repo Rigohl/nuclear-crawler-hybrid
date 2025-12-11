@@ -1,0 +1,150 @@
+{
+  "execution_time_ms": 2933,
+  "files_sample": [
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\.gitignore",
+      "size_bytes": 19
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\00_INDICE_GENERAL.md",
+      "size_bytes": 8831
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\ANALISIS_HERRAMIENTAS.md",
+      "size_bytes": 23575
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\ANALISIS_VISUAL.txt",
+      "size_bytes": 14116
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\ARCHIVO_INFO.md",
+      "size_bytes": 7367
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\build.rs",
+      "size_bytes": 5376
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\Cargo.lock",
+      "size_bytes": 60292
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\Cargo.toml",
+      "size_bytes": 1496
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\CONFIRMACION_FINAL.txt",
+      "size_bytes": 8493
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\data\\mnist_cache.json",
+      "size_bytes": 1106602
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\HERRAMIENTAS_ANALISIS.json",
+      "size_bytes": 21817
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\HERRAMIENTAS_COMPARATIVA.csv",
+      "size_bytes": 3403
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\MATRIZ_DECISION.md",
+      "size_bytes": 18748
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\README.md",
+      "size_bytes": 9753
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\RESULTADO_FINAL.md",
+      "size_bytes": 14687
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\RESUMEN_EJECUTIVO.txt",
+      "size_bytes": 4669
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\SIXSIGMA_NUCLEAR_ANALYSIS_REPORT.md",
+      "size_bytes": 8570
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\adaptive_ml.rs",
+      "size_bytes": 27452
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\file_operations.rs",
+      "size_bytes": 2249
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\lib.rs",
+      "size_bytes": 26644
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "size_bytes": 10393
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\mcp_server.rs",
+      "size_bytes": 39949
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\parallel_executor.rs",
+      "size_bytes": 1737
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\real_data.rs",
+      "size_bytes": 20124
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\zig_ffi.rs",
+      "size_bytes": 15516
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\test_sixsigma_tools.ps1",
+      "size_bytes": 7877
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\zig_lib\\atomic\\atomics.zig",
+      "size_bytes": 9034
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\zig_lib\\ffi_exports.obj",
+      "size_bytes": 2626944
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\zig_lib\\ffi_exports.zig",
+      "size_bytes": 28272
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\zig_lib\\math\\advanced_math.zig",
+      "size_bytes": 17942
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\zig_lib\\parallel_compute.zig",
+      "size_bytes": 6477
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\zig_lib\\system\\system.zig",
+      "size_bytes": 2476
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 22,
+      "python_files": 0,
+      "rust_files": 9
+    },
+    "primary_language": "Rust",
+    "total_files": 32,
+    "total_lines": 12233
+  },
+  "tool": "analyzer"
+}

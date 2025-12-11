@@ -6,12 +6,8 @@
 #[allow(unused_imports)]
 use crate::ai_smart::{AIConfig, AISmart, TrainingData};
 use crate::cache::Cache;
-// use crate::intelligence::ContentIntelligence; // Eliminado - funcionalidad integrada
-// use crate::intelligence::ContentScore; // Eliminado - funcionalidad integrada
-// JaxAccelerator removido - usar rayon directamente
-// Parser integrado en scraper
+use crate::content_extractor::{ContentExtractor, ExtractedContent}; // 🔥 EXTRACCIÓN REAL
 use crate::rate_limit::RateLimiter;
-// use crate::scraper::Scraper; // Eliminado - funcionalidad integrada
 use crate::stealth::{StealthConfig, StealthSystem};
 use anyhow::Context;
 use anyhow::Result;
@@ -130,8 +126,6 @@ impl NuclearScraper {
             Client::builder()
                 .timeout(Duration::from_secs(config.timeout_seconds))
                 .user_agent(&config.user_agent)
-                .gzip(true)
-                .brotli(true)
                 .cookie_store(true)
                 .pool_max_idle_per_host(10) // REDUCIDO: De 100 a 10
                 .pool_idle_timeout(Duration::from_secs(30)) // REDUCIDO: De 90 a 30
@@ -329,18 +323,14 @@ impl NuclearScraper {
                 if fetch_error.is_none() {
                     let content_length = html.len();
 
-                    // Inteligencia: Analizar contenido
-                    // let content_score = intelligence.analyze_content(&html, &url_clone); // Eliminado
-
-                    // Extraer datos masivamente
-                    // let extracted = scraper.extract_all(&html, &url_clone).unwrap_or_default(); // Eliminado
-
-                    // Extraer links
-                    // let links = scraper.extract_links(&html, &url_clone).unwrap_or_default(); // Eliminado
-
-                    // Extraer imágenes - Eliminado por falta de parser
-                    // let images: Vec<String> =
-                    //     extracted.images.iter().map(|i| i.url.clone()).collect();
+                    // 🔥 EXTRACCIÓN REAL de contenido usando ContentExtractor
+                    let extractor = ContentExtractor::new();
+                    let extracted: ExtractedContent = extractor.extract_all(&html, &url_clone)
+                        .unwrap_or_else(|_| ExtractedContent::default_for_url(&url_clone));
+                    
+                    // Extraer links y imágenes del contenido extraído
+                    let links_found: Vec<String> = extracted.links.iter().map(|l| l.url.clone()).collect();
+                    let images_found: Vec<String> = extracted.images.iter().map(|i| i.url.clone()).collect();
 
                     let result = NuclearResult {
                         url: url_clone.clone(),
@@ -348,10 +338,26 @@ impl NuclearScraper {
                         html: html.clone(),
                         content_length,
                         response_time: start.elapsed(),
-                        links_found: Vec::new(), // Simplificado - antes usaba links.clone()
-                        images_found: Vec::new(), // Simplificado - antes usaba images.clone()
+                        links_found, // 🔥 Links REALES extraídos
+                        images_found, // 🔥 Imágenes REALES extraídas
                         extracted_data: serde_json::json!({
-                            // Datos simplificados - parser eliminado
+                            // 🔥 DATOS COMPLETOS EXTRAÍDOS
+                            "title": extracted.title,
+                            "description": extracted.description,
+                            "main_text": extracted.main_text,
+                            "summary": extracted.summary,
+                            "word_count": extracted.word_count,
+                            "language": extracted.language,
+                            "headings": extracted.headings,
+                            "code_snippets": extracted.code_snippets.iter().map(|c| {
+                                serde_json::json!({
+                                    "language": c.language,
+                                    "code": c.code
+                                })
+                            }).collect::<Vec<_>>(),
+                            "tables_count": extracted.tables.len(),
+                            "links_count": extracted.links.len(),
+                            "images_count": extracted.images.len(),
                             "content_length": content_length,
                             "status_code": status_code,
                         }),

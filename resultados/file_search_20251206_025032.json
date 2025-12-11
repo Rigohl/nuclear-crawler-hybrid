@@ -1,0 +1,51 @@
+{
+  "execution_time_ms": 7,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "if line.contains(\"TODO:\")",
+      "line_number": 236,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "// TODO: Implementar parsing real del output de cargo",
+      "line_number": 333,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "line_content": "if content.contains(\"TODO:\") {",
+      "line_number": 168,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "line_content": ".position(|l| l.contains(\"TODO:\"))",
+      "line_number": 177,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "line_content": "// TODO: Implementar check real de conexión",
+      "line_number": 138,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "line_content": "// TODO: Cargar configuración real",
+      "line_number": 19,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src",
+  "search_term": "TODO:",
+  "tool": "file_research",
+  "total_matches": 6
+}

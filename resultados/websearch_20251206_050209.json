@@ -1,0 +1,170 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 51464,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "Chapel FFI C wrapper Windows MSVC linking",
+  "results": [
+    {
+      "description": "LINK.exe links Common Object File Format (COFF) object files and libraries to create an executable (EXE) file or a dynamic-link library (DLL). The following table lists options for LINK.exe. For more information about LINK, see: Compiler-controlled LINK options LINK input files LINK output Reserved words Linker options aren't case-sensitive; for example, /base and /BASE mean the same thing ...",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "GitHub - bottlenoselabs/c2ffi: Generate the FFI (foreign function ...",
+      "url": "https://github.com/bottlenoselabs/c2ffi"
+    },
+    {
+      "description": "A portable foreign-function interface library. Contribute to libffi/libffi development by creating an account on GitHub.",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Building libffi for Windows x64 with Visual C++ - Saint's Log",
+      "url": "https://blog.swesonga.org/2025/05/31/building-libffi-for-windows-x64-with-visual-c/"
+    },
+    {
+      "description": "For information on using LIB to create standard or import libraries, see LIB Reference. For details on using LINK to create an import library, see the /DLL option. A library is specified to LINK as either a file name argument or a default library.",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Linker and Library Wrappers | mstorsjo/msvc-wine | DeepWiki",
+      "url": "https://deepwiki.com/mstorsjo/msvc-wine/5.2-linker-and-library-wrappers"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "C Wrappers for C++ Libraries and Interoperability - GitHub Pages",
+      "url": "https://caiorss.github.io/C-Cpp-Notes/CwrapperToQtLibrary.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "MSVC Linker options | Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/cpp/build/reference/linker-options?view=msvc-170"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Building and Installing libffi on Windows - FWD - Golden Code",
+      "url": "https://proj.goldencode.com/projects/p2j/wiki/Building_and_Installing_libffi_on_Windows"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "visual studio c linker wrap option? - Stack Overflow",
+      "url": "https://stackoverflow.com/questions/33790425/visual-studio-c-linker-wrap-option"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "GitHub - libffi/libffi: A portable foreign-function interface library.",
+      "url": "https://github.com/libffi/libffi"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": ".lib files as linker input | Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/cpp/build/reference/dot-lib-files-as-linker-input?view=msvc-170"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Building libffi for Windows ARM64 with Visual C++ - Saint's Log",
+      "url": "https://blog.swesonga.org/2025/05/31/building-libffi-for-windows-arm64-with-visual-c/"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 10,
+    "bloom_deduplicated": 10,
+    "bypass_attempts": 0,
+    "cache_entries": 15,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 8,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 3,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 10,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 10,
+    "mojo_active": 1,
+    "nim_parser_active": 3,
+    "real_engines_results": 10,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 10,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 10,
+  "type": "mega_massive_search"
+}

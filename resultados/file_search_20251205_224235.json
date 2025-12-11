@@ -1,0 +1,1059 @@
+{
+  "execution_time_ms": 53,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\consolidate_results.rs",
+      "line_content": "/// Estructura para leer los JSON de websearch existentes",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\consolidate_results.rs",
+      "line_content": "struct WebSearchResult {",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\consolidate_results.rs",
+      "line_content": "results: Option<Vec<WebSearchResultItem>>,",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\consolidate_results.rs",
+      "line_content": "struct WebSearchResultItem {",
+      "line_number": 32,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\consolidate_results.rs",
+      "line_content": "if let Ok(results) = serde_json::from_str::<Vec<WebSearchResult>>(&content) {",
+      "line_number": 92,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\consolidate_results.rs",
+      "line_content": "else if let Ok(result) = serde_json::from_str::<WebSearchResult>(&content) {",
+      "line_number": 102,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\consolidate_results.rs",
+      "line_content": "result: &WebSearchResult,",
+      "line_number": 221,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "//! 1. websearch - Búsqueda MASIVA (solo query, config OP automática)",
+      "line_number": 23,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "use nuclear_crawler_lib::deep_web_search::{DeepWebSearch, DeepWebSearchConfig, DeepWebSearchType, DeepWebSource};",
+      "line_number": 49,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "use nuclear_crawler_lib::web_search::{WebSearch, WebSearchConfig};",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "web_search: Arc<WebSearch>,",
+      "line_number": 125,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "deep_web_search: Arc<DeepWebSearch>,",
+      "line_number": 126,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "let web_search = Arc::new(WebSearch::new_with_storage(Some(storage.clone()))?);",
+      "line_number": 189,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "let deep_web_search = Arc::new(DeepWebSearch::new(",
+      "line_number": 195,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "// 1. WEBSEARCH - MÁXIMO PODER (hasta 5 queries o URLs)",
+      "line_number": 323,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "\"name\": \"websearch\",",
+      "line_number": 325,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "\"websearch\" => self.tool_websearch(args).await?,",
+      "line_number": 395,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "// 🔥 TOOL 1: WEBSEARCH - MÁXIMO PODER CON TODOS LOS MÓDULOS",
+      "line_number": 417,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "async fn tool_websearch(&self, args: Value) -> Result<Value> {",
+      "line_number": 421,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "\"🔥🔥🔥 NUCLEAR WEBSEARCH - {} QUERIES - MÁXIMO PODER 🔥🔥🔥\",",
+      "line_number": 442,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "\"tool\": \"websearch\",",
+      "line_number": 483,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "let cache_key = format!(\"websearch:{}\", query);",
+      "line_number": 575,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "let config = WebSearchConfig {",
+      "line_number": 588,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"⚠️  WebSearch timeout, continuando con otros módulos\");",
+      "line_number": 627,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"✅ WebSearch: {} resultados\", all_results.len());",
+      "line_number": 632,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "all_results.push(nuclear_crawler_lib::web_search::WebSearchResult {",
+      "line_number": 649,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"✅ DeepWebSearch: activando búsqueda especializada...\");",
+      "line_number": 673,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "let deep_config = DeepWebSearchConfig {",
+      "line_number": 674,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "search_type: DeepWebSearchType::All,",
+      "line_number": 676,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"✅ DeepWebSearch: {} resultados de deep web\", count);",
+      "line_number": 697,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "all_results.push(nuclear_crawler_lib::web_search::WebSearchResult {",
+      "line_number": 700,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"⚠️  DeepWebSearch error: {}\", e);",
+      "line_number": 717,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"⚠️  DeepWebSearch timeout (15s)\");",
+      "line_number": 721,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "\"WebSearch\",",
+      "line_number": 1047,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "\"DeepWebSearch\",",
+      "line_number": 1049,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "let total_websearch_results = all_results.len();",
+      "line_number": 1080,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "\"websearch_results\": total_websearch_results,",
+      "line_number": 1093,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "\"WebSearch\", \"RealSearchEngines\", \"DeepWebSearch\",",
+      "line_number": 1122,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "let filename = format!(\"websearch_{}.json\", timestamp);",
+      "line_number": 1146,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": ".search(WebSearchConfig {",
+      "line_number": 1457,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"   🛠️ 4 Herramientas MCP OFICIALES: websearch, file_search, analyzer, stats\");",
+      "line_number": 1542,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"   🛠️ 4 Herramientas MCP OFICIALES: websearch, file_search, analyzer, stats\");",
+      "line_number": 1649,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\bin\\nuclear_ultimate.rs",
+      "line_content": "eprintln!(\"   🛠️ 4 Herramientas MCP OFICIALES: websearch, file_search, analyzer, stats\");",
+      "line_number": 1768,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "//! 1. websearch - Búsqueda web MASIVA con TODOS los módulos (Go, Zig, JAX, Nim, Stealth, etc.)",
+      "line_number": 3,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "use crate::web_search::{WebSearch, WebSearchConfig};",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "pub web_search: Arc<WebSearch>,",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "let web_search = Arc::new(WebSearch::new_with_storage(Some(storage.clone()))?);",
+      "line_number": 65,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "// 1. WEBSEARCH - SOLO QUERY, USA TODO EL PODER AUTOMÁTICAMENTE",
+      "line_number": 95,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "\"name\": \"websearch\",",
+      "line_number": 97,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "\"websearch\" => self.tool_websearch(args).await?,",
+      "line_number": 202,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "// 🔥 TOOL 1: WEBSEARCH - Usa TODOS los módulos",
+      "line_number": 223,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "async fn tool_websearch(&self, args: Value) -> Result<Value> {",
+      "line_number": 226,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "eprintln!(\"🔥 NUCLEAR WEBSEARCH - 15 seg timeout\");",
+      "line_number": 232,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "let config = WebSearchConfig::unlimited_with_query(query);",
+      "line_number": 245,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\core_tools.rs",
+      "line_content": "// Análisis básico local (sin WebSearch)",
+      "line_number": 368,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "use crate::web_search::WebSearch;",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "pub struct DeepWebSearchConfig {",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "pub search_type: DeepWebSearchType,",
+      "line_number": 29,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "pub enum DeepWebSearchType {",
+      "line_number": 46,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "pub struct DeepWebSearchResult {",
+      "line_number": 80,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "pub struct DeepWebSearch {",
+      "line_number": 172,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "web_search: Arc<WebSearch>,",
+      "line_number": 175,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "impl DeepWebSearch {",
+      "line_number": 180,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "pub fn new(scraper: Arc<NuclearScraper>, web_search: Arc<WebSearch>) -> Self {",
+      "line_number": 182,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "pub async fn search(&self, config: DeepWebSearchConfig) -> Result<Vec<DeepWebSearchResult>> {",
+      "line_number": 207,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "async fn prepare_deep_web_urls(&self, config: &DeepWebSearchConfig) -> Result<Vec<String>> {",
+      "line_number": 265,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "config: &DeepWebSearchConfig,",
+      "line_number": 673,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": ") -> Result<Option<DeepWebSearchResult>> {",
+      "line_number": 674,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "Ok(Some(DeepWebSearchResult {",
+      "line_number": 716,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "search_type: &DeepWebSearchType,",
+      "line_number": 902,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "DeepWebSearchType::All => true,",
+      "line_number": 907,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "DeepWebSearchType::Code => content_type == \"code\" || content_type == \"software\",",
+      "line_number": 908,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "DeepWebSearchType::Intelligence => {",
+      "line_number": 909,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "DeepWebSearchType::Premium => is_premium,",
+      "line_number": 912,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "result: &DeepWebSearchResult,",
+      "line_number": 919,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\deep_web_search.rs",
+      "line_content": "_config: &DeepWebSearchConfig,",
+      "line_number": 920,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\mcp_axum_server.rs",
+      "line_content": "\"name\": \"websearch\",",
+      "line_number": 281,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\project_analyzer.rs",
+      "line_content": "use crate::web_search::WebSearch;",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\project_analyzer.rs",
+      "line_content": "web_search: Arc<WebSearch>,",
+      "line_number": 65,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\project_analyzer.rs",
+      "line_content": "pub fn new(web_search: Arc<WebSearch>) -> Self {",
+      "line_number": 70,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\project_analyzer.rs",
+      "line_content": "web_search: Arc::new(WebSearch::new_with_storage(None)?),",
+      "line_number": 77,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\project_analyzer.rs",
+      "line_content": "let search_config = crate::web_search::WebSearchConfig {",
+      "line_number": 201,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\project_analyzer.rs",
+      "line_content": "let search_config = crate::web_search::WebSearchConfig {",
+      "line_number": 235,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\project_analyzer.rs",
+      "line_content": "let search_config = crate::web_search::WebSearchConfig {",
+      "line_number": 266,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "use crate::web_search::{WebSearch, WebSearchConfig};",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "web_search: Arc<WebSearch>,",
+      "line_number": 120,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "pub fn new(web_search: Arc<WebSearch>) -> Self {",
+      "line_number": 125,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "let search_config = WebSearchConfig {",
+      "line_number": 498,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "// Crear WebSearch para el scanner",
+      "line_number": 3162,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\scan_project.rs",
+      "line_content": "let web_search = Arc::new(crate::web_search::WebSearch::new_with_storage(None).unwrap());",
+      "line_number": 3163,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "DeepWebSearch, DeepWebSearchConfig, DeepWebSearchType, DeepWebSource,",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "use crate::web_search::{WebSearch, WebSearchConfig};",
+      "line_number": 13,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "web_search: Arc<WebSearch>,",
+      "line_number": 29,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "deep_web_search: Arc<DeepWebSearch>,",
+      "line_number": 34,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let web_search = Arc::new(WebSearch::new_with_storage(Some(storage.clone()))?);",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let deep_web_search = Arc::new(DeepWebSearch::new(",
+      "line_number": 75,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "\"name\": \"websearch\",",
+      "line_number": 258,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "\"websearch\" => self.handle_websearch(args).await,",
+      "line_number": 524,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "\"DEPRECATED: Deep web is now integrated in 'websearch'. Use that instead.\"",
+      "line_number": 542,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "_ => Err(anyhow::anyhow!(\"Unknown tool: {}. Available: websearch, file_search, analyzer, stats\", tool_name)),",
+      "line_number": 544,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "/// Handle websearch tool - 🔥🔥🔥 MÁXIMA POTENCIA NUCLEAR (30 seg) 🔥🔥🔥",
+      "line_number": 548,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "pub async fn handle_websearch(&mut self, args: Value) -> Result<Value> {",
+      "line_number": 550,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "eprintln!(\"🔥🔥🔥 WEBSEARCH NUCLEAR v5.0 - MÁXIMA POTENCIA (35 seg) 🔥🔥🔥\");",
+      "line_number": 558,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let mut config = WebSearchConfig::unlimited_with_query(query);",
+      "line_number": 566,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let deep_config = DeepWebSearchConfig {",
+      "line_number": 606,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "search_type: DeepWebSearchType::All,",
+      "line_number": 608,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let mut all_results: Vec<crate::web_search::WebSearchResult> = Vec::new();",
+      "line_number": 637,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "all_results.push(crate::web_search::WebSearchResult {",
+      "line_number": 641,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "all_results.push(crate::web_search::WebSearchResult {",
+      "line_number": 661,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "\"✅ WEBSEARCH NUCLEAR completado: {} resultados únicos en {:?}\",",
+      "line_number": 707,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let filename = format!(\"websearch_{}.json\", timestamp);",
+      "line_number": 770,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "// Análisis básico local (sin WebSearch)",
+      "line_number": 1022,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let web_search_config = crate::web_search::WebSearchConfig {",
+      "line_number": 1374,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let web_search_config = crate::web_search::WebSearchConfig {",
+      "line_number": 1532,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "\"code\" => DeepWebSearchType::Code,",
+      "line_number": 1648,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "\"intelligence\" => DeepWebSearchType::Intelligence,",
+      "line_number": 1649,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "\"premium\" => DeepWebSearchType::Premium,",
+      "line_number": 1650,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "_ => DeepWebSearchType::All,",
+      "line_number": 1651,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\simple_mcp.rs",
+      "line_content": "let config = DeepWebSearchConfig {",
+      "line_number": 1677,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\stats.rs",
+      "line_content": "use crate::web_search::WebSearch;",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\stats.rs",
+      "line_content": "pub web_search_stats: WebSearchStats,",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\stats.rs",
+      "line_content": "pub struct WebSearchStats {",
+      "line_number": 34,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\stats.rs",
+      "line_content": "web_search: Arc<WebSearch>,",
+      "line_number": 72,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\stats.rs",
+      "line_content": "web_search: Arc<WebSearch>,",
+      "line_number": 82,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\stats.rs",
+      "line_content": "let web_search_stats = WebSearchStats {",
+      "line_number": 111,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "pub struct WebSearchConfig {",
+      "line_number": 55,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "impl Default for WebSearchConfig {",
+      "line_number": 100,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "impl WebSearchConfig {",
+      "line_number": 160,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "pub struct WebSearchResult {",
+      "line_number": 249,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "pub struct WebSearch {",
+      "line_number": 275,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "impl WebSearch {",
+      "line_number": 305,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "eprintln!(\"🔥 WebSearch v5.0 - TODOS los módulos activos:\");",
+      "line_number": 349,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "pub async fn search(&self, config: WebSearchConfig) -> Result<Vec<WebSearchResult>> {",
+      "line_number": 475,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "if let Ok(results) = serde_json::from_str::<Vec<WebSearchResult>>(&cached) {",
+      "line_number": 501,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let mut processed_results: Vec<WebSearchResult> = Vec::new();",
+      "line_number": 702,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "processed_results.push(WebSearchResult {",
+      "line_number": 761,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "processed_results.push(WebSearchResult {",
+      "line_number": 787,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "// Convertir resultados de MassiveParallelSearch a WebSearchResult",
+      "line_number": 809,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "processed_results.push(WebSearchResult {",
+      "line_number": 814,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "pub async fn search_unlimited(&self, query: &str) -> Result<Vec<WebSearchResult>> {",
+      "line_number": 1913,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let config = WebSearchConfig::unlimited_with_query(query);",
+      "line_number": 1947,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": ") -> Result<Vec<WebSearchResult>> {",
+      "line_number": 1969,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let mut config = WebSearchConfig::unlimited_with_query(query);",
+      "line_number": 1970,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let config = WebSearchConfig::default();",
+      "line_number": 2036,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let web_search = WebSearch::new_with_storage(storage).unwrap();",
+      "line_number": 2046,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let web_search = WebSearch::new_with_storage(storage).unwrap();",
+      "line_number": 2058,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let web_search = WebSearch::new_with_storage(storage).unwrap();",
+      "line_number": 2069,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let web_search = WebSearch::new_with_storage(storage).unwrap();",
+      "line_number": 2078,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let web_search = WebSearch::new_with_storage(storage).unwrap();",
+      "line_number": 2090,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src\\web_search.rs",
+      "line_content": "let web_search = WebSearch::new_with_storage(storage).unwrap();",
+      "line_number": 2107,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\hf_spaces\\NUCLEAR_CRAWLER_HYBRID\\src",
+  "search_term": "WebSearch",
+  "tool": "file_research",
+  "total_matches": 150
+}

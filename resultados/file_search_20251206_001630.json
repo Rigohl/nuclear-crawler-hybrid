@@ -1,0 +1,93 @@
+{
+  "execution_time_ms": 9,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\analyze.rs",
+      "line_content": "// TODO: Implementar análisis completo",
+      "line_number": 34,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "// TODO: Implementar parsing real del output de cargo",
+      "line_number": 291,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "// TODO: Implementar wrapper mejorado para comandos cargo",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\metrics.rs",
+      "line_content": "// TODO: Implementar gestión completa de métricas",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "// TODO: Implementar detección de dependencias desactualizadas, no utilizadas, etc.",
+      "line_number": 234,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "// TODO: Implementar detección de issues en Cargo.toml",
+      "line_number": 239,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "// TODO: Implementar detección de issues de documentación",
+      "line_number": 244,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "// TODO: Implementar detección de issues en tests",
+      "line_number": 249,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "line_content": "// TODO: Implementar análisis completo del proyecto",
+      "line_number": 19,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "line_content": "// TODO: Implementar análisis de artifacts",
+      "line_number": 28,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "line_content": "// TODO: Implementar check real de conexión",
+      "line_number": 119,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "line_content": "// TODO: Cargar configuración real",
+      "line_number": 19,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "search_term": "TODO:",
+  "tool": "file_research",
+  "total_matches": 12
+}

@@ -1,0 +1,86 @@
+{
+  "execution_time_ms": 8,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "// Detectar TODOs con línea exacta",
+      "line_number": 196,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "if line.contains(\"TODO:\") || line.contains(\"FIXME:\") || line.contains(\"XXX:\") {",
+      "line_number": 198,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "line_content": "if line.contains(\"FIXME:\") { \"FIXME\" } else if line.contains(\"XXX:\") { \"XXX\" } else { \"TODO\" },",
+      "line_number": 211,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "// TODO: Implementar parsing real del output de cargo",
+      "line_number": 291,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\mod.rs",
+      "line_content": "//! Contiene todos los subcomandos de TRAE CLI",
+      "line_number": 3,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "line_content": "if content.contains(\"TODO:\") {",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "line_content": "description: format!(\"TODO encontrado en {:?}\", path.file_name()),",
+      "line_number": 45,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "line_content": "line: Some(content.lines().position(|l| l.contains(\"TODO:\")).unwrap_or(0) + 1),",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "line_content": "println!(\"{}\", \"✅ Todos los checks pasaron exitosamente\".green().bold());",
+      "line_number": 29,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "line_content": "// TODO: Implementar check real de conexión",
+      "line_number": 119,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "line_content": "// TODO: Cargar configuración real",
+      "line_number": 19,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src",
+  "search_term": "TODO",
+  "tool": "file_research",
+  "total_matches": 11
+}

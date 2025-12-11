@@ -1,0 +1,44 @@
+{
+  "execution_time_ms": 2,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\ast_engine.rs",
+      "line_content": "pub struct FunctionAnalysis {",
+      "line_number": 20,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\ast_engine.rs",
+      "line_content": "functions: Vec<FunctionAnalysis>,",
+      "line_number": 137,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\ast_engine.rs",
+      "line_content": "let func = FunctionAnalysis {",
+      "line_number": 263,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\ast_engine.rs",
+      "line_content": "pub functions: Vec<FunctionAnalysis>,",
+      "line_number": 525,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\lib.rs",
+      "line_content": "pub use ast_engine::{AstEngine, FunctionAnalysis, StructAnalysis, DeadCodeDetector};",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src",
+  "search_term": "FunctionAnalysis",
+  "tool": "file_research",
+  "total_matches": 5
+}

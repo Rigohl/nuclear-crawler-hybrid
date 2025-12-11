@@ -1,0 +1,1290 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 51978,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "TypeError: o.content is not iterable",
+  "results": [
+    {
+      "description": "\n   \n   \n   \n   \n   \n   TypeError: o.content is not iterable at DuckDuckGo \n   \n   \n   \n   \n   \n   \n   \n   \n   \n \n\n \n   \n\n   \n     \n   \n\n   \n     \n\n     \n       \n\n       \n         \n           \n           \n         \n\n        \n        \n        \n        \n\n         \n           \n            \n            ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "html.duckduckgo.com",
+      "title": "TypeError: o.content is not iterable at DuckDuckGo",
+      "url": "https://html.duckduckgo.com/html/?q=TypeError%3A%20o.content%20is%20not%20iterable&s=150"
+    },
+    {
+      "description": "//<![CDATA[\nsi_ST=new Date\n//]]> TypeError: o.content is not iterable - Search //<![CDATA[\n_G={Region:\"MX\",Lang:\"en-US\",ST:(typeof si_ST!=='undefined'?si_ST:new Date),Mkt:\"en-US\",RevIpCC:\"mx\",RTL:false,Ver:\"49\",IG:\"79DEF14F2CE546678BD2C50A9D0A9513\",EventID:\"6934ddf39daf44468a4bbdbcaf32a9b0\",V:\"web\",",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "www.bing.com",
+      "title": "TypeError: o.content is not iterable - Search",
+      "url": "https://www.bing.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable&first=20"
+    },
+    {
+      "description": "//<![CDATA[\nsi_ST=new Date\n//]]> TypeError: o.content is not iterable - Search //<![CDATA[\n_G={Region:\"MX\",Lang:\"en-US\",ST:(typeof si_ST!=='undefined'?si_ST:new Date),Mkt:\"en-US\",RevIpCC:\"mx\",RTL:false,Ver:\"49\",IG:\"17932B74A4C14D3C925A8E8699CE13F8\",EventID:\"6934ddf2297d4208b65ce009ae2389ea\",V:\"web\",",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "www.bing.com",
+      "title": "TypeError: o.content is not iterable - Search",
+      "url": "https://www.bing.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable&first=40"
+    },
+    {
+      "description": "//<![CDATA[\nsi_ST=new Date\n//]]> TypeError: o.content is not iterable - Search //<![CDATA[\n_G={Region:\"MX\",Lang:\"en-US\",ST:(typeof si_ST!=='undefined'?si_ST:new Date),Mkt:\"en-US\",RevIpCC:\"mx\",RTL:false,Ver:\"49\",IG:\"1EA9D528F2A34EB580F7B77A73F5B394\",EventID:\"6934ddf1f633440e8e17942ba3282b82\",V:\"web\",",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "www.bing.com",
+      "title": "TypeError: o.content is not iterable - Search",
+      "url": "https://www.bing.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable&first=60"
+    },
+    {
+      "description": "\n   \n   \n   \n   \n   \n   TypeError: o.content is not iterable at DuckDuckGo \n   \n   \n   \n   \n   \n   \n   \n   \n   \n \n\n \n   \n\n   \n     \n   \n\n   \n     \n\n     \n       \n\n       \n         \n           \n           \n         \n\n        \n        \n        \n        \n\n         \n           \n            \n            ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "html.duckduckgo.com",
+      "title": "TypeError: o.content is not iterable at DuckDuckGo",
+      "url": "https://html.duckduckgo.com/html/?q=TypeError%3A%20o.content%20is%20not%20iterable"
+    },
+    {
+      "description": "\n \n \n \n \n \n \n \n \n TypeError: o.content is not iterable - Mojeek Search \n \n \n \n \n \n \n \n \n \n \n ✕ Mojeek User Survey \n Search Web Images News Substack Company About Press & Media Careers Contact Us Products Mojeek Ads Focus Web Search API Site Search API Simple Search Boxes Help & Support Support Brows",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "www.mojeek.com",
+      "title": "TypeError: o.content is not iterable - Mojeek Search",
+      "url": "https://www.mojeek.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=10"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=2"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=3"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=4"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=5"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=6"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=7"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=8"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable&page=9"
+    },
+    {
+      "description": "Medium html{box-sizing:border-box;-webkit-text-size-adjust:100%}*, *:before, *:after{box-sizing:inherit}body{margin:0;padding:0;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;color:rgba(0,0,0,0.8);position:relative;min-height:100vh}h1, h2, h3, h4, h5, h6, dl, dd, ol, ul, menu, ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "medium.com",
+      "title": "Medium",
+      "url": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable"
+    },
+    {
+      "description": "\n     \n     Search Results for TypeError: o.content is not iterable - DEV Community \n    \n  \n \n \n \n\n \n \n \n \n \n \n\n \n \n \n \n \n\n\n       \n       \n       \n       \n       \n \n \n\n       \n \n \n \n \n\n         \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       ",
+      "quality_score": 1.0,
+      "relevance": 1.0,
+      "source": "dev.to",
+      "title": "Search Results for TypeError: o.content is not iterable - DEV Community",
+      "url": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://aistudio.google.com/?utm_source=partner&amp;utm_medium=partner&amp;utm_campaign=FY25-Global-DEVpartnership-sponsorship-AIS&amp;utm_content=-&amp;utm_term=-&bb=146443"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://assets.dev.to/assets/crayons-b2af1b25a2d17e3cce00c42af745891ee5042aacb91b930a533b01e00e09ee11.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://assets.dev.to/assets/minimal-044fc0591881caab0b36d4290b5fda0e31f8f3762e63d2e084a7ad8e34ad0f35.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://assets.dev.to/assets/views-5ab5484fff90044985c295f5f08e7359dda43c10871c3b39a9fa6210cdaf1648.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://dev.to"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://dev.to/open-search.xml"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://dev.to/search"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://dev.to/t/opensource"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://dev.to/t/rails"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://media2.dev.to/dynamic/image/width=128,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://media2.dev.to/dynamic/image/width=152,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://media2.dev.to/dynamic/image/width=167,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://media2.dev.to/dynamic/image/width=180,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://media2.dev.to/dynamic/image/width=192,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://media2.dev.to/dynamic/image/width=32,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://neon.tech/?ref=devto&bb=146443"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://shop.forem.com/"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.algolia.com/developers/?utm_source=devto&amp;utm_medium=referral&bb=146443"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.algolia.com/developers/?utm_source=devto&utm_medium=referral"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://dev.to/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.forem.com"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://apply.workable.com/huggingface/"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://huggingface.co/models?search=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://fonts.gstatic.com"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.google.com/recaptcha/challengepage"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.google.com/recaptcha/challengepage/"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.gstatic.com/_/mss/boq-recaptcha/_/ss/k=boq-recaptcha.RecaptchaChallengePageUi.ls_g3FFgfWA.L.B1.O/am=oAAM2AIg/d=1/ed=1/rs=AP105Zh7ye2JvxqP__MqTuB03YuPJmDdGg/m=challengeview,_b,_tp"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://i.redd.it/snoovatar/avatars/0c7541ee-d048-4613-9cc2-6add6a789ec3.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://redditinc.com"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://support.reddithelp.com/hc/sections/38303584022676-Accessibility"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/policies/privacy-policy"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;sort=comments&amp;iId=7413444c-3bd7-4bd2-ae7d-8b718102f534"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;sort=hot&amp;iId=3d9c34b8-1692-484f-8fc1-e21ece639bd6"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;sort=new&amp;iId=b2b2e503-de1b-48e9-9fd2-551922e2e37b"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;sort=relevance&amp;iId=896158e5-ea5d-4d3d-a604-87463144de82"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;sort=top&amp;iId=04e540a4-797c-4ea8-b606-8270f6058a7e"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;t=all&amp;iId=d56357e9-92bf-4f62-afbf-fed8039d2895"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;t=day&amp;iId=2014f402-2df6-474a-87cf-d85d088d3093"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;t=hour&amp;iId=3f1c36cb-cb9f-4503-951b-a17ddcf5262c"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;t=month&amp;iId=cae2c49e-d9e9-4376-96ae-e005deaa551f"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;t=week&amp;iId=2e5fe252-042a-4f18-ade3-11657ed39a09"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.reddit.com/search/?q=TypeError%3A+o.content+is+not+iterable&amp;type=posts&amp;t=year&amp;iId=714cc69c-a7d3-4cdc-8034-939e889df5f2"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditinc.com/policies/content-policy"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditinc.com/policies/user-agreement"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/assets/favicon/120x120.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/assets/favicon/128x128.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/assets/favicon/152x152.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/assets/favicon/180x180.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/assets/favicon/192x192.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/assets/favicon/64x64.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/assets/favicon/76x76.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/assets/favicon/manifest.json"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/google-one-tap-client-css-C556qdmX.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/header-client-css-BYPk6fcZ.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/header-large-client-css-Du4QHoPm.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/hui-grid-client-css-DP-dfyG4.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/nsfw-bypassable-modal-client-css-BQOI-7PB.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/qr-code-persistent-button-upsell-client-css-Bgh5zqyM.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/search-input-desktop-client-css-DI52dqkR.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/search-results-page-client-css-CStkmd7E.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/search-sdui-answers-preview-client-css-CDLZihTf.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.reddit.com/search/?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.redditstatic.com/shreddit/search-sdui-post-client-css-BOwZnIs0.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://blog.medium.com/?source=search_post---two_column_layout_sidebar-----------------------------------------"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://glyph.medium.com/css/unbound.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://help.medium.com/hc/en-us?source=search_post---two_column_layout_sidebar-----------------------------------------"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://miro.medium.com/v2/5d8de952517e8160e40ef9841c781cdc14a5db313057fa3c3de41c6f5b494b19"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://miro.medium.com/v2/resize:fill:1000:1000/7*GAOKVe--MXbEJmV9230oOQ.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://miro.medium.com/v2/resize:fill:120:120/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://miro.medium.com/v2/resize:fill:152:152/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://miro.medium.com/v2/resize:fill:240:240/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://miro.medium.com/v2/resize:fill:304:304/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://policy.medium.com/medium-privacy-policy-f03bf92035c9?source=search_post---two_column_layout_sidebar-----------------------------------------"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://policy.medium.com/medium-rules-30e5502c4eb4?source=search_post---two_column_layout_sidebar-----------------------------------------"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://policy.medium.com/medium-terms-of-service-9db0094a1e0f?source=search_post---two_column_layout_sidebar-----------------------------------------"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://rsci.app.link/s1cSf8zJT3?%7Efeature=LoOpenInAppButton&amp;%7Echannel=other&amp;%7Estage=mobileNavBar&amp;source=---two_column_layout_nav-----------------------------------------"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://speechify.com/medium?source=search_post---two_column_layout_sidebar-----------------------------------------"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://status.medium.com/?source=search_post---two_column_layout_sidebar-----------------------------------------"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.google.com"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://medium.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.gstatic.com"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://arxiv.org/"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://arxiv.org/search/advanced"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://cornell.edu/"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://github.com/arXiv/arxiv-search/releases"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/about"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/about/donate.html"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/about/ourmembers.html"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/help"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/help/contact.html"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/help/license/index.html"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/help/policies/privacy_policy.html"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/help/subscribe"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://info.arxiv.org/help/web_accessibility.html"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/base/1.0.0a5/css/arxivstyle.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/apple-touch-icon.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon-16x16.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon-32x32.png"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon.ico"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/safari-pinned-tab.svg"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/base/1.0.0a5/images/icons/site.webmanifest"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/search/0.5.6/css/bulma-tooltip.min.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://static.arxiv.org/static/search/0.5.6/css/search.css"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://status.arxiv.org"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://subscribe.sorryapp.com/24846f03/email/new"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "title": "Resultado de https://arxiv.org/search/?query=TypeError%3A%20o.content%20is%20not%20iterable&searchtype=all",
+      "url": "https://subscribe.sorryapp.com/24846f03/slack/new"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://apis.google.com"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://fonts.googleapis.com/css2?family=Google+Symbols:FILL@0..1&display=block"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://fonts.googleapis.com/css?family=Inter:400,400i,500,500i,600,600i,700,700i&display=swap"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://stats.g.doubleclick.net"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://storage.googleapis.com"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://www.kaggle.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://www.google-analytics.com"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2006.15704"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2304.11277"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2306.08568"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2403.13372"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2409.18839"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2410.05779"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2410.17799"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2412.20138"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2501.03936"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2501.13956"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2502.05512"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2504.10479"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2504.17192"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2504.17761"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2504.19413"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2507.03724"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2508.03680"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2509.00531"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2509.22186"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2509.22414"
+    },
+    {
+      "description": "Encontrado via búsqueda masiva paralela en https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "quality_score": 0.949999988079071,
+      "relevance": 0.949999988079071,
+      "source": "https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "title": "Resultado de https://paperswithcode.com/search?q=TypeError%3A%20o.content%20is%20not%20iterable",
+      "url": "https://arxiv.org/abs/2510.01174"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 150,
+    "bloom_deduplicated": 150,
+    "bypass_attempts": 1,
+    "cache_entries": 0,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 8,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 10,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 100,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 30,
+    "mojo_active": 1,
+    "nim_parser_active": 50,
+    "real_engines_results": 0,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 150,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 150,
+  "type": "mega_massive_search"
+}

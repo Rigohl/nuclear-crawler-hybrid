@@ -4,6 +4,8 @@
 //! (bert-tiny, all-MiniLM-L6-v2) y hace FINE-TUNING/ADAPTACIÓN con datos
 //! específicos de scraping.
 //!
+//! 🔥 RAYON PARALELO: calculate_success_rate, predict, learn_from_result
+//!
 //! Funcionalidades:
 //! - Evitar bans inteligentemente (aprendizaje de patrones)
 //! - Optimizar velocidad (reglas aprendidas)
@@ -12,6 +14,7 @@
 
 use anyhow::Result;
 use dashmap::DashMap;
+use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -132,53 +135,85 @@ impl AISmart {
         Ok(())
     }
 
-    /// Analiza patrones de éxito/fallo
+    /// 🔥 RAYON PARALELO: Analiza patrones de éxito/fallo
     async fn analyze_patterns(&self, domain: &str, data: &[TrainingData]) -> Result<()> {
-        let mut success_patterns = HashMap::new();
-        let mut fail_patterns = HashMap::new();
-
-        for item in data {
-            let pattern_key = self.extract_pattern_key(item);
-
-            if item.result == "success" {
-                *success_patterns.entry(pattern_key.clone()).or_insert(0) += 1;
-            } else {
-                *fail_patterns.entry(pattern_key).or_insert(0) += 1;
+        // Usar par_iter para procesar datos en paralelo
+        let (success_patterns, fail_patterns): (HashMap<String, usize>, HashMap<String, usize>) = {
+            // Recopilar patrones en paralelo
+            let all_patterns: Vec<(String, bool)> = data
+                .par_iter()
+                .map(|item| {
+                    let pattern_key = self.extract_pattern_key(item);
+                    let is_success = item.result == "success";
+                    (pattern_key, is_success)
+                })
+                .collect();
+            
+            // Agregar resultados
+            let mut success = HashMap::new();
+            let mut fail = HashMap::new();
+            for (key, is_success) in all_patterns {
+                if is_success {
+                    *success.entry(key).or_insert(0) += 1;
+                } else {
+                    *fail.entry(key).or_insert(0) += 1;
+                }
             }
+            (success, fail)
+        };
+
+        // Identificar patrones exitosos en paralelo
+        let success_entries: Vec<_> = success_patterns
+            .par_iter()
+            .filter_map(|(pattern_key, count)| {
+                let total = count + fail_patterns.get(pattern_key).copied().unwrap_or(0);
+                let confidence = *count as f32 / total as f32;
+
+                if confidence >= self.config.confidence_threshold {
+                    Some((
+                        format!("{}:{}", domain, pattern_key),
+                        Pattern {
+                            pattern_type: "success".to_string(),
+                            confidence,
+                            action: "continue".to_string(),
+                            frequency: *count,
+                        }
+                    ))
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        for (key, pattern) in success_entries {
+            self.patterns.insert(key, pattern);
         }
 
-        // Identificar patrones exitosos
-        for (pattern_key, count) in success_patterns.iter() {
-            let total = count + fail_patterns.get(pattern_key).copied().unwrap_or(0);
-            let confidence = *count as f32 / total as f32;
+        // Identificar patrones de fallo en paralelo
+        let fail_entries: Vec<_> = fail_patterns
+            .par_iter()
+            .filter_map(|(pattern_key, count)| {
+                let total = count + success_patterns.get(pattern_key).copied().unwrap_or(0);
+                let confidence = *count as f32 / total as f32;
 
-            if confidence >= self.config.confidence_threshold {
-                let pattern = Pattern {
-                    pattern_type: "success".to_string(),
-                    confidence,
-                    action: "continue".to_string(),
-                    frequency: *count,
-                };
-                self.patterns
-                    .insert(format!("{}:{}", domain, pattern_key), pattern);
-            }
-        }
+                if confidence >= self.config.confidence_threshold {
+                    Some((
+                        format!("{}:{}", domain, pattern_key),
+                        Pattern {
+                            pattern_type: "failure".to_string(),
+                            confidence,
+                            action: "avoid".to_string(),
+                            frequency: *count,
+                        }
+                    ))
+                } else {
+                    None
+                }
+            })
+            .collect();
 
-        // Identificar patrones de fallo
-        for (pattern_key, count) in fail_patterns.iter() {
-            let total = count + success_patterns.get(pattern_key).copied().unwrap_or(0);
-            let confidence = *count as f32 / total as f32;
-
-            if confidence >= self.config.confidence_threshold {
-                let pattern = Pattern {
-                    pattern_type: "failure".to_string(),
-                    confidence,
-                    action: "avoid".to_string(),
-                    frequency: *count,
-                };
-                self.patterns
-                    .insert(format!("{}:{}", domain, pattern_key), pattern);
-            }
+        for (key, pattern) in fail_entries {
+            self.patterns.insert(key, pattern);
         }
 
         Ok(())
@@ -194,9 +229,13 @@ impl AISmart {
         )
     }
 
-    /// Calcula tasa de éxito por dominio
+    /// 🔥 RAYON PARALELO: Calcula tasa de éxito por dominio
     fn calculate_success_rate(&self, domain: &str, data: &[TrainingData]) {
-        let success_count = data.iter().filter(|d| d.result == "success").count();
+        // Usar par_iter para contar éxitos en paralelo
+        let success_count = data
+            .par_iter()
+            .filter(|d| d.result == "success")
+            .count();
         let rate = success_count as f32 / data.len() as f32;
         self.success_rate.insert(domain.to_string(), rate);
     }

@@ -16,6 +16,7 @@ use serde_json::{json, Value};
 use std::sync::Arc;
 use tokio::sync::RwLock;
 use tower_http::cors::{Any, CorsLayer};
+use tower_http::limit::RequestBodyLimitLayer;
 use tower_http::trace::TraceLayer;
 
 /// MCP Axum Server State
@@ -62,9 +63,13 @@ pub fn create_router(state: McpServerState) -> Router {
         .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
         .allow_headers([header::CONTENT_TYPE, header::AUTHORIZATION]);
 
+    let body_limit = RequestBodyLimitLayer::new(state.config.max_request_size);
+
     Router::new()
-        // Health check
+        // Health check (con config info)
         .route("/health", get(health_check))
+        // Server config endpoint
+        .route("/config", get(get_server_config))
         // MCP 2025 endpoints
         .route("/mcp/initialize", post(mcp_initialize))
         .route("/mcp/tools/list", post(mcp_tools_list))
@@ -75,16 +80,34 @@ pub fn create_router(state: McpServerState) -> Router {
         .route("/mcp/jsonrpc", post(mcp_jsonrpc))
         .with_state(state)
         .layer(cors)
+        .layer(body_limit)
         .layer(TraceLayer::new_for_http())
 }
 
 /// Health check endpoint
-async fn health_check() -> impl IntoResponse {
+async fn health_check(State(state): State<McpServerState>) -> impl IntoResponse {
     Json(json!({
         "status": "healthy",
         "service": "nuclear-mcp",
         "version": env!("CARGO_PKG_VERSION"),
-        "protocol": "MCP 2025"
+        "protocol": "MCP 2025",
+        "config": {
+            "host": state.config.host,
+            "port": state.config.port,
+            "cors_enabled": state.config.enable_cors,
+            "max_request_size": state.config.max_request_size
+        }
+    }))
+}
+
+/// Get server configuration endpoint
+async fn get_server_config(State(state): State<McpServerState>) -> impl IntoResponse {
+    Json(json!({
+        "host": state.config.host,
+        "port": state.config.port,
+        "enable_cors": state.config.enable_cors,
+        "max_request_size": state.config.max_request_size,
+        "max_request_size_mb": state.config.max_request_size / (1024 * 1024)
     }))
 }
 
@@ -93,19 +116,7 @@ async fn mcp_initialize(
     State(_state): State<McpServerState>,
     Json(payload): Json<Value>,
 ) -> Result<Json<Value>, McpError> {
-    // Validate protocol version
-    let protocol_version = payload["protocolVersion"]
-        .as_str()
-        .ok_or_else(|| McpError::InvalidRequest("Missing protocolVersion".to_string()))?;
-
-    // Support 2025-06-18 (MCP Protocol 2025)
-    let supported_versions = ["2025-06-18", "2024-11-05"];
-    if !supported_versions.contains(&protocol_version) {
-        return Err(McpError::InvalidRequest(format!(
-            "Unsupported protocol version: {}. Supported: {:?}",
-            protocol_version, supported_versions
-        )));
-    }
+    let protocol_version = extract_protocol_version(&payload)?;
 
     Ok(Json(json!({
         "protocolVersion": protocol_version,
@@ -141,6 +152,17 @@ async fn mcp_tools_call(
     State(state): State<McpServerState>,
     Json(payload): Json<Value>,
 ) -> Result<Json<Value>, McpError> {
+    // Validar tamaño de request usando config
+    let payload_size = serde_json::to_string(&payload)
+        .map(|s| s.len())
+        .unwrap_or(0);
+    if payload_size > state.config.max_request_size {
+        return Err(McpError::PayloadTooLarge {
+            size: payload_size,
+            max: state.config.max_request_size,
+        });
+    }
+
     let tool_name = payload["name"]
         .as_str()
         .ok_or_else(|| McpError::InvalidRequest("Missing tool name".to_string()))?;
@@ -154,11 +176,14 @@ async fn mcp_tools_call(
         .await
         .map_err(|e| McpError::ToolError(e.to_string()))?;
 
+    let serialized = serde_json::to_string(&result)
+        .map_err(|e| McpError::InternalError(format!("Serialize tool result: {e}")))?;
+
     Ok(Json(json!({
         "content": [
             {
                 "type": "text",
-                "text": serde_json::to_string(&result).unwrap_or_else(|_| "{}".to_string())
+                "text": serialized
             }
         ]
     })))
@@ -181,28 +206,28 @@ async fn handle_websocket(mut socket: axum::extract::ws::WebSocket, state: McpSe
                     Ok(request) => {
                         // 🔑 MCP 2025: Check if it's a notification (no id) or request (with id)
                         let has_id = request.get("id").map(|v| !v.is_null()).unwrap_or(false);
-                        
+
                         // Standard MCP 2025 notifications to ignore
                         let standard_notifications = [
                             "logging/setLevel",
                             "notifications/progress",
                             "notifications/resources/list_changed",
                         ];
-                        
+
                         let method = request["method"].as_str().unwrap_or("");
-                        
+
                         // If it's a known notification, don't process further
                         if !has_id && standard_notifications.contains(&method) {
                             continue;
                         }
-                        
+
                         let mut mcp = state.mcp.write().await;
                         let response = mcp.handle_request(request).await;
 
                         // Only send response if it's not an empty notification response
-                        let should_send = !response.as_object().map(|o| o.is_empty()).unwrap_or(false) 
-                            || has_id;
-                        
+                        let should_send =
+                            !response.as_object().map(|o| o.is_empty()).unwrap_or(false) || has_id;
+
                         if should_send {
                             if let Ok(response_text) = serde_json::to_string(&response) {
                                 if socket.send(Message::Text(response_text)).await.is_err() {
@@ -222,6 +247,7 @@ async fn handle_websocket(mut socket: axum::extract::ws::WebSocket, state: McpSe
                         if let Ok(error_text) = serde_json::to_string(&error_response) {
                             let _ = socket.send(Message::Text(error_text)).await;
                         }
+                        tracing::warn!("WebSocket parse error on MCP message");
                     }
                 }
             }
@@ -251,24 +277,13 @@ fn get_mcp_tools() -> Vec<Value> {
     vec![
         json!({
             "name": "websearch",
-            "description": "Búsqueda web masiva usando TODO el poder del Nuclear Crawler",
+            "description": "🔥 Búsqueda NUCLEAR (15 seg): Máxima potencia automática. Solo pon el query.",
             "inputSchema": {
                 "type": "object",
                 "properties": {
                     "query": {
                         "type": "string",
                         "description": "Término de búsqueda"
-                    },
-                    "sources": {
-                        "type": "array",
-                        "items": {"type": "string"},
-                        "description": "Fuentes a buscar",
-                        "default": ["github.com", "stackoverflow.com", "dev.to"]
-                    },
-                    "max_results": {
-                        "type": "integer",
-                        "description": "Máximo número de resultados",
-                        "default": 0
                     }
                 },
                 "required": ["query"]
@@ -383,6 +398,7 @@ fn get_mcp_tools() -> Vec<Value> {
 #[derive(Debug)]
 pub enum McpError {
     InvalidRequest(String),
+    PayloadTooLarge { size: usize, max: usize },
     ToolError(String),
     InternalError(String),
 }
@@ -391,6 +407,11 @@ impl IntoResponse for McpError {
     fn into_response(self) -> Response {
         let (status, code, message) = match self {
             McpError::InvalidRequest(msg) => (StatusCode::BAD_REQUEST, -32600, msg),
+            McpError::PayloadTooLarge { size, max } => (
+                StatusCode::PAYLOAD_TOO_LARGE,
+                -32602,
+                format!("Request size {} exceeds max {}", size, max),
+            ),
             McpError::ToolError(msg) => (StatusCode::INTERNAL_SERVER_ERROR, -32000, msg),
             McpError::InternalError(msg) => (StatusCode::INTERNAL_SERVER_ERROR, -32603, msg),
         };
@@ -405,6 +426,22 @@ impl IntoResponse for McpError {
 
         (status, body).into_response()
     }
+}
+
+fn extract_protocol_version(payload: &Value) -> Result<&str, McpError> {
+    let protocol_version = payload["protocolVersion"]
+        .as_str()
+        .ok_or_else(|| McpError::InvalidRequest("Missing protocolVersion".to_string()))?;
+
+    let supported_versions = ["2025-06-18", "2024-11-05"];
+    if !supported_versions.contains(&protocol_version) {
+        return Err(McpError::InvalidRequest(format!(
+            "Unsupported protocol version: {}. Supported: {:?}",
+            protocol_version, supported_versions
+        )));
+    }
+
+    Ok(protocol_version)
 }
 
 /// Start the MCP Axum server

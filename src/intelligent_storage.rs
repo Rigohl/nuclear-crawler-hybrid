@@ -48,21 +48,28 @@ pub struct IntelligentStorage {
 impl IntelligentStorage {
     /// Crea nuevo sistema de almacenamiento con SQLite
     pub fn new(storage_dir: Option<PathBuf>) -> Result<Self> {
-        // Detectar project root (donde está Cargo.toml)
-        let project_root = std::env::current_dir()
-            .ok()
-            .and_then(|mut path| {
-                loop {
-                    if path.join("Cargo.toml").exists() {
-                        return Some(path);
+        // 🔥 RUTA ABSOLUTA HARDCODEADA del proyecto
+        let project_root = PathBuf::from(r"C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID");
+
+        // Fallback: detectar desde ejecutable o current_dir
+        let project_root = if project_root.exists() {
+            project_root
+        } else {
+            std::env::current_dir()
+                .ok()
+                .and_then(|mut path| {
+                    loop {
+                        if path.join("Cargo.toml").exists() {
+                            return Some(path);
+                        }
+                        if !path.pop() {
+                            break;
+                        }
                     }
-                    if !path.pop() {
-                        break;
-                    }
-                }
-                None
-            })
-            .unwrap_or_else(|| PathBuf::from("."));
+                    None
+                })
+                .unwrap_or_else(|| PathBuf::from("."))
+        };
 
         let results_dir = storage_dir.unwrap_or_else(|| project_root.join("resultados"));
         std::fs::create_dir_all(&results_dir).context("Error creando directorio resultados")?;

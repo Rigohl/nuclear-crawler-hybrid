@@ -1,0 +1,44 @@
+{
+  "execution_time_ms": 22,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\analyze.rs",
+      "line_content": "pub async fn execute(&self, cli: &TraeCli) -> Result<()> {",
+      "line_number": 31,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "line_content": "pub async fn execute(&self, cli: &TraeCli) -> Result<()> {",
+      "line_number": 55,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "line_content": "pub async fn execute(&self, cli: &TraeCli) -> Result<()> {",
+      "line_number": 23,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\metrics.rs",
+      "line_content": "pub async fn execute(&self, cli: &TraeCli) -> Result<()> {",
+      "line_number": 27,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "line_content": "pub async fn execute(&self, cli: &TraeCli) -> Result<()> {",
+      "line_number": 63,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "search_term": "pub async fn execute(&self, cli: &TraeCli)",
+  "tool": "file_research",
+  "total_matches": 5
+}

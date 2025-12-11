@@ -1,0 +1,162 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 55195,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "Chapel web scraping parallel processing C",
+  "results": [
+    {
+      "description": "Chapel in Production CHAMPS World-class multiphysics simulation Written by students and post-docs in Eric Laurendeau's lab at Polytechnique Montreal. Outperformed its C/OpenMP predecessor using far fewer lines of code. Dramatically accelerated the progress of grad students while also supporting contributions from undergrads for the first time.",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How can I implement multithreading in C# for faster web scraping?",
+      "url": "https://webscraping.ai/faq/c/how-can-i-implement-multithreading-in-c-for-faster-web-scraping"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Can I use multithreading and parallel programming for web scraping?",
+      "url": "https://stackoverflow.com/questions/69429465/can-i-use-multithreading-and-parallel-programming-for-web-scraping"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "The Chapel Programming Language",
+      "url": "https://chapel-lang.org/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Mastering Concurrent Requests in C# for High-Performance Web Scraping",
+      "url": "https://www.rickyspears.com/scraper/make-concurrent-requests-in-c/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Creating A Series On Optimizing Chapel Code For Parallel Processing ...",
+      "url": "https://peerdh.com/blogs/programming-insights/creating-a-series-on-optimizing-chapel-code-for-parallel-processing-efficiency"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Introduction to High-Performance Computing in Chapel",
+      "url": "https://www.hpc-carpentry.org/hpc-chapel/01-intro.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Ahmd-Glal/Parallel_Web_Scraping - GitHub",
+      "url": "https://github.com/Ahmd-Glal/Parallel_Web_Scraping"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Powerful and Productive Parallel Programming with Chapel",
+      "url": "https://umatechnology.org/powerful-and-productive-parallel-programming-with-chapel/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Parallel Programming in Chapel Programming Language",
+      "url": "https://piembsystech.com/parallel-programming-in-chapel-programming-language/"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 9,
+    "bloom_deduplicated": 8,
+    "bypass_attempts": 0,
+    "cache_entries": 11,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 7,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 1,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 9,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 9,
+    "mojo_active": 1,
+    "nim_parser_active": 1,
+    "real_engines_results": 9,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 9,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 9,
+  "type": "mega_massive_search"
+}

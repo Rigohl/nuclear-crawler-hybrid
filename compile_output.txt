@@ -1,0 +1,40 @@
+   Compiling mio v1.1.1
+   Compiling synstructure v0.13.2
+   Compiling serde_derive v1.0.228
+   Compiling zerovec-derive v0.11.2
+   Compiling displaydoc v0.2.5
+   Compiling tokio-macros v2.6.0
+   Compiling tracing-attributes v0.1.31
+   Compiling futures-macro v0.3.31
+   Compiling rand v0.8.5
+   Compiling ahash v0.8.12
+   Compiling cc v1.2.49
+   Compiling windows_x86_64_msvc v0.52.6
+   Compiling crossbeam-utils v0.8.21
+   Compiling form_urlencoded v1.2.2
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling http-body v1.0.1
+   Compiling wasm-bindgen-shared v0.2.106
+   Compiling dtoa v1.0.10
+   Compiling siphasher v0.3.11
+   Compiling alloc-no-stdlib v2.0.4
+   Compiling serde_json v1.0.145
+   Compiling byteorder v1.5.0
+   Compiling fnv v1.0.7
+   Compiling httpdate v1.0.3
+   Compiling bumpalo v3.19.0
+   Compiling windows_x86_64_msvc v0.48.5
+   Compiling utf8_iter v1.0.4
+   Compiling crc32fast v1.5.0
+   Compiling phf_generator v0.11.3
+   Compiling zerofrom-derive v0.1.6
+error: failed to remove C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID\target\release\deps\displaydoc-e61099f1a7649147.displaydoc.5a9ff6b8b1aa47b9-cgu.1.rcgu.o: El proceso no tiene acceso al archivo porque est├í siendo utilizado por otro proceso. (os error 32)
+
+   Compiling yoke-derive v0.8.1
+   Compiling phf_generator v0.10.0
+error: could not compile `displaydoc` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: failed to remove C:\Users\DELL\Desktop\hf_spaces\NUCLEAR_CRAWLER_HYBRID\target\release\deps\futures_macro-2600fba576a30a43.futures_macro.6ddad979fc95d31d-cgu.5.rcgu.o: El proceso no tiene acceso al archivo porque est├í siendo utilizado por otro proceso. (os error 32)
+
+error: could not compile `futures-macro` (lib) due to 1 previous error

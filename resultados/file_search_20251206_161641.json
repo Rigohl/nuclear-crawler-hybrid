@@ -1,0 +1,44 @@
+{
+  "execution_time_ms": 3,
+  "matches": [
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src\\bin\\main.rs",
+      "line_content": "let task_scheduler = Arc::new(TaskScheduler::new(1000));",
+      "line_number": 129,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src\\bin\\main.rs",
+      "line_content": "let task_scheduler = Arc::new(TaskScheduler::new(1000));",
+      "line_number": 225,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src\\bin\\main.rs",
+      "line_content": "let task_scheduler = Arc::new(TaskScheduler::new(100));",
+      "line_number": 275,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src\\massive_math_code_generation.rs",
+      "line_content": "let task_scheduler = Arc::new(TaskScheduler::new(1000));",
+      "line_number": 83,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src\\quantum_block_processor.rs",
+      "line_content": "let task_scheduler = Arc::new(TaskScheduler::new(1000));",
+      "line_number": 31,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src",
+  "search_term": "TaskScheduler::",
+  "tool": "file_research",
+  "total_matches": 5
+}

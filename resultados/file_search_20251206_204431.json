@@ -1,0 +1,30 @@
+{
+  "execution_time_ms": 29,
+  "matches": [
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src\\debug_enhanced.rs",
+      "line_content": "/// Log de warning",
+      "line_number": 53,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src\\lib.rs",
+      "line_content": "// Re-export de mcp_protocol deshabilitado temporalmente para evitar warnings de import no usado",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p\\src\\massive_math_code_generation.rs",
+      "line_content": "// Imports no utilizados eliminados para reducir warnings",
+      "line_number": 56,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "c:\\Users\\DELL\\Desktop\\hf_spaces\\memory_p",
+  "search_term": "warning",
+  "tool": "file_research",
+  "total_matches": 3
+}

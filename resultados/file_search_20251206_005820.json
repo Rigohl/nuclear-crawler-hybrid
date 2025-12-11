@@ -1,0 +1,1409 @@
+{
+  "execution_time_ms": 18,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\chapel_scientific_computing.chpl",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\chapel_scientific_computing.chpl",
+      "line_content": "// CHAPEL SCIENTIFIC COMPUTING ENGINE - Computación Científica Avanzada",
+      "line_number": 2,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\chapel_scientific_computing.chpl",
+      "line_content": "// Arquitectura: C → Chapel (paralelismo extremo) → Julia (matemática avanzada)",
+      "line_number": 4,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\chapel_scientific_computing.chpl",
+      "line_content": "export proc chapel_sci_init(): int(32) {",
+      "line_number": 113,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\chapel_scientific_computing.chpl",
+      "line_content": "export proc chapel_sci_shutdown(): int(32) {",
+      "line_number": 164,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\chapel_scientific_computing.chpl",
+      "line_content": "writeln(\"=== Chapel Scientific Computing Engine - Advanced Numerical Methods ===\");",
+      "line_number": 965,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\chapel_scientific_computing.chpl",
+      "line_content": "writeln(\"C -> Chapel (Extreme Parallelism) -> Julia (Scientific Libraries)\");",
+      "line_number": 966,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\README.md",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\README.md",
+      "line_content": "# 🔬 Chapel Analysis Module",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\README.md",
+      "line_content": "- `chapel_scientific_computing.chpl` - Computación científica paralela",
+      "line_number": 4,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\analysis\\README.md",
+      "line_content": "chpl chapel_scientific_computing.chpl -o analyzer",
+      "line_number": 8,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "# CHAPEL MCP HTTP BRIDGE - Puente HTTP simple para Chapel Editor MCP",
+      "line_number": 3,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "CHAPEL_BINARY = r\"C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\chapel-editor-mcp\\target\\release\\chapel-editor-mcp.exe\"",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "WORKDIR = r\"C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\"",
+      "line_number": 16,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "class ChapelMCPHandler(BaseHTTPRequestHandler):",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "\"description\": \"Editar archivos Chapel con capacidades avanzadas\",",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "\"description\": \"Formatear código Chapel automáticamente\",",
+      "line_number": 85,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "\"description\": \"Validar sintaxis y semántica del código Chapel\",",
+      "line_number": 96,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "\"description\": \"Reparar código Chapel automáticamente detectando y corrigiendo errores\",",
+      "line_number": 107,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "\"description\": \"Analizar dependencias y módulos en proyectos Chapel\",",
+      "line_number": 118,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "\"description\": \"Optimizar rendimiento del código Chapel con sugerencias avanzadas\",",
+      "line_number": 129,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "\"\"\"Llama a una herramienta específica del Chapel MCP\"\"\"",
+      "line_number": 143,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "# Aquí iría la lógica real para llamar al binario Chapel",
+      "line_number": 150,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "httpd = HTTPServer(server_address, ChapelMCPHandler)",
+      "line_number": 183,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "print(f\"✅ Chapel MCP HTTP Bridge corriendo en http://localhost:{PORT}/\")",
+      "line_number": 184,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\chapel_mcp_bridge.py",
+      "line_content": "print(\"🌐 Chapel MCP HTTP Bridge\")",
+      "line_number": 189,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\README.md",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\README.md",
+      "line_content": "# Chapel Bindings",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\README.md",
+      "line_content": "Esta carpeta contiene bindings y bridges entre Chapel y otros lenguajes, especialmente C.",
+      "line_number": 3,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\README.md",
+      "line_content": "- chapel_mcp_bridge.py: Bridge con MCP",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\README.md",
+      "line_content": "## Bindings Chapel-C:",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\bindings\\README.md",
+      "line_content": "Ver docs/CHAPEL_C_PERMANENT_BINDING.md para detalles sobre chpl_library_init y chpl_library_finalize.",
+      "line_number": 10,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "# CHAPEL AUTO-COMPILATION SYSTEM - Sistema de Compilación Automática",
+      "line_number": 2,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "# Compila todos los módulos Chapel en paralelo y genera bindings C",
+      "line_number": 4,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "# Arquitectura: Chapel → C (bindings) → Integración con sistemas externos",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "config const CHAPEL_HOME = \"/usr/local/chapel\";",
+      "line_number": 15,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_data_processor\",",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_machine_learning\",",
+      "line_number": 25,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_scientific_computing\",",
+      "line_number": 26,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_advanced_scraper\",",
+      "line_number": 27,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_data_editor\",",
+      "line_number": 28,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_ai_orchestrator\",",
+      "line_number": 29,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_nuclear_scraper\",",
+      "line_number": 30,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_mega_scraper\"",
+      "line_number": 31,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "config.include_paths.append(CHAPEL_HOME + \"/modules\");",
+      "line_number": 77,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "graph.modules[\"chapel_data_processor\"] = [\"Math\", \"Time\", \"Random\", \"CTypes\"];",
+      "line_number": 92,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "graph.modules[\"chapel_machine_learning\"] = [\"Math\", \"Time\", \"Random\", \"CTypes\", \"Sort\"];",
+      "line_number": 93,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "graph.modules[\"chapel_scientific_computing\"] = [\"Math\", \"Time\", \"Random\", \"CTypes\", \"Sort\"];",
+      "line_number": 94,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "graph.modules[\"chapel_advanced_scraper\"] = [\"IO\", \"JSON\", \"Regex\", \"Time\", \"Map\", \"List\"];",
+      "line_number": 95,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "graph.modules[\"chapel_data_editor\"] = [\"IO\", \"JSON\", \"Regex\", \"Time\", \"Map\", \"List\", \"Sort\"];",
+      "line_number": 96,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "graph.modules[\"chapel_ai_orchestrator\"] = [\"IO\", \"FileSystem\", \"List\", \"Map\", \"Time\"];",
+      "line_number": 97,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "graph.modules[\"chapel_nuclear_scraper\"] = [\"IO\", \"Regex\", \"Time\", \"Map\"];",
+      "line_number": 98,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "graph.modules[\"chapel_mega_scraper\"] = [\"CTypes\", \"Math\", \"Time\"];",
+      "line_number": 99,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_advanced_scraper\",",
+      "line_number": 103,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_data_editor\",",
+      "line_number": 104,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_nuclear_scraper\",",
+      "line_number": 105,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_mega_scraper\",",
+      "line_number": 106,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_ai_orchestrator\",",
+      "line_number": 107,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_data_processor\",",
+      "line_number": 108,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_machine_learning\",",
+      "line_number": 109,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\"chapel_scientific_computing\"",
+      "line_number": 110,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "var cmd = CHAPEL_HOME + \"/bin/chpl\";",
+      "line_number": 125,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "// CHAPEL MODULES C BINDINGS - Bindings C para todos los módulos Chapel",
+      "line_number": 242,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "// Generado automáticamente por chapel_auto_compilation.chpl",
+      "line_number": 244,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "#ifndef CHAPEL_MODULES_H",
+      "line_number": 249,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "#define CHAPEL_MODULES_H",
+      "line_number": 250,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "int32_t chapel_data_processor_init(void);",
+      "line_number": 264,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "int32_t chapel_data_processor_shutdown(void);",
+      "line_number": 265,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "int32_t chapel_ml_init(void);",
+      "line_number": 320,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "int32_t chapel_ml_shutdown(void);",
+      "line_number": 321,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "int32_t chapel_sci_init(void);",
+      "line_number": 383,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "int32_t chapel_sci_shutdown(void);",
+      "line_number": 384,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "#endif // CHAPEL_MODULES_H",
+      "line_number": 470,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "var header_file = open(INCLUDE_DIR + \"/chapel_modules.h\", iomode.cw);",
+      "line_number": 474,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "writeln(\"Generated C bindings header: \", INCLUDE_DIR + \"/chapel_modules.h\");",
+      "line_number": 478,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "# CHAPEL MODULES MAKEFILE - Makefile para módulos Chapel",
+      "line_number": 484,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "# Generado automáticamente por chapel_auto_compilation.chpl",
+      "line_number": 486,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "CHAPEL_HOME = \"\"\" + CHAPEL_HOME + \"\"\"",
+      "line_number": 494,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "CHPL_INCLUDES = -I$(CHAPEL_HOME)/modules -I$(JULIA_HOME)/include/julia -Isrc",
+      "line_number": 503,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "makefile_content += \"\\t$(CHAPEL_HOME)/bin/chpl $(CHPL_FLAGS) $(CHPL_INCLUDES) $(CHPL_LIBS) -o $@ $<\\n\";",
+      "line_number": 528,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\\trm -f $(INCLUDE_DIR)/chapel_modules.h",
+      "line_number": 538,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\\t@echo \"Installing Chapel modules...\"",
+      "line_number": 541,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "\\t@echo \"Chapel Modules Build System\"",
+      "line_number": 561,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "# Chapel Modules pkg-config file",
+      "line_number": 582,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "Name: chapel-modules",
+      "line_number": 588,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "Description: High-performance Chapel modules for data processing, ML, and scientific computing",
+      "line_number": 589,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "var pc_file = open(LIB_DIR + \"/chapel-modules.pc\", iomode.cw);",
+      "line_number": 605,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "writeln(\"Generated pkg-config file: \", LIB_DIR + \"/chapel-modules.pc\");",
+      "line_number": 609,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_auto_compilation.chpl",
+      "line_content": "writeln(\"=== Chapel Auto-Compilation System v\", VERSION, \" ===\");",
+      "line_number": 613,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_simple_demo.chpl",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_simple_demo.chpl",
+      "line_content": "// Chapel Simple Scraper - Librerías Estándar Funcionando",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_simple_demo.chpl",
+      "line_content": "// Ejemplo básico que demuestra el uso de librerías estándar de Chapel",
+      "line_number": 2,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_simple_demo.chpl",
+      "line_content": "writeln(\"🚀 CHAPEL SIMPLE SCRAPER - LIBRERÍAS ESTÁNDAR\");",
+      "line_number": 106,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_simple_demo.chpl",
+      "line_content": "saveResults(results, \"chapel_simple_results.json\");",
+      "line_number": 152,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\chapel_simple_demo.chpl",
+      "line_content": "writeln(\"💡 Librerías Chapel usadas: IO, JSON, Regex, Time, Map, List\");",
+      "line_number": 155,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\README.md",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\README.md",
+      "line_content": "# Core Chapel Modules",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\README.md",
+      "line_content": "Esta carpeta contiene los módulos principales de Chapel para el proyecto.",
+      "line_number": 3,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\README.md",
+      "line_content": "- chapel_simple_demo.chpl: Demo básico de Chapel",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\README.md",
+      "line_content": "- chapel_machine_learning.chpl: Implementaciones de ML en Chapel",
+      "line_number": 7,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\README.md",
+      "line_content": "- chapel_data_editor.chpl: Editor de datos",
+      "line_number": 8,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\README.md",
+      "line_content": "- chapel_advanced_scraper.chpl: Scraper avanzado",
+      "line_number": 9,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\test_chapel_demo.chpl",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\test_chapel_demo.chpl",
+      "line_content": "#!/usr/bin/env chapel",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\test_chapel_demo.chpl",
+      "line_content": "// Archivo de prueba creado por Chapel Editor MCP",
+      "line_number": 2,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\core\\test_chapel_demo.chpl",
+      "line_content": "writeln(\"¡Hola desde Chapel!\");",
+      "line_number": 3,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_editor.chpl",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_editor.chpl",
+      "line_content": "// Chapel Data Editor - Librerías para Edición y Procesamiento de Datos",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_editor.chpl",
+      "line_content": "writeln(\"🎯 CHAPEL DATA EDITOR - LIBRERÍAS PARA EDICIÓN\");",
+      "line_number": 337,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_editor.chpl",
+      "line_content": "writeln(\"\\n✅ ¡Edición de datos completada con librerías estándar de Chapel!\");",
+      "line_number": 410,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_extractor.chpl",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_extractor.chpl",
+      "line_content": "// Chapel Data Extraction Engine",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_extractor.chpl",
+      "line_content": "module ChapelDataExtractor {",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_extractor.chpl",
+      "line_content": "writeln(\"🚀 Chapel Data Extractor - Extracción Masiva de Datos\");",
+      "line_number": 269,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_extractor.chpl",
+      "line_content": "extractor.exportToJson(\"chapel_extraction_results.json\", resultsArray);",
+      "line_number": 336,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_extractor.chpl",
+      "line_content": "writeln(\"\\n💾 Resultados exportados a: chapel_extraction_results.json\");",
+      "line_number": 337,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_validator.chpl",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_validator.chpl",
+      "line_content": "// Chapel Data Validator",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_validator.chpl",
+      "line_content": "module ChapelDataValidator {",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_data_validator.chpl",
+      "line_content": "writeln(\"🔍 Chapel Data Validator - Validación de Calidad de Datos\");",
+      "line_number": 356,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_mass_processor.chpl",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_mass_processor.chpl",
+      "line_content": "// Chapel Mass Data Processor",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_mass_processor.chpl",
+      "line_content": "module ChapelMassProcessor {",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\chapel_mass_processor.chpl",
+      "line_content": "writeln(\"🏭 Chapel Mass Data Processor - Procesamiento Masivo para Venta\");",
+      "line_number": 455,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\README.md",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\README.md",
+      "line_content": "# 📊 Chapel Data Processing Module",
+      "line_number": 1,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\README.md",
+      "line_content": "- `chapel_data_editor.chpl` - Editor de datos paralelo",
+      "line_number": 4,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\README.md",
+      "line_content": "- `chapel_data_extractor.chpl` - Extractor de características",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\README.md",
+      "line_content": "- `chapel_data_validator.chpl` - Validador de integridad",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\README.md",
+      "line_content": "- `chapel_mass_processor.chpl` - Procesador masivo de datos",
+      "line_number": 7,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\data-processing\\README.md",
+      "line_content": "chpl chapel_mass_processor.chpl -o processor",
+      "line_number": 11,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "# 🎯 CHAPEL-C PERMANENT BINDING GUIDE",
+      "line_number": 2,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "# LA RESPUESTA: El C que \"retiene Chapel para siempre\" son las funciones:",
+      "line_number": 5,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "#   - chpl_library_init(argc, argv)    ← INICIA Chapel runtime (SIEMPRE primero)",
+      "line_number": 6,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "#   - chpl_library_finalize()           ← CIERRA Chapel runtime (SIEMPRE al final)",
+      "line_number": 7,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "# Fuente: https://chapel-lang.org/docs/technotes/libraries.html",
+      "line_number": 12,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "El sistema de **permanent binding** en Chapel funciona así:",
+      "line_number": 17,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "[Llamadas a funciones Chapel]",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "## 📋 FUNCIONES C QUE RETIENEN CHAPEL",
+      "line_number": 38,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "// Debe llamarse PRIMERO, antes de cualquier función Chapel exportada",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "//   - Chapel runtime",
+      "line_number": 44,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "foo();  // exported proc foo() from Chapel",
+      "line_number": 53,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "// Generado automáticamente por Chapel compiler",
+      "line_number": 74,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "## 🏗️ ESTRUCTURA COMPLETA: C Wrapper → Chapel Library",
+      "line_number": 87,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "├─ #include \"libvalidator.h\"  ← Headers generados por Chapel",
+      "line_number": 91,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "│  ├─ validator_init();                       // ← Tu función Chapel",
+      "line_number": 99,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "### Paso 1: Compilar Chapel a librería",
+      "line_number": 113,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "chpl --library --static chapel_dataset_validator.chpl -o lib/libvalidator",
+      "line_number": 115,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "gcc -c chapel_validator_wrapper.c -I./lib -o wrapper.o",
+      "line_number": 123,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "int argChapelC = 3;",
+      "line_number": 158,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "char* argChapelV[3] = {argv[0], \"-nl\", \"2\"};  // 2 locales",
+      "line_number": 159,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "chpl_library_init(argChapelC, argChapelV);",
+      "line_number": 161,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "void chpl__init_chapel_dataset_validator(int64_t _ln, int32_t _fn);",
+      "line_number": 183,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "- [ ] Llamar tus funciones Chapel (con `export`)",
+      "line_number": 206,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "- [ ] ❌ NO usar Chapel sin inicializar primero",
+      "line_number": 209,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "## 🚀 EJEMPLO COMPLETO: Rust + Chapel",
+      "line_number": 214,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "fn chpl__init_chapel_dataset_validator(_ln: i64, _fn: i32);",
+      "line_number": 221,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "// ⚠️ INICIA - Retiene Chapel para siempre",
+      "line_number": 231,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "chpl__init_chapel_dataset_validator(0, 0);",
+      "line_number": 236,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "// ⚠️ CIERRA - Finaliza Chapel",
+      "line_number": 243,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "line_content": "**Fuente oficial**: https://chapel-lang.org/docs/technotes/libraries.html#initializing-your-library",
+      "line_number": 260,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "",
+      "line_number": null,
+      "match_count": 1,
+      "match_type": "filename"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "# ✅ CHAPEL TRAINING SET - COMPLETADO",
+      "line_number": 2,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "### 1. ✅ Validador Chapel Dataset (chapel_dataset_validator.chpl)",
+      "line_number": 11,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "### 2. ✅ Wrapper C (chapel_validator_wrapper.c)",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "### 4. ✅ Editor Rápido Chapel (chapel_quick_edit.py)",
+      "line_number": 28,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "### 5. ✅ Permanencia C-Chapel (CHAPEL_C_PERMANENT_BINDING.md)",
+      "line_number": 33,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "- Muestra cómo retener Chapel en memoria",
+      "line_number": 35,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "### chapel_data_processor.py - La estrella ⭐",
+      "line_number": 42,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "**Genera datasets masivos → Analiza → Enriquece → Crea ejemplos Chapel**",
+      "line_number": 44,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "python chapel_data_processor.py --generate csv 1000000",
+      "line_number": 48,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "python chapel_data_processor.py --analyze chapel_datasets/dataset_*.csv",
+      "line_number": 51,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "# 3. Generar ejemplos Chapel",
+      "line_number": 53,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "python chapel_data_processor.py --examples chapel_datasets/dataset_*.csv",
+      "line_number": 54,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "✅ ChapelExampleGenerator:",
+      "line_number": 72,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "- Crea ejemplos Chapel PERSONALIZADOS basados en tus datos",
+      "line_number": 73,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "### Script de Demostración (chapel_training_demo.ps1 / .sh)",
+      "line_number": 81,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": ".\\chapel_training_demo.ps1 -RecordCount 1000000",
+      "line_number": 85,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "chmod +x chapel_training_demo.sh",
+      "line_number": 88,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "./chapel_training_demo.sh -c 1000000 -f csv",
+      "line_number": 89,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "3. Genera ejemplos Chapel",
+      "line_number": 95,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "✅ Dataset guardado: chapel_datasets/dataset_1000000_20250130_143022.csv",
+      "line_number": 114,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "=== GENERACIÓN DE EJEMPLOS CHAPEL ===",
+      "line_number": 139,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "├── chapel_data_processor.py          # ⭐ Generador masivo",
+      "line_number": 152,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "├── chapel_training_demo.ps1          # Demo Windows",
+      "line_number": 153,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "├── chapel_training_demo.sh           # Demo Linux/Mac",
+      "line_number": 154,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "├── CHAPEL_TRAINING_SET_GUIDE.md      # Guía completa",
+      "line_number": 155,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "├── CHAPEL_C_PERMANENT_BINDING.md     # Binding C-Chapel",
+      "line_number": 156,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "├── chapel-julia-bridge/",
+      "line_number": 158,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "│   │   ├── chapel_dataset_validator.chpl",
+      "line_number": 160,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "│   │   ├── chapel_validator_wrapper.c",
+      "line_number": 161,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "│   │   ├── chapel_quick_edit.py",
+      "line_number": 162,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "│   │   └── chapel_generator.py",
+      "line_number": 163,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "│       ├── libchapel_c.a",
+      "line_number": 168,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "│       ├── libchapel_c.h",
+      "line_number": 169,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "│       └── chapel_validator_wrapper.h",
+      "line_number": 170,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "line_content": "└── chapel_datasets/",
+      "line_number": 172,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel",
+  "search_term": "chapel",
+  "tool": "file_research",
+  "total_matches": 500
+}

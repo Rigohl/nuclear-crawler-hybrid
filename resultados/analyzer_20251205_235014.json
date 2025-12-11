@@ -1,0 +1,118 @@
+{
+  "execution_time_ms": 16,
+  "files_sample": [
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\bin\\trae.exe",
+      "size_bytes": 11577344
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\build.rs",
+      "size_bytes": 1336
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.lock",
+      "size_bytes": 60503
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.toml",
+      "size_bytes": 1385
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "size_bytes": 14593
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "size_bytes": 2894
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\analyze.rs",
+      "size_bytes": 929
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "size_bytes": 9099
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "size_bytes": 803
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\metrics.rs",
+      "size_bytes": 832
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\mod.rs",
+      "size_bytes": 192
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "size_bytes": 13853
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\config.rs",
+      "size_bytes": 2359
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "size_bytes": 2715
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "size_bytes": 1830
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "size_bytes": 3939
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\mod.rs",
+      "size_bytes": 141
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "size_bytes": 1898
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\mod.rs",
+      "size_bytes": 117
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\main.rs",
+      "size_bytes": 2104
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "size_bytes": 2942
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\mod.rs",
+      "size_bytes": 135
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\docs.rs",
+      "size_bytes": 1392
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\mod.rs",
+      "size_bytes": 98
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 4,
+      "python_files": 0,
+      "rust_files": 20
+    },
+    "primary_language": "Rust",
+    "total_files": 24,
+    "total_lines": 4377
+  },
+  "tool": "analyzer"
+}

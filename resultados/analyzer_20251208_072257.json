@@ -1,0 +1,82 @@
+{
+  "execution_time_ms": 230,
+  "files_sample": [
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\chapel_interoperabilidad.chpl",
+      "size_bytes": 18108
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\chapel_nuevo_programa",
+      "size_bytes": 3173480
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\chapel_nuevo_programa.chpl",
+      "size_bytes": 9931
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\chapel_paralelismo_avanzado.chpl",
+      "size_bytes": 13109
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\chapel_windows_research.chpl",
+      "size_bytes": 5352
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\Dockerfile.chapel-ultra-extremo",
+      "size_bytes": 1231
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\README.md",
+      "size_bytes": 27
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\README.md",
+      "size_bytes": 7497
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\scraper_chapel_ultra_extremo.chpl",
+      "size_bytes": 21296
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\scraper_simple_funcionando.chpl",
+      "size_bytes": 3839
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\scraper_ultra_extremo_resultados.json",
+      "size_bytes": 466
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\scraper_ultra_funcional.chpl",
+      "size_bytes": 9175
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\test_compile.chpl",
+      "size_bytes": 2382
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\test_simple",
+      "size_bytes": 2636880
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\test_simple.chpl",
+      "size_bytes": 183
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 13,
+      "python_files": 0,
+      "rust_files": 0
+    },
+    "primary_language": "Mixed/Unknown",
+    "total_files": 15,
+    "total_lines": 2462
+  },
+  "tool": "analyzer"
+}

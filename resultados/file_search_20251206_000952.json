@@ -1,0 +1,16 @@
+{
+  "execution_time_ms": 6,
+  "matches": [
+    {
+      "file": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "line_content": "pub async fn analyze_project<P: AsRef<Path>>(&self, project_path: P) -> Result<ProjectAnalysis> {",
+      "line_number": 18,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "search_term": "project_path",
+  "tool": "file_research",
+  "total_matches": 1
+}

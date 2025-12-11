@@ -1,0 +1,170 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 58659,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "rust pass value multiple times without moving",
+  "results": [
+    {
+      "description": "The idea is to then pass that param onto other function calls test2 to collect data. The problem is that the first calls of test2 transfers ownership and so the second call won't compile. I understand how this can be a problem with a generic type, but since the Option is holding a &mut I think there must be a clean way to do this?",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "rust - How to pass `Option<&mut ...>` to multiple function calls ...",
+      "url": "https://stackoverflow.com/questions/40658487/how-to-pass-optionmut-to-multiple-function-calls-without-causing-move-e"
+    },
+    {
+      "description": "The to () method takes ownership of the email value, and returns it. unless you bind it again, it gets dropped when the method returns. so we explicitly bind it back to email.",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Advanced Functions and Closures - The Rust Programming Language",
+      "url": "https://doc.rust-lang.org/book/ch20-04-advanced-functions-and-closures.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Borrowing and References in Rust - CodeForGeek",
+      "url": "https://codeforgeek.com/borrowing-and-references-in-rust/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How can I pass a value to a function without moving ownership, just by ...",
+      "url": "https://devsolus.com/how-can-i-pass-a-value-to-a-function-without-moving-ownership-just-by-passing-the-value-in-rust/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How to cleanly use Option<&mut> multiple times? - help - The Rust ...",
+      "url": "https://users.rust-lang.org/t/how-to-cleanly-use-option-mut-multiple-times/36489"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "From Scope to Thread: Mastering Closure Variable Captures in Rust",
+      "url": "https://www.hackintoshrao.com/understanding-ownership-transfer-and-borrowing-inside-threads-in-rust-2/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Understanding References and Borrowing in Rust",
+      "url": "https://prabhat.dev/understanding-references-and-borrowing-in-rust/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Closures: Anonymous Functions that Capture Their Environment - The Rust ...",
+      "url": "https://rust-book.cs.brown.edu/ch13-01-closures.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How to run a loop without moving values? - The Rust Programming ...",
+      "url": "https://users.rust-lang.org/t/how-to-run-a-loop-without-moving-values/39954"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "move semantics - Reusing variables in Rust - Stack Overflow",
+      "url": "https://stackoverflow.com/questions/56312330/reusing-variables-in-rust"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 10,
+    "bloom_deduplicated": 10,
+    "bypass_attempts": 0,
+    "cache_entries": 7,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 8,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 2,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 10,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 10,
+    "mojo_active": 1,
+    "nim_parser_active": 2,
+    "real_engines_results": 10,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 10,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 10,
+  "type": "mega_massive_search"
+}

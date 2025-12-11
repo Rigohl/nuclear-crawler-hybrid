@@ -1,0 +1,222 @@
+{
+  "execution_time_ms": 502,
+  "files_sample": [
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\1_SISTEMA_CORE.jl",
+      "size_bytes": 301743
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\2_GENERADOR_FFI.jl",
+      "size_bytes": 153982
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\3_EJECUTOR_MAESTRO.jl",
+      "size_bytes": 3935
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\4_INSTALADOR_DEPS.jl",
+      "size_bytes": 9336
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\5_AUTO_MEJORA.jl",
+      "size_bytes": 4993
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\main.chpl",
+      "size_bytes": 903
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\main.jl",
+      "size_bytes": 1175
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\main.py",
+      "size_bytes": 1151
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\main.rs",
+      "size_bytes": 1060
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\modulo_absorbente_50_lenguajes.jl",
+      "size_bytes": 4417
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\modulo_investigacion.jl",
+      "size_bytes": 125
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\modulo_principal.jl",
+      "size_bytes": 4030
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\modulo_principal_avanzado.jl",
+      "size_bytes": 8915
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_C#_fase_1.cs",
+      "size_bytes": 98
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_C++_fase_1.cpp",
+      "size_bytes": 100
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Chapel_fase_1.chpl",
+      "size_bytes": 106
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Go_fase_1.go",
+      "size_bytes": 98
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_JavaScript_fase_1.js",
+      "size_bytes": 114
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Java_fase_1.java",
+      "size_bytes": 102
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Julia_fase_1.jl",
+      "size_bytes": 104
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Kotlin_fase_1.kt",
+      "size_bytes": 106
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_PHP_fase_1.php",
+      "size_bytes": 100
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Python_fase_1.py",
+      "size_bytes": 106
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Ruby_fase_1.rb",
+      "size_bytes": 102
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Rust_fase_1.rs",
+      "size_bytes": 102
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_R_fase_1.R",
+      "size_bytes": 96
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_Swift_fase_1.swift",
+      "size_bytes": 104
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\multilenguaje\\modulo_TypeScript_fase_1.ts",
+      "size_bytes": 114
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\README.md",
+      "size_bytes": 3206
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\rust\\Cargo.toml",
+      "size_bytes": 217
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\analisis_simbolico\\rust\\lib.rs",
+      "size_bytes": 1653
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\astrofisica_computacional\\modulo_principal.jl",
+      "size_bytes": 2211
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\astrofisica_computacional\\README.md",
+      "size_bytes": 640
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\iteracion_1.md",
+      "size_bytes": 747
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\iteracion_2.md",
+      "size_bytes": 856
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\iteracion_3.md",
+      "size_bytes": 962
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\iteracion_4.md",
+      "size_bytes": 1068
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\iteracion_5.md",
+      "size_bytes": 1177
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\README_AUTO.md",
+      "size_bytes": 1043
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\README_ESTRUCTURA_COMPLETA.md",
+      "size_bytes": 12971
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\REPORTE_EJECUCION_AUTO.md",
+      "size_bytes": 1090
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\auto_docs\\RESUMEN_IMPLEMENTACION_COMPLETA.md",
+      "size_bytes": 12266
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\AUTO_MEJORA_CONTINUA.jl",
+      "size_bytes": 2033
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\backup_consolidacion_20251205_152625\\2_GENERADOR_FFI.jl",
+      "size_bytes": 140857
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\backup_consolidacion_20251205_152625\\3_EJECUTOR_MAESTRO.jl",
+      "size_bytes": 6657
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\backup_consolidacion_20251205_152625\\4_INSTALADOR_DEPS.jl",
+      "size_bytes": 9336
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\backup_consolidacion_20251205_152625\\5_AUTO_MEJORA.jl",
+      "size_bytes": 4688
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\backup_consolidacion_20251205_152625\\6_UTILS_ESPECIALIZADOS.jl",
+      "size_bytes": 53746
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\backup_consolidacion_20251205_152625\\ACTUALIZAR_ORQUESTADOR_COMPLETO.jl",
+      "size_bytes": 25312
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active\\backup_consolidacion_20251205_152625\\AUTO_MEJORA_CONTINUA.jl",
+      "size_bytes": 2033
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "C:\\Users\\DELL\\Desktop\\PROYECTOS\\INVESTIGACION_CONTINUA_JULIA\\research\\active",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 13,
+      "js_ts_files": 26,
+      "other_files": 998,
+      "python_files": 26,
+      "rust_files": 43
+    },
+    "primary_language": "Rust",
+    "total_files": 1106,
+    "total_lines": 86717
+  },
+  "tool": "analyzer"
+}

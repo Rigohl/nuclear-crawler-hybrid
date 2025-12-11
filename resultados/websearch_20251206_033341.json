@@ -1,0 +1,170 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 53528,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "rust moved value ownership fix report_metrics",
+  "results": [
+    {
+      "description": "let num_lines = reader.lines().count(); Note that this will have to read the whole file, which is probably not what you want. I would use std::fs::metadata (or the unstable Seek::stream_len) to know the length in bytes of the file and then increment the progress bar by the number of bytes in line (note though this is slightly inaccurate since newline characters won't be counted). If you insist ...",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "What do I have to do to solve a \"use of moved value\" error?",
+      "url": "https://stackoverflow.com/questions/28800121/what-do-i-have-to-do-to-solve-a-use-of-moved-value-error"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Ownership and moves - Rust By Example",
+      "url": "https://doc.rust-lang.org/rust-by-example/scope/move.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How To Fix - Use of Moved Value Error in Rust - Gankrin",
+      "url": "https://gankrin.org/how-to-fix-use-of-moved-value-error-in-rust/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Rust Ownership - Why Values Move & Errors Show ... - DEV Community",
+      "url": "https://dev.to/manjushaps/rust-ownership-why-values-move-errors-show-up-before-runtime-2o0a"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Troubleshooting Rust Error [E0382]: Use of Moved Value",
+      "url": "https://www.mindfulchase.com/explore/troubleshooting-tips/troubleshooting-rust-error-e0382-use-of-moved-value.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Ownership, Moving, and Borrowing in Rust - ByteMagma",
+      "url": "https://bytemagma.com/index.php/rust-programming/ownership-moving-and-borrowing-in-rust"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Fixing Ownership Errors - The Rust Programming Language",
+      "url": "https://rust-book.cs.brown.edu/ch04-03-fixing-ownership-errors.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "E0382 in Rust: Use of Moved Value Error - Sling Academy",
+      "url": "https://www.slingacademy.com/article/e0382-in-rust-use-of-moved-value-error/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Understanding Moves and Ownership in Rust: Why Your ... - Medium",
+      "url": "https://medium.com/@adamszpilewicz/understanding-moves-and-ownership-in-rust-why-your-variable-vanished-f35bd916a212"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "How to fix use of moved value error - help - The Rust Programming ...",
+      "url": "https://users.rust-lang.org/t/how-to-fix-use-of-moved-value-error/111382"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 10,
+    "bloom_deduplicated": 7,
+    "bypass_attempts": 0,
+    "cache_entries": 6,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 5,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 1,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 10,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 10,
+    "mojo_active": 1,
+    "nim_parser_active": 1,
+    "real_engines_results": 10,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 10,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 10,
+  "type": "mega_massive_search"
+}

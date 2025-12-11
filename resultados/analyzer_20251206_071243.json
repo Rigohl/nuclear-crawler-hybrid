@@ -1,0 +1,58 @@
+{
+  "execution_time_ms": 41,
+  "files_sample": [
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_C_PERMANENT_BINDING.md",
+      "size_bytes": 7475
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_COMPLETE.md",
+      "size_bytes": 11491
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\CHAPEL_TRAINING_SET_GUIDE.md",
+      "size_bytes": 8126
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\HUGGINGFACE_ECOSYSTEM_STUDY_COMPLETE.md",
+      "size_bytes": 26411
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\IA_REAL_VS_AUTOMATIZACION.md",
+      "size_bytes": 10748
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\MULTI_LANGUAGE_ORCHESTRATOR_README.md",
+      "size_bytes": 3865
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\README.md",
+      "size_bytes": 281
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\README_CHAPEL_LIBRERIAS.md",
+      "size_bytes": 6064
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs\\README_COGNITIO_HF.md",
+      "size_bytes": 15533
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\chapel\\docs",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 9,
+      "python_files": 0,
+      "rust_files": 0
+    },
+    "primary_language": "Mixed/Unknown",
+    "total_files": 9,
+    "total_lines": 3001
+  },
+  "tool": "analyzer"
+}

@@ -1,0 +1,37 @@
+{
+  "execution_time_ms": 40,
+  "matches": [
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\docs\\CONSOLIDATED_ARCHITECTURE.md",
+      "line_content": "\"mcp_orchestrate\" => mega_orchestrate.execute(args).await,",
+      "line_number": 335,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "line_content": "// ✅ Solo mega-tools activas (5 herramientas - mega_orchestrate eliminado por ser dead code)",
+      "line_number": 24,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "line_content": "// 5 MEGA tools (mega_orchestrate eliminado por ser dead code)",
+      "line_number": 201,
+      "match_count": 1,
+      "match_type": "content"
+    },
+    {
+      "file": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P\\src\\main.rs",
+      "line_content": "// ✅ Add 5 MEGA-HERRAMIENTAS CONSOLIDADAS (mega_orchestrate eliminado)",
+      "line_number": 286,
+      "match_count": 1,
+      "match_type": "content"
+    }
+  ],
+  "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P",
+  "search_term": "mega_orchestrate",
+  "tool": "file_research",
+  "total_matches": 4
+}

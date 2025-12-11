@@ -1,0 +1,162 @@
+{
+  "config": {
+    "all_modules": [
+      "WebSearch",
+      "RealSearchEngines",
+      "DeepWebSearch",
+      "MassiveParallelSearch",
+      "ParallelCrawler",
+      "NuclearScraper",
+      "HuggingFace",
+      "JAXPipeline",
+      "JAXAccelerator",
+      "MojoProcessor",
+      "StealthSystem",
+      "NuclearBypass",
+      "GoFFI",
+      "ZigSIMD",
+      "NimParser",
+      "BloomFilter",
+      "CircuitBreaker",
+      "IntelligentStorage",
+      "HtmlParser",
+      "AISmart",
+      "MemoryCache",
+      "RateLimiter",
+      "Orchestrator"
+    ],
+    "max_parallel": 500,
+    "max_results": 150,
+    "search_mode": "NUCLEAR_MEGA_MASSIVE_v6.0",
+    "timeout_secs": 35,
+    "total_modules": 23
+  },
+  "execution_time_ms": 58136,
+  "modules_active": 23,
+  "modules_used": [
+    "WebSearch",
+    "RealSearchEngines",
+    "DeepWebSearch",
+    "MassiveParallelSearch",
+    "ParallelCrawler",
+    "NuclearScraper",
+    "HuggingFace",
+    "JAXPipeline",
+    "JAXAccelerator",
+    "MojoProcessor",
+    "StealthSystem",
+    "NuclearBypass",
+    "GoFFI",
+    "ZigSIMD",
+    "NimParser",
+    "BloomFilter",
+    "CircuitBreaker",
+    "IntelligentStorage",
+    "HtmlParser",
+    "AISmart",
+    "MemoryCache",
+    "RateLimiter",
+    "Orchestrator"
+  ],
+  "query": "implementación de análisis de sentimientos con más reglas en C",
+  "results": [
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Análisis de sentimientos",
+      "url": "https://colab.research.google.com/github/ignaciomsarmiento/RecomSystemsLectures/blob/main/L07_sentimientos/L07_sentiment_analisis_clase.ipynb"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Inteligencia Artificial y Análisis de Sentimientos: Avances, Métodos y ...",
+      "url": "https://ticconsultant.com/ia-analisis-sentimientos-2/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Cómo Funciona El Análisis de Sentimientos | PDF | Algoritmos ...",
+      "url": "https://es.scribd.com/document/451606042/Co-mo-funciona-el-ana-lisis-de-sentimientos"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "24 Análisis de sentimientos | Machine Learning: Teoría y Práctica",
+      "url": "https://bookdown.org/victor_morales/TecnicasML/an%C3%A1lisis-de-sentimientos.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "6.1 Enfoques Basados en Reglas - cuantum.tech",
+      "url": "https://www.cuantum.tech/app/secciones/61-enfoques-basados-en-reglas-1b3ba44c15f481f2ad00fa17f3bf9d53"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Análisis de sentimiento - Instituto Tecnológico de Buenos Aires",
+      "url": "https://ri.itba.edu.ar/server/api/core/bitstreams/db2a9097-b8f4-4205-8048-8f9fdc76cd66/content"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Introducción al análisis de sentimientos - MATLAB & Simulink",
+      "url": "https://la.mathworks.com/discovery/sentiment-analysis.html"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Análisis de Sentimiento con Machine Learning",
+      "url": "https://elmundodelosdatos.com/analisis-de-sentimiento-con-machine-learning/"
+    },
+    {
+      "description": "",
+      "quality_score": 0.8999999761581421,
+      "relevance": 0.949999988079071,
+      "source": "real_engine:DuckDuckGo",
+      "title": "Comparación entre algoritmos de Machine Learning en la implementación ...",
+      "url": "https://repository.udistrital.edu.co/bitstreams/28406807-dc39-40a3-8e77-90dab963d4c1/download"
+    }
+  ],
+  "statistics": {
+    "ai_ranked": 9,
+    "bloom_deduplicated": 9,
+    "bypass_attempts": 0,
+    "cache_entries": 6,
+    "circuit_breaker_state": "CLOSED",
+    "crawler_pages": 8,
+    "deep_web_results": 0,
+    "go_ffi_active": 1,
+    "html_parsed": 0,
+    "huggingface_items": 0,
+    "jax_accelerator_processed": 9,
+    "jax_pipeline_processed": 0,
+    "massive_parallel_processed": 0,
+    "mojo_active": 1,
+    "nim_parser_active": 1,
+    "real_engines_results": 9,
+    "scraper_pages": 5,
+    "stealth_headers": 11,
+    "storage_items": 76,
+    "websearch_results": 9,
+    "zig_simd_active": 1
+  },
+  "status": "completed",
+  "total_results": 9,
+  "type": "mega_massive_search"
+}

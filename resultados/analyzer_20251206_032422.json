@@ -1,0 +1,222 @@
+{
+  "execution_time_ms": 1006,
+  "files_sample": [
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\bin\\trae.exe",
+      "size_bytes": 12083200
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\build.rs",
+      "size_bytes": 1259
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.lock",
+      "size_bytes": 61948
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\Cargo.toml",
+      "size_bytes": 1417
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\CARGO_COMMANDS.md",
+      "size_bytes": 17462
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\MATHEMATICAL_PHYSICS_ANALYSIS.md",
+      "size_bytes": 6790
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\NUCLEAR_ISSUES_REPORT.md",
+      "size_bytes": 4042
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\PERFORMANCE_REPORT.md",
+      "size_bytes": 4661
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\README.md",
+      "size_bytes": 10149
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\cli.rs",
+      "size_bytes": 29541
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\analyze.rs",
+      "size_bytes": 4907
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\build.rs",
+      "size_bytes": 11893
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\cargo.rs",
+      "size_bytes": 5432
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\metrics.rs",
+      "size_bytes": 3061
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\mod.rs",
+      "size_bytes": 184
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\commands\\repair.rs",
+      "size_bytes": 17520
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\config.rs",
+      "size_bytes": 2697
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\analyzer.rs",
+      "size_bytes": 16514
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\cargo.rs",
+      "size_bytes": 1749
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\doctor.rs",
+      "size_bytes": 4372
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\core\\mod.rs",
+      "size_bytes": 135
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\client.rs",
+      "size_bytes": 4114
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\jarvix\\mod.rs",
+      "size_bytes": 113
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\main.rs",
+      "size_bytes": 3356
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\collector.rs",
+      "size_bytes": 3092
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\metrics\\mod.rs",
+      "size_bytes": 131
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\optimizer_tool.rs",
+      "size_bytes": 3651
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\performance_patterns.rs",
+      "size_bytes": 15141
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\docs.rs",
+      "size_bytes": 1449
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\src\\utils\\mod.rs",
+      "size_bytes": 94
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\.rustc_info.json",
+      "size_bytes": 1790
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\CACHEDIR.TAG",
+      "size_bytes": 177
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.cargo-lock",
+      "size_bytes": 0
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\bytes-6915f2a3adf04b8c\\dep-lib-bytes",
+      "size_bytes": 14
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\bytes-6915f2a3adf04b8c\\invoked.timestamp",
+      "size_bytes": 48
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\bytes-6915f2a3adf04b8c\\lib-bytes",
+      "size_bytes": 16
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\bytes-6915f2a3adf04b8c\\lib-bytes.json",
+      "size_bytes": 526
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\cc-8b2b71594452c115\\dep-lib-cc",
+      "size_bytes": 14
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\cc-8b2b71594452c115\\invoked.timestamp",
+      "size_bytes": 48
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\cc-8b2b71594452c115\\lib-cc",
+      "size_bytes": 16
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\cc-8b2b71594452c115\\lib-cc.json",
+      "size_bytes": 597
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\cfg-if-d2b888cfa1f98560\\dep-lib-cfg_if",
+      "size_bytes": 14
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\cfg-if-d2b888cfa1f98560\\invoked.timestamp",
+      "size_bytes": 48
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\cfg-if-d2b888cfa1f98560\\lib-cfg_if",
+      "size_bytes": 16
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\cfg-if-d2b888cfa1f98560\\lib-cfg_if.json",
+      "size_bytes": 485
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\equivalent-8e873fdd8ca4cbfe\\dep-lib-equivalent",
+      "size_bytes": 14
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\equivalent-8e873fdd8ca4cbfe\\invoked.timestamp",
+      "size_bytes": 48
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\equivalent-8e873fdd8ca4cbfe\\lib-equivalent",
+      "size_bytes": 16
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\equivalent-8e873fdd8ca4cbfe\\lib-equivalent.json",
+      "size_bytes": 462
+    },
+    {
+      "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli\\target_temp\\release\\.fingerprint\\find-msvc-tools-ce0af870469243e9\\dep-lib-find_msvc_tools",
+      "size_bytes": 14
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "C:\\Users\\DELL\\Desktop\\CLI\\trae-cli",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 312,
+      "python_files": 0,
+      "rust_files": 24
+    },
+    "primary_language": "Rust",
+    "total_files": 494,
+    "total_lines": 8584
+  },
+  "tool": "analyzer"
+}

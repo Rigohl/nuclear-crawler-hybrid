@@ -1,0 +1,222 @@
+{
+  "execution_time_ms": 115,
+  "files_sample": [
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\.browsermcp_data\\analysis_db.json",
+      "size_bytes": 350
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\.dockerignore",
+      "size_bytes": 671
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\.gitignore",
+      "size_bytes": 19
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\ANALISIS_NUCLEAR_COMPLETO.md",
+      "size_bytes": 10181
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\analysis_reports\\dependency_report.json",
+      "size_bytes": 10850
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\analysis_reports\\modules_summary.csv",
+      "size_bytes": 1544
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\AUDITORIA_PROYECTO_UNIVERSITARIO.md",
+      "size_bytes": 17093
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\build.rs",
+      "size_bytes": 1201
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\Cargo.lock",
+      "size_bytes": 120184
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\Cargo.toml",
+      "size_bytes": 1968
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\chapel_http_server.c",
+      "size_bytes": 10861
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\compile_chapel.bat",
+      "size_bytes": 1365
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\compile_chapel.sh",
+      "size_bytes": 2575
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\data\\.gitkeep",
+      "size_bytes": 0
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\data\\extracted_data.json",
+      "size_bytes": 885
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\data\\real_extracted_data.json",
+      "size_bytes": 398
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\deploy.sh",
+      "size_bytes": 4071
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\docs\\ANALISIS_COMPLETO.md",
+      "size_bytes": 6980
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\docs\\FEATURES.md",
+      "size_bytes": 9510
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\docs\\MONITORING.md",
+      "size_bytes": 5657
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\docs\\README.md",
+      "size_bytes": 1566
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\IMPLEMENTACION_COMPLETADA.md",
+      "size_bytes": 12646
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\analyzer_wrapper.c",
+      "size_bytes": 4727
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\analyzer_wrapper.o",
+      "size_bytes": 4340
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\chapel_parallel.h",
+      "size_bytes": 874
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\chapel_wrapper.c",
+      "size_bytes": 3964
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\chapel_wrapper.dll",
+      "size_bytes": 44643
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\chapel_wrapper.lib",
+      "size_bytes": 12674
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\chapel_wrapper.o",
+      "size_bytes": 5491
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\chapel_wrapper_full.lib",
+      "size_bytes": 11988
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\chapel_wrapper_simple.lib",
+      "size_bytes": 12070
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\chpl-init.h",
+      "size_bytes": 1421
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\libchapel_combined.a",
+      "size_bytes": 568406
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\libchapel_combined_new.a",
+      "size_bytes": 568406
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\libchapel_parallel.a",
+      "size_bytes": 562162
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\libchapel_wrapper.a",
+      "size_bytes": 9100
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\lib\\stdchpl.h",
+      "size_bytes": 2227
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\logs\\.gitkeep",
+      "size_bytes": 0
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\logs\\server-2000-stderr.log",
+      "size_bytes": 0
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\logs\\server-2000-stdout.log",
+      "size_bytes": 984
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\MEJORAS_MARKETING_Y_BYPASS.md",
+      "size_bytes": 19246
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\monitoring\\grafana\\dashboards\\browsermcp-dashboard.json",
+      "size_bytes": 2050
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\monitoring\\grafana\\provisioning\\dashboards\\dashboard.yml",
+      "size_bytes": 207
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\monitoring\\grafana\\provisioning\\datasources\\prometheus.yml",
+      "size_bytes": 166
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\monitoring\\prometheus.yml",
+      "size_bytes": 729
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\nginx\\nginx.conf",
+      "size_bytes": 3948
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\nginx\\ssl\\cert.pem",
+      "size_bytes": 1976
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\nginx\\ssl\\key.pem",
+      "size_bytes": 3320
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\PROYECTO_FINAL_DOCUMENTACION.md",
+      "size_bytes": 19134
+    },
+    {
+      "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp\\README.md",
+      "size_bytes": 16929
+    }
+  ],
+  "modules_analyzed": 32,
+  "nuclear_status": "✅ All 32 modules loaded - NO MOCKS",
+  "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\browsermcp",
+  "status": "success",
+  "summary": {
+    "breakdown": {
+      "go_files": 0,
+      "js_ts_files": 0,
+      "other_files": 51,
+      "python_files": 0,
+      "rust_files": 67
+    },
+    "primary_language": "Rust",
+    "total_files": 122,
+    "total_lines": 33981
+  },
+  "tool": "analyzer"
+}
