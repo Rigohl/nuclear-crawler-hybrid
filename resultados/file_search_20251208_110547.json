@@ -1,8 +1,0 @@
-{
-  "execution_time_ms": 11,
-  "matches": [],
-  "path": "c:\\Users\\DELL\\Desktop\\PROYECTOS\\MEMORY_P",
-  "search_term": "//.*fn |//.*struct |//.*impl |//.*mod |//.*use |//.*let |//.*const |//.*pub ",
-  "tool": "file_research",
-  "total_matches": 0
-}
