@@ -148,9 +148,9 @@ Ejecuta **múltiples tareas en paralelo**.
 | **WebSearch v5.0** | Orquestador principal de búsqueda | ✅ Rust nativo |
 | **MassiveParallelSearch** | Búsqueda masiva con query real en motores | ✅ Rust + reqwest |
 | **NuclearScraper** | Crawling masivo HTTP | ✅ Rust + reqwest |
-| **GoIntegration** | Procesamiento paralelo + headers | ✅ Rust + rayon |
-| **ZigIntegration** | Parsing HTML optimizado | ✅ Rust + scraper |
-| **NimIntegration** | Extracción de texto | ✅ Rust + fallback (FFI disponible) |
+| **GoIntegration** | Procesamiento paralelo + headers | ✅ FFI Go (goroutines reales) + fallback Rust |
+| **ZigIntegration** | Parsing HTML optimizado | ✅ Rust + scraper (Zig FFI disponible) |
+| **NimIntegration** | Extracción de texto | ✅ Rust + fallback (Nim FFI disponible) |
 | **JaxAccelerator** | Vectorización paralela | ✅ Rust + rayon |
 | **MojoJaxProcessor** | Procesamiento batch | ✅ Rust + rayon |
 | **NuclearBypass** | Bypass de protecciones anti-bot | ✅ Rust nativo |
@@ -163,8 +163,10 @@ Ejecuta **múltiples tareas en paralelo**.
 | **ProjectScanner** | Análisis de proyectos multi-lenguaje | ✅ Rust nativo |
 | **Improvements** | BloomFilter, CircuitBreaker, Cache | ✅ Rust nativo |
 
-**Nota:** Los módulos Go/Zig/Nim/JAX/Mojo son implementaciones Rust puras optimizadas 
-que emulan sus patrones de procesamiento. No requieren esos lenguajes instalados.
+**Compilación con FFI:**
+- `cargo build --release` - Compilación básica (Rust puro con fallbacks)
+- `cargo build --release --features go` - Activa FFI de Go (requiere stealth_go.a)
+- `cargo build --release --features zig` - Activa FFI de Zig (requiere nuclear_zig.lib)
 
 ---
 

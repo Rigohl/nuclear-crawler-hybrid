@@ -8,6 +8,12 @@ publish = false
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_go)', 'cfg(has_zig)', 'cfg(has_nim)'] }
 
+# Features para FFI externo
+[features]
+default = []
+go = []    # Activa FFI a Go (requiere stealth_go.a compilado)
+zig = []   # Activa FFI a Zig (requiere nuclear_zig.lib compilado)
+
 [[bin]]
 name = "nuclear-mcp"
 path = "src/bin/nuclear_ultimate.rs"

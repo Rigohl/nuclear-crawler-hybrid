@@ -191,7 +191,11 @@ impl WebSearch {
 
         // Log módulos activos
         eprintln!("🔥 WebSearch v5.0 - Módulos inicializados:");
-        eprintln!("   ✅ Procesamiento Paralelo (Go-style): {}", go_integration.is_available());
+        if go_integration.is_using_ffi() {
+            eprintln!("   ✅ Go Integration: FFI REAL (goroutines nativos)");
+        } else {
+            eprintln!("   ✅ Go Integration: Fallback Rust (rayon)");
+        }
         eprintln!("   ✅ Parsing HTML (Zig-style): {}", zig_integration.is_available());
         eprintln!("   ✅ Extracción Texto (Nim-style): {}", nim_integration.is_available());
         eprintln!("   ✅ Vectorización (JAX-style): {}", jax_accelerator.is_available());
@@ -201,7 +205,6 @@ impl WebSearch {
         eprintln!("   ✅ Rate Limiter: 100K req/s");
         eprintln!("   ✅ Cache: 10K entradas");
         eprintln!("   ✅ Massive Parallel Search: activo");
-        eprintln!("   ⚠️ NOTA: Go/Zig/Nim/JAX/Mojo son implementaciones Rust nativas");
 
         Ok(Self {
             scraper,
@@ -219,9 +222,9 @@ impl WebSearch {
         })
     }
 
-    /// 🔥 NUCLEAR: Preprocesa URLs con Go goroutines para máxima velocidad
+    /// 🔥 NUCLEAR: Preprocesa URLs con Go goroutines (FFI real si está disponible)
     fn preprocess_urls_with_go(&self, urls: &[String]) -> Vec<String> {
-        // Usar implementación Rust nativa (compatible con Go)
+        // Usar FFI de Go si está disponible, sino fallback Rust
         if let Ok(processed) = self.go_integration.fast_process_urls(urls.to_vec()) {
             return processed;
         }

@@ -7,6 +7,9 @@ fn main() {
     
     // Agregar directorio actual al search path para las librerías
     println!("cargo:rustc-link-search=native={}", current_dir_str);
+    println!("cargo:rustc-link-search=native={}/libs", current_dir_str);
+    println!("cargo:rustc-link-search=native={}/go", current_dir_str);
+    println!("cargo:rustc-link-search=native={}/zig", current_dir_str);
     
     // Compilar wrapper C para símbolos faltantes (siempre en Windows - SQLite lo necesita)
     #[cfg(windows)]
@@ -19,12 +22,10 @@ fn main() {
     // Solo enlazar librerías si existen
     #[cfg(feature = "go")]
     {
-        if std::path::Path::new("stealth_go.lib").exists() {
+        if std::path::Path::new("stealth_go.a").exists() {
             println!("cargo:rustc-link-lib=static=stealth_go");
-            // Enlazar con librería de importación para fprintf si existe
-            if std::path::Path::new("msvcrt_import.lib").exists() {
-                println!("cargo:rustc-link-lib=static=msvcrt_import");
-            }
+            println!("cargo:rustc-link-lib=dylib=pthread");
+            println!("cargo:rustc-link-lib=dylib=dl");
         }
     }
     
