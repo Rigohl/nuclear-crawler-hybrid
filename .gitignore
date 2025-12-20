@@ -390,29 +390,29 @@ tramp
 *.svclog
 *.scc
 
-## 📊 Data and Results
-# Nuclear Crawler Results
+## 📊 Data and Results - EXCLUDE ALL
+# Nuclear Crawler Results - EXCLUDE COMPLETELY
 resultados/
-!resultados/README.md
+REPORTS/
+memories/
+.claude/
+.trae/
 
-# MCP Logs and Cache
+# MCP Logs and Cache - EXCLUDE
 *.mcp.log
 .mcp_cache/
 mcp_temp/
 
-# Web Search Results
+# Web Search Results - EXCLUDE
 websearch_results/
 search_cache/
 
-# Analysis Reports
+# Analysis Reports - EXCLUDE
 reports/
-!reports/README.md
-
-# Performance Data
 benchmarks/
 performance_data/
 
-# Temporary Analysis Files
+# Temporary Analysis Files - EXCLUDE
 temp_analysis/
 analysis_temp/
 
