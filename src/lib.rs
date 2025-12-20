@@ -1,56 +1,31 @@
-//! Nuclear Crawler Hybrid - Crawler/Scraper avanzado con WebAssembly
+//! Nuclear Crawler Hybrid - Real MCP Server
 //!
-//! Sistema de alto rendimiento para web scraping y crawling
-//! con WebAssembly potente para MCP (Model Context Protocol)
-//!
-//! 🔥 TODAS LAS IMPLEMENTACIONES SON REALES - SIN MOCKS NI SIMULACIONES 🔥
+//! 🔥 ONLY 2 TOOLS: WEB SEARCH & FILE SEARCH
+//! 🔥 REAL IMPLEMENTATIONS: No fake FFI or simulations
+//! 🔥 WORKING CODE: Web scraping, file analysis, bypass systems
+//! 🔥 MINIMAL DEPENDENCIES: Only essential crates for maximum power
 
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 
-pub mod ai_smart; // AI unificado (consolidado)
-pub mod cache; // Cache simple para nuclear_scraper
-pub mod config;
-pub mod connection_pool; // 🔥 NUEVO: Pool de conexiones optimizado
-pub mod content_extractor; // 🔥 EXTRACCIÓN REAL de contenido (no solo URLs)
-pub mod data_extraction; // 🔥 NUEVO: Pipeline de extracción paralela
-pub mod core_tools; // 4 herramientas MCP consolidadas
-pub mod debug_enhanced; // 🔧 Logging y debug mejorado
-pub mod file_search;
-pub mod intelligent_storage;
-pub mod massive_parallel_search;
-pub mod mcp_axum_server;
-pub mod nuclear_scraper; // Scraper unificado (consolidado con mass_capture)
-pub mod parallel_crawler; // Crawler paralelo
-pub mod parser; // HTML parser
-pub mod rate_limit;
-pub mod real_search_engines; // 🔥 MOTORES DE BÚSQUEDA REALES (DuckDuckGo, Bing, Brave, SearX)
-pub mod simple_mcp;
-pub mod stats;
-pub mod stealth;
-pub mod utils;
-pub mod wasm; // WASM unificado (consolidado)
-pub mod web_search;
-pub mod orchestration_config; // 🔥 CONFIGURACIÓN NUCLEAR INMUTABLE
+// 🔥 ESSENTIAL MODULES FOR 2 TOOLS - NO DEAD CODE
+pub mod file_search; // 🔥 REAL file analysis with error detection
+pub mod nuclear_core; // 🔥 REAL bypass, extraction, concealment, spider
+pub mod premium_content_scraper; // 🔥 REAL premium content extraction
+pub mod url_helpers;
+pub mod web_search; // 🔥 REAL web search with extraction & scraping // Utility functions
 
-// Integraciones en Rust puro (sin FFI externo)
-pub mod deep_web_search;
-pub mod ffi_dynamic; // 🔥 FFI dinámico para Go/Zig
-pub mod go_integration;
-pub mod hf_integration;
-pub mod improvements;
-pub mod jax_acceleration;
-pub mod jax_pipeline;
-pub mod mojo_jax;
-pub mod nim_integration;
-pub mod nuclear_bypass;
-pub mod orchestration;
-pub mod project_analyzer;
-pub mod scan_project;
-pub mod zig_integration;
+// 🔥 FFI ACCELERATION MODULES - REAL HIGH-PERFORMANCE COMPUTING
+pub mod go_integration; // 🔥 REAL Go parallel processing via FFI
+pub mod jax_integration; // 🔥 REAL JAX GPU vectorization via FFI
+pub mod nim_integration; // 🔥 REAL Nim HTML parsing via FFI
+pub mod zig_integration; // 🔥 REAL Zig SIMD hashing via FFI
 
-pub mod ultra_analyzer; // 🔥 NUEVO: Analyzer ultra-mejorado con búsqueda automática
-pub mod cargo_parser;   // 🔥 NUEVO: Parser de JSON de cargo check
+// 🔥 INFRASTRUCTURE MODULES FOR SERVER
+pub mod cache; // 🔥 REAL LRU cache implementation
+pub mod deepweb_tor;
+pub mod intelligent_storage; // 🔥 REAL file storage for results
+pub mod rate_limit; // 🔥 REAL token bucket rate limiter // 🔥 REAL deep web search via Tor
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
@@ -85,3 +60,5 @@ mod tests {
         assert!(v.starts_with("0."));
     }
 }
+
+// Dummy comment to force recompilation

@@ -3,14 +3,10 @@
 //! Busca palabras exactas, errores de compilación, warnings, y cualquier cosa en archivos
 
 use anyhow::Result;
-use rayon::prelude::*;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::process::Command;
-#[allow(unused_imports)]
-use std::sync::Arc;
 
 /// Configuración de búsqueda en archivos ULTRA-AVANZADA
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -184,7 +180,9 @@ impl FileSearch {
 
         // Detectar duplicación de código si está activado
         if config.detect_code_duplication {
-            if let Ok(duplication_results) = Self::detect_code_duplication(&config.root_dir, config.duplication_min_lines) {
+            if let Ok(duplication_results) =
+                Self::detect_code_duplication(&config.root_dir, config.duplication_min_lines)
+            {
                 results.extend(duplication_results);
             }
         }
@@ -201,8 +199,10 @@ impl FileSearch {
         println!("   📋 Archivos a buscar: {}", files.len());
 
         let search_results: Vec<Vec<FileSearchResult>> = files
-            .par_iter()
-            .filter_map(|file_path| Self::search_in_file_advanced(file_path, &config, pattern.as_ref()).ok())
+            .iter()
+            .filter_map(|file_path| {
+                Self::search_in_file_advanced(file_path, &config, pattern.as_ref()).ok()
+            })
             .collect();
 
         // Aplanar resultados
@@ -242,60 +242,232 @@ impl FileSearch {
         Ok(results)
     }
 
-    /// Detecta errores usando cargo check
+    /// Detecta errores usando CARGO CHECK REAL + análisis de patrones
     fn detect_cargo_errors(root_dir: &Path) -> Result<Vec<FileSearchResult>> {
         let mut results = Vec::new();
 
-        // Ejecutar cargo check si existe Cargo.toml
+        // 🔥 EJECUTAR CARGO CHECK REAL
+        println!("   🔍 Ejecutando cargo check para detectar errores reales...");
+
         if root_dir.join("Cargo.toml").exists() {
-            match Command::new("cargo")
+            match std::process::Command::new("cargo")
                 .arg("check")
                 .arg("--message-format=json")
                 .current_dir(root_dir)
                 .output()
             {
                 Ok(output) => {
-                    let stderr = String::from_utf8_lossy(&output.stderr);
+                    let _stderr = String::from_utf8_lossy(&output.stderr);
                     let stdout = String::from_utf8_lossy(&output.stdout);
-                    let combined = format!("{}\n{}", stderr, stdout);
 
-                    for line in combined.lines() {
-                        if let Ok(msg) = serde_json::from_str::<serde_json::Value>(line) {
-                            if let Some(level) = msg.get("level").and_then(|l| l.as_str()) {
-                                if level == "error" || level == "warning" {
-                                    let file = msg
-                                        .get("spans")
-                                        .and_then(|s| s.get(0))
-                                        .and_then(|s| s.get("file_name"))
-                                        .and_then(|f| f.as_str())
-                                        .unwrap_or("unknown");
+                    // Parse JSON output from cargo check
+                    for line in stdout.lines() {
+                        if let Ok(json) = serde_json::from_str::<serde_json::Value>(line) {
+                            if json["reason"] == "compiler-message" {
+                                if let Some(message) = json["message"].as_object() {
+                                    let severity = message["level"].as_str().unwrap_or("info");
+                                    let msg_text =
+                                        message["message"].as_str().unwrap_or("Unknown error");
 
-                                    let line_num = msg
-                                        .get("spans")
-                                        .and_then(|s| s.get(0))
-                                        .and_then(|s| s.get("line_start"))
-                                        .and_then(|l| l.as_u64());
+                                    // Extract file path and line number
+                                    if let Some(spans) = message["spans"].as_array() {
+                                        for span in spans {
+                                            if let Some(file_name) = span["file_name"].as_str() {
+                                                let line_start =
+                                                    span["line_start"].as_u64().unwrap_or(0)
+                                                        as usize;
+                                                let line_end =
+                                                    span["line_end"].as_u64().unwrap_or(0) as usize;
 
-                                    let message = msg
-                                        .get("message")
-                                        .and_then(|m| m.as_str())
-                                        .unwrap_or("unknown error");
+                                                // Read the actual source code lines
+                                                let mut context_lines = Vec::new();
+                                                if let Ok(file_content) =
+                                                    fs::read_to_string(root_dir.join(file_name))
+                                                {
+                                                    let lines: Vec<&str> =
+                                                        file_content.lines().collect();
+                                                    let start = line_start.saturating_sub(4);
+                                                    let end = (line_end + 3).min(lines.len());
 
-                                    results.push(FileSearchResult {
-                                        file_path: file.to_string(),
-                                        line_number: line_num.map(|l| l as usize),
-                                        line_content: message.to_string(),
-                                        match_count: 1,
-                                        match_type: "error".to_string(),
-                                        severity: Some(level.to_string()),
-                                    });
+                                                    for (i, line) in
+                                                        lines[start..end].iter().enumerate()
+                                                    {
+                                                        let actual_line_num = start + i + 1;
+                                                        let marker = if actual_line_num
+                                                            >= line_start
+                                                            && actual_line_num <= line_end
+                                                        {
+                                                            ">>> "
+                                                        } else {
+                                                            "    "
+                                                        };
+                                                        context_lines.push(format!(
+                                                            "{}{}: {}",
+                                                            marker, actual_line_num, line
+                                                        ));
+                                                    }
+                                                }
+
+                                                let full_message = if !context_lines.is_empty() {
+                                                    format!(
+                                                        "{}\n\n{}",
+                                                        msg_text,
+                                                        context_lines.join("\n")
+                                                    )
+                                                } else {
+                                                    msg_text.to_string()
+                                                };
+
+                                                results.push(FileSearchResult {
+                                                    file_path: file_name.to_string(),
+                                                    line_number: Some(line_start),
+                                                    line_content: full_message,
+                                                    match_count: 1,
+                                                    match_type: format!("cargo_{}", severity),
+                                                    severity: Some(severity.to_string()),
+                                                });
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
+
+                    println!(
+                        "   ✅ Cargo check completado: {} errores/warnings encontrados",
+                        results.len()
+                    );
                 }
-                Err(_) => {
-                    eprintln!("⚠️  No se pudo ejecutar cargo check");
+                Err(e) => {
+                    println!("   ⚠️  Cargo check no disponible: {}", e);
+                }
+            }
+        }
+
+        // Patrones de error comunes en Rust
+        let error_patterns = vec![
+            (
+                r"\.unwrap\(\)",
+                "error",
+                "unwrap() usage - should handle Result properly",
+            ),
+            (
+                r"\.expect\([^)]+\)",
+                "error",
+                "expect() usage - should handle Result properly",
+            ),
+            (
+                r"panic!\([^)]+\)",
+                "error",
+                "panic! usage - should return Result instead",
+            ),
+            (
+                r"todo!\([^)]*\)",
+                "warning",
+                "TODO comment - incomplete implementation",
+            ),
+            (
+                r"unreachable!\([^)]*\)",
+                "warning",
+                "unreachable! usage - review logic",
+            ),
+            (
+                r"#\[allow\(dead_code\)\]",
+                "warning",
+                "dead_code allow - remove unused code",
+            ),
+            (
+                r"mock|Mock|simul|Simul",
+                "warning",
+                "possible mock/simulation code - verify real implementation",
+            ),
+            (
+                r"unsafe\s*\{",
+                "warning",
+                "unsafe block - ensure safety guarantees",
+            ),
+            (
+                r"refcell|RefCell",
+                "info",
+                "RefCell usage - consider if interior mutability is needed",
+            ),
+            (
+                r"rc::Rc|Arc<",
+                "info",
+                "shared ownership - verify if needed",
+            ),
+        ];
+
+        // Recolectar archivos Rust
+        let files = Self::collect_files(&FileSearchConfig {
+            search_term: String::new(),
+            root_dir: root_dir.to_path_buf(),
+            include_patterns: vec!["*.rs".to_string()],
+            exclude_patterns: vec![
+                "target/".to_string(),
+                ".git/".to_string(),
+                "node_modules/".to_string(),
+            ],
+            exact_match: false,
+            use_regex: false,
+            search_in_content: true,
+            search_in_filename: false,
+            max_results: usize::MAX,
+            detect_errors: false,
+            use_cargo_check: false,
+            semantic_search: false,
+            context_analysis: false,
+            pattern_detection: false,
+            fuzzy_search: false,
+            dependency_analysis: false,
+            detect_circular_imports: false,
+            analyze_function_complexity: false,
+            detect_code_duplication: false,
+            context_depth: 0,
+            fuzzy_threshold: 0.0,
+            duplication_min_lines: 0,
+        })?;
+
+        for file_path in files {
+            if let Ok(content) = fs::read_to_string(&file_path) {
+                let lines: Vec<&str> = content.lines().collect();
+
+                for (line_num, line) in lines.iter().enumerate() {
+                    for (pattern, severity, description) in &error_patterns {
+                        let re = Regex::new(pattern).unwrap();
+                        if re.is_match(line) {
+                            // Obtener contexto (3 líneas antes y después)
+                            let start = line_num.saturating_sub(3);
+                            let end = (line_num + 4).min(lines.len());
+                            let context_lines: Vec<String> = lines[start..end]
+                                .iter()
+                                .enumerate()
+                                .map(|(i, l)| {
+                                    let marker = if start + i == line_num {
+                                        ">>> "
+                                    } else {
+                                        "    "
+                                    };
+                                    format!("{}{}: {}", marker, start + i + 1, l)
+                                })
+                                .collect();
+
+                            results.push(FileSearchResult {
+                                file_path: file_path.to_string_lossy().to_string(),
+                                line_number: Some(line_num + 1),
+                                line_content: format!(
+                                    "{} - {}\n{}",
+                                    description,
+                                    line.trim(),
+                                    context_lines.join("\n")
+                                ),
+                                match_count: 1,
+                                match_type: "error".to_string(),
+                                severity: Some(severity.to_string()),
+                            });
+                        }
+                    }
                 }
             }
         }
@@ -359,110 +531,19 @@ impl FileSearch {
             return true;
         }
 
-        // Simple glob matching
-        if pattern.contains('*') {
-            let regex_pattern = pattern.replace("*", ".*");
-            let re = Regex::new(&format!("^{}$", regex_pattern))
-                .unwrap_or_else(|_| Regex::new("$^").unwrap());
-            re.is_match(path)
-        } else {
-            path.contains(pattern)
+        // Simple wildcard handling: '*' at start/end
+        if pattern.starts_with('*') && pattern.ends_with('*') && pattern.len() >= 2 {
+            let pat = &pattern[1..pattern.len() - 1];
+            return path.contains(pat);
         }
-    }
-
-    /// Busca en un archivo
-    fn _search_in_file(
-        file_path: &Path,
-        config: &FileSearchConfig,
-        pattern: Option<&Regex>,
-    ) -> Result<Vec<FileSearchResult>> {
-        let mut results = Vec::new();
-        let file_str = file_path.to_string_lossy();
-
-        // Buscar en nombre de archivo
-        if config.search_in_filename {
-            let matches = if let Some(re) = pattern {
-                re.find_iter(&file_str).count()
-            } else {
-                let search_lower = if config.exact_match {
-                    config.search_term.clone()
-                } else {
-                    config.search_term.to_lowercase()
-                };
-
-                let file_lower = if config.exact_match {
-                    file_str.to_string()
-                } else {
-                    file_str.to_lowercase()
-                };
-
-                if file_lower.contains(&search_lower) {
-                    1
-                } else {
-                    0
-                }
-            };
-
-            if matches > 0 {
-                            results.push(FileSearchResult {
-                                file_path: file_path.to_string_lossy().to_string(),
-                                line_number: None,
-                                line_content: String::new(),
-                                match_count: matches,
-                                match_type: "filename".to_string(),
-                                severity: None,
-                            });
-            }
+        if let Some(pat) = pattern.strip_prefix('*') {
+            return path.ends_with(pat);
+        }
+        if let Some(pat) = pattern.strip_suffix('*') {
+            return path.starts_with(pat);
         }
 
-        // Buscar en contenido
-        if config.search_in_content {
-            match fs::read_to_string(file_path) {
-                Ok(content) => {
-                    let lines: Vec<&str> = content.lines().collect();
-
-                    for (line_num, line) in lines.iter().enumerate() {
-                        let matches = if let Some(re) = pattern {
-                            re.find_iter(line).count()
-                        } else {
-                            let search_lower = if config.exact_match {
-                                config.search_term.clone()
-                            } else {
-                                config.search_term.to_lowercase()
-                            };
-
-                            let line_lower = if config.exact_match {
-                                line.to_string()
-                            } else {
-                                line.to_lowercase()
-                            };
-
-                            if line_lower.contains(&search_lower) {
-                                1
-                            } else {
-                                0
-                            }
-                        };
-
-                        if matches > 0 {
-                            results.push(FileSearchResult {
-                                file_path: file_path.to_string_lossy().to_string(),
-                                line_number: Some(line_num + 1),
-                                line_content: line.trim().to_string(),
-                                match_count: matches,
-                                match_type: "content".to_string(),
-                                severity: None,
-                            });
-                        }
-                    }
-                }
-                Err(_) => {
-                    // Archivo binario o no legible, ignorar
-                }
-            }
-        }
-
-        Ok(results)
+        path.contains(pattern)
     }
 
     /// Busca en un archivo con capacidades avanzadas
@@ -499,14 +580,14 @@ impl FileSearch {
             };
 
             if matches > 0 {
-                            results.push(FileSearchResult {
-                                file_path: file_path.to_string_lossy().to_string(),
-                                line_number: None,
-                                line_content: String::new(),
-                                match_count: matches,
-                                match_type: "filename".to_string(),
-                                severity: None,
-                            });
+                results.push(FileSearchResult {
+                    file_path: file_path.to_string_lossy().to_string(),
+                    line_number: None,
+                    line_content: String::new(),
+                    match_count: matches,
+                    match_type: "filename".to_string(),
+                    severity: None,
+                });
             }
         }
 
@@ -551,7 +632,11 @@ impl FileSearch {
                                     .iter()
                                     .enumerate()
                                     .map(|(i, l)| {
-                                        let line_marker = if start + i == line_num { ">>> " } else { "    " };
+                                        let line_marker = if start + i == line_num {
+                                            ">>> "
+                                        } else {
+                                            "    "
+                                        };
                                         format!("{}{}: {}", line_marker, start + i + 1, l)
                                     })
                                     .collect();
@@ -567,12 +652,62 @@ impl FileSearch {
                                 match_type: "content".to_string(),
                                 severity: None,
                             });
+                            // Detect common risky patterns and provide actionable suggestions
+                            let mut suggestions: Vec<String> = Vec::new();
+                            let low = line.to_lowercase();
+                            if line.contains(".unwrap(") || line.contains(".unwrap()") {
+                                suggestions.push(
+                                    "avoid .unwrap(): return Result or handle the error instead"
+                                        .to_string(),
+                                );
+                            }
+                            if line.contains(".expect(") {
+                                suggestions.push("avoid .expect(): provide descriptive message or handle the error".to_string());
+                            }
+                            if line.contains("panic!") {
+                                suggestions.push("avoid panic! in library code; return Result or propagate error".to_string());
+                            }
+                            if low.contains("mock")
+                                || low.contains("simul")
+                                || low.contains("simulate")
+                            {
+                                suggestions.push("possible mock/simulated code: verify it's real and remove mocks".to_string());
+                            }
+                            if line.contains("todo!") || line.contains("TODO") {
+                                suggestions
+                                    .push("address TODO comments before production".to_string());
+                            }
+                            if line.contains("allow(dead_code)")
+                                || low.contains("dead_code")
+                                || line.contains("unreachable!")
+                            {
+                                suggestions.push(
+                                    "review dead code / unreachable! usage; remove or justify"
+                                        .to_string(),
+                                );
+                            }
+
+                            if !suggestions.is_empty() {
+                                results.push(FileSearchResult {
+                                    file_path: file_path.to_string_lossy().to_string(),
+                                    line_number: Some(line_num + 1),
+                                    line_content: format!(
+                                        "SUGGESTION: {} -- original: {}",
+                                        suggestions.join("; "),
+                                        line.trim()
+                                    ),
+                                    match_count: 0,
+                                    match_type: "suggestion".to_string(),
+                                    severity: Some("warning".to_string()),
+                                });
+                            }
                         }
                     }
 
                     // Análisis de complejidad de funciones si está activado
                     if config.analyze_function_complexity {
-                        let complexity_results = Self::analyze_function_complexity(&content, file_path);
+                        let complexity_results =
+                            Self::analyze_function_complexity(&content, file_path);
                         results.extend(complexity_results);
                     }
                 }
@@ -586,7 +721,10 @@ impl FileSearch {
     }
 
     /// Realiza búsqueda semántica
-    fn perform_semantic_search(config: &FileSearchConfig, existing_results: &[FileSearchResult]) -> Vec<FileSearchResult> {
+    fn perform_semantic_search(
+        config: &FileSearchConfig,
+        existing_results: &[FileSearchResult],
+    ) -> Vec<FileSearchResult> {
         let mut results = Vec::new();
 
         // Palabras clave relacionadas con el término de búsqueda
@@ -600,16 +738,19 @@ impl FileSearch {
                         let content_lower = content.to_lowercase();
                         if content_lower.contains(&term.to_lowercase()) {
                             // Verificar que no sea el mismo resultado ya encontrado
-                            let already_found = existing_results.iter().any(|r|
-                                r.file_path == file_path.to_string_lossy() &&
-                                r.line_content.contains(&config.search_term)
-                            );
+                            let already_found = existing_results.iter().any(|r| {
+                                r.file_path == file_path.to_string_lossy()
+                                    && r.line_content.contains(&config.search_term)
+                            });
 
                             if !already_found {
                                 results.push(FileSearchResult {
                                     file_path: file_path.to_string_lossy().to_string(),
                                     line_number: None,
-                                    line_content: format!("Semantic match: '{}' related to '{}'", term, config.search_term),
+                                    line_content: format!(
+                                        "Semantic match: '{}' related to '{}'",
+                                        term, config.search_term
+                                    ),
                                     match_count: 1,
                                     match_type: "semantic".to_string(),
                                     severity: Some("info".to_string()),
@@ -630,13 +771,28 @@ impl FileSearch {
 
         // Mapa simple de términos relacionados (se puede expandir)
         let semantic_map = [
-            ("async", vec!["await", "future", "tokio", "spawn", "concurrent"]),
-            ("error", vec!["anyhow", "thiserror", "result", "unwrap", "expect"]),
+            (
+                "async",
+                vec!["await", "future", "tokio", "spawn", "concurrent"],
+            ),
+            (
+                "error",
+                vec!["anyhow", "thiserror", "result", "unwrap", "expect"],
+            ),
             ("test", vec!["assert", "should_panic", "bench", "criterion"]),
-            ("serde", vec!["serialize", "deserialize", "json", "toml", "yaml"]),
+            (
+                "serde",
+                vec!["serialize", "deserialize", "json", "toml", "yaml"],
+            ),
             ("http", vec!["axum", "reqwest", "hyper", "tower", "client"]),
-            ("database", vec!["sql", "postgres", "mysql", "sqlite", "diesel"]),
-            ("regex", vec!["pattern", "match", "find", "replace", "capture"]),
+            (
+                "database",
+                vec!["sql", "postgres", "mysql", "sqlite", "diesel"],
+            ),
+            (
+                "regex",
+                vec!["pattern", "match", "find", "replace", "capture"],
+            ),
         ];
 
         for (key, related) in &semantic_map {
@@ -668,7 +824,11 @@ impl FileSearch {
                         results.push(FileSearchResult {
                             file_path: file_path.to_string_lossy().to_string(),
                             line_number: Some(line_num + 1),
-                            line_content: format!("Fuzzy match ({:.2}): {}", similarity, line.trim()),
+                            line_content: format!(
+                                "Fuzzy match ({:.2}): {}",
+                                similarity,
+                                line.trim()
+                            ),
                             match_count: 1,
                             match_type: "fuzzy".to_string(),
                             severity: Some("info".to_string()),
@@ -704,19 +864,19 @@ impl FileSearch {
     fn levenshtein_distance(a: &[char], b: &[char]) -> usize {
         let mut matrix = vec![vec![0; b.len() + 1]; a.len() + 1];
 
-        for i in 0..=a.len() {
-            matrix[i][0] = i;
+        for (i, row) in matrix.iter_mut().enumerate() {
+            row[0] = i;
         }
-        for j in 0..=b.len() {
+        for (j, _) in (0..=b.len()).enumerate() {
             matrix[0][j] = j;
         }
 
         for i in 1..=a.len() {
             for j in 1..=b.len() {
-                let cost = if a[i-1] == b[j-1] { 0 } else { 1 };
-                matrix[i][j] = (matrix[i-1][j] + 1)
-                    .min(matrix[i][j-1] + 1)
-                    .min(matrix[i-1][j-1] + cost);
+                let cost = if a[i - 1] == b[j - 1] { 0 } else { 1 };
+                matrix[i][j] = (matrix[i - 1][j] + 1)
+                    .min(matrix[i][j - 1] + 1)
+                    .min(matrix[i - 1][j - 1] + cost);
             }
         }
 
@@ -750,7 +910,7 @@ impl FileSearch {
 
         // Verificar imports circulares
         for (module_name, content) in &modules {
-            for (other_name, _) in &modules {
+            for other_name in modules.keys() {
                 if module_name != other_name {
                     let import_pattern = format!("use crate::{};", other_name);
                     if content.contains(&import_pattern) {
@@ -761,7 +921,10 @@ impl FileSearch {
                                 results.push(FileSearchResult {
                                     file_path: format!("src/{}.rs", module_name),
                                     line_number: None,
-                                    line_content: format!("Circular import detected between {} and {}", module_name, other_name),
+                                    line_content: format!(
+                                        "Circular import detected between {} and {}",
+                                        module_name, other_name
+                                    ),
                                     match_count: 1,
                                     match_type: "circular_import".to_string(),
                                     severity: Some("error".to_string()),
@@ -799,7 +962,9 @@ impl FileSearch {
             let lines1: Vec<&str> = content1.lines().collect();
 
             for (j, (path2, content2)) in file_contents.iter().enumerate() {
-                if i >= j { continue; } // Evitar comparación consigo mismo y duplicados
+                if i >= j {
+                    continue;
+                } // Evitar comparación consigo mismo y duplicados
 
                 let lines2: Vec<&str> = content2.lines().collect();
                 let mut common_lines = 0;
@@ -807,7 +972,9 @@ impl FileSearch {
                 // Comparación línea por línea
                 for line1 in &lines1 {
                     let trimmed1 = line1.trim();
-                    if trimmed1.is_empty() || trimmed1.starts_with("//") { continue; }
+                    if trimmed1.is_empty() || trimmed1.starts_with("//") {
+                        continue;
+                    }
 
                     for line2 in &lines2 {
                         let trimmed2 = line2.trim();
@@ -822,7 +989,10 @@ impl FileSearch {
                     results.push(FileSearchResult {
                         file_path: format!("{} vs {}", path1.display(), path2.display()),
                         line_number: None,
-                        line_content: format!("Code duplication detected: {} common lines", common_lines),
+                        line_content: format!(
+                            "Code duplication detected: {} common lines",
+                            common_lines
+                        ),
                         match_count: common_lines,
                         match_type: "duplication".to_string(),
                         severity: Some("warning".to_string()),
@@ -866,8 +1036,14 @@ impl FileSearch {
                     results.push(FileSearchResult {
                         file_path: file_path.to_string_lossy().to_string(),
                         line_number: Some(function_start + 1),
-                        line_content: format!("High complexity function '{}': {} (lines: {})",
-                            current_function.as_ref().unwrap(), complexity, function_lines.len()),
+                        line_content: format!(
+                            "High complexity function '{}': {} (lines: {})",
+                            current_function
+                                .as_ref()
+                                .expect("Function name should be set"),
+                            complexity,
+                            function_lines.len()
+                        ),
                         match_count: complexity,
                         match_type: "complexity".to_string(),
                         severity: Some("warning".to_string()),
@@ -889,9 +1065,13 @@ impl FileSearch {
             let trimmed = line.trim();
 
             // Estructuras de control
-            if trimmed.contains("if ") || trimmed.contains("else if") ||
-               trimmed.contains("while ") || trimmed.contains("for ") ||
-               trimmed.contains("loop") || trimmed.contains("match ") {
+            if trimmed.contains("if ")
+                || trimmed.contains("else if")
+                || trimmed.contains("while ")
+                || trimmed.contains("for ")
+                || trimmed.contains("loop")
+                || trimmed.contains("match ")
+            {
                 complexity += 1;
             }
 

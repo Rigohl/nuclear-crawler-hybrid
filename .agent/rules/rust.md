@@ -44,13 +44,6 @@
     - Usa Arc<Mutex<T>> solo cuando sea necesario
     - Verifica versión de tokio y sus features en Cargo.toml
     - No mezcles runtimes async
-
-    ## FFI
-    - extern "C" debe coincidir exactamente con el otro lenguaje
-    - Usa tipos C compatibles: i32, u32, f32, *const, *mut
-    - Documenta todo código unsafe
-    - Encapsula unsafe en abstracciones seguras
-    -es un ejemplo, el ffi fii podria ser con cualquier lenguaje optimo
     ## Testing
     - Tests con datos reales, no mocks
     - Nombres descriptivos: test_should_X_when_Y
@@ -77,3 +70,72 @@
     - Código unsafe sin documentar
     - .unwrap() sin justificación
     - Asumir versiones de crates
+
+---
+
+# Reglas Específicas de NUCLEAR CRAWLER HYBRID
+
+    ## Arquitectura y Módulos
+    - **Usa TODOS los 11 módulos integrados**: Core (web_search, file_search, nuclear_core, url_helpers), FFI (go_integration, zig_integration, nim_integration, jax_integration), Infra (intelligent_storage, cache, rate_limit).
+    - **MCP Protocolo HTTP Axum 2025**: HTTP only (Axum on :8079). Herramientas: websearch (max 5 queries, 2100+ URLs, premium content scraping de Medium/ArXiv), file_search (Zig SIMD, líneas exactas de errores), analyzer (análisis completo workspace incluyendo .md, con web search para mejoras), stats (métricas internas). Usa Tokio async, timeouts, rate limits. Result: `json!(
+        {"status": "success", ...}
+    )`. Nunca unwrap en handlers.
+
+## Estándares para Reparar y Uso Completo
+- **Manejo de errores robusto**: Usa `Result<T, E>` y `?`; nunca `.unwrap()` sin justificación. Propaga con contexto. Valida inputs/outputs. Loggea con `eprintln!` en STDIO mode.
+- **Workflow para reparar**: Diagnostica con logs/stack traces. Fix mínimo verificado. Rollback plan. Documenta reparaciones. Monitorea post-fix.
+- **Uso de módulos completo**: Inicializa TODOS en `SearchEngine::new()`. Referencia en tool handlers. Verifica con `cargo check --all-targets`.
+- **FFI y concurrencia**: Go/Zig/Nim via `libloading`. Tokio async con `spawn()`, timeouts, rate limiter. No blocking en hot paths.
+- **Prohibido**: Mocks/simulaciones. Dead code/stubs. Unsafe sin doc. `.unwrap()`/`.expect()` sin motivo. Ignorar warnings.
+
+## Patrones Críticos
+- **Error handling**: `Result<Value>` en tools; pattern matching, no unwrap. Timeout: `tokio::time::timeout(Duration::from_secs(N), ...)`.
+- **Rate limiting**: `self.rate_limiter.acquire().await` antes de bulk ops. Cache con `DashMap`.
+- **Build/Release**: `cargo build --release` (opt-level 3, LTO, codegen-units 1). Binary ~20-25MB. **ZERO WARNINGS**.
+- **Testing**: Real data, no mocks. Unit/integration tests. `cargo test`.
+- **Reparar bugs**: Verifica `Cargo.toml` versiones. Search ALL usages. Fix mínimo, test. No dead code.
+
+## Reglas Esenciales para Reparar y Organizar
+- **Diagnostica antes de reparar**: Logs, métricas, causa raíz.
+- **Repara mínimo**: Fix pequeño, verifica con pruebas.
+- **Usa todos módulos**: Nunca omitas FFI o infra en análisis.
+- **Manejo errores**: Result/Option, contexto, logging, recuperación.
+- **Organiza código**: Modular, nombres descriptivos, documentación.
+- **Evita ediciones innecesarias**: Solo si bug probado o mejora medida.
+- **Análisis completo**: Filesystem APIs, clasificación por extensión, recursivo. Incluye .md files.
+- **MCP Axum**: HTTP/STDIO, 4 tools, async, timeouts, rate limits.
+- **Verifica compatibilidad**: `cargo check`, no warnings.
+- **Compila sin warnings**: Siempre `cargo build --release` sin errores ni warnings.
+- **Documenta cambios**: Por qué, cómo, impacto.
+
+## Lo Faltante Añadido
+- **Tokio patterns**: `spawn()` para concurrente, `timeout()` para límites, `rate_limiter` para control.
+- **Result building**: `json!({"status": "success", "data": ..., "execution_ms": ...})`.
+- **FFI integration**: Go (100K goroutines), Zig (SIMD hashing), Nim (HTML parsing), Jax (batch processing).
+- **Stealth features**: Headers from `self.stealth_system`, cache checks.
+    - **Deployment**: HTTP server `--mode http --port 8079`.
+- **Performance**: Optimizado para 2s search, 2100+ URLs, 100K goroutines.
+- **Security**: No hardcoded secrets, validate URLs, sanitize inputs.
+- **Versionado**: Semantic, features flags, `cargo mod tidy`.
+- **Debugging**: `eprintln!` para logs, flame graphs para perf, heap dumps para leaks.
+
+## REGLAS QUE SIEMPRE SE DEBEN SEGUIR
+- Verifica información antes de presentarla
+- Realiza cambios archivo por archivo
+- No uses disculpas innecesarias
+- Evita sugerencias de espacios en blanco
+- No resumes cambios realizados
+- No inventes cambios no solicitados
+- Preserva código existente no relacionado
+- Proporciona ediciones en un solo bloque
+- Usa nombres de variables descriptivos y explícitos
+- Sigue el estilo de codificación consistente del proyecto
+- Prioriza el rendimiento en sugerencias de cambios
+- Adopta enfoque de seguridad primero
+- Incluye cobertura de pruebas para código nuevo/modificado
+- Implementa manejo robusto de errores y logging
+- Fomenta diseño modular para mantenibilidad
+- Asegura compatibilidad de versiones
+- Evita números mágicos, usa constantes nombradas
+- Considera casos extremos en la lógica
+- Incluye aserciones para validar suposiciones
