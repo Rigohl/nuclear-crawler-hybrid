@@ -26,7 +26,7 @@ tools = ["websearch", "file_search", "get_vscode_api"]
 
 [dependencies]
 # HTTP server - ESSENTIAL (with SSE support for MCP 2025)
-axum = { version = "0.6", features = ["macros"] }
+axum = { version = "0.8", features = ["macros"] }
 tokio = { version = "1.0", features = ["full"] }
 tokio-stream = "0.1"
 futures = "0.3"
@@ -49,22 +49,22 @@ blake3 = "1.5"
 regex = "1.10"
 
 # Concurrent hashmap - USED extensively
-dashmap = "5.5"
+dashmap = "6.1"
 
 # Parallel processing - USED for sorting
 rayon = "1.8"
 
 # HTTP client - ESSENTIAL for web search (with SOCKS5 for TOR support)
-reqwest = { version = "0.11", features = ["json", "gzip", "blocking", "socks"] }
+reqwest = { version = "0.12", features = ["json", "gzip", "blocking", "socks"] }
 
 # URL parsing - ESSENTIAL
 url = "2.5"
 
 # Dynamic library loading - ESSENTIAL for FFI
-libloading = "0.8"
+libloading = "0.9"
 
 # LRU cache - USED
-lru = "0.12"
+lru = "0.16"
 
 # Lazy static - USED
 lazy_static = "1.4"
@@ -73,7 +73,7 @@ lazy_static = "1.4"
 parking_lot = "0.12"
 
 # HTML scraping - ESSENTIAL for web search
-scraper = "0.18"
+scraper = "0.25"
 
 # Random number generation for stealth
 oorandom = "11.1"
