@@ -13,7 +13,7 @@ license = "MIT OR Apache-2.0"
 
 [features]
 # FFI toggles: keep defaults off so caller opts-in explicitly
-default = []
+default = ["go_integration", "zig_integration", "nim_integration"]
 go_integration = []
 nim_integration = []
 zig_integration = []

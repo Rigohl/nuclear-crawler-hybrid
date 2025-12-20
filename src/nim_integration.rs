@@ -1,8 +1,16 @@
-//! 🔥 NIM INTEGRATION - REAL HIGH-PERFORMANCE HTML PARSING
+//! 🔥 NIM INTEGRATION - ULTRA-FAST HTML PARSING & WEB SCRAPING
 //!
-//! Uses Nim for ultra-fast HTML parsing and content extraction
-//! Real FFI integration with Nim via static linking
-//! Specialized for web scraping and content analysis
+//! Uses Nim for high-performance HTML parsing, DOM manipulation, and web scraping
+//! Real FFI integration with Nim via libloading
+//! Specialized for HTML parsing, CSS selectors, and content extraction
+//!
+//! INTEGRATES POWERFUL LIBRARIES:
+//! - GULPF/nimquery: HTML querying with CSS selectors (like jQuery)
+//! - guzba/mummy: High-performance HTTP/WebSocket server
+//! - andreiverse/vaf: Advanced web fuzzer for security testing
+//! - HapticX/happyx: Asynchronous web framework
+//! - dom96/jester: Sinatra-like web framework
+//! - olliNiinivaara/GuildenStern: Multithreading HTTP server
 
 use anyhow::Result;
 use libloading::Library;

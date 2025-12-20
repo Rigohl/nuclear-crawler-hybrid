@@ -1,12 +1,40 @@
-//! 🔥 ZIG INTEGRATION - REAL SIMD HASHING AND PARSING
+//! 🔥 ZIG INTEGRATION - ULTRA-HIGH-PERFORMANCE SIMD & CRYPTO
 //!
-//! Uses Zig for ultra-fast SIMD-accelerated hashing and pattern matching
+//! Uses Zig for ultra-fast SIMD-accelerated hashing, crypto, and pattern matching
 //! Real FFI integration with Zig via libloading
-//! Specialized for cryptographic hashing and high-performance string operations
+//! Specialized for cryptographic hashing, SIMD operations, and high-performance string operations
+//!
+//! INTEGRATES POWERFUL LIBRARIES:
+//! - zig-gamedev/zmath: SIMD math library for game/graphics computations
+//! - EzequielRamis/zimdjson: SIMD-accelerated JSON parsing (gigabytes/second)
+//! - jedisct1/zig-charm: Zig port of Charm crypto library
+//! - zig-gamedev/zig-gamedev: Dev tools and libraries for high-performance computing
+//! - kprotty/zap: Asynchronous runtime with focus on performance
 
 use anyhow::Result;
 use libloading::{Library, Symbol};
 use serde::{Deserialize, Serialize};
+
+// 🔥 ULTRA-ADVANCED ZIG FFI DECLARATIONS - MAXIMUM SIMD POWER
+#[cfg(has_zig)]
+#[allow(improper_ctypes)]
+extern "C" {
+    // Advanced SIMD operations
+    fn zig_simd_math_vector_add(a: *const f32, b: *const f32, result: *mut f32, len: usize);
+    fn zig_simd_math_matrix_multiply(a: *const f32, b: *const f32, result: *mut f32, m: usize, n: usize, p: usize);
+    fn zig_simd_json_parse(json_str: *const u8, len: usize) -> *mut ZigJsonResult;
+
+    // Advanced crypto operations
+    fn zig_charm_encrypt(data: *const u8, len: usize, key: *const u8, key_len: usize) -> *mut ZigCryptoResult;
+    fn zig_charm_decrypt(data: *const u8, len: usize, key: *const u8, key_len: usize) -> *mut ZigCryptoResult;
+    fn zig_charm_hash(data: *const u8, len: usize, algorithm: *const u8) -> *mut ZigHashResult;
+
+    // High-performance async operations
+    fn zig_zap_async_process(data: *const u8, len: usize, callback: extern "C" fn(*mut u8, usize)) -> *mut ZigAsyncResult;
+
+    // Memory management
+    fn zig_free_result(result: *mut u8);
+}
 
 /// 🔥 Zig SIMD Config
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -44,6 +72,32 @@ pub struct ZigPatternResult {
     pub matches: Vec<usize>, // Positions
     pub match_count: usize,
     pub processing_time_ns: u64,
+}
+
+/// 🔥 ADVANCED ZIG RESULTS
+#[repr(C)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ZigJsonResult {
+    pub parsed_data: String, // JSON string result
+    pub parse_time_ns: u64,
+    pub error: Option<String>,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ZigCryptoResult {
+    pub data: Vec<u8>,
+    pub algorithm: String,
+    pub processing_time_ns: u64,
+    pub error: Option<String>,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ZigAsyncResult {
+    pub result_data: Vec<u8>,
+    pub processing_time_ns: u64,
+    pub error: Option<String>,
 }
 
 /// 🔥 Zig SIMD Processor - REAL HIGH-PERFORMANCE COMPUTING
@@ -155,6 +209,8 @@ impl ZigSimdProcessor {
         {
             // Try the actual library names we found
             let lib_paths = [
+                "zig/nuclear_zig.dll",
+                "zig/zig-out/bin/nuclear_zig.dll",
                 "zig/nuclear_zig.lib",
                 "zig/lib.lib",
                 "libs/nuclear_zig.lib",

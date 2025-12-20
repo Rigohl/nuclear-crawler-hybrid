@@ -1,872 +1,662 @@
+//! ­ƒöÑ NUCLEAR BYPASS - Sistema de Evasi├│n y Acceso Premium
+//!
+//! M├│dulo de bypass avanzado que usa:
+//! - Go FFI para goroutines y procesamiento paralelo
+//! - Zig FFI para operaciones de bajo nivel
+//! - Stealth System para anti-detecci├│n
+//! - T├®cnicas de bypass de paywalls
+//! - Exploits legales para acceso a contenido
+
 use anyhow::Result;
+use regex::Regex;
+use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::collections::HashSet;
 use std::sync::Arc;
-use std::time::{Duration, Instant};
-use tokio::sync::RwLock;
-use tokio::time::timeout;
 
-// ===== BYPASS SYSTEM =====
+// Import FFI modules
+use crate::go_integration::GoParallelConfig;
+use crate::zig_integration::ZigSimdConfig;
+use std::time::Duration;
 
+use crate::go_integration::GoParallelProcessor;
+use crate::stealth::{StealthConfig, StealthSystem};
+use crate::zig_integration::ZigSimdProcessor;
+
+// ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+// ­ƒöÑ CONFIGURACI├ôN NUCLEAR BYPASS
+// ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+/// Configuraci├│n del sistema de bypass
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct BypassResult {
-    pub access_url: String,
-    pub content: String,
-    pub bypass_method: String,
-    pub success_rate: f32,
-    pub premium_accessed: bool,
-}
-
-#[derive(Clone)]
-pub struct NuclearBypass {
-    bypass_engines: Vec<String>,
-    rate_limiter: Arc<crate::nuclear_core::RateLimiter>,
-    concealment: Arc<ExtremeConcealment>,
-}
-
-impl NuclearBypass {
-    pub fn new(_config: NuclearBypassConfig, concealment: Arc<ExtremeConcealment>) -> Result<Self> {
-        let bypass_engines = vec![
-            "quantum_bypass".to_string(),
-            "neural_injection".to_string(),
-            "cookie_forgery".to_string(),
-            "header_spoofing".to_string(),
-            "referer_manipulation".to_string(),
-            "user_agent_rotation".to_string(),
-        ];
-
-        Ok(Self {
-            bypass_engines,
-            rate_limiter: Arc::new(crate::nuclear_core::RateLimiter::new(100, 1000)),
-            concealment,
-        })
-    }
-
-    pub async fn bypass(&self, url: &str) -> Result<BypassResult> {
-        self.rate_limiter.wait().await;
-
-        // Try all bypass methods
-        for method in &self.bypass_engines {
-            match self.try_bypass_method(url, method).await {
-                Ok(result) if result.premium_accessed => return Ok(result),
-                _ => continue,
-            }
-        }
-
-        // Fallback: return original URL
-        Ok(BypassResult {
-            access_url: url.to_string(),
-            content: "Bypass failed - using original URL".to_string(),
-            bypass_method: "none".to_string(),
-            success_rate: 0.0,
-            premium_accessed: false,
-        })
-    }
-
-    async fn try_bypass_method(&self, url: &str, method: &str) -> Result<BypassResult> {
-        // Real bypass attempt using reqwest with concealment
-        let client = reqwest::Client::builder()
-            .timeout(std::time::Duration::from_secs(10))
-            .build()?;
-
-        // Get stealth headers from concealment
-        let mut headers = self.concealment.get_headers(Some(url)).await;
-
-        // Add method-specific headers
-        match method {
-            "quantum_bypass" => {
-                headers.insert("User-Agent".to_string(), "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36".to_string());
-                headers.insert("Referer".to_string(), "https://www.google.com/".to_string());
-            }
-            "neural_injection" => {
-                headers.insert("X-Requested-With".to_string(), "XMLHttpRequest".to_string());
-            }
-            "cookie_forgery" => {
-                headers.insert(
-                    "Cookie".to_string(),
-                    "premium_access=true; user_type=vip".to_string(),
-                );
-            }
-            "header_spoofing" => {
-                headers.insert("Accept-Language".to_string(), "en-US,en;q=0.9".to_string());
-            }
-            "referer_manipulation" => {
-                if let Some(domain) = self.extract_domain(url) {
-                    headers.insert("Referer".to_string(), format!("https://www.{}/", domain));
-                }
-            }
-            "user_agent_rotation" => {
-                headers.insert("User-Agent".to_string(), "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1".to_string());
-            }
-            _ => {}
-        }
-
-        let reqwest_headers = (&headers).try_into().unwrap_or_default();
-
-        match client.get(url).headers(reqwest_headers).send().await {
-            Ok(response) if response.status().is_success() => {
-                let content = response.text().await.unwrap_or_default();
-                let premium_accessed = content.contains("premium")
-                    || content.contains("full access")
-                    || content.len() > 10000;
-                Ok(BypassResult {
-                    access_url: url.to_string(),
-                    content,
-                    bypass_method: method.to_string(),
-                    success_rate: if premium_accessed { 1.0 } else { 0.5 },
-                    premium_accessed,
-                })
-            }
-            _ => Ok(BypassResult {
-                access_url: url.to_string(),
-                content: String::new(),
-                bypass_method: method.to_string(),
-                success_rate: 0.0,
-                premium_accessed: false,
-            }),
-        }
-    }
-
-    fn extract_domain(&self, url: &str) -> Option<String> {
-        url::Url::parse(url)
-            .ok()?
-            .host_str()?
-            .to_string()
-            .split('.')
-            .next_back()?
-            .to_string()
-            .into()
-    }
-}
-
-#[derive(Debug, Clone)]
 pub struct NuclearBypassConfig {
-    pub max_attempts: usize,
-    pub timeout_seconds: u64,
+    /// Usar integraci├│n Go
+    pub use_go: bool,
+    /// Usar integraci├│n Zig
+    pub use_zig: bool,
+    /// Timeout para requests
+    pub timeout_secs: u64,
+    /// M├íximo de reintentos
+    pub max_retries: u32,
+    /// User Agent personalizado (None = rotativo)
+    pub custom_user_agent: Option<String>,
+    /// Bypass agresivo (m├ís t├®cnicas)
+    pub aggressive_mode: bool,
+    /// Usar cache de bypasses exitosos
+    pub cache_successful_bypasses: bool,
 }
 
 impl Default for NuclearBypassConfig {
     fn default() -> Self {
         Self {
-            max_attempts: 5,
-            timeout_seconds: 30,
+            use_go: true,
+            use_zig: true,
+            timeout_secs: 30,
+            max_retries: 3,
+            custom_user_agent: None,
+            aggressive_mode: true,
+            cache_successful_bypasses: true,
         }
     }
 }
 
-// ===== EXTRACTION SYSTEM =====
+// ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+// ­ƒöÑ TIPOS DE BYPASS
+// ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub struct ExtractedData {
-    pub main_text: String,
-    pub word_count: usize,
-    pub language: String,
-    pub links: Vec<String>,
-    pub images: Vec<String>,
+/// Tipos de bypass disponibles
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum BypassType {
+    /// Bypass de paywall de noticias
+    NewsPaywall,
+    /// Bypass de contenido acad├®mico
+    AcademicPaywall,
+    /// Bypass de JavaScript/AJAX
+    JavaScriptBypass,
+    /// Bypass de cookies/sesi├│n
+    CookieBypass,
+    /// Bypass de Cloudflare
+    CloudflareBypass,
+    /// Bypass de CAPTCHA
+    CaptchaBypass,
+    /// Bypass de geolocalizaci├│n
+    GeoBypass,
+    /// Bypass de rate limiting
+    RateLimitBypass,
+    /// Bypass gen├®rico
+    Generic,
+}
+
+/// Resultado de bypass
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BypassResult {
+    /// URL original
+    pub original_url: String,
+    /// URL de acceso (puede ser diferente)
+    pub access_url: String,
+    /// Contenido extra├¡do
+    pub content: String,
+    /// Tipo de bypass usado
+    pub bypass_type: BypassType,
+    /// ├ëxito
+    pub success: bool,
+    /// Mensaje/error
+    pub message: String,
+    /// Metadata adicional
     pub metadata: HashMap<String, String>,
-    pub structured_data: serde_json::Value,
+    /// Tiempo de ejecuci├│n (ms)
+    pub execution_time_ms: u64,
 }
 
+// ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+// ­ƒöÑ SISTEMA NUCLEAR BYPASS
+// ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+/// Sistema Nuclear de Bypass
+pub struct NuclearBypass {
+    config: NuclearBypassConfig,
+    client: Client,
+    stealth: StealthSystem,
+    go_integration: GoParallelProcessor,
+    zig_integration: ZigSimdProcessor,
+    // Cache de URLs con bypass exitoso
+    successful_bypasses: Arc<dashmap::DashMap<String, BypassType>>,
+    // Patrones de paywall conocidos
+    paywall_patterns: Vec<PaywallPattern>,
+}
+
+/// Patr├│n de paywall
+struct PaywallPattern {
+    domain_pattern: Regex,
+    bypass_type: BypassType,
+    bypass_methods: Vec<BypassMethod>,
+}
+
+/// M├®todo de bypass
 #[derive(Clone)]
-pub enum WebScraperType {
-    Html,
-    Json,
-    Api,
+#[allow(dead_code)]
+enum BypassMethod {
+    /// Agregar par├ímetro a URL
+    AddUrlParam { key: String, value: String },
+    /// Modificar Referer
+    ModifyReferer(String),
+    /// Usar Google Cache
+    GoogleCache,
+    /// Usar Archive.org
+    ArchiveOrg,
+    /// Usar 12ft.io
+    TwelveFt,
+    /// Usar Outline.com
+    Outline,
+    /// Modificar cookies
+    ModifyCookies(HashMap<String, String>),
+    /// Usar API alternativa
+    AlternativeApi(String),
+    /// Inyectar JavaScript (para scraping)
+    InjectJs(String),
+    /// Bypass espec├¡fico de sitio
+    SiteSpecific(String),
 }
 
-pub struct AdvancedExtractor {
-    scrapers: Vec<WebScraperType>,
-    content_analyzer: ContentAnalyzer,
-}
-
-impl Default for AdvancedExtractor {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl AdvancedExtractor {
-    pub fn new() -> Self {
-        Self {
-            scrapers: vec![
-                WebScraperType::Html,
-                WebScraperType::Json,
-                WebScraperType::Api,
-            ],
-            content_analyzer: ContentAnalyzer::new(),
-        }
-    }
-
-    pub async fn extract_all(&self, html: &str, url: &str) -> Result<ExtractedData> {
-        let mut all_data = ExtractedData::default();
-
-        // Try all scrapers
-        for scraper in &self.scrapers {
-            if let Ok(data) = Self::scrape_with_type(scraper, html, url).await {
-                all_data.main_text = data.main_text;
-                all_data.links.extend(data.links);
-                all_data.images.extend(data.images);
-                all_data.metadata.extend(data.metadata);
-                all_data.structured_data = data.structured_data;
-            }
-        }
-
-        // Analyze content
-        all_data.word_count = all_data.main_text.split_whitespace().count();
-        all_data.language = self.content_analyzer.detect_language(&all_data.main_text);
-        if all_data.structured_data.is_null() {
-            all_data.structured_data = self.content_analyzer.extract_structured_data(html);
-        }
-
-        Ok(all_data)
-    }
-
-    async fn scrape_with_type(
-        scraper: &WebScraperType,
-        html: &str,
-        url: &str,
-    ) -> Result<ExtractedData> {
-        match scraper {
-            WebScraperType::Html => Self::scrape_html(html, url),
-            WebScraperType::Json => Self::scrape_json(html, url),
-            WebScraperType::Api => Self::scrape_api(html, url),
-        }
-    }
-
-    fn scrape_html(html: &str, _url: &str) -> Result<ExtractedData> {
-        use scraper::{Html, Selector};
-
-        let document = Html::parse_document(html);
-        let link_selector = Selector::parse("a[href]").unwrap();
-        let img_selector = Selector::parse("img[src]").unwrap();
-
-        let main_text = document.root_element().text().collect::<Vec<_>>().join(" ");
-
-        let links = document
-            .select(&link_selector)
-            .filter_map(|el| el.value().attr("href"))
-            .map(String::from)
-            .collect();
-
-        let images = document
-            .select(&img_selector)
-            .filter_map(|el| el.value().attr("src"))
-            .map(String::from)
-            .collect();
-
-        Ok(ExtractedData {
-            main_text,
-            word_count: 0, // Will be calculated later
-            language: "unknown".to_string(),
-            links,
-            images,
-            metadata: HashMap::new(),
-            structured_data: serde_json::Value::Null,
-        })
-    }
-
-    fn scrape_json(html: &str, _url: &str) -> Result<ExtractedData> {
-        if let Ok(json) = serde_json::from_str::<serde_json::Value>(html) {
-            Ok(ExtractedData {
-                main_text: format!(
-                    "JSON Data: {} keys",
-                    json.as_object().map(|o| o.len()).unwrap_or(0)
-                ),
-                word_count: 0,
-                language: "json".to_string(),
-                links: Vec::new(),
-                images: Vec::new(),
-                metadata: HashMap::new(),
-                structured_data: json,
-            })
-        } else {
-            Err(anyhow::anyhow!("Not JSON content"))
-        }
-    }
-
-    fn scrape_api(_html: &str, url: &str) -> Result<ExtractedData> {
-        // Real API detection - no simulation
-        if url.contains("/api/") || url.contains(".json") || url.contains("api.") {
-            Ok(ExtractedData {
-                main_text: "API Endpoint detected".to_string(),
-                word_count: 3,
-                language: "api".to_string(),
-                links: Vec::new(),
-                images: Vec::new(),
-                metadata: HashMap::new(),
-                structured_data: serde_json::json!({"type": "api_endpoint", "url": url}),
-            })
-        } else {
-            Err(anyhow::anyhow!("Not API content"))
-        }
-    }
-}
-
-struct ContentAnalyzer;
-
-impl ContentAnalyzer {
-    fn new() -> Self {
-        Self
-    }
-
-    fn detect_language(&self, text: &str) -> String {
-        // Simple language detection
-        if text.contains("the ") || text.contains(" and ") || text.contains(" is ") {
-            "english".to_string()
-        } else if text.contains(" el ") || text.contains(" la ") || text.contains(" es ") {
-            "spanish".to_string()
-        } else {
-            "unknown".to_string()
-        }
-    }
-
-    fn extract_structured_data(&self, html: &str) -> serde_json::Value {
-        // Extract JSON-LD structured data
-        if let Some(start) = html.find(r#"<script type="application/ld+json">"#) {
-            if let Some(end) = html[start..].find("</script>") {
-                let json_str = &html[start + 35..start + end];
-                if let Ok(json) = serde_json::from_str(json_str) {
-                    return json;
-                }
-            }
-        }
-        serde_json::Value::Null
-    }
-}
-
-// ===== CONCEALMENT SYSTEM =====
-
-#[derive(Debug, Clone)]
-pub struct StealthConfig {
-    pub user_agents: Vec<String>,
-    pub headers: HashMap<String, String>,
-    pub proxy_rotation: bool,
-    pub cookie_jar: bool,
-    pub referer_spoofing: bool,
-}
-
-impl Default for StealthConfig {
-    fn default() -> Self {
-        Self {
-            user_agents: vec![
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36".to_string(),
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36".to_string(),
-                "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36".to_string(),
-            ],
-            headers: HashMap::new(),
-            proxy_rotation: true,
-            cookie_jar: true,
-            referer_spoofing: true,
-        }
-    }
-}
-
-#[derive(Clone)]
-pub struct ExtremeConcealment {
-    config: StealthConfig,
-    active_headers: Arc<RwLock<HashMap<String, String>>>,
-}
-
-impl ExtremeConcealment {
-    pub fn new(config: StealthConfig) -> Self {
-        Self {
-            config,
-            active_headers: Arc::new(RwLock::new(HashMap::new())),
-        }
-    }
-
-    pub async fn get_headers(&self, target_url: Option<&str>) -> HashMap<String, String> {
-        let mut headers = HashMap::new();
-
-        // 🔥 NUCLEAR STEALTH: Dynamic User Agent Rotation with Device Fingerprinting
-        let ua_index =
-            (Instant::now().elapsed().as_millis() / 10000) as usize % self.config.user_agents.len();
-        headers.insert(
-            "User-Agent".to_string(),
-            self.config.user_agents[ua_index].clone(),
-        );
-
-        // 🔥 QUANTUM BYPASS: Advanced Referer Spoofing with Context Awareness
-        if self.config.referer_spoofing {
-            if let Some(url) = target_url {
-                if let Some(domain) = self.extract_domain(url) {
-                    // Spoof referer from search engines or social media
-                    let referers = [
-                        format!(
-                            "https://www.google.com/search?q={}",
-                            urlencoding::encode(url)
-                        ),
-                        format!("https://www.{}/", domain),
-                        "https://t.co/".to_string(),
-                        "https://www.facebook.com/".to_string(),
-                        "https://www.linkedin.com/".to_string(),
-                    ];
-                    let referer_index =
-                        (Instant::now().elapsed().as_millis() / 15000) as usize % referers.len();
-                    headers.insert("Referer".to_string(), referers[referer_index].clone());
-                }
-            }
-        }
-
-        // 🔥 MAXIMUM STEALTH: Comprehensive Browser Fingerprint Evasion
-        headers.insert("Accept".to_string(), "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7".to_string());
-        headers.insert(
-            "Accept-Language".to_string(),
-            "en-US,en;q=0.9,es;q=0.8,fr;q=0.7".to_string(),
-        );
-        headers.insert(
-            "Accept-Encoding".to_string(),
-            "gzip, deflate, br".to_string(),
-        );
-        headers.insert("DNT".to_string(), "1".to_string());
-        headers.insert("Connection".to_string(), "keep-alive".to_string());
-        headers.insert("Upgrade-Insecure-Requests".to_string(), "1".to_string());
-
-        // 🔥 NUCLEAR CONCEALMENT: Advanced Anti-Detection Headers
-        headers.insert("Sec-Fetch-Dest".to_string(), "document".to_string());
-        headers.insert("Sec-Fetch-Mode".to_string(), "navigate".to_string());
-        headers.insert("Sec-Fetch-Site".to_string(), "none".to_string());
-        headers.insert("Sec-Fetch-User".to_string(), "?1".to_string());
-        headers.insert(
-            "Sec-Ch-Ua".to_string(),
-            "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Google Chrome\";v=\"120\""
-                .to_string(),
-        );
-        headers.insert("Sec-Ch-Ua-Mobile".to_string(), "?0".to_string());
-        headers.insert("Sec-Ch-Ua-Platform".to_string(), "\"Windows\"".to_string());
-
-        // 🔥 QUANTUM STEALTH: Cache Control and Privacy Headers
-        headers.insert("Cache-Control".to_string(), "max-age=0".to_string());
-        headers.insert("Pragma".to_string(), "no-cache".to_string());
-
-        // 🔥 MAXIMUM BYPASS: Premium Content Access Headers
-        headers.insert("X-Requested-With".to_string(), "XMLHttpRequest".to_string());
-        headers.insert("X-Forwarded-For".to_string(), self.generate_random_ip());
-        headers.insert("CF-RAY".to_string(), self.generate_fake_ray_id());
-
-        headers
-    }
-
-    fn extract_domain(&self, url: &str) -> Option<String> {
-        url::Url::parse(url)
-            .ok()?
-            .host_str()?
-            .to_string()
-            .split('.')
-            .next_back()?
-            .to_string()
-            .into()
-    }
-
-    pub async fn rotate_identity(&self) {
-        // Real identity rotation - cycle through user agents
-        let mut headers = self.active_headers.write().await;
-        headers.clear();
-
-        let ua_index = (std::time::Instant::now().elapsed().as_millis() / 30000) as usize
-            % self.config.user_agents.len();
-        headers.insert(
-            "User-Agent".to_string(),
-            self.config.user_agents[ua_index].clone(),
-        );
-    }
-
-    /// 🔥 NUCLEAR STEALTH: Generate random IP for X-Forwarded-For
-    fn generate_random_ip(&self) -> String {
-        use std::time::SystemTime;
-        let seed = SystemTime::now()
-            .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap()
-            .as_nanos() as u32;
-        let mut rng = oorandom::Rand32::new(seed.into());
-
-        format!(
-            "{}.{}.{}.{}",
-            rng.rand_range(1..255),
-            rng.rand_range(0..255),
-            rng.rand_range(0..255),
-            rng.rand_range(1..255)
-        )
-    }
-
-    /// 🔥 QUANTUM BYPASS: Generate fake Cloudflare Ray ID
-    fn generate_fake_ray_id(&self) -> String {
-        use std::time::SystemTime;
-        let timestamp = SystemTime::now()
-            .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap()
-            .as_millis();
-        let random_part = (timestamp % 1000000) as u32;
-        format!("{:x}-{}", timestamp / 1000, random_part)
-    }
-}
-
-// ===== SCRAPING & SPIDER SYSTEM =====
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct SpiderConfig {
-    pub max_depth: usize,
-    pub max_pages: usize,
-    pub respect_robots: bool,
-    pub crawl_delay_ms: u64,
-    pub allowed_domains: Vec<String>,
-    pub follow_external: bool,
-}
-
-impl Default for SpiderConfig {
-    fn default() -> Self {
-        Self {
-            max_depth: 3,
-            max_pages: 1000,
-            respect_robots: false, // Nuclear mode - ignore robots.txt
-            crawl_delay_ms: 100,
-            allowed_domains: Vec::new(),
-            follow_external: false,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct SpiderResult {
-    pub url: String,
-    pub depth: usize,
-    pub status_code: u16,
-    pub content_length: usize,
-    pub links_found: Vec<String>,
-    pub crawled_at: chrono::DateTime<chrono::Utc>,
-}
-
-pub struct NuclearSpider {
-    config: SpiderConfig,
-    visited: Arc<RwLock<HashSet<String>>>,
-    results: Arc<RwLock<Vec<SpiderResult>>>,
-    extractor: AdvancedExtractor,
-    concealment: ExtremeConcealment,
-    rate_limiter: Arc<RateLimiter>,
-}
-
-impl NuclearSpider {
-    pub fn new(config: SpiderConfig) -> Self {
-        Self {
-            config,
-            visited: Arc::new(RwLock::new(HashSet::new())),
-            results: Arc::new(RwLock::new(Vec::new())),
-            extractor: AdvancedExtractor::new(),
-            concealment: ExtremeConcealment::new(Default::default()),
-            rate_limiter: Arc::new(RateLimiter::new(10, 1000)), // 10 req/sec
-        }
-    }
-
-    pub async fn crawl(&self, start_url: &str) -> Result<Vec<SpiderResult>> {
-        let start = Instant::now();
-        eprintln!("🕷️ Nuclear Spider starting crawl from: {}", start_url);
-
-        use std::collections::VecDeque;
-
-        let mut queue: VecDeque<(String, usize)> = VecDeque::new();
-        queue.push_back((start_url.to_string(), 0));
-
-        while let Some((url, depth)) = queue.pop_front() {
-            if depth > self.config.max_depth {
-                continue;
-            }
-
-            // Respect page cap
-            {
-                let results = self.results.read().await;
-                if results.len() >= self.config.max_pages {
-                    break;
-                }
-            }
-
-            // Skip already visited
-            {
-                let visited = self.visited.read().await;
-                if visited.contains(&url) {
-                    continue;
-                }
-            }
-
-            // Mark visited
-            {
-                let mut visited = self.visited.write().await;
-                visited.insert(url.clone());
-            }
-
-            // Crawl one page (stores its own result)
-            let _ = self.crawl_recursive(&url, depth).await;
-
-            // Enqueue new links from latest stored result (best-effort)
-            let maybe_links = {
-                let results = self.results.read().await;
-                results
-                    .iter()
-                    .rev()
-                    .find(|r| r.url == url)
-                    .map(|r| r.links_found.clone())
-                    .unwrap_or_default()
-            };
-
-            for link in maybe_links {
-                queue.push_back((link, depth + 1));
-            }
-        }
-
-        let results = self.results.read().await.clone();
-        eprintln!(
-            "🕷️ Nuclear Spider completed: {} pages in {:.2}s",
-            results.len(),
-            start.elapsed().as_secs_f32()
-        );
-
-        Ok(results)
-    }
-
-    async fn crawl_recursive(&self, url: &str, depth: usize) -> Result<()> {
-        if depth > self.config.max_depth {
-            return Ok(());
-        }
-
-        // Check if already visited
-        {
-            let visited = self.visited.read().await;
-            if visited.contains(url) {
-                return Ok(());
-            }
-        }
-
-        // Check limits
-        {
-            let results = self.results.read().await;
-            if results.len() >= self.config.max_pages {
-                return Ok(());
-            }
-        }
-
-        // Mark as visited
-        {
-            let mut visited = self.visited.write().await;
-            visited.insert(url.to_string());
-        }
-
-        // Rate limiting and concealment
-        self.rate_limiter.wait().await;
-        let headers = self.concealment.get_headers(Some(url)).await;
-
-        // Fetch page
-        let client = reqwest::Client::new();
-        let response = timeout(
-            Duration::from_secs(30),
-            client
-                .get(url)
-                .headers(
-                    headers
-                        .into_iter()
-                        .map(|(k, v)| (k.parse().unwrap(), v.parse().unwrap()))
-                        .collect::<reqwest::header::HeaderMap>(),
-                )
-                .send(),
-        )
-        .await??;
-
-        let status_code = response.status().as_u16();
-        let html = response.text().await.unwrap_or_default();
-        let content_length = html.len();
-
-        // Extract links
-        let extracted = self
-            .extractor
-            .extract_all(&html, url)
-            .await
-            .unwrap_or_default();
-        let links_found = extracted
-            .links
-            .into_iter()
-            .filter(|link| self.is_allowed_link(link))
-            .take(50) // Limit links per page
-            .collect::<Vec<_>>();
-
-        // Store result
-        let result = SpiderResult {
-            url: url.to_string(),
-            depth,
-            status_code,
-            content_length,
-            links_found: links_found.clone(),
-            crawled_at: chrono::Utc::now(),
+impl NuclearBypass {
+    /// Crea nuevo sistema de bypass
+    pub fn new(config: NuclearBypassConfig) -> Result<Self> {
+        let client = Client::builder()
+            .timeout(Duration::from_secs(config.timeout_secs))
+            .user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+            .danger_accept_invalid_certs(true)
+            .redirect(reqwest::redirect::Policy::limited(10))
+            .build()?;
+
+        let stealth_config = StealthConfig {
+            rotate_user_agents: true,
+            rotate_headers: true,
+            random_delay_min: 500,
+            random_delay_max: 2000,
+            human_behavior: true,
+            use_proxies: false,
+            proxies: vec![],
+            avoid_headless_detection: true,
+            tls_fingerprint_evasion: true,
         };
 
-        {
-            let mut results = self.results.write().await;
-            results.push(result);
-        }
+        let stealth = StealthSystem::new(stealth_config);
+        let go_integration = GoParallelProcessor::new(GoParallelConfig::default())?;
+        let zig_integration = ZigSimdProcessor::new(ZigSimdConfig::default())?;
 
-        // Recursion is handled by the queue in `crawl()`.
+        // Patrones de paywall conocidos
+        let paywall_patterns = Self::init_paywall_patterns();
 
-        Ok(())
-    }
-
-    fn is_allowed_link(&self, link: &str) -> bool {
-        if self.config.allowed_domains.is_empty() {
-            return true;
-        }
-
-        if let Some(domain) = self.extract_domain(link) {
-            self.config.allowed_domains.contains(&domain)
-        } else {
-            false
-        }
-    }
-
-    fn extract_domain(&self, url: &str) -> Option<String> {
-        Some(url::Url::parse(url).ok()?.host_str()?.to_string())
-    }
-}
-
-// ===== UTILITY COMPONENTS =====
-
-pub struct RateLimiter {
-    permits: usize,
-    refill_rate: usize,
-    available: Arc<RwLock<usize>>,
-    last_refill: Arc<RwLock<Instant>>,
-}
-
-impl RateLimiter {
-    pub fn new(permits: usize, refill_rate_per_second: usize) -> Self {
-        Self {
-            permits,
-            refill_rate: refill_rate_per_second,
-            available: Arc::new(RwLock::new(permits)),
-            last_refill: Arc::new(RwLock::new(Instant::now())),
-        }
-    }
-
-    pub async fn wait(&self) {
-        loop {
-            let mut available = self.available.write().await;
-            let mut last_refill = self.last_refill.write().await;
-
-            // Refill tokens
-            let now = Instant::now();
-            let elapsed = now.duration_since(*last_refill).as_secs_f64();
-            let tokens_to_add = (elapsed * self.refill_rate as f64) as usize;
-
-            if tokens_to_add > 0 {
-                *available = (*available + tokens_to_add).min(self.permits);
-                *last_refill = now;
-            }
-
-            if *available > 0 {
-                *available -= 1;
-                break;
-            }
-
-            // Wait a bit before checking again
-            drop(available);
-            drop(last_refill);
-            tokio::time::sleep(Duration::from_millis(10)).await;
-        }
-    }
-}
-
-// ===== NUCLEAR CORE UNIFIED INTERFACE =====
-
-pub struct NuclearCore {
-    pub bypass: NuclearBypass,
-    pub extractor: AdvancedExtractor,
-    pub concealment: ExtremeConcealment,
-    pub spider: NuclearSpider,
-}
-
-impl NuclearCore {
-    pub fn new() -> Result<Self> {
-        let concealment = ExtremeConcealment::new(Default::default());
         Ok(Self {
-            bypass: NuclearBypass::new(Default::default(), Arc::new(concealment.clone()))?,
-            extractor: AdvancedExtractor::new(),
-            concealment,
-            spider: NuclearSpider::new(Default::default()),
+            config,
+            client,
+            stealth,
+            go_integration,
+            zig_integration,
+            successful_bypasses: Arc::new(dashmap::DashMap::new()),
+            paywall_patterns,
         })
     }
 
-    /// 🔥 MAXIMUM POWER: Extract with bypass and concealment
-    pub async fn extract_with_maximum_power(&self, url: &str) -> Result<ExtractedData> {
-        // Apply concealment
-        let headers = self.concealment.get_headers(Some(url)).await;
+    /// Inicializa patrones de paywall
+    fn init_paywall_patterns() -> Vec<PaywallPattern> {
+        vec![
+            // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+            // ­ƒöÑ NOTICIAS / MEDIOS
+            // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+            PaywallPattern {
+                domain_pattern: Regex::new(r"(nytimes\.com|washingtonpost\.com|wsj\.com|ft\.com|economist\.com|bloomberg\.com|medium\.com)").unwrap(),
+                bypass_type: BypassType::NewsPaywall,
+                bypass_methods: vec![
+                    BypassMethod::TwelveFt,
+                    BypassMethod::Outline,
+                    BypassMethod::GoogleCache,
+                    BypassMethod::ArchiveOrg,
+                    BypassMethod::ModifyReferer("https://www.google.com/".to_string()),
+                    BypassMethod::ModifyReferer("https://t.co/".to_string()),
+                    BypassMethod::ModifyReferer("https://facebook.com/".to_string()),
+                ],
+            },
+            // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+            // ­ƒöÑ ACAD├ëMICO / RESEARCH
+            // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+            PaywallPattern {
+                domain_pattern: Regex::new(r"(ieee\.org|acm\.org|springer\.com|sciencedirect\.com|nature\.com|wiley\.com|jstor\.org|tandfonline\.com)").unwrap(),
+                bypass_type: BypassType::AcademicPaywall,
+                bypass_methods: vec![
+                    // Sci-Hub mirrors
+                    BypassMethod::AlternativeApi("https://sci-hub.se/".to_string()),
+                    BypassMethod::AlternativeApi("https://sci-hub.st/".to_string()),
+                    BypassMethod::AlternativeApi("https://sci-hub.ru/".to_string()),
+                    // LibGen
+                    BypassMethod::AlternativeApi("https://libgen.is/scimag/?q=".to_string()),
+                    // Unpaywall
+                    BypassMethod::AlternativeApi("https://api.unpaywall.org/v2/".to_string()),
+                    // Core.ac.uk
+                    BypassMethod::AlternativeApi("https://core.ac.uk/search?q=".to_string()),
+                    // Semantic Scholar
+                    BypassMethod::AlternativeApi("https://api.semanticscholar.org/".to_string()),
+                    BypassMethod::ArchiveOrg,
+                ],
+            },
+            // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+            // ­ƒöÑ LIBROS / DOCUMENTOS
+            // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+            PaywallPattern {
+                domain_pattern: Regex::new(r"(scribd\.com|issuu\.com|slideshare\.net|academia\.edu)").unwrap(),
+                bypass_type: BypassType::Generic,
+                bypass_methods: vec![
+                    // Document downloaders
+                    BypassMethod::AlternativeApi("https://docdownloader.com/".to_string()),
+                    BypassMethod::GoogleCache,
+                    BypassMethod::ArchiveOrg,
+                    // Print mode
+                    BypassMethod::AddUrlParam { key: "view".to_string(), value: "print".to_string() },
+                ],
+            },
+            // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+            // ­ƒöÑ CLOUDFLARE PROTECTION
+            // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+            PaywallPattern {
+                domain_pattern: Regex::new(r".*").unwrap(), // Cualquier dominio puede tener CF
+                bypass_type: BypassType::CloudflareBypass,
+                bypass_methods: vec![
+                    BypassMethod::ModifyCookies({
+                        let mut cookies = HashMap::new();
+                        cookies.insert("cf_clearance".to_string(), "bypass".to_string());
+                        cookies
+                    }),
+                    // Usar navegador real headers
+                    BypassMethod::SiteSpecific("cloudflare_scraper".to_string()),
+                ],
+            },
+        ]
+    }
 
-        // Try bypass first
-        let access_url = if self.is_premium_site(url) {
-            self.bypass.bypass(url).await?.access_url
+    // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+    // ­ƒöÑ BYPASS PRINCIPAL
+    // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+    /// Intenta bypass de una URL
+    pub async fn bypass(&self, url: &str) -> Result<BypassResult> {
+        let start = std::time::Instant::now();
+
+        // Verificar cache
+        if self.config.cache_successful_bypasses {
+            if let Some(cached_type) = self.successful_bypasses.get(url) {
+                // Usar m├®todo que funcion├│ antes
+                return self.bypass_with_type(url, cached_type.clone()).await;
+            }
+        }
+
+        // Detectar tipo de paywall
+        let bypass_type = self.detect_paywall_type(url);
+
+        // Intentar bypass
+        let result = self.bypass_with_type(url, bypass_type).await?;
+
+        // Cachear si exitoso
+        if result.success && self.config.cache_successful_bypasses {
+            self.successful_bypasses
+                .insert(url.to_string(), result.bypass_type.clone());
+        }
+
+        Ok(BypassResult {
+            execution_time_ms: start.elapsed().as_millis() as u64,
+            ..result
+        })
+    }
+
+    /// Bypass con tipo espec├¡fico
+    async fn bypass_with_type(&self, url: &str, bypass_type: BypassType) -> Result<BypassResult> {
+        let mut last_error = String::new();
+
+        // Encontrar patrones aplicables
+        for pattern in &self.paywall_patterns {
+            if pattern.domain_pattern.is_match(url) {
+                // Intentar cada m├®todo
+                for method in &pattern.bypass_methods {
+                    match self.try_bypass_method(url, method).await {
+                        Ok(content) if !content.is_empty() => {
+                            return Ok(BypassResult {
+                                original_url: url.to_string(),
+                                access_url: url.to_string(),
+                                content,
+                                bypass_type: bypass_type.clone(),
+                                success: true,
+                                message: format!("Bypass exitoso con {:?}", method_name(method)),
+                                metadata: HashMap::new(),
+                                execution_time_ms: 0,
+                            });
+                        }
+                        Err(e) => {
+                            last_error = e.to_string();
+                            continue;
+                        }
+                        _ => continue,
+                    }
+                }
+            }
+        }
+
+        // Fallback: intento directo con stealth
+        match self.direct_fetch_stealth(url).await {
+            Ok(content) => Ok(BypassResult {
+                original_url: url.to_string(),
+                access_url: url.to_string(),
+                content,
+                bypass_type,
+                success: true,
+                message: "Acceso directo con stealth".to_string(),
+                metadata: HashMap::new(),
+                execution_time_ms: 0,
+            }),
+            Err(e) => Ok(BypassResult {
+                original_url: url.to_string(),
+                access_url: url.to_string(),
+                content: String::new(),
+                bypass_type,
+                success: false,
+                message: format!("Bypass fallido: {} | {}", last_error, e),
+                metadata: HashMap::new(),
+                execution_time_ms: 0,
+            }),
+        }
+    }
+
+    /// Detecta tipo de paywall
+    fn detect_paywall_type(&self, url: &str) -> BypassType {
+        for pattern in &self.paywall_patterns {
+            if pattern.domain_pattern.is_match(url) {
+                return pattern.bypass_type.clone();
+            }
+        }
+        BypassType::Generic
+    }
+
+    /// Intenta un m├®todo de bypass espec├¡fico
+    async fn try_bypass_method(&self, url: &str, method: &BypassMethod) -> Result<String> {
+        match method {
+            BypassMethod::TwelveFt => {
+                let bypass_url = format!("https://12ft.io/{}", url);
+                self.fetch_with_stealth(&bypass_url).await
+            }
+            BypassMethod::Outline => {
+                let bypass_url = format!("https://outline.com/{}", url);
+                self.fetch_with_stealth(&bypass_url).await
+            }
+            BypassMethod::GoogleCache => {
+                let bypass_url = format!(
+                    "https://webcache.googleusercontent.com/search?q=cache:{}",
+                    urlencoding::encode(url)
+                );
+                self.fetch_with_stealth(&bypass_url).await
+            }
+            BypassMethod::ArchiveOrg => {
+                // Buscar versi├│n m├ís reciente en Archive.org
+                let api_url = format!(
+                    "https://archive.org/wayback/available?url={}",
+                    urlencoding::encode(url)
+                );
+                let response = self.fetch_with_stealth(&api_url).await?;
+
+                // Parsear respuesta para obtener URL del archivo
+                if let Ok(json) = serde_json::from_str::<serde_json::Value>(&response) {
+                    if let Some(snapshot) = json["archived_snapshots"]["closest"]["url"].as_str() {
+                        return self.fetch_with_stealth(snapshot).await;
+                    }
+                }
+                Err(anyhow::anyhow!("No archive found"))
+            }
+            BypassMethod::AlternativeApi(base_url) => {
+                // Para Sci-Hub y similares
+                let bypass_url = if base_url.contains("sci-hub") {
+                    format!("{}{}", base_url, url)
+                } else if base_url.contains("unpaywall") {
+                    // Unpaywall necesita DOI
+                    if let Some(doi) = self.extract_doi(url) {
+                        format!("{}{}?email=bypass@nuclear.dev", base_url, doi)
+                    } else {
+                        return Err(anyhow::anyhow!("No DOI found"));
+                    }
+                } else {
+                    format!("{}{}", base_url, urlencoding::encode(url))
+                };
+                self.fetch_with_stealth(&bypass_url).await
+            }
+            BypassMethod::ModifyReferer(referer) => self.fetch_with_referer(url, referer).await,
+            BypassMethod::AddUrlParam { key, value } => {
+                let separator = if url.contains('?') { "&" } else { "?" };
+                let bypass_url = format!("{}{}{}={}", url, separator, key, value);
+                self.fetch_with_stealth(&bypass_url).await
+            }
+            BypassMethod::ModifyCookies(cookies) => self.fetch_with_cookies(url, cookies).await,
+            BypassMethod::SiteSpecific(handler) => self.site_specific_bypass(url, handler).await,
+            BypassMethod::InjectJs(_js) => {
+                // JavaScript injection requiere headless browser
+                // Por ahora, fallback a fetch normal
+                self.fetch_with_stealth(url).await
+            }
+        }
+    }
+
+    // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+    // ­ƒöÑ M├ëTODOS DE FETCH CON STEALTH
+    // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+    /// Fetch con sistema stealth completo
+    async fn fetch_with_stealth(&self, url: &str) -> Result<String> {
+        // Usar Go si disponible para headers stealth
+        let stealth_headers = if self.config.use_go {
+            self.go_integration.get_stealth_headers()?
         } else {
-            url.to_string()
+            HashMap::new()
         };
 
-        // Fetch with stealth
-        let client_builder = reqwest::Client::builder()
-            .user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+        let user_agent = self
+            .config
+            .custom_user_agent
+            .clone()
+            .unwrap_or_else(|| self.stealth.get_user_agent());
 
-        // Add additional stealth headers
-        let mut header_map = reqwest::header::HeaderMap::new();
-        header_map.insert("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8".parse().unwrap());
-        header_map.insert("Accept-Language", "en-US,en;q=0.5".parse().unwrap());
-        header_map.insert("Accept-Encoding", "gzip, deflate".parse().unwrap());
-        header_map.insert("DNT", "1".parse().unwrap());
-        header_map.insert("Connection", "keep-alive".parse().unwrap());
-        header_map.insert("Upgrade-Insecure-Requests", "1".parse().unwrap());
+        let headers = self.stealth.get_headers(None).await;
+        let anti_detection = self.stealth.get_anti_detection_headers();
 
-        let client = client_builder.default_headers(header_map).build()?;
-        let response = client
-            .get(&access_url)
-            .headers(
-                headers
-                    .into_iter()
-                    .map(|(k, v)| (k.parse().unwrap(), v.parse().unwrap()))
-                    .collect::<reqwest::header::HeaderMap>(),
-            )
+        let mut request = self.client.get(url).header("User-Agent", &user_agent);
+
+        // Agregar headers stealth
+        for (k, v) in headers {
+            request = request.header(&k, &v);
+        }
+        for (k, v) in anti_detection {
+            request = request.header(&k, &v);
+        }
+        for (k, v) in stealth_headers {
+            request = request.header(&k, &v);
+        }
+
+        // Delay humano
+        if self.stealth.get_human_delay() > 0 {
+            tokio::time::sleep(Duration::from_millis(self.stealth.get_human_delay())).await;
+        }
+
+        let response = request.send().await?;
+        let body = response.text().await?;
+
+        // Usar Zig para procesar si est├í disponible
+        if self.config.use_zig {
+            let processed = self
+                .zig_integration
+                .process_batch(vec![body.clone()])?;
+            return Ok(processed.into_iter().next().unwrap_or(body));
+        }
+
+        Ok(body)
+    }
+
+    /// Fetch con referer espec├¡fico
+    async fn fetch_with_referer(&self, url: &str, referer: &str) -> Result<String> {
+        let user_agent = self.stealth.get_user_agent();
+        let headers = self.stealth.get_headers(None).await;
+
+        let mut request = self
+            .client
+            .get(url)
+            .header("User-Agent", &user_agent)
+            .header("Referer", referer);
+
+        for (k, v) in headers {
+            request = request.header(&k, &v);
+        }
+
+        let response = request.send().await?;
+        Ok(response.text().await?)
+    }
+
+    /// Fetch con cookies espec├¡ficas
+    async fn fetch_with_cookies(
+        &self,
+        url: &str,
+        cookies: &HashMap<String, String>,
+    ) -> Result<String> {
+        let user_agent = self.stealth.get_user_agent();
+
+        let cookie_string: String = cookies
+            .iter()
+            .map(|(k, v)| format!("{}={}", k, v))
+            .collect::<Vec<_>>()
+            .join("; ");
+
+        let response = self
+            .client
+            .get(url)
+            .header("User-Agent", &user_agent)
+            .header("Cookie", cookie_string)
             .send()
             .await?;
 
-        let html = response.text().await?;
-
-        // Extract with all advanced methods
-        self.extractor.extract_all(&html, &access_url).await
+        Ok(response.text().await?)
     }
 
-    /// Check if site is premium/paywalled
-    fn is_premium_site(&self, url: &str) -> bool {
-        let premium_domains = [
-            "wsj.com",
-            "nytimes.com",
-            "ft.com",
-            "bloomberg.com",
-            "washingtonpost.com",
-            "economist.com",
-            "forbes.com",
-        ];
-
-        premium_domains.iter().any(|domain| url.contains(domain))
+    /// Fetch directo con stealth m├íximo
+    async fn direct_fetch_stealth(&self, url: &str) -> Result<String> {
+        for retry in 0..self.config.max_retries {
+            match self.fetch_with_stealth(url).await {
+                Ok(content) => return Ok(content),
+                Err(e) => {
+                    if retry < self.config.max_retries - 1 {
+                        // Esperar antes de reintentar
+                        tokio::time::sleep(Duration::from_millis(1000 * (retry as u64 + 1))).await;
+                    } else {
+                        return Err(e);
+                    }
+                }
+            }
+        }
+        Err(anyhow::anyhow!("Max retries exceeded"))
     }
 
-    /// 🔥 SPIDER CRAWL: Maximum power web crawling
-    pub async fn spider_crawl_maximum_power(
-        &self,
-        start_url: &str,
-        max_pages: usize,
-    ) -> Result<Vec<SpiderResult>> {
-        let config = SpiderConfig {
-            max_pages,
-            ..Default::default()
-        };
+    /// Bypass espec├¡fico por sitio
+    async fn site_specific_bypass(&self, url: &str, handler: &str) -> Result<String> {
+        match handler {
+            "cloudflare_scraper" => {
+                // T├®cnicas espec├¡ficas para Cloudflare
+                // 1. Intentar con headers de navegador real
+                let headers = self.stealth.get_anti_detection_headers();
+                let mut request = self.client.get(url);
 
-        let spider = NuclearSpider::new(config);
-        spider.crawl(start_url).await
+                for (k, v) in headers {
+                    request = request.header(&k, &v);
+                }
+
+                // 2. Simular comportamiento humano
+                tokio::time::sleep(Duration::from_millis(2000)).await;
+
+                let response = request.send().await?;
+
+                if response.status().is_success() {
+                    return Ok(response.text().await?);
+                }
+
+                Err(anyhow::anyhow!("Cloudflare bypass failed"))
+            }
+            _ => Err(anyhow::anyhow!("Unknown handler: {}", handler)),
+        }
+    }
+
+    // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+    // ­ƒöÑ UTILIDADES
+    // ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+    /// Extrae DOI de URL
+    fn extract_doi(&self, url: &str) -> Option<String> {
+        let doi_re = Regex::new(r"10\.\d{4,}/[^\s]+").ok()?;
+        doi_re.find(url).map(|m| m.as_str().to_string())
+    }
+
+    /// Bypass masivo de m├║ltiples URLs
+    pub async fn bypass_batch(&self, urls: Vec<String>) -> Vec<BypassResult> {
+        use futures::future::join_all;
+
+        let futures: Vec<_> = urls.iter().map(|url| self.bypass(url)).collect();
+
+        let results = join_all(futures).await;
+
+        results
+            .into_iter()
+            .map(|r| {
+                r.unwrap_or_else(|e| BypassResult {
+                    original_url: String::new(),
+                    access_url: String::new(),
+                    content: String::new(),
+                    bypass_type: BypassType::Generic,
+                    success: false,
+                    message: e.to_string(),
+                    metadata: HashMap::new(),
+                    execution_time_ms: 0,
+                })
+            })
+            .collect()
+    }
+
+    /// Estad├¡sticas de bypass
+    pub fn get_stats(&self) -> HashMap<String, usize> {
+        let mut stats = HashMap::new();
+        stats.insert(
+            "cached_bypasses".to_string(),
+            self.successful_bypasses.len(),
+        );
+        stats.insert("paywall_patterns".to_string(), self.paywall_patterns.len());
+        stats
     }
 }
 
-impl Default for NuclearCore {
-    fn default() -> Self {
-        Self::new().unwrap()
+/// Helper para nombre de m├®todo
+fn method_name(method: &BypassMethod) -> &'static str {
+    match method {
+        BypassMethod::TwelveFt => "12ft.io",
+        BypassMethod::Outline => "Outline",
+        BypassMethod::GoogleCache => "Google Cache",
+        BypassMethod::ArchiveOrg => "Archive.org",
+        BypassMethod::AlternativeApi(_) => "Alternative API",
+        BypassMethod::ModifyReferer(_) => "Referer Bypass",
+        BypassMethod::AddUrlParam { .. } => "URL Param",
+        BypassMethod::ModifyCookies(_) => "Cookie Bypass",
+        BypassMethod::InjectJs(_) => "JS Injection",
+        BypassMethod::SiteSpecific(_) => "Site Specific",
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn test_nuclear_bypass() {
+        let config = NuclearBypassConfig::default();
+        let bypass = NuclearBypass::new(config).unwrap();
+
+        let stats = bypass.get_stats();
+        assert!(stats["paywall_patterns"] > 0);
     }
 }

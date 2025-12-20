@@ -12,7 +12,7 @@ pub fn build(b: *std.Build) void {
     const lib = b.addLibrary(.{
         .name = "nuclear_zig",
         .root_module = root_module,
-        .linkage = .static,
+        .linkage = .dynamic,
     });
 
     // Habilitar C ABI para FFI

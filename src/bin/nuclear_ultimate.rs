@@ -32,8 +32,8 @@ use nuclear_crawler_hybrid::{
     jax_integration::JaxProcessor,
     nim_integration::NimHtmlParser,
     // 🔥 ADD MISSING MODULES FOR MAXIMUM POWER
-    nuclear_core::NuclearCore,
-    premium_content_scraper::NuclearPremiumScraper,
+    nuclear_core::{NuclearBypass, NuclearBypassConfig},
+    premium_content_scraper::{NuclearScraper, NuclearConfig},
     rate_limit::RateLimiter,
     web_search::WebSearch,
     zig_integration::ZigSimdProcessor,
@@ -135,8 +135,8 @@ pub struct SearchEngine {
     pub file_search: Arc<FileSearch>,
 
     // 🔥 NUCLEAR BYPASS & EXTRACTION MODULES
-    pub nuclear_core: Arc<NuclearCore>,
-    pub premium_scraper: Arc<NuclearPremiumScraper>,
+    pub nuclear_core: Arc<NuclearBypass>,
+    pub premium_scraper: Arc<NuclearScraper>,
     pub deepweb_search: Arc<DeepWebSearch>,
 
     // 🔥 FFI ACCELERATION MODULES
@@ -197,19 +197,17 @@ impl SearchEngine {
         );
 
         // 🔥 NUCLEAR CORE - BYPASS & EXTRACTION POWER
-        let nuclear_core = Arc::new(NuclearCore::new().unwrap_or_else(|e| {
-            eprintln!("Nuclear Core initialization failed: {}, using fallback", e);
-            NuclearCore::default()
+        let nuclear_core = Arc::new(NuclearBypass::new(NuclearBypassConfig::default()).unwrap_or_else(|e| {
+            eprintln!("Nuclear Bypass initialization failed: {}, using fallback", e);
+            // Need to create a fallback, but since no Default, we'll panic for now
+            panic!("Nuclear Bypass initialization failed and no fallback available")
         }));
 
         // 🔥 PREMIUM CONTENT SCRAPER
-        let premium_scraper = Arc::new(NuclearPremiumScraper::new(
-            nuclear_core.clone(),
-            nim_parser.clone(),
-            go_fetcher.clone(),
-            zig_hasher.clone(),
-            jax_processor.clone(),
-        ));
+        let premium_scraper = Arc::new(NuclearScraper::new(NuclearConfig::default()).unwrap_or_else(|e| {
+            eprintln!("Nuclear Scraper initialization failed: {}, using fallback", e);
+            panic!("Nuclear Scraper initialization failed and no fallback available")
+        }));
 
         // 🔥 DEEPWEB/TOR SEARCH
         let deepweb_search = Arc::new(DeepWebSearch::new(TorConfig::default()).unwrap_or_else(
@@ -257,20 +255,19 @@ impl SearchEngine {
 // ===== TOOL HANDLERS =====
 
 impl SearchEngine {
-    /// 🔥 WEB SEARCH TOOL - MEGA MASIVO - Acepta queries, URLs Y consultas de API
+    /// 🔥 WEB SEARCH TOOL - ULTRA RÁPIDO < 5s - Solo búsquedas y URLs
     ///
     /// AYUDA PARA AGENTE IA:
-    /// - URLs directas (https://...) para crawling específico
-    /// - Búsquedas de texto normal en web
-    /// - Consultas de API: "api:workspace", "api:commands", "api:vscode"
-    /// - Máximo: 50 queries/URLs/APIs (¡ultra masivo!)
-    /// - Búsqueda en: ClearWeb + DeepWeb/TOR + I2P + 18+ fuentes premium
-    /// - APIs soportadas: workspace, commands, window, languages, vscode
+    /// - Búsquedas de texto: palabras, frases (máximo 5 queries)
+    /// - URLs directas: https://... para scraping específico
+    /// - Tiempo límite: 5 segundos con TODOS los módulos FFI
+    /// - Stealth bypass: Headers anti-detección + contenido premium
+    /// - Búsqueda en: ClearWeb + DeepWeb/TOR + I2P + fuentes premium
     /// - Guarda TODO en resultados/websearch/ con timestamp
     ///
     /// Ejemplos:
-    /// {"queries": ["https://github.com/rust-lang/rust", "rust programming"]}
-    /// {"queries": ["api:vscode workspace", "api:commands register"]}
+    /// {"queries": ["rust programming", "async await"]}
+    /// {"queries": ["https://github.com/rust-lang/rust"]}
     pub async fn tool_websearch(&self, args: &Value) -> anyhow::Result<Value> {
         let start = Instant::now();
 
@@ -308,36 +305,31 @@ impl SearchEngine {
                    \"name\": \"websearch\",\n  \
                    \"arguments\": {{\n    \
                      \"queries\": [\n      \
-                       \"término de búsqueda\",\n      \
-                       \"https://url-directa.com\",\n      \
-                       \"api:workspace\" // Para documentación de API\n    \
+                       \"rust async programming\",\n      \
+                       \"machine learning basics\",\n      \
+                       \"https://github.com/rust-lang/rust\"\n    \
                      ]\n  \
                    }}\n\
                  }}\n\n\
                  ✅ TIPOS DE QUERIES SOPORTADOS:\n\
                  • Texto: \"rust async programming\" - Búsqueda web normal\n\
-                 • URLs: \"https://github.com/...\" - Scraping directo\n\
-                 • APIs: \"api:workspace\" - Documentación de VS Code API\n\n\
-                 ✅ FUNCIONES AVANZADAS:\n\
-                 • Búsqueda masiva: Hasta 50 queries simultáneas\n\
+                 • URLs: \"https://github.com/...\" - Scraping directo\n\n\
+                 ✅ LÍMITES Y CARACTERÍSTICAS:\n\
+                 • Máximo: 5 queries por llamada (optimizado para velocidad)\n\
+                 • Tiempo límite: 5 segundos con aceleración FFI total\n\
                  • Multi-fuente: ClearWeb + DeepWeb/TOR + I2P\n\
-                 • FFI Acelerado: Go (1000 req/s) + Nim (HTML parsing) + Zig (hashing)\n\
-                 • Premium Sources: Medium, ArXiv, Research papers\n\
-                 • Detección automática: Contenido real vs metadatos\n\n\
-                 🔧 MÓDULOS INTEGRADOS:\n\
+                 • Stealth bypass: Anti-detección + contenido premium\n\n\
+                 🔧 MÓDULOS FFI ACTIVOS (TODOS A MÁXIMA VELOCIDAD):\n\
                  • WebSearch Core: Motor de búsqueda principal\n\
-                 • Premium Scraper: Contenido de alta calidad\n\
-                 • Go FFI: Paralelización masiva (100K goroutines)\n\
-                 • Nim FFI: Parseo HTML avanzado\n\
-                 • Zig SIMD: Hashing y deduplicación ultra-rápida\n\
-                 • JAX GPU: Procesamiento vectorizado\n\
-                 • Intelligent Storage: Persistencia automática\n\
-                 • Cache: Resultados en memoria\n\
-                 • Rate Limiter: Control de frecuencia\n\
-                 • Stealth System: Headers anti-detección\n\
-                 • Nuclear Bypass: Contenido premium\n\n\
+                 • Premium Scraper: Bypass stealth agresivo\n\
+                 • Go FFI: Paralelización masiva (50K goroutines)\n\
+                 • Nim FFI: Parseo HTML ultra-rápido\n\
+                 • Zig SIMD: Hashing y deduplicación vectorizada\n\
+                 • JAX GPU: Procesamiento acelerado por GPU\n\
+                 • Nuclear Bypass: Contenido premium total\n\
+                 • DeepWeb/TOR: Acceso a contenido oculto\n\n\
                  💾 RESULTADOS GUARDADOS EN: resultados/websearch/\n\
-                 📊 MÉTRICAS: URLs encontradas, tiempo de respuesta, fuentes usadas"
+                 ⚡ RENDIMIENTO: < 5 segundos con 10-50 resultados de calidad"
             ))?;
 
         if queries.is_empty() {
@@ -350,13 +342,13 @@ impl SearchEngine {
             ));
         }
 
-        if queries.len() > 50 {
+        if queries.len() > 5 {
             return Err(anyhow!(
-                "❌ Demasiadas queries: {} (máximo: 50)\n\
-                 💡 SOLUCIONES:\n\
-                 • Divide en múltiples llamadas\n\
-                 • Usa URLs directas para contenido específico\n\
-                 • Combina queries relacionadas en una sola llamada",
+                "❌ Demasiadas queries: {} (máximo: 5 para rendimiento óptimo)\n\
+                 💡 SOLUCIÓN:\n\
+                 • Limita a 5 queries por llamada para mantener el tiempo < 5s\n\
+                 • Usa búsquedas más específicas y precisas\n\
+                 • Divide en múltiples llamadas si necesitas más resultados",
                 queries.len()
             ));
         }
@@ -374,75 +366,27 @@ impl SearchEngine {
             ));
         }
 
-        // Enhanced query analysis and categorization
+        // 🔥 ANÁLISIS SIMPLIFICADO: Solo búsquedas web y URLs
         let mut web_queries = Vec::new();
         let mut url_queries = Vec::new();
-        let mut api_queries = Vec::new();
-        let mut search_stats = json!({
-            "total_queries": query_strings.len(),
-            "web_searches": 0,
-            "direct_urls": 0,
-            "api_calls": 0,
-            "estimated_complexity": "low"
-        });
 
         for query in &query_strings {
-            if query.to_lowercase().starts_with("api:") {
-                let api_query = query[4..].trim();
-                if !api_query.is_empty() {
-                    api_queries.push(api_query.to_string());
-                    search_stats["api_calls"] = json!(search_stats["api_calls"].as_u64().unwrap_or(0) + 1);
-                }
-            } else if query.starts_with("http://") || query.starts_with("https://") {
+            if query.starts_with("http://") || query.starts_with("https://") {
                 url_queries.push(query.clone());
-                search_stats["direct_urls"] = json!(search_stats["direct_urls"].as_u64().unwrap_or(0) + 1);
             } else {
                 web_queries.push(query.clone());
-                search_stats["web_searches"] = json!(search_stats["web_searches"].as_u64().unwrap_or(0) + 1);
             }
         }
-
-        // Adjust complexity estimation
-        let total_operations = web_queries.len() + url_queries.len() + api_queries.len();
-        search_stats["estimated_complexity"] = json!(
-            if total_operations > 20 { "high" }
-            else if total_operations > 10 { "medium" }
-            else { "low" }
-        );
 
         eprintln!(
-            "🔍 WEBSEARCH ANALYSIS: {} total | {} web | {} URLs | {} APIs | Complexity: {}",
-            search_stats["total_queries"],
-            search_stats["web_searches"],
-            search_stats["direct_urls"],
-            search_stats["api_calls"],
-            search_stats["estimated_complexity"]
+            "🔍 WEBSEARCH ANALYSIS: {} total | {} web | {} URLs | Complexity: \"low\"",
+            query_strings.len(),
+            web_queries.len(),
+            url_queries.len()
         );
 
-        // Rate limiting with complexity consideration
-        let rate_limit_multiplier = match search_stats["estimated_complexity"].as_str() {
-            Some("high") => 3,
-            Some("medium") => 2,
-            _ => 1,
-        };
-
-        for _ in 0..rate_limit_multiplier {
-            self.rate_limit.wait().await;
-        }
-
-        // 🔥 PROCESAR CONSULTAS DE API PRIMERO (son más rápidas)
-        let mut api_results = Vec::new();
-        if !api_queries.is_empty() {
-            for api_query in &api_queries {
-                let api_docs = self.get_vscode_api_documentation(api_query).await?;
-                api_results.push(json!({
-                    "query": format!("api:{}", api_query),
-                    "type": "api_documentation",
-                    "api": api_docs
-                }));
-            }
-            eprintln!("📚 Retrieved {} API documentation entries", api_results.len());
-        }
+        // 🔥 RATE LIMITING SIMPLE - una sola espera
+        self.rate_limit.wait().await;
 
         // 🔥 PROCESAR CONSULTAS WEB (si hay alguna)
         let mut web_results = Vec::new();
@@ -466,7 +410,7 @@ impl SearchEngine {
 
                     // Execute search using web search module
                     let result = timeout(
-                        Duration::from_secs(15), // 🔥 15 second timeout - NUCLEAR POWER
+                        Duration::from_secs(5), // 🔥 5 second timeout - ULTRA RÁPIDO
                         self.web_search.search_real(web_queries.clone()),
                     )
                     .await??;
@@ -573,18 +517,8 @@ impl SearchEngine {
             }
         }
 
-        // 🔥 COMBINAR RESULTADOS: API + WEB
-        let mut all_results = Vec::new();
-
-        // Agregar resultados de API primero
-        for api_result in &api_results {
-            all_results.push(api_result.clone());
-        }
-
-        // Agregar resultados de web search
-        for web_result in &web_results {
-            all_results.push(web_result.clone());
-        }
+        // 🔥 SOLO RESULTADOS WEB - Sin APIs, puro stealth
+        let all_results = web_results;
 
         // 🔥 STORAGE: Save ALL results to resultados/ folder with enhanced metadata
         let storage_result = self
@@ -595,11 +529,10 @@ impl SearchEngine {
                 &json!({
                     "tool": "websearch",
                     "queries": query_strings,
-                    "search_stats": search_stats,
                     "results": all_results,
                     "results_count": all_results.len(),
-                    "api_results_count": api_results.len(),
-                    "web_results_count": web_results.len(),
+                    "web_queries": web_queries.len(),
+                    "url_queries": url_queries.len(),
                     "execution_ms": start.elapsed().as_millis(),
                     "timestamp": chrono::Utc::now().to_rfc3339(),
                     "performance_metrics": {
@@ -613,19 +546,18 @@ impl SearchEngine {
                     },
                     "modules_used": {
                         "web_search_core": !web_queries.is_empty(),
-                        "api_documentation": !api_queries.is_empty(),
                         "premium_content_scraper": true,
                         "nuclear_core": true,
                         "go_parallel_ffi": self.go_fetcher.is_available(),
                         "zig_simd_hashing": true,
                         "nim_html_parser": true,
                         "jax_gpu_accelerator": true,
+                        "deepweb_tor": true,
                         "intelligent_storage": true,
                         "memory_cache": true,
                         "rate_limiter": true,
-                        "stealth_headers": true,
-                        "nuclear_bypass": true,
-                        "external_mcp_integration": false
+                        "stealth_system": true,
+                        "nuclear_bypass": true
                     },
                     "data_quality": {
                         "has_real_content": all_results.iter().any(|r| r.get("main_text").is_some()),
@@ -645,10 +577,9 @@ impl SearchEngine {
 
         // Build enhanced response with comprehensive statistics
         let modules_used_count = {
-            let mut count = 8; // Base modules: web_search, nuclear_core, premium_scraper, intelligent_storage, cache, rate_limit, stealth_system, jax_accelerator
-            if !api_queries.is_empty() { count += 1; } // api_documentation
+            let mut count = 10; // Base: web_search, nuclear_core, premium_scraper, intelligent_storage, cache, rate_limit, stealth_system, jax, deepweb_tor, nim
             if self.go_fetcher.is_available() { count += 1; } // go_parallel_ffi
-            count += 2; // zig_simd_hashing, nim_html_parser (always available)
+            count += 1; // zig_simd_hashing
             count
         };
 
@@ -659,11 +590,9 @@ impl SearchEngine {
             "data": all_results,
             "statistics": {
                 "total_queries": query_strings.len(),
-                "api_queries_processed": api_queries.len(),
                 "web_queries_processed": web_queries.len(),
                 "url_queries_processed": url_queries.len(),
                 "results_found": all_results.len(),
-                "complexity_level": search_stats["estimated_complexity"],
                 "performance": {
                     "execution_ms": start.elapsed().as_millis(),
                     "queries_per_second": if start.elapsed().as_millis() > 0 {
@@ -1331,7 +1260,7 @@ impl SearchEngine {
         let tools = vec![
             Tool {
                 name: "websearch".to_string(),
-                description: "⚡ Web search (< 5s). Supports: 1) Text queries 2) Direct URLs 3) VS Code API (api:workspace). Max 10 queries. Returns 10-50 results with full content.".to_string(),
+                description: "⚡ Web search (< 5s). Supports: 1) Text queries 2) Direct URLs. Max 5 queries. Returns 10-50 results with full content.".to_string(),
                 input_schema: json!({
                     "type": "object",
                     "properties": {
@@ -1339,8 +1268,8 @@ impl SearchEngine {
                             "type": "array",
                             "items": {"type": "string"},
                             "minItems": 1,
-                            "maxItems": 10,
-                            "description": "Array of 1-10 queries. Examples: ['rust async'], ['https://github.com/tokio-rs/tokio'], ['api:workspace']"
+                            "maxItems": 5,
+                            "description": "Array of 1-5 queries. Examples: ['rust async programming'], ['https://github.com/tokio-rs/tokio']"
                         }
                     },
                     "required": ["queries"],

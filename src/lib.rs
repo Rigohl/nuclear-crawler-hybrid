@@ -9,23 +9,22 @@
 #![allow(clippy::type_complexity)]
 
 // 🔥 ESSENTIAL MODULES FOR 2 TOOLS - NO DEAD CODE
-pub mod file_search; // 🔥 REAL file analysis with error detection
-pub mod nuclear_core; // 🔥 REAL bypass, extraction, concealment, spider
-pub mod premium_content_scraper; // 🔥 REAL premium content extraction
-pub mod url_helpers;
-pub mod web_search; // 🔥 REAL web search with extraction & scraping // Utility functions
-
-// 🔥 FFI ACCELERATION MODULES - REAL HIGH-PERFORMANCE COMPUTING
-pub mod go_integration; // 🔥 REAL Go parallel processing via FFI
-pub mod jax_integration; // 🔥 REAL JAX GPU vectorization via FFI
-pub mod nim_integration; // 🔥 REAL Nim HTML parsing via FFI
-pub mod zig_integration; // 🔥 REAL Zig SIMD hashing via FFI
-
-// 🔥 INFRASTRUCTURE MODULES FOR SERVER
+pub mod ai_smart; // 🔥 AI intelligence for content analysis
 pub mod cache; // 🔥 REAL LRU cache implementation
 pub mod deepweb_tor;
+pub mod file_search; // 🔥 REAL file analysis with error detection
+pub mod go_integration; // 🔥 REAL Go parallel processing via FFI
 pub mod intelligent_storage; // 🔥 REAL file storage for results
-pub mod rate_limit; // 🔥 REAL token bucket rate limiter // 🔥 REAL deep web search via Tor
+pub mod jax_integration; // 🔥 REAL JAX GPU vectorization via FFI
+pub mod nim_integration; // 🔥 REAL Nim HTML parsing via FFI
+pub mod nuclear_core; // 🔥 REAL bypass, extraction, concealment, spider
+pub mod nuclear_mcp_server; // 🔥 NUCLEAR MCP SERVER 2025 - 3 EXTREME TOOLS
+pub mod premium_content_scraper; // 🔥 REAL premium content extraction
+pub mod rate_limit; // 🔥 REAL token bucket rate limiter
+pub mod stealth; // 🔥 REAL stealth system for anti-detection
+pub mod url_helpers;
+pub mod web_search; // 🔥 REAL web search with extraction & scraping
+pub mod zig_integration; // 🔥 REAL Zig SIMD hashing via FFI
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;

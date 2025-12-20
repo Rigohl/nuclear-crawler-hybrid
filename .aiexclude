@@ -1,0 +1,36 @@
+# 🧠 Gemini Code Assist - Context Configuration
+# Excluir archivos que generan ruido o consumen tokens innecesariamente
+
+# 🦀 Rust - Excluir artefactos de compilación masivos
+target/
+**/*.rs.bk
+
+# 🐍 Python - Excluir entornos y cache
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# 📁 Node.js - Excluir dependencias profundas
+node_modules/
+dist/
+build/
+coverage/
+
+# 🔒 Seguridad - CRÍTICO: Nunca permitir que la IA lea secretos
+.env
+.env.*
+config/secrets.*
+*.pem
+*.key
+
+# 📉 Datos y Logs - Evitar alucinaciones con datos de prueba
+*.log
+*.csv
+*.json
+*.lock
+resultados/
+nuclear_temp/
+crawler_cache/
+websearch_results/

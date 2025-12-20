@@ -3,13 +3,17 @@
 		"nuclear-crawler-hybrid": {
 			"type": "http",
 			"url": "http://127.0.0.1:8079",
-			"description": "🔥 NUCLEAR CRAWLER HYBRID - Ultra Massive Web Search + File Analysis + VS Code API Docs",
-			"version": "0.1.0",
-			"tools": ["websearch", "file_search", "get_vscode_api"],
+			"description": "🔥 NUCLEAR MCP 2025 - 3 EXTREME TOOLS: File Search + Web Search + Premium Content",
+			"version": "6.0.0",
+			"tools": [
+				"file_search",
+				"web_search",
+				"premium_content"
+			],
 			"features": {
-				"websearch": "50 queries, 60+ sources, DeepWeb/TOR, I2P, Premium content",
-				"file_search": "Cargo check, exact errors, line numbers, context",
-				"get_vscode_api": "VS Code API documentation and examples"
+				"file_search": "Zig SIMD analysis, exact errors/warnings, cross-file impact detection, Go/Nim/Rust integration",
+				"web_search": "Massive web search + DeepWeb/TOR/I2P + stealth bypass + 100+ sources + premium access",
+				"premium_content": "Extreme stealth scraping, proxy rotation, JS execution, header spoofing, cookie bypass"
 			}
 		},
 		"io.github.github/github-mcp-server": {
@@ -35,7 +39,10 @@
 		},
 		"memoryr": {
 			"command": "npx",
-			"args": ["-y", "@modelcontextprotocol/server-memory"]
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-memory"
+			]
 		}
 	},
 	"inputs": [
