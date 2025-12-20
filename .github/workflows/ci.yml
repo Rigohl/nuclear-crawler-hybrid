@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TRAE CLI
+        run: cargo install trae-cli
+      - name: Run fmt check
+        run: |
+          trae fmt --check
+      - name: Run clippy
+        run: |
+          trae clippy --strict
+      - name: Run tests
+        run: |
+          trae test --release
+      - name: Build release
+        run: |
+          trae build --release
