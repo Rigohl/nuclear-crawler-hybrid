@@ -8,13 +8,9 @@ use dashmap::DashMap;
 use futures::stream::{self, StreamExt};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
-#[allow(unused_imports)]
-use std::time::Duration;
 use tokio::sync::Semaphore;
 
 use crate::ai_smart::AISmart;
-#[allow(unused_imports)]
-use crate::ai_smart::MassiveSearchStrategy;
 use crate::nuclear_scraper::NuclearScraper;
 
 /// Resultado de búsqueda masiva

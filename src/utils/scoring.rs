@@ -29,9 +29,6 @@ pub fn calculate_relevance(query: &str, html: &str) -> f32 {
         }
     }
 
-    // Normaliza por número de términos
-    let base_score = score / total_terms;
-
     // Bonus si aparece en el título
     if let Some(title) = extract_title_simple(html) {
         let title_lower = title.to_lowercase();
@@ -42,8 +39,8 @@ pub fn calculate_relevance(query: &str, html: &str) -> f32 {
         }
     }
 
-    // Normaliza a 0-1
-    (base_score / 2.0).min(1.0)
+    // Normaliza por número de términos y a 0-1
+    (score / total_terms / 2.0).min(1.0)
 }
 
 /// Calcula la relevancia semántica (versión mejorada con TF-IDF simplificado)

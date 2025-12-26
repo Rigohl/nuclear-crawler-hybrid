@@ -8,8 +8,6 @@
 //! - Map-reduce distribuido
 
 use rayon::prelude::*;
-#[allow(unused_imports)]
-use std::sync::Arc;
 use std::time::Instant;
 
 /// Procesador acelerado estilo JAX (implementación Rust con rayon)

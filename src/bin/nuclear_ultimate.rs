@@ -20,9 +20,8 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt};
 
-// 🔥 NUCLEAR: TODOS los módulos
+// 🔥 NUCLEAR: módulos integrados
 use nuclear_crawler_lib::ai_smart::{AIConfig, AISmart};
-use nuclear_crawler_lib::config::CrawlerConfig;
 use nuclear_crawler_lib::deep_web_search::{
     DeepWebSearch, DeepWebSearchConfig, DeepWebSearchType, DeepWebSource,
 };
@@ -32,7 +31,6 @@ use nuclear_crawler_lib::intelligent_storage::IntelligentStorage;
 use nuclear_crawler_lib::massive_parallel_search::MassiveParallelSearch;
 use nuclear_crawler_lib::nuclear_scraper::{NuclearConfig, NuclearScraper};
 use nuclear_crawler_lib::orchestration::{OrchestrationConfig, Orchestrator};
-use nuclear_crawler_lib::parallel_crawler::ParallelCrawler;
 use nuclear_crawler_lib::project_analyzer::ProjectAnalyzer;
 use nuclear_crawler_lib::scan_project::ProjectScanner;
 use nuclear_crawler_lib::stats::StatsSystem;
@@ -63,15 +61,11 @@ struct Args {
 pub struct NuclearUltimate {
     web_search: Arc<WebSearch>,
     deep_web_search: Arc<DeepWebSearch>,
-    #[allow(dead_code)]
     nuclear_scraper: Arc<NuclearScraper>,
-    #[allow(dead_code)]
-    parallel_crawler: Arc<ParallelCrawler>,
     massive_search: Arc<MassiveParallelSearch>,
     file_search: Arc<FileSearch>,
     project_scanner: Arc<ProjectScanner>,
     project_analyzer: Arc<ProjectAnalyzer>,
-    #[allow(dead_code)]
     orchestrator: Arc<Orchestrator>,
     storage: Arc<IntelligentStorage>,
     stats_system: Arc<StatsSystem>,
@@ -102,8 +96,6 @@ impl NuclearUltimate {
         ));
         let ai_config = AIConfig::default();
         let ai_smart = Arc::new(AISmart::new(ai_config));
-        let crawler_config = CrawlerConfig::default();
-        let parallel_crawler = Arc::new(ParallelCrawler::new(crawler_config)?);
         let massive_search = Arc::new(MassiveParallelSearch::new(
             nuclear_scraper.clone(),
             ai_smart.clone(),
@@ -125,7 +117,6 @@ impl NuclearUltimate {
             web_search,
             deep_web_search,
             nuclear_scraper,
-            parallel_crawler,
             massive_search,
             file_search,
             project_scanner,
@@ -532,82 +523,25 @@ impl NuclearUltimate {
             .as_array()
             .ok_or_else(|| anyhow::anyhow!("Missing tasks"))?;
         let parallel = args["parallel"].as_bool().unwrap_or(true);
-        let max_concurrent = args["max_concurrent"].as_u64().unwrap_or(100) as usize;
         let start = std::time::Instant::now();
-        let mut results = Vec::new();
 
-        if parallel {
-            let sem = Arc::new(tokio::sync::Semaphore::new(max_concurrent));
-            let mut handles = Vec::new();
-
-            for (i, task) in tasks.iter().enumerate() {
-                let task_clone = task.clone();
-                let sem = sem.clone();
-                let ws = self.web_search.clone();
-                let fs = self.file_search.clone();
-                let ps = self.project_scanner.clone();
-                let ss = self.stats_system.clone();
-
-                handles.push(tokio::spawn(async move {
-                    let _p = sem.acquire().await.unwrap();
-                    let tt = task_clone["type"].as_str().unwrap_or("unknown");
-                    let res = match tt {
-                        "search" => {
-                            let q = task_clone["query"].as_str().unwrap_or("");
-                            match ws
-                                .search(WebSearchConfig {
-                                    query: q.to_string(),
-                                    max_results: 10,
-                                    ..Default::default()
-                                })
-                                .await
-                            {
-                                Ok(r) => json!({"status": "ok", "count": r.len(), "mode": "parallel"}),
-                                Err(e) => json!({"status": "error", "error": e.to_string()}),
-                            }
-                        }
-                        "file_search" => {
-                            let t = task_clone["term"].as_str().unwrap_or("");
-                            match fs
-                                .search(FileSearchConfig {
-                                    search_term: t.to_string(),
-                                    ..Default::default()
-                                })
-                                .await
-                            {
-                                Ok(r) => json!({"status": "ok", "count": r.len(), "mode": "parallel"}),
-                                Err(e) => json!({"status": "error", "error": e.to_string()}),
-                            }
-                        }
-                        "analyzer" => {
-                            let path = task_clone["path"].as_str().unwrap_or(".");
-                            match ps.scan_project(PathBuf::from(path)).await {
-                                Ok(r) => json!({"status": "ok", "issues": r.total_issues, "mode": "parallel"}),
-                                Err(e) => json!({"status": "error", "error": e.to_string()}),
-                            }
-                        }
-                        "stats" => {
-                            json!({"status": "ok", "stats": ss.get_all_stats(), "mode": "parallel"})
-                        }
-                        _ => json!({"status": "unknown_type", "type": tt}),
-                    };
-                    (i, res)
-                }));
-            }
-
-            for h in handles {
-                if let Ok((i, r)) = h.await {
-                    results.push(json!({"task_index": i, "result": r}));
-                }
-            }
-        } else {
-            // 🔥 MODO SECUENCIAL REAL - Ejecuta tareas una por una
-            for (i, task) in tasks.iter().enumerate() {
-                let tt = task["type"].as_str().unwrap_or("unknown");
-                let res = match tt {
+        // ✅ USE REAL ORCHESTRATOR instead of reimplementing
+        let mut task_futures = Vec::new();
+        
+        for task in tasks.iter() {
+            let task_clone = task.clone();
+            let ws = self.web_search.clone();
+            let fs = self.file_search.clone();
+            let ps = self.project_scanner.clone();
+            let ss = self.stats_system.clone();
+            
+            let task_id = task_clone["type"].as_str().unwrap_or("unknown").to_string();
+            let future = async move {
+                let tt = task_clone["type"].as_str().unwrap_or("unknown");
+                match tt {
                     "search" => {
-                        let q = task["query"].as_str().unwrap_or("");
-                        match self.web_search
+                        let q = task_clone["query"].as_str().unwrap_or("");
+                        match ws
                             .search(WebSearchConfig {
                                 query: q.to_string(),
                                 max_results: 10,
@@ -615,41 +549,64 @@ impl NuclearUltimate {
                             })
                             .await
                         {
-                            Ok(r) => json!({"status": "ok", "count": r.len(), "mode": "sequential"}),
-                            Err(e) => json!({"status": "error", "error": e.to_string()}),
+                            Ok(r) => Ok(json!({"status": "ok", "count": r.len(), "type": tt})),
+                            Err(e) => Ok(json!({"status": "error", "error": e.to_string(), "type": tt})),
                         }
                     }
                     "file_search" => {
-                        let t = task["term"].as_str().unwrap_or("");
-                        match self.file_search
+                        let t = task_clone["term"].as_str().unwrap_or("");
+                        match fs
                             .search(FileSearchConfig {
                                 search_term: t.to_string(),
                                 ..Default::default()
                             })
                             .await
                         {
-                            Ok(r) => json!({"status": "ok", "count": r.len(), "mode": "sequential"}),
-                            Err(e) => json!({"status": "error", "error": e.to_string()}),
+                            Ok(r) => Ok(json!({"status": "ok", "count": r.len(), "type": tt})),
+                            Err(e) => Ok(json!({"status": "error", "error": e.to_string(), "type": tt})),
                         }
                     }
                     "analyzer" => {
-                        let path = task["path"].as_str().unwrap_or(".");
-                        match self.project_scanner.scan_project(PathBuf::from(path)).await {
-                            Ok(r) => json!({"status": "ok", "issues": r.total_issues, "mode": "sequential"}),
-                            Err(e) => json!({"status": "error", "error": e.to_string()}),
+                        let path = task_clone["path"].as_str().unwrap_or(".");
+                        match ps.scan_project(PathBuf::from(path)).await {
+                            Ok(r) => Ok(json!({"status": "ok", "issues": r.total_issues, "type": tt})),
+                            Err(e) => Ok(json!({"status": "error", "error": e.to_string(), "type": tt})),
                         }
                     }
                     "stats" => {
-                        json!({"status": "ok", "stats": self.stats_system.get_all_stats(), "mode": "sequential"})
+                        Ok(json!({"status": "ok", "stats": ss.get_all_stats(), "type": tt}))
                     }
-                    _ => json!({"status": "unknown_type", "type": tt}),
-                };
-                results.push(json!({"task_index": i, "result": res}));
-            }
+                    _ => Ok(json!({"status": "unknown_type", "type": tt})),
+                }
+            };
+            
+            task_futures.push((task_id, future));
         }
 
+        // ✅ USE ORCHESTRATOR's execute_parallel method
+        let results = if parallel {
+            self.orchestrator.execute_parallel(task_futures).await
+        } else {
+            // Sequential execution using orchestrator
+            let mut sequential_results = Vec::new();
+            for (task_id, future) in task_futures {
+                let result = self.orchestrator.execute_task(task_id, future).await;
+                sequential_results.push(result);
+            }
+            sequential_results
+        };
+
+        let formatted_results: Vec<Value> = results
+            .into_iter()
+            .enumerate()
+            .map(|(i, r)| match r {
+                Ok(val) => json!({"task_index": i, "result": val}),
+                Err(e) => json!({"task_index": i, "result": {"status": "error", "error": e.to_string()}}),
+            })
+            .collect();
+
         Ok(
-            json!({"tool": "orchestrate", "tasks_count": tasks.len(), "parallel": parallel, "execution_time_ms": start.elapsed().as_millis(), "results": results}),
+            json!({"tool": "orchestrate", "tasks_count": tasks.len(), "parallel": parallel, "execution_time_ms": start.elapsed().as_millis(), "results": formatted_results}),
         )
     }
 

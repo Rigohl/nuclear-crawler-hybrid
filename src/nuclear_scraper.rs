@@ -3,15 +3,8 @@
 //! Sistema de scraping masivo y agresivo para captura masiva de información
 //! Sin limitaciones, máximo paralelismo, máxima velocidad
 
-#[allow(unused_imports)]
-use crate::ai_smart::{AIConfig, AISmart, TrainingData};
-use crate::cache::Cache;
-// use crate::intelligence::ContentIntelligence; // Eliminado - funcionalidad integrada
-// use crate::intelligence::ContentScore; // Eliminado - funcionalidad integrada
-// JaxAccelerator removido - usar rayon directamente
-// Parser integrado en scraper
+use crate::ai_smart::{AIConfig, AISmart};
 use crate::rate_limit::RateLimiter;
-// use crate::scraper::Scraper; // Eliminado - funcionalidad integrada
 use crate::stealth::{StealthConfig, StealthSystem};
 use anyhow::Context;
 use anyhow::Result;
@@ -98,19 +91,15 @@ pub struct NuclearStats {
 }
 
 /// Scraper NUCLEAR - Sin límites con Stealth e Inteligencia
-#[allow(dead_code)]
 pub struct NuclearScraper {
     client: Arc<Client>,
     config: NuclearConfig,
-    // scraper: Arc<Scraper>, // Eliminado - funcionalidad integrada inline
-    cache: Arc<Cache>,
     rate_limiter: Arc<RateLimiter>,
     semaphore: Arc<Semaphore>,
     visited: Arc<DashMap<String, bool>>,
     results: Arc<DashMap<String, NuclearResult>>,
     stats: Arc<DashMap<String, NuclearStats>>,
     stealth: Arc<StealthSystem>,
-    // intelligence: Arc<ContentIntelligence>, // Eliminado - funcionalidad integrada inline
     ai_smart: Arc<AISmart>,
     storage: Option<Arc<crate::intelligent_storage::IntelligentStorage>>,
 }
@@ -141,7 +130,6 @@ impl NuclearScraper {
                 .context("Error creando cliente HTTP")?,
         );
 
-        let cache = Arc::new(Cache::new(config.cache_size));
         let rate_limiter = Arc::new(RateLimiter::new(
             config.max_requests_per_second,
             config.max_requests_per_second * 2, // Burst doble
@@ -176,8 +164,6 @@ impl NuclearScraper {
         Ok(Self {
             client,
             config,
-            // scraper: Arc::new(Scraper::new()), // Eliminado - funcionalidad inline
-            cache,
             rate_limiter,
             semaphore,
             visited: Arc::new(DashMap::new()),
