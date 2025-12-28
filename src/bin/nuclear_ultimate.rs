@@ -1114,7 +1114,7 @@ impl SearchEngine {
 
 impl SearchEngine {
     /// Handle MCP JSON-RPC messages
-    async fn handle_jsonrpc_message(&self, request: &JsonRpcRequest) -> Result<JsonRpcResponse, Box<dyn std::error::Error>> {
+    async fn handle_jsonrpc_message(&self, request: &JsonRpcRequest) -> Result<JsonRpcResponse, anyhow::Error> {
         match request.method.as_str() {
             "initialize" => {
                 self.handle_initialize(request).await
@@ -1157,7 +1157,7 @@ impl SearchEngine {
     }
 
     /// Handle initialize request
-    async fn handle_initialize(&self, request: &JsonRpcRequest) -> Result<JsonRpcResponse, Box<dyn std::error::Error>> {
+    async fn handle_initialize(&self, request: &JsonRpcRequest) -> Result<JsonRpcResponse, anyhow::Error> {
         eprintln!("🔧 Handling initialize request");
 
         // Parse the initialize params
@@ -1205,13 +1205,13 @@ impl SearchEngine {
     }
 
     /// Handle tools/list request
-    async fn handle_tools_list(&self, request: &JsonRpcRequest) -> Result<JsonRpcResponse, Box<dyn std::error::Error>> {
+    async fn handle_tools_list(&self, request: &JsonRpcRequest) -> Result<JsonRpcResponse, anyhow::Error> {
         eprintln!("🔧 Handling tools/list request");
 
         let tools = vec![
             Tool {
                 name: "websearch".to_string(),
-                description: "⚡ WEBSEARCH: Búsqueda masiva en 55+ motores (Google, Bing, DuckDuckGo, GitHub, Stack Overflow, Reddit, Medium, HuggingFace, ArXiv, etc.). Max 50 queries. Retorna 100+ URLs con contenido completo en ~5s.".to_string(),
+                description: "⚡ WEBSEARCH MASIVA: 55+ motores + 1000+ URLs/query. TOR + FF. Máx config por defecto (50 queries, 5s timeout). INPUT: array strings ['query1', 'url1', 'phrase']".to_string(),
                 input_schema: json!({
                     "type": "object",
                     "properties": {
@@ -1220,7 +1220,7 @@ impl SearchEngine {
                             "items": {"type": "string"},
                             "minItems": 1,
                             "maxItems": 50,
-                            "description": "Array de 1-50 queries. Soporta: búsqueda texto, URLs directas (https://...), api:workspace. Ejemplos: ['rust async programming'], ['https://github.com/tokio-rs/tokio'], ['machine learning papers']"
+                            "description": "Array de queries. SOLO strings: ['texto búsqueda'], ['https://url.com'], ['frase o concepto']"
                         }
                     },
                     "required": ["queries"],
@@ -1228,31 +1228,8 @@ impl SearchEngine {
                 }),
             },
             Tool {
-                name: "file_search".to_string(),
-                description: "🔍 FILE_SEARCH: Búsqueda avanzada en código. Detección de errores con cargo check. Análisis de patrones, funciones. Max complexity = high. Retorna file:line con contexto.".to_string(),
-                input_schema: json!({
-                    "type": "object",
-                    "properties": {
-                        "search_term": {
-                            "type": "string",
-                            "description": "Texto/regex a buscar. Vacío '' = solo detectar errores"
-                        },
-                        "path": {
-                            "type": "string",
-                            "description": "Ruta de búsqueda (default: './src')"
-                        },
-                        "detect_errors": {
-                            "type": "boolean",
-                            "description": "Ejecutar cargo check (default: true)"
-                        }
-                    },
-                    "required": ["search_term"],
-                    "additionalProperties": false
-                }),
-            },
-            Tool {
                 name: "deepweb_search".to_string(),
-                description: "🌐 DEEPWEB/TOR: Búsqueda en redes onion (1000+ fuentes oscuras). Acceso a .onion sites, forums anónimos, archives cifrados. Usa TOR e I2P. Retorna URLs + contenido deepweb.".to_string(),
+                description: "🌐 DEEPWEB/TOR MASIVO: .onion sites + 1000+ fuentes oscuras. Máx config (20 queries, 10s timeout). INPUT: array strings ['query'] solamente".to_string(),
                 input_schema: json!({
                     "type": "object",
                     "properties": {
@@ -1261,15 +1238,7 @@ impl SearchEngine {
                             "items": {"type": "string"},
                             "minItems": 1,
                             "maxItems": 20,
-                            "description": "Array de 1-20 queries. Ejemplos: ['cryptocurrency'], ['privacy tools'], ['darkweb forums']"
-                        },
-                        "use_tor": {
-                            "type": "boolean",
-                            "description": "Usar TOR network (default: true)"
-                        },
-                        "use_i2p": {
-                            "type": "boolean",
-                            "description": "Usar I2P network (default: false)"
+                            "description": "Array de queries. SOLO strings: ['privacy'], ['cryptocurrency'], ['forums anónimos']"
                         }
                     },
                     "required": ["queries"],
@@ -1278,7 +1247,7 @@ impl SearchEngine {
             },
             Tool {
                 name: "premium_content_scraper".to_string(),
-                description: "⭐ PREMIUM CONTENT: Obtiene libros, guías, papers, cursos de alto nivel. Fuentes: Medium (paywall), ArXiv, Papers with Code, O'Reilly, Manning Books. Extrae contenido completo incluso detrás de paywalls.".to_string(),
+                description: "⭐ PREMIUM: Libros/Papers/Guías. Medium+ArXiv+O'Reilly. Máx config (20 queries, 15s timeout). INPUT: array strings ['query'] solamente".to_string(),
                 input_schema: json!({
                     "type": "object",
                     "properties": {
@@ -1287,12 +1256,7 @@ impl SearchEngine {
                             "items": {"type": "string"},
                             "minItems": 1,
                             "maxItems": 20,
-                            "description": "Array de 1-20 queries. Ejemplos: ['machine learning books'], ['rust async guide'], ['AI papers 2024']"
-                        },
-                        "content_type": {
-                            "type": "string",
-                            "enum": ["books", "papers", "guides", "courses", "all"],
-                            "description": "Filtro: books, papers, guides, courses, all (default: all)"
+                            "description": "Array de queries. SOLO strings: ['machine learning books'], ['rust guide'], ['papers 2024']"
                         }
                     },
                     "required": ["queries"],
@@ -1312,7 +1276,7 @@ impl SearchEngine {
     }
 
     /// Handle tools/call request - SAFE ERROR HANDLING
-    async fn handle_tools_call(&self, request: &JsonRpcRequest) -> Result<JsonRpcResponse, Box<dyn std::error::Error>> {
+    async fn handle_tools_call(&self, request: &JsonRpcRequest) -> Result<JsonRpcResponse, anyhow::Error> {
         let params: ToolCallParams = serde_json::from_value(
             request.params.clone().ok_or_else(|| anyhow!("Missing params in tools/call request"))?
         )?;
@@ -1322,19 +1286,30 @@ impl SearchEngine {
         let tool_result = match params.name.as_str() {
             "websearch" => {
                 let args = params.arguments.ok_or_else(|| anyhow!("Missing arguments for websearch"))?;
-                self.tool_websearch(&args).await?
-            }
-            "file_search" => {
-                let args = params.arguments.ok_or_else(|| anyhow!("Missing arguments for file_search"))?;
-                self.tool_file_search(&args).await?
+                // Timeout: 5 segundos máximo
+                match timeout(Duration::from_secs(5), self.tool_websearch(&args)).await {
+                    Ok(Ok(result)) => result,
+                    Ok(Err(e)) => return Err(e),
+                    Err(_) => return Err(anyhow!("⏱️ Websearch timeout (5s máximo)")),
+                }
             }
             "deepweb_search" => {
                 let args = params.arguments.ok_or_else(|| anyhow!("Missing arguments for deepweb_search"))?;
-                self.tool_deepweb_search(&args).await?
+                // Timeout: 10 segundos máximo
+                match timeout(Duration::from_secs(10), self.tool_deepweb_search(&args)).await {
+                    Ok(Ok(result)) => result,
+                    Ok(Err(e)) => return Err(e),
+                    Err(_) => return Err(anyhow!("⏱️ Deepweb timeout (10s máximo)")),
+                }
             }
             "premium_content_scraper" => {
                 let args = params.arguments.ok_or_else(|| anyhow!("Missing arguments for premium_content_scraper"))?;
-                self.tool_premium_content_scraper(&args).await?
+                // Timeout: 15 segundos máximo
+                match timeout(Duration::from_secs(15), self.tool_premium_content_scraper(&args)).await {
+                    Ok(Ok(result)) => result,
+                    Ok(Err(e)) => return Err(e),
+                    Err(_) => return Err(anyhow!("⏱️ Premium scraper timeout (15s máximo)")),
+                }
             }
             _ => {
                 return Ok(JsonRpcResponse {
@@ -1343,7 +1318,7 @@ impl SearchEngine {
                     result: None,
                     error: Some(json!({
                         "code": -32602,
-                        "message": format!("Tool '{}' not found", params.name)
+                        "message": format!("Tool '{}' not found. Available: websearch, deepweb_search, premium_content_scraper", params.name)
                     })),
                 });
             }
@@ -1380,10 +1355,19 @@ async fn root_handler(
                 "status": "ready",
                 "server": "🔥 Nuclear MCP Server 2025",
                 "version": "0.1.0",
-                "tools": ["websearch", "file_search", "deepweb_search", "premium_content_scraper"],
+                "tools": ["websearch", "deepweb_search", "premium_content_scraper"],
                 "protocol": "MCP 2.0 JSON-RPC",
                 "endpoint": "/call",
-                "usage": "POST /call with JSON-RPC 2.0 request"
+                "usage": "POST /call with JSON-RPC 2.0 request",
+                "restrictions": {
+                    "max_queries_websearch": 50,
+                    "max_queries_deepweb": 20,
+                    "max_queries_premium": 20,
+                    "timeout_websearch_s": 5,
+                    "timeout_deepweb_s": 10,
+                    "timeout_premium_s": 15,
+                    "input_format": "queries array de strings solamente ['\''texto'\'', '\''url'\'', '\''frase'\'']"
+                }
             });
 
             Response::builder()
@@ -1504,32 +1488,55 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 }
                             }
                             "file_search" => {
-                                match search_engine.tool_file_search(&legacy_request.arguments).await {
-                                    Ok(result) => {
-                                        eprintln!("✅ File search completed in {:?}", start.elapsed());
+                                json!({
+                                    "status": "error",
+                                    "error": "file_search no está disponible. Tools disponibles: websearch, deepweb_search, premium_content_scraper",
+                                    "execution_ms": start.elapsed().as_millis()
+                                })
+                            }
+                            "deepweb_search" => {
+                                match timeout(Duration::from_secs(10), search_engine.tool_deepweb_search(&legacy_request.arguments)).await {
+                                    Ok(Ok(result)) => {
+                                        eprintln!("✅ Deepweb search completed in {:?}", start.elapsed());
                                         result
                                     }
-                                    Err(e) => {
-                                        eprintln!("❌ File search failed: {}", e);
+                                    Ok(Err(e)) => {
+                                        eprintln!("❌ Deepweb search failed: {}", e);
                                         json!({
                                             "status": "error",
                                             "error": e.to_string(),
                                             "execution_ms": start.elapsed().as_millis()
                                         })
                                     }
+                                    Err(_) => {
+                                        eprintln!("⏱️ Deepweb timeout (10s)");
+                                        json!({
+                                            "status": "error",
+                                            "error": "Timeout (10s máximo)",
+                                            "execution_ms": start.elapsed().as_millis()
+                                        })
+                                    }
                                 }
                             }
-                            "deepweb_search" => {
-                                match search_engine.tool_deepweb_search(&legacy_request.arguments).await {
-                                    Ok(result) => {
-                                        eprintln!("✅ Deepweb search completed in {:?}", start.elapsed());
+                            "premium_content_scraper" => {
+                                match timeout(Duration::from_secs(15), search_engine.tool_premium_content_scraper(&legacy_request.arguments)).await {
+                                    Ok(Ok(result)) => {
+                                        eprintln!("✅ Premium content scraper completed in {:?}", start.elapsed());
                                         result
                                     }
-                                    Err(e) => {
-                                        eprintln!("❌ Deepweb search failed: {}", e);
+                                    Ok(Err(e)) => {
+                                        eprintln!("❌ Premium content scraper failed: {}", e);
                                         json!({
                                             "status": "error",
                                             "error": e.to_string(),
+                                            "execution_ms": start.elapsed().as_millis()
+                                        })
+                                    }
+                                    Err(_) => {
+                                        eprintln!("⏱️ Premium timeout (15s)");
+                                        json!({
+                                            "status": "error",
+                                            "error": "Timeout (15s máximo)",
                                             "execution_ms": start.elapsed().as_millis()
                                         })
                                     }
@@ -1540,7 +1547,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 json!({
                                     "status": "error",
                                     "error": format!("Unknown tool: {}", legacy_request.name),
-                                    "available_tools": ["websearch", "file_search", "deepweb_search", "premium_content_scraper"]
+                                    "available_tools": ["websearch", "deepweb_search", "premium_content_scraper"]
                                 })
                             }
                         };
@@ -1553,10 +1560,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .layer(Extension(search_engine));
 
     let addr = format!("{}:{}", args.host, args.port).parse::<SocketAddr>()?;
-    eprintln!("🔥 Nuclear MCP Server ready - DUAL TRANSPORT (POST + SSE)");
-    eprintln!("🛠️  3 tools: websearch, file_search, get_vscode_api");
+    eprintln!("🔥 Nuclear MCP Server ready - HTTP PURO");
+    eprintln!("🛠️  3 tools solamente: websearch, deepweb_search, premium_content_scraper");
     eprintln!("📡 Listening on http://{}", addr);
-    eprintln!("🔌 SSE endpoint: http://{} (POST for MCP connections)", addr);
     eprintln!("📮 JSON-RPC endpoint: http://{}/call", addr);
 
     // Start the server
