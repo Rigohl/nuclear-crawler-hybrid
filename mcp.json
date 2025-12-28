@@ -3,13 +3,14 @@
 		"nuclear-crawler-hybrid": {
 			"type": "http",
 			"url": "http://127.0.0.1:8079",
-			"description": "🔥 NUCLEAR CRAWLER HYBRID - Ultra Massive Web Search + File Analysis + VS Code API Docs",
+			"description": "🔥 NUCLEAR CRAWLER HYBRID - MCP Server (4 Tools: websearch, deepweb, premium, file_search)",
 			"version": "0.1.0",
-			"tools": ["websearch", "file_search", "get_vscode_api"],
+			"tools": ["websearch", "deepweb_search", "premium_content_scraper", "file_search"],
 			"features": {
-				"websearch": "50 queries, 60+ sources, DeepWeb/TOR, I2P, Premium content",
-				"file_search": "Cargo check, exact errors, line numbers, context",
-				"get_vscode_api": "VS Code API documentation and examples"
+				"websearch": "50 queries, 5s timeout, 55+ search engines",
+				"deepweb_search": "20 queries, 10s timeout, .onion + dark web",
+				"premium_content_scraper": "20 queries, 15s timeout, Medium/ArXiv/O'Reilly",
+				"file_search": "10 queries, 8s timeout, grep + cargo check + impact analysis"
 			}
 		},
 		"io.github.github/github-mcp-server": {
