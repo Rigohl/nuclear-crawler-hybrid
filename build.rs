@@ -60,17 +60,17 @@ fn main() {
     // FFI REAL - GO, ZIG Y NIM ACTIVADOS PARA MÁXIMA POTENCIA
     // ============================================================
 
-    let go_lib_msvc = format!("{}/go/stealth_go_msvc.lib", manifest_dir);
+    let go_lib_msvc = format!("{}/ffi/go/stealth_go_msvc.lib", manifest_dir);
     let zig_lib_candidates = [
-        format!("{}/zig/nuclear_zig.lib", manifest_dir),
-        format!("{}/zig/lib.lib", manifest_dir),
-        format!("{}/libs/nuclear_zig.lib", manifest_dir),
-        format!("{}/zig/zig-out/lib/nuclear_zig.lib", manifest_dir),
+        format!("{}/ffi/zig/nuclear_zig.lib", manifest_dir),
+        format!("{}/ffi/zig/lib.lib", manifest_dir),
+        format!("{}/ffi/shared/nuclear_zig.lib", manifest_dir),
+        format!("{}/ffi/zig/zig-out/lib/nuclear_zig.lib", manifest_dir),
     ];
 
     let nim_lib_candidates = [
-        format!("{}/nim/nuclear_nim.lib", manifest_dir),
-        format!("{}/libs/nuclear_nim.lib", manifest_dir),
+        format!("{}/ffi/nim/nuclear_nim.lib", manifest_dir),
+        format!("{}/ffi/shared/nuclear_nim.lib", manifest_dir),
     ];
 
     // Linkear Go FFI
@@ -87,7 +87,7 @@ fn main() {
     );
 
     if go_exists {
-        println!("cargo:rustc-link-search=native={}/go", manifest_dir);
+        println!("cargo:rustc-link-search=native={}/ffi/go", manifest_dir);
         println!("cargo:rustc-link-lib=static=stealth_go_msvc");
         println!("cargo:rustc-cfg=has_go");
 
@@ -110,7 +110,7 @@ fn main() {
 
     // If not found, try to build with `zig build` if Zig is installed and zig/ exists
     if zig_found.is_none() {
-        let zig_dir = format!("{}/zig", manifest_dir);
+        let zig_dir = format!("{}/ffi/zig", manifest_dir);
         if std::path::Path::new(&zig_dir).exists() {
             // Try to locate zig executable: first try system PATH, then common user locations
             let mut zig_exec: Option<String> = None;
@@ -224,9 +224,9 @@ fn main() {
 
     // Rerun si cambian las librerías
     println!("cargo:rerun-if-changed=build.rs");
-    println!("cargo:rerun-if-changed=go/stealth_go_msvc.lib");
-    println!("cargo:rerun-if-changed=zig/nuclear_zig.lib");
-    println!("cargo:rerun-if-changed=nim/nuclear_nim.lib");
+    println!("cargo:rerun-if-changed=ffi/go/stealth_go_msvc.lib");
+    println!("cargo:rerun-if-changed=ffi/zig/nuclear_zig.lib");
+    println!("cargo:rerun-if-changed=ffi/nim/nuclear_nim.lib");
     write_debug_log(
         "H3",
         "build.rs:exit",
