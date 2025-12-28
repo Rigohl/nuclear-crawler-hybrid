@@ -5,7 +5,12 @@
 			"url": "http://127.0.0.1:8079",
 			"description": "🔥 NUCLEAR CRAWLER HYBRID - MCP Server (4 Tools: websearch, deepweb, premium, file_search)",
 			"version": "0.1.0",
-			"tools": ["websearch", "deepweb_search", "premium_content_scraper", "file_search"],
+			"tools": [
+				"websearch",
+				"deepweb_search",
+				"premium_content_scraper",
+				"file_search"
+			],
 			"features": {
 				"websearch": "50 queries, 5s timeout, 55+ search engines",
 				"deepweb_search": "20 queries, 10s timeout, .onion + dark web",
@@ -36,7 +41,10 @@
 		},
 		"memoryr": {
 			"command": "npx",
-			"args": ["-y", "@modelcontextprotocol/server-memory"]
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-memory"
+			]
 		}
 	},
 	"inputs": [
