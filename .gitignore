@@ -832,3 +832,7 @@ crawler_temp/
 analysis_temp/
 
 # End of .gitignore
+go/
+zig/
+nim/
+libs/
