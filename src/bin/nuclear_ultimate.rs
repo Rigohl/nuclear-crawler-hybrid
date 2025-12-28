@@ -26,7 +26,7 @@ use tokio::time::timeout;
 use nuclear_crawler_hybrid::{
     cache::Cache,
     deepweb_tor::{DeepWebSearch, TorConfig},
-    file_search::{FileSearch, FileSearchConfig},
+    file_search::FileSearch,
     go_integration::GoParallelProcessor,
     intelligent_storage::IntelligentStorage,
     jax_integration::JaxProcessor,
@@ -692,290 +692,6 @@ impl SearchEngine {
         Ok(response)
     }
 
-    /// 🔥 FILE SEARCH TOOL - DETECCIÓN DE ERRORES EXACTA - Uses cargo check + Zig SIMD
-    ///
-    /// AYUDA PARA AGENTE IA:
-    /// - Busca código, errores, warnings, TODO, mocks, etc.
-    /// - Ejecuta `cargo check` REAL y muestra archivo:línea exacta
-    /// - Detecta: unwrap(), panic!, dead_code, imports circulares
-    /// - Muestra contexto de código (3-4 líneas antes/después)
-    /// - Guarda TODO en resultados/file_search/ con timestamp
-    ///
-    /// Parámetros:
-    /// - search_term: Palabra a buscar (puede ser vacío para solo errores)
-    /// - path: Directorio raíz (default: "./src")
-    /// - detect_errors: true/false (default: true) - Ejecutar cargo check
-    ///
-    /// Ejemplo: {"search_term": "unwrap", "path": "./src", "detect_errors": true}
-    pub async fn tool_file_search(&self, args: &Value) -> anyhow::Result<Value> {
-        let start = Instant::now();
-
-        // 🔥 Try external MCP file search tools first
-        match self.call_external_mcp_tool("file_search", args.clone()).await {
-            Ok(external_result) => {
-                eprintln!("✅ Using external MCP file_search tool");
-                return Ok(json!({
-                    "status": "success",
-                    "tool": "file_search",
-                    "source": "external_mcp",
-                    "data": external_result,
-                    "execution_ms": start.elapsed().as_millis(),
-                    "modules_used": 12,
-                }));
-            }
-            Err(e) => {
-                eprintln!("⚠️  External MCP file search failed: {}, using internal engine", e);
-            }
-        }
-
-        // Parse arguments with enhanced error handling and help
-        let search_term = args
-            .get("search_term")
-            .and_then(|s| s.as_str())
-            .ok_or(anyhow!(
-                "❌ ERROR: Falta el parámetro 'search_term'\n\n\
-                 📖 AYUDA COMPLETA - Cómo usar FILE_SEARCH:\n\
-                 {{\n  \
-                   \"name\": \"file_search\",\n  \
-                   \"arguments\": {{\n    \
-                     \"search_term\": \"palabra_o_patrón_a_buscar\",\n    \
-                     \"path\": \"./src\",\n    \
-                     \"detect_errors\": true,\n    \
-                     \"context_depth\": 4,\n    \
-                     \"include_hidden\": false\n  \
-                   }}\n\
-                 }}\n\n\
-                 ✅ PARÁMETROS AVANZADOS:\n\
-                 • search_term: Texto, regex, o \"\" para solo detectar errores\n\
-                 • path: Directorio raíz (default: \"./src\")\n\
-                 • detect_errors: Ejecutar cargo check real (default: true)\n\
-                 • context_depth: Líneas de contexto antes/después (default: 4)\n\
-                 • include_hidden: Incluir archivos ocultos (default: false)\n\n\
-                 ✅ DETECCIÓN AUTOMÁTICA INTELIGENTE:\n\
-                 • Errores de compilación (cargo check REAL)\n\
-                 • Warnings del compilador (unused, deprecated)\n\
-                 • Código problemático: unwrap(), panic!(), expect()\n\
-                 • TODO, FIXME, XXX, HACK comments\n\
-                 • Imports circulares y dependencias complejas\n\
-                 • Código duplicado con análisis semántico\n\
-                 • Complejidad ciclomática de funciones\n\
-                 • Dead code y código no utilizado\n\
-                 • Mocks y datos hardcodeados\n\
-                 • Inconsistencias de estilo\n\n\
-                 🔧 MÓDULOS INTEGRADOS:\n\
-                 • File Search Core: Motor de búsqueda principal\n\
-                 • Cargo Check Integration: Análisis real de errores\n\
-                 • Zig SIMD: Búsqueda ultra-rápida en archivos\n\
-                 • Semantic Analysis: Análisis inteligente de código\n\
-                 • Context Analysis: Contexto amplio de resultados\n\
-                 • Pattern Detection: Detección de anti-patrones\n\
-                 • Function Complexity: Análisis de complejidad\n\
-                 • Circular Import Detection: Dependencias circulares\n\
-                 • Code Duplication: Detección de duplicados\n\
-                 • Intelligent Storage: Persistencia automática\n\
-                 • Memory Cache: Resultados en caché\n\
-                 • Rate Limiter: Control de frecuencia\n\n\
-                 💾 RESULTADOS GUARDADOS EN: resultados/file_search/\n\
-                 📊 FORMATO: archivo.rs:línea con contexto completo\n\
-                 🎯 PRECISIÓN: Ubicación exacta de errores y problemas"
-            ))?;
-
-        let path = args.get("path").and_then(|p| p.as_str()).unwrap_or("./src");
-        let detect_errors = args.get("detect_errors").and_then(|d| d.as_bool()).unwrap_or(true);
-        let context_depth = args.get("context_depth").and_then(|c| c.as_u64()).unwrap_or(4) as usize;
-        let include_hidden = args.get("include_hidden").and_then(|h| h.as_bool()).unwrap_or(false);
-
-        // Enhanced search configuration analysis
-        let search_config = json!({
-            "search_term": search_term,
-            "root_path": path,
-            "detect_errors": detect_errors,
-            "context_depth": context_depth,
-            "include_hidden": include_hidden,
-            "estimated_complexity": if detect_errors { "high" } else { "medium" },
-            "search_type": if search_term.is_empty() { "error_detection_only" } else { "pattern_search" }
-        });
-
-        eprintln!(
-            "📂 ADVANCED FILE SEARCH: '{}' in '{}' | Errors: {} | Context: {} | Hidden: {} | Complexity: {}",
-            search_term,
-            path,
-            detect_errors,
-            context_depth,
-            include_hidden,
-            search_config["estimated_complexity"]
-        );
-
-        // Rate limiting with complexity consideration
-        let rate_limit_multiplier = if detect_errors { 2 } else { 1 };
-        for _ in 0..rate_limit_multiplier {
-            self.rate_limit.wait().await;
-        }
-
-        // Check memory cache first
-        let cache_key = format!("filesearch_{}_{}", search_term, path);
-        {
-            let cache = self.memory_cache.read().await;
-            if let Some(cached) = cache.get(&cache_key) {
-                eprintln!("💾 Cache hit for file search");
-                return Ok(cached.clone());
-            }
-        }
-
-        // Execute search using file search module
-        let config = FileSearchConfig {
-            search_term: search_term.to_string(),
-            root_dir: std::path::PathBuf::from(path),
-            detect_errors,
-            use_cargo_check: detect_errors, // 🔥 REAL cargo check enabled!
-            semantic_search: true,
-            context_analysis: true,
-            pattern_detection: true,
-            fuzzy_search: false, // Disabled for performance
-            dependency_analysis: false,
-            detect_circular_imports: true,
-            analyze_function_complexity: true,
-            detect_code_duplication: false, // Disabled for performance
-            context_depth: 4,               // Show more context
-            ..Default::default()
-        };
-
-        let result = timeout(
-            Duration::from_secs(5), // 🔥 5 second timeout - ULTRA FAST
-            tokio::task::spawn_blocking(move || FileSearch::search_sync(config)),
-        )
-        .await???; // Extra ? to unwrap the Result from search_sync
-
-        // Cache result
-        {
-            let mut cache = self.memory_cache.write().await;
-            cache.insert(cache_key, json!(result));
-        }
-
-        // 🔥 STORAGE: Save enhanced results to resultados/ folder with comprehensive metadata
-        let storage_result = self
-            .intelligent_storage
-            .store_search_results(
-                "file_search",
-                &format!("file_search_{}", search_term.replace("/", "_").replace("\\", "_").replace(" ", "_")),
-                &json!({
-                    "tool": "file_search",
-                    "search_config": search_config,
-                    "results": result,
-                    "results_count": result.len(),
-                    "execution_ms": start.elapsed().as_millis(),
-                    "timestamp": chrono::Utc::now().to_rfc3339(),
-                    "performance_metrics": {
-                        "total_execution_time_ms": start.elapsed().as_millis(),
-                        "results_found": result.len(),
-                        "search_efficiency": if start.elapsed().as_millis() > 0 {
-                            (result.len() as f64) / (start.elapsed().as_millis() as f64 / 1000.0)
-                        } else { 0.0 }
-                    },
-                    "analysis_summary": {
-                        "files_searched": result.iter().map(|r| &r.file_path).collect::<std::collections::HashSet<_>>().len(),
-                        "total_matches": result.len(),
-                        "has_errors": result.iter().any(|r| r.match_type == "error" || r.severity.as_deref() == Some("error")),
-                        "has_warnings": result.iter().any(|r| r.match_type == "warning" || r.severity.as_deref() == Some("warning")),
-                        "has_todos": result.iter().any(|r| r.match_type == "todo"),
-                        "context_provided": false,
-                        "complexity_analyzed": false
-                    },
-                    "modules_used": {
-                        "file_search_core": true,
-                        "cargo_check_integration": detect_errors,
-                        "zig_simd_search": true,
-                        "semantic_analysis": true,
-                        "context_analysis": true,
-                        "pattern_detection": true,
-                        "function_complexity": true,
-                        "circular_import_detection": true,
-                        "code_duplication": false,
-                        "intelligent_storage": true,
-                        "memory_cache": true,
-                        "rate_limiter": true,
-                        "external_mcp_integration": false
-                    },
-                    "data_quality": {
-                        "has_exact_locations": result.iter().all(|r| r.line_number.is_some()),
-                        "has_context": false,
-                        "has_cargo_check": detect_errors,
-                        "has_semantic_info": false,
-                        "has_complexity_scores": false
-                    }
-                }),
-            )
-            .await;
-
-        match storage_result {
-            Ok(filename) => eprintln!("💾 Enhanced file search results saved to: {}", filename),
-            Err(e) => eprintln!("⚠️ Failed to save enhanced file search results: {}", e),
-        }
-
-        // Build enhanced response with comprehensive analysis
-        let modules_used_count = {
-            let mut count = 8; // Base modules: file_search_core, zig_simd_search, semantic_analysis, context_analysis, intelligent_storage, cache, rate_limiter, pattern_detection
-            if detect_errors { count += 1; } // cargo_check_integration
-            count += 2; // function_complexity, circular_import_detection
-            count
-        };
-
-        // Generate analysis summary
-        let analysis_summary = json!({
-            "files_searched": result.iter().map(|r| &r.file_path).collect::<std::collections::HashSet<_>>().len(),
-            "total_matches": result.len(),
-            "error_count": result.iter().filter(|r| r.match_type == "error" || r.severity.as_deref() == Some("error")).count(),
-            "warning_count": result.iter().filter(|r| r.match_type == "warning" || r.severity.as_deref() == Some("warning")).count(),
-            "todo_count": result.iter().filter(|r| r.match_type == "todo").count(),
-            "complexity_issues": 0,
-            "context_provided": false
-        });
-
-        let response = json!({
-            "status": "success",
-            "tool": "file_search",
-            "count": result.len(),
-            "data": result,
-            "search_config": search_config,
-            "analysis_summary": analysis_summary,
-            "statistics": {
-                "execution_ms": start.elapsed().as_millis(),
-                "results_per_second": if start.elapsed().as_millis() > 0 {
-                    (result.len() as f64) / (start.elapsed().as_millis() as f64 / 1000.0)
-                } else { 0.0 },
-                "files_analyzed": analysis_summary["files_searched"],
-                "data_quality": {
-                    "has_exact_locations": result.iter().all(|r| r.line_number.is_some()),
-                    "has_context": analysis_summary["context_provided"],
-                    "cargo_check_performed": detect_errors,
-                    "semantic_analysis": true
-                }
-            },
-            "modules_used": modules_used_count,
-            "enhancements_applied": [
-                "Cargo Check Real Integration",
-                "Zig SIMD Ultra-fast Search",
-                "Semantic Code Analysis",
-                "Context-aware Results",
-                "Pattern Detection",
-                "Function Complexity Analysis",
-                "Circular Import Detection",
-                "Intelligent Storage",
-                "Memory Caching",
-                "Rate Limiting"
-            ],
-            "precision_metrics": {
-                "exact_line_numbers": true,
-                "context_lines": context_depth,
-                "semantic_classification": true,
-                "error_detection": detect_errors,
-                "false_positive_rate": "low"
-            }
-        });
-
-        Ok(response)
-    }
-
     /// Helper method to get VS Code API documentation
     async fn call_external_mcp_tool(&self, tool_name: &str, _args: Value) -> anyhow::Result<Value> {
         // Try to call external MCP tools if configured
@@ -1103,6 +819,120 @@ impl SearchEngine {
             "tool": "premium_content_scraper",
             "count": results.len(),
             "data": results,
+            "execution_ms": start.elapsed().as_millis(),
+        });
+
+        Ok(response)
+    }
+
+    /// File search - busca palabras exactas, errores y warnings en archivos
+    pub async fn tool_file_search(&self, args: &Value) -> anyhow::Result<Value> {
+        let start = Instant::now();
+
+        // Obtener parámetros
+        let queries = args
+            .get("queries")
+            .and_then(|q| q.as_array())
+            .ok_or_else(|| anyhow!("Missing 'queries' array parameter"))?;
+
+        let query_strings: Vec<String> = queries
+            .iter()
+            .filter_map(|q| q.as_str())
+            .map(|s| s.to_string())
+            .collect();
+
+        if query_strings.is_empty() {
+            return Err(anyhow!("At least one query string required"));
+        }
+
+        eprintln!("🔍 FILE SEARCH: {} queries", query_strings.len());
+
+        // Rate limiting
+        self.rate_limit.wait().await;
+
+        let mut all_matches = Vec::new();
+        let mut affected_files = std::collections::HashSet::new();
+
+        // Buscar en el directorio src/
+        for search_term in query_strings {
+            // Ejecutar grep para encontrar ocurrencias
+            let grep_output = tokio::task::spawn_blocking({
+                let search_term = search_term.clone();
+                move || {
+                    std::process::Command::new("grep")
+                        .arg("-r")
+                        .arg(&search_term)
+                        .arg("src/")
+                        .output()
+                }
+            })
+            .await;
+
+            match grep_output {
+                Ok(Ok(output)) => {
+                    let stdout = String::from_utf8_lossy(&output.stdout);
+                    for line in stdout.lines() {
+                        if let Some((file, rest)) = line.split_once(':') {
+                            affected_files.insert(file.to_string());
+                            all_matches.push(json!({
+                                "search_term": search_term,
+                                "file": file,
+                                "match": rest,
+                                "type": "exact_match"
+                            }));
+                        }
+                    }
+                }
+                _ => {}
+            }
+        }
+
+        // Ejecutar cargo check para detectar errores y warnings
+        let check_output = tokio::task::spawn_blocking(|| {
+            std::process::Command::new("cargo")
+                .arg("check")
+                .arg("--all")
+                .env("RUSTFLAGS", "-D warnings")
+                .output()
+        })
+        .await;
+
+        let mut errors = Vec::new();
+        let mut warnings = Vec::new();
+
+        match check_output {
+            Ok(Ok(output)) => {
+                let stderr = String::from_utf8_lossy(&output.stderr);
+                for line in stderr.lines() {
+                    if line.contains("error") {
+                        if let Some(file_info) = line.split("-->").nth(1) {
+                            let file = file_info.trim().split(':').next().unwrap_or("");
+                            affected_files.insert(file.to_string());
+                            errors.push(line.to_string());
+                        }
+                    } else if line.contains("warning") {
+                        if let Some(file_info) = line.split("-->").nth(1) {
+                            let file = file_info.trim().split(':').next().unwrap_or("");
+                            affected_files.insert(file.to_string());
+                            warnings.push(line.to_string());
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+
+        let response = json!({
+            "status": "success",
+            "tool": "file_search",
+            "matches_count": all_matches.len(),
+            "errors_count": errors.len(),
+            "warnings_count": warnings.len(),
+            "affected_files_count": affected_files.len(),
+            "affected_files": affected_files.iter().collect::<Vec<_>>(),
+            "exact_matches": all_matches,
+            "errors": errors,
+            "warnings": warnings,
             "execution_ms": start.elapsed().as_millis(),
         });
 
@@ -1263,6 +1093,24 @@ impl SearchEngine {
                     "additionalProperties": false
                 }),
             },
+            Tool {
+                name: "file_search".to_string(),
+                description: "📁 BUSCA EN ARCHIVOS: Palabras exactas, errores/warnings. Muestra qué archivos se afectan. Máx config (10 queries, 8s timeout). INPUT: array strings ['palabra_buscar']".to_string(),
+                input_schema: json!({
+                    "type": "object",
+                    "properties": {
+                        "queries": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "minItems": 1,
+                            "maxItems": 10,
+                            "description": "Array de palabras a buscar. SOLO strings: ['función_name'], ['async'], ['import pattern']"
+                        }
+                    },
+                    "required": ["queries"],
+                    "additionalProperties": false
+                }),
+            },
         ];
 
         let result = ToolsListResult { tools };
@@ -1311,6 +1159,15 @@ impl SearchEngine {
                     Err(_) => return Err(anyhow!("⏱️ Premium scraper timeout (15s máximo)")),
                 }
             }
+            "file_search" => {
+                let args = params.arguments.ok_or_else(|| anyhow!("Missing arguments for file_search"))?;
+                // Timeout: 8 segundos máximo
+                match timeout(Duration::from_secs(8), self.tool_file_search(&args)).await {
+                    Ok(Ok(result)) => result,
+                    Ok(Err(e)) => return Err(e),
+                    Err(_) => return Err(anyhow!("⏱️ File search timeout (8s máximo)")),
+                }
+            }
             _ => {
                 return Ok(JsonRpcResponse {
                     jsonrpc: "2.0".to_string(),
@@ -1318,7 +1175,7 @@ impl SearchEngine {
                     result: None,
                     error: Some(json!({
                         "code": -32602,
-                        "message": format!("Tool '{}' not found. Available: websearch, deepweb_search, premium_content_scraper", params.name)
+                        "message": format!("Tool '{}' not found. Available: websearch, deepweb_search, premium_content_scraper, file_search", params.name)
                     })),
                 });
             }
@@ -1488,11 +1345,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 }
                             }
                             "file_search" => {
-                                json!({
-                                    "status": "error",
-                                    "error": "file_search no está disponible. Tools disponibles: websearch, deepweb_search, premium_content_scraper",
-                                    "execution_ms": start.elapsed().as_millis()
-                                })
+                                match timeout(Duration::from_secs(8), search_engine.tool_file_search(&legacy_request.arguments)).await {
+                                    Ok(Ok(result)) => {
+                                        eprintln!("✅ File search completed in {:?}", start.elapsed());
+                                        result
+                                    }
+                                    Ok(Err(e)) => {
+                                        eprintln!("❌ File search failed: {}", e);
+                                        json!({
+                                            "status": "error",
+                                            "error": e.to_string(),
+                                            "execution_ms": start.elapsed().as_millis()
+                                        })
+                                    }
+                                    Err(_) => {
+                                        eprintln!("⏱️ File search timeout (8s)");
+                                        json!({
+                                            "status": "error",
+                                            "error": "Timeout (8s máximo)",
+                                            "execution_ms": start.elapsed().as_millis()
+                                        })
+                                    }
+                                }
                             }
                             "deepweb_search" => {
                                 match timeout(Duration::from_secs(10), search_engine.tool_deepweb_search(&legacy_request.arguments)).await {
@@ -1547,7 +1421,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 json!({
                                     "status": "error",
                                     "error": format!("Unknown tool: {}", legacy_request.name),
-                                    "available_tools": ["websearch", "deepweb_search", "premium_content_scraper"]
+                                    "available_tools": ["websearch", "deepweb_search", "premium_content_scraper", "file_search"]
                                 })
                             }
                         };
