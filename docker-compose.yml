@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  nuclear-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nuclear-mcp-server
+    ports:
+      - "8079:8079"
+    environment:
+      - RUST_LOG=info
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8079/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    # Para Windows, usar host.docker.internal en lugar de 127.0.0.1
+    # El servidor estará accesible en: http://localhost:8079
