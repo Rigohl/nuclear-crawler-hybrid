@@ -1,0 +1,46 @@
+name: Clean Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_cleanup:
+        description: 'Type "YES" to confirm repository cleanup'
+        required: true
+        default: 'NO'
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm_cleanup == 'YES'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history
+
+      - name: Install git-filter-repo
+        run: |
+          pip install git-filter-repo
+
+      - name: Find large files
+        id: find_large
+        run: |
+          echo "large_files<<EOF" >> $GITHUB_OUTPUT
+          git ls-files | xargs -I {} sh -c 'size=$(stat -c%s "{}" 2>/dev/null || echo 0); if [ "$size" -gt 52428800 ]; then echo "{}"; fi' | tr '\n' '\n' >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Display large files
+        run: |
+          echo "Large files found:"
+          echo "${{ steps.find_large.outputs.large_files }}"
+
+      - name: Clean repository
+        if: steps.find_large.outputs.large_files != ''
+        run: |
+          echo "${{ steps.find_large.outputs.large_files }}" | git filter-repo --invert-paths --paths-from-file=-
+
+      - name: Force push cleaned repo
+        if: steps.find_large.outputs.large_files != ''
+        run: |
+          git push origin ${{ github.ref_name }} --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Install TRAE CLI
+      run: cargo install trae-cli
+
+    - name: Build release
+      run: trae build --release
+
+    - name: Run tests
+      run: trae test --release
+
+    - name: Setup Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+
+    - name: Setup Zig
+      uses: goto-bus-stop/setup-zig@v2
+      with:
+        version: 0.11.0
+
+    - name: Setup Nim
+      uses: jiro4989/setup-nim-action@v1
+      with:
+        nim-version: '2.0.0'
+
+    - name: Compile FFI libraries
+      run: |
+        # Go FFI
+        cd go/src && go build -buildmode=c-shared -o ../../libs/libstealth_go.so .
+        # Zig SIMD
+        cd ../../zig/src && zig build-lib main.zig -dynamic -lc
+        # Nim HTML parser
+        cd ../../nim/src && nim c --app:lib --noMain nuclear_nim.nim
+
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v1
+      with:
+        generate_release_notes: true
+        files: |
+          target/release/nuclear-crawler-hybrid
+          libs/*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Publish to crates.io
+      run: cargo publish --token ${{ secrets.CRATES_IO_TOKEN }}

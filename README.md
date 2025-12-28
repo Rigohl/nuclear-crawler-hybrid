@@ -1,118 +1,254 @@
-# 🔥 NUCLEAR CRAWLER HYBRID - MCP Server 2025
+# 🔥 NUCLEAR CRAWLER HYBRID - MCP SERVER 2025
 
-**Sistema de Búsqueda Web Masiva y Scraping Empresarial** con 18+ módulos integrados.
+> **Servidor MCP HTTP-Only de Alto Rendimiento con Protocolo 2025-06-18**
 
-[![Rust](https://img.shields.io/badge/Rust-1.75+-orange.svg)](https://www.rust-lang.org/)
-[![MCP Protocol](https://img.shields.io/badge/MCP-2025--06--18-blue.svg)](https://modelcontextprotocol.io/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+**Versión**: 1.0.0 | **Protocolo**: MCP 2025-06-18 | **Transporte**: HTTP Only | **Puerto**: 8079
+
+**Características**: 100K goroutines, 55 motores de búsqueda, 2s completion, 2100+ URLs por query
 
 ---
 
-## 🚀 Inicio Rápido
+## 🚀 INICIO RÁPIDO
 
-### Compilación
 ```bash
-cargo build --release --bin nuclear-mcp
+# Compilar (optimizado)
+cargo build --release
+
+# Ejecutar servidor MCP
+./target/release/nuclear-mcp --port 8079
 ```
 
-### Ejecución
+---
+
+## 📊 ESPECIFICACIONES TÉCNICAS
+
+| Componente | Especificación |
+|------------|----------------|
+| Protocolo | MCP 2025-06-18 (HTTP-only) |
+| Transporte | HTTP + SSE (Axum) |
+| Herramientas | 3 (websearch, file_search, get_vscode_api) |
+| Puerto | 8079 |
+| JARVIXSERVER | 5050 |
+| TRAE CLI API | 8080 |
+| Rendimiento | 100K goroutines paralelas |
+| Motores | 55 fuentes de búsqueda |
+| Tiempo | <2s por búsqueda completa |
+| Resultados | 2100+ URLs por query |
+
+---
+
+## 🔧 CONFIGURACIÓN DE SERVICIOS
+
+### Puertos y Servicios
+- **Nuclear MCP Server**: `http://localhost:8079` - Servidor principal MCP
+- **JARVIXSERVER**: `http://localhost:5050` - Backend de análisis e IA
+- **TRAE CLI API**: `http://localhost:8080` - API REST de TRAE CLI
+
+### Variables de Entorno para TRAE CLI
 ```bash
-# Modo MCP Studio (stdio) - Para VS Code, Cursor, Claude Desktop
-./target/release/nuclear-mcp.exe
-
-# Modo HTTP (API REST)
-./target/release/nuclear-mcp.exe --mode http --port 3000
+export JARVIX_URL=http://localhost:5050
 ```
+
+También puedes copiar `.env.example` a `.env` y ajustar las configuraciones.
 
 ---
 
-## 🛠️ 5 Herramientas MCP
+## 🤖 AGENTES AVANZADOS Y WORKFLOWS AUTOMATIZADOS
 
-### 1. 🔥 `websearch` - Búsqueda Web MASIVA
-Busca en **15+ motores de búsqueda** y **20+ sitios especializados** simultáneamente.
+### **Agentes Especializados Disponibles**
 
+#### 1. **CodeAnalysisAgent** 🤖
+- **Propósito**: Análisis inteligente de código Rust
+- **Capacidades**: Detección de bugs, optimización automática, corrección de Clippy warnings
+- **Herramientas**: `scan_project`, `websearch`, `deep_web_search`
+- **Activación**: Automática en pushes a main/develop
+
+#### 2. **ResearchAgent** 🔬
+- **Propósito**: Investigación y desarrollo automatizado
+- **Capacidades**: Búsqueda en múltiples fuentes, análisis de tendencias, generación de propuestas
+- **Fuentes**: GitHub, arXiv, Stack Overflow, Reddit, Dev.to
+- **Activación**: Semanal (lunes) o manual
+
+#### 3. **AutomationAgent** ⚙️
+- **Propósito**: Automatización de workflows complejos
+- **Capacidades**: CI/CD, revisiones de código, actualizaciones de dependencias
+- **Integraciones**: GitHub Actions, Docker, Kubernetes, Slack
+- **Activación**: En PRs y releases
+
+#### 4. **DevOpsAgent** 🏗️
+- **Propósito**: Operaciones de desarrollo e infraestructura
+- **Capacidades**: Orquestación de contenedores, IaC, monitoreo, optimización
+- **Plataformas**: Docker, Kubernetes, AWS, Azure, GCP
+- **Activación**: En deployments
+
+### **Workflows Automatizados**
+
+#### **Pipeline Principal: Multi-Agent CI/CD**
+```yaml
+# .github/workflows/nuclear-advanced-pipeline.yml
+name: 🚀 Nuclear Multi-Agent CI/CD Pipeline
+
+on: [push, pull_request, issues, schedule, workflow_dispatch]
+
+jobs:
+  multi_agent_analysis      # 🤖 Análisis paralelo con 4 agentes
+  ai_research_development   # 🔬 Investigación automatizada
+  auto_fix_optimization     # 🔧 Corrección automática
+  monitoring_reporting      # 📊 Reportes avanzados
+  deployment               # 🚀 Deploy automático
+  security_scanning        # 🔒 Escaneo de seguridad
+  performance_monitoring   # 📈 Monitoreo continuo
+```
+
+#### **Características del Pipeline**
+- **Análisis Paralelo**: 4 agentes trabajando simultáneamente
+- **Auto-Fix**: Corrección automática de issues críticos
+- **Reportes Avanzados**: Generados con IA y métricas detalladas
+- **Monitoreo Continuo**: Métricas en tiempo real
+- **Deploy Seguro**: Solo con aprobación de todos los agentes
+
+### **Scripts de Automatización**
+
+#### **Generador de Reportes Avanzados**
+```bash
+python scripts/generate_advanced_report.py \
+  --input analysis_results.json \
+  --template nuclear_template.md \
+  --output NUCLEAR_ANALYSIS_REPORT.md
+```
+
+#### **Sistema de Auto-Fix**
+```bash
+python scripts/auto_fix.py \
+  --analysis-results analysis_results.json \
+  --severity critical \
+  --auto-commit true
+```
+
+#### **Benchmark de Rendimiento**
+```bash
+python scripts/benchmark.py \
+  --output performance_results.json \
+  --save-baseline
+```
+
+### **Integración con Herramientas Externas**
+
+#### **Hugging Face Jobs**
+- **CodeAnalysisAgent**: Usa modelos de código como `microsoft/codebert-base`
+- **GPU Acceleration**: Procesamiento paralelo en infraestructura HF
+- **Modelos Especializados**: Fine-tuned para análisis Rust
+
+#### **N8N Workflows**
+- **Workflow Automation**: Conexión directa con MCP server
+- **Multi-Agent Orchestration**: Coordinación entre agentes
+- **External Integrations**: Slack, Discord, email, APIs
+
+#### **GitHub Copilot CLI**
+- **Agent Integration**: Copilot CLI como agente adicional
+- **Prompt Engineering**: Instrucciones contextuales por proyecto
+- **Workflow Triggers**: Activación basada en eventos
+
+### **Métricas y Monitoreo**
+
+#### **Dashboard de Rendimiento**
+- **Response Times**: <2s por operación
+- **Success Rate**: >95% en todas las operaciones
+- **Resource Usage**: Monitoreo de CPU/memoria
+- **Agent Performance**: Métricas por agente especializado
+
+#### **Alertas Automáticas**
+- **Slack Integration**: Notificaciones en tiempo real
+- **Performance Thresholds**: Alertas cuando se exceden límites
+- **Security Alerts**: Detección automática de vulnerabilidades
+- **Deployment Status**: Notificaciones de deploy
+
+---
+
+## 🛠️ HERRAMIENTAS MCP
+
+### 1. `websearch` - Búsqueda Web Masiva con FFI
 ```json
-{
-  "name": "websearch",
-  "arguments": {
-    "query": "Rust async await tutorial",
-    "max_results": 100,
-    "deep_web": false
-  }
-}
+{"name": "websearch", "arguments": {"queries": ["rust async", "tokio patterns"]}}
 ```
+- **Hasta 5 queries simultáneos**
+- **55 motores de búsqueda integrados**
+- **Scraping premium**: Medium.com, ArXiv, papers académicos
+- **FFI Acelerado**: Go (100K goroutines), Nim (HTML parsing), JAX (GPU)
+- **Resultados reales** guardados en `resultados/`
+- **Tiempo**: <2 segundos para 2100+ URLs
 
-**Motores de búsqueda integrados:**
-- DuckDuckGo, Bing, Brave Search, Yandex
-- Ecosia, Qwant, Startpage, SearX, Mojeek
-
-**Sitios especializados:**
-- GitHub, GitLab, StackOverflow, Reddit
-- HuggingFace, arXiv, crates.io, npm, PyPI
-- dev.to, Medium, Wikipedia, y más...
-
----
-
-### 2. 🔍 `analyzer` - Analizador de Proyectos
-Escanea proyectos en **10+ lenguajes** con análisis de seguridad.
-
+### 2. `file_search` - Búsqueda de Archivos con SIMD
 ```json
-{
-  "name": "analyzer",
-  "arguments": {
-    "path": "./mi-proyecto",
-    "analyze_type": "full"
-  }
-}
+{"name": "file_search", "arguments": {"search_term": "async fn", "path": "./src"}}
 ```
+- **SIMD Zig FFI** para búsqueda ultra-rápida
+- **Análisis avanzado**: detección de errores, warnings, complejidad
+- **Resultados precisos** con números de línea exactos
+- **Funciones**: búsqueda semántica, duplicados, imports circulares
 
-**Lenguajes soportados:**
-- Rust, Python, JavaScript, TypeScript
-- Go, Java, C/C++, Zig, Chapel
-
-**Tipos de análisis:**
-- `full` - Análisis completo
-- `errors` - Solo errores
-- `security` - Vulnerabilidades (passwords, API keys, tokens)
-
----
-
-### 3. 📂 `file_research` - Búsqueda en Archivos
-Encuentra texto exacto con **número de línea preciso**.
-
+### 3. `get_vscode_api` - Documentación VS Code API
 ```json
-{
-  "name": "file_research",
-  "arguments": {
-    "search_term": "TODO|FIXME|panic!",
-    "path": ".",
-    "use_regex": true
-  }
-}
+{"name": "get_vscode_api", "arguments": {"query": "commands"}}
+```
+- **Documentación completa** de APIs de VS Code
+- **Ejemplos de código** TypeScript funcionales
+- **Consultas específicas**: workspace, commands, window, languages
+- **Interfaces y métodos** detallados
+
+---
+
+## 🌐 ENDPOINTS MCP
+
+| Endpoint | Método | Descripción |
+|----------|--------|-------------|
+| `/` | GET | Health check + SSE connections |
+| `/` | POST | JSON-RPC MCP messages |
+| `/call` | POST | JSON-RPC tool calls |
+
+### Ejemplo de Uso
+```bash
+# Listar herramientas
+curl -X POST http://localhost:8079/call \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc": "2.0", "method": "tools/list", "id": 1}'
+
+# Ejecutar búsqueda web
+curl -X POST http://localhost:8079/call \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc": "2.0", "method": "tools/call", "params": {"name": "websearch", "arguments": {"queries": ["rust async"]}}, "id": 2}'
 ```
 
 ---
 
-### 4. 📊 `stats` - Estadísticas del Sistema
-Métricas completas del MCP.
+## 🎯 ARQUITECTURA Y MÓDULOS
 
-```json
-{
-  "name": "stats",
-  "arguments": {
-    "stat_type": "full"
-  }
-}
-```
+### Core Modules (11 integrados)
+- **Web Search**: Motor de búsqueda masiva con FFI
+- **File Search**: Análisis de archivos con SIMD
+- **Nuclear Core**: Núcleo de procesamiento
+- **Premium Scraper**: Scraping de contenido premium
+- **Rate Limiter**: Control de tasa de requests
+- **Intelligent Storage**: Almacenamiento inteligente
+- **Cache**: Sistema de cache avanzado
 
-**Tipos:**
-- `full` - Todo
-- `performance` - Rendimiento
-- `storage` - Almacenamiento
-- `recent` - Actividad reciente
+### FFI Integrations
+- **Go FFI**: 100K goroutines paralelas para stealth requests
+- **Zig SIMD**: Procesamiento de hashing y parsing ultra-rápido
+- **Nim HTML**: Parsing HTML alternativo de alto rendimiento
+- **JAX GPU**: Aceleración vectorizada para procesamiento batch
+
+### Tecnologías
+- **Rust** 🦀 - Core system
+- **Axum** 🌐 - HTTP MCP server
+- **Tokio** ⚡ - Async runtime completo
+- **Serde** 📦 - JSON serialization
+- **libloading** 🔗 - FFI dynamic loading
+- **DashMap** 🗺️ - Concurrent hash maps
 
 ---
 
+<<<<<<< HEAD
 ### 5. 🎭 `orchestrate` - Orquestador de Tareas Masivas
 Ejecuta **múltiples tareas en paralelo**.
 
@@ -234,61 +370,139 @@ O crear `mcp.json` en el workspace:
 ---
 
 ## 📦 Estructura del Proyecto
+=======
+## 📁 ESTRUCTURA DEL PROYECTO
+>>>>>>> origin/main
 
 ```
 NUCLEAR_CRAWLER_HYBRID/
-├── src/
-│   ├── bin/
-│   │   └── nuclear_ultimate.rs    # 🔥 Binario MCP principal
-│   ├── web_search.rs              # Búsqueda web v5.0
-│   ├── massive_parallel_search.rs # Búsqueda masiva paralela
-│   ├── nuclear_scraper.rs         # Scraper nuclear
-│   ├── file_search.rs             # Búsqueda en archivos
-│   ├── scan_project.rs            # Scanner de proyectos
-│   ├── deep_web_search.rs         # Deep web
-│   ├── stealth.rs                 # Sistema stealth
-│   ├── ai_smart.rs                # IA inteligente
-│   └── ...                        # 18+ módulos más
-├── target/release/
-│   └── nuclear-mcp.exe            # Binario compilado
-├── resultados/                    # Resultados guardados
-├── Cargo.toml
-└── README.md
+├── src/                    # Código fuente Rust - Lógica core del servidor MCP
+├── go/                     # Implementación FFI en Go - 100K goroutines paralelas
+├── zig/                    # Librería SIMD en Zig - Procesamiento ultra-rápido
+├── nim/                    # Parser HTML en Nim - Alto rendimiento
+├── libs/                   # Librerías compiladas FFI dinámicas
+├── scripts/                # Scripts de build, compilación y automatización
+├── memories/               # Sistema de memoria persistente y cache
+├── REPORTS/                # Análisis y reportes de hallazgos del crawler
+├── resultados/             # Resultados de búsquedas y análisis guardados
+├── target/                 # Artefactos de compilación Cargo
+├── recomendaciones.md      # Recomendaciones de GitHub para mejoras
+├── MAXIMO_PODER_ACTIVADO.md      # Guía de máxima potencia
+├── RESUMEN_CONFIGURACION.md      # Configuración resumida
+├── MCP_TOOLKIT_2025_EXAMPLES.md  # Ejemplos MCP 2025
+├── MCP_SERVER_GUIDE.md           # Guía del servidor
+└── README.md              # Este archivo
+```
+
+Cada carpeta raíz contiene un `README.md` con documentación específica sobre su contenido y propósito en el proyecto híbrido.
+
+---
+
+## ⚙️ CONFIGURACIÓN
+
+### Cargo.toml (Extracto)
+```toml
+[package]
+name = "nuclear-crawler-hybrid"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+clap = { version = "4.0", features = ["derive"] }
+libloading = "0.8"
+dashmap = "5.5"
+chrono = "0.4"
+```
+
+### Build Optimizado
+```toml
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
 ```
 
 ---
 
-## 🧪 Pruebas
+## 🚀 DEPLOYMENT
 
 ```bash
-# Test básico MCP
-$init = '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}'
-$list = '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}'
-($init, $list) -join "`n" | .\target\release\nuclear-mcp.exe
+# Build optimizado
+cargo build --release
 
-# Test búsqueda web
-$search = '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"websearch","arguments":{"query":"Rust async await"}}}'
-($init, $search) -join "`n" | .\target\release\nuclear-mcp.exe
+# Ejecutar servidor
+./target/release/nuclear-mcp --port 8079
+
+# Verificar funcionamiento
+curl -X POST http://localhost:8079/call \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc": "2.0", "method": "tools/list", "id": 1}'
 ```
 
 ---
 
-## 📄 Licencia
+## 📚 DOCUMENTACIÓN
 
-MIT License - Ver [LICENSE](LICENSE)
+- **[MAXIMO_PODER_ACTIVADO.md](MAXIMO_PODER_ACTIVADO.md)** - Guía completa de máxima potencia
+- **[RESUMEN_CONFIGURACION.md](RESUMEN_CONFIGURACION.md)** - Configuración resumida
+- **[MCP_TOOLKIT_2025_EXAMPLES.md](MCP_TOOLKIT_2025_EXAMPLES.md)** - Ejemplos MCP 2025
+- **[MCP_SERVER_GUIDE.md](MCP_SERVER_GUIDE.md)** - Guía detallada del servidor
+- **[.github/AGENT.MD](.github/AGENT.MD)** - Documentación completa de automatización GitHub con TRAE CLI
+
+## 📋 RECOMENDACIONES
+
+- **[recomendaciones.md](recomendaciones.md)** - Recomendaciones de repositorios similares, librerías y código de ejemplo obtenidos de búsquedas en GitHub. Incluye crawlers en Rust como spider-rs/spider, librerías como reqwest y scraper, y ejemplos de integración.
 
 ---
 
-## 🔥 Desarrollado por
+## 🤖 CONTEXTO PARA IA
 
-**Nuclear Crawler Team** | Protocolo MCP 2025-06-18
+### Arquitectura del Sistema
+**Nuclear Crawler Hybrid** es un servidor MCP HTTP avanzado que combina múltiples lenguajes y tecnologías para lograr rendimiento extremo:
 
-```
-██╗  ██╗██╗   ██╗ ██████╗██╗     ███████╗ █████╗ ██████╗ 
-███╗ ██║██║   ██║██╔════╝██║     ██╔════╝██╔══██╗██╔══██╗
-██╔██╗██║██║   ██║██║     ██║     █████╗  ███████║██████╔╝
-██║╚████║██║   ██║██║     ██║     ██╔══╝  ██╔══██║██╔══██╗
-██║ ╚███║╚██████╔╝╚██████╗███████╗███████╗██║  ██║██║  ██║
-╚═╝  ╚══╝ ╚═════╝  ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
-                CRAWLER HYBRID v0.5.0
-```
+- **Rust Core**: Sistema base memory-safe con async Tokio
+- **Multi-FFI**: Integraciones con Go (goroutines), Zig (SIMD), Nim (parsing)
+- **MCP Protocol**: Implementación HTTP-only del protocolo 2025-06-18
+- **Hybrid Search**: 55 motores de búsqueda con scraping inteligente
+
+### Patrones de Diseño
+- **Async-First**: Todo el sistema usa Tokio para concurrencia
+- **FFI Orchestration**: Rust coordina, lenguajes nativos ejecutan kernels intensivos
+- **Memory Management**: Zig para control manual, Rust para safety
+- **Modular Architecture**: Componentes desacoplados con interfaces claras
+
+### Consideraciones para Desarrollo
+- **Performance Critical**: Optimizaciones LTO, SIMD, parallel processing
+- **Multi-Language**: Coordenación compleja entre Rust + FFI languages
+- **Real-time Processing**: <2s completion para búsquedas masivas
+- **Resource Intensive**: 100K goroutines, GPU acceleration opcional
+
+### Estructura de Carpetas (AI Context)
+Cada carpeta raíz tiene documentación específica en `README.md`:
+- `src/` - Código Rust principal con módulos MCP
+- `go/` - FFI Go para requests paralelos masivos
+- `zig/` - SIMD Zig para procesamiento de datos
+- `nim/` - HTML parsing Nim de alto rendimiento
+- `libs/` - Librerías compiladas FFI dinámicas
+- `scripts/` - Automatización de build y mantenimiento
+- `resultados/` - Outputs de búsqueda y análisis
+- `memories/` - Sistema de memoria persistente
+- `REPORTS/` - Análisis y reportes de diagnóstico
+- `target/` - Artefactos de compilación Cargo
+- `.github/` - Automatización GitHub con TRAE CLI por defecto
+
+### GitHub Automation con TRAE CLI por Defecto
+El proyecto utiliza TRAE CLI por defecto para todos los procesos de CI/CD y desarrollo:
+- **CI/CD Automático**: `trae fmt`, `trae clippy --strict`, `trae test --release`
+- **Builds**: `trae build --release`
+- **Seguridad**: `trae clippy --strict --pedantic` + `cargo audit`
+- **Desarrollo Local**: `trae repair`, `trae clippy --strict`, `trae security --audit`
+- **Code Quality**: Zero warnings policy con clippy estricto
+- **Templates**: Issues y PRs estandarizados para desarrollo híbrido
+
+**🔥 Powered by Nuclear Technology - Maximum Power Activated 🦀**

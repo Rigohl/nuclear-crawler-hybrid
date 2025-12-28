@@ -1,0 +1,29 @@
+# .github/CODEOWNERS
+# Global owners
+* @project-owner @core-team
+
+# Core functionality
+src/ @core-team
+src/nuclear_core.rs @lead-developer
+
+# FFI Integrations
+go/ @ffi-team
+zig/ @ffi-team
+nim/ @ffi-team
+libs/ @ffi-team
+
+# Scripts and automation
+scripts/ @devops-team
+.github/ @devops-team
+
+# Documentation
+*.md @docs-team
+README.md @docs-team
+
+# MCP and configuration
+mcp.json @core-team
+Cargo.toml @core-team
+
+# Results and reports
+resultados/ @analysis-team
+REPORTS/ @analysis-team

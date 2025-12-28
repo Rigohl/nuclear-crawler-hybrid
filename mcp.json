@@ -1,0 +1,56 @@
+{
+	"servers": {
+		"nuclear-crawler-hybrid": {
+			"type": "http",
+			"url": "http://127.0.0.1:8079",
+			"description": "🔥 NUCLEAR MCP 2025 - 3 EXTREME TOOLS: File Search + Web Search + Premium Content",
+			"version": "6.0.0",
+			"tools": [
+				"file_search",
+				"web_search",
+				"premium_content"
+			],
+			"features": {
+				"file_search": "Zig SIMD analysis, exact errors/warnings, cross-file impact detection, Go/Nim/Rust integration",
+				"web_search": "Massive web search + DeepWeb/TOR/I2P + stealth bypass + 100+ sources + premium access",
+				"premium_content": "Extreme stealth scraping, proxy rotation, JS execution, header spoofing, cookie bypass"
+			}
+		},
+		"io.github.github/github-mcp-server": {
+			"type": "http",
+			"url": "https://api.githubcopilot.com/mcp/",
+			"headers": {
+				"Authorization": "${input:Authorization}"
+			},
+			"gallery": "https://api.mcp.github.com",
+			"version": "0.26.0-rc.3"
+		},
+		"huggingface/hf-mcp-server": {
+			"type": "http",
+			"url": "https://huggingface.co/mcp?login",
+			"gallery": "https://api.mcp.github.com",
+			"version": "1.0.0"
+		},
+		"cognitionai/deepwiki": {
+			"type": "http",
+			"url": "https://mcp.deepwiki.com/sse",
+			"gallery": "https://api.mcp.github.com",
+			"version": "1.0.0"
+		},
+		"memoryr": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-memory"
+			]
+		}
+	},
+	"inputs": [
+		{
+			"id": "Authorization",
+			"type": "promptString",
+			"description": "Authentication token (PAT or App token)",
+			"password": true
+		}
+	]
+}

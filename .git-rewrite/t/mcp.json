@@ -1,0 +1,49 @@
+{
+	"servers": {
+		"nuclear-crawler-hybrid": {
+			"type": "http",
+			"url": "http://127.0.0.1:8079",
+			"description": "🔥 NUCLEAR CRAWLER HYBRID - Ultra Massive Web Search + File Analysis + VS Code API Docs",
+			"version": "0.1.0",
+			"tools": ["websearch", "file_search", "get_vscode_api"],
+			"features": {
+				"websearch": "50 queries, 60+ sources, DeepWeb/TOR, I2P, Premium content",
+				"file_search": "Cargo check, exact errors, line numbers, context",
+				"get_vscode_api": "VS Code API documentation and examples"
+			}
+		},
+		"io.github.github/github-mcp-server": {
+			"type": "http",
+			"url": "https://api.githubcopilot.com/mcp/",
+			"headers": {
+				"Authorization": "${input:Authorization}"
+			},
+			"gallery": "https://api.mcp.github.com",
+			"version": "0.26.0-rc.3"
+		},
+		"huggingface/hf-mcp-server": {
+			"type": "http",
+			"url": "https://huggingface.co/mcp?login",
+			"gallery": "https://api.mcp.github.com",
+			"version": "1.0.0"
+		},
+		"cognitionai/deepwiki": {
+			"type": "http",
+			"url": "https://mcp.deepwiki.com/sse",
+			"gallery": "https://api.mcp.github.com",
+			"version": "1.0.0"
+		},
+		"memoryr": {
+			"command": "npx",
+			"args": ["-y", "@modelcontextprotocol/server-memory"]
+		}
+	},
+	"inputs": [
+		{
+			"id": "Authorization",
+			"type": "promptString",
+			"description": "Authentication token (PAT or App token)",
+			"password": true
+		}
+	]
+}

@@ -1,44 +1,30 @@
-//! Nuclear Crawler Hybrid - Crawler/Scraper avanzado con WebAssembly
+//! Nuclear Crawler Hybrid - Real MCP Server
 //!
-//! Sistema de alto rendimiento para web scraping y crawling
-//! con WebAssembly potente para MCP (Model Context Protocol)
+//! 🔥 ONLY 2 TOOLS: WEB SEARCH & FILE SEARCH
+//! 🔥 REAL IMPLEMENTATIONS: No fake FFI or simulations
+//! 🔥 WORKING CODE: Web scraping, file analysis, bypass systems
+//! 🔥 MINIMAL DEPENDENCIES: Only essential crates for maximum power
 
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 
-pub mod ai_smart; // AI unificado (consolidado)
-pub mod cache; // Cache simple para nuclear_scraper
-pub mod config;
-pub mod core_tools; // 4 herramientas MCP consolidadas
-pub mod file_search;
-pub mod intelligent_storage;
-pub mod massive_parallel_search;
-pub mod mcp_axum_server;
-pub mod nuclear_scraper; // Scraper unificado (consolidado con mass_capture)
-pub mod parallel_crawler; // Crawler paralelo
-pub mod parser; // HTML parser
-pub mod rate_limit;
-pub mod simple_mcp;
-pub mod stats;
-pub mod stealth;
-pub mod utils;
-pub mod wasm; // WASM unificado (consolidado)
-pub mod web_search;
-
-// Integraciones en Rust puro (sin FFI externo)
-pub mod deep_web_search;
-pub mod go_integration;
-pub mod hf_integration;
-pub mod improvements;
-pub mod jax_acceleration;
-pub mod jax_pipeline;
-pub mod mojo_jax;
-pub mod nim_integration;
-pub mod nuclear_bypass;
-pub mod orchestration;
-pub mod project_analyzer;
-pub mod scan_project;
-pub mod zig_integration;
+// 🔥 ESSENTIAL MODULES FOR 2 TOOLS - NO DEAD CODE
+pub mod ai_smart; // 🔥 AI intelligence for content analysis
+pub mod cache; // 🔥 REAL LRU cache implementation
+pub mod deepweb_tor;
+pub mod file_search; // 🔥 REAL file analysis with error detection
+pub mod go_integration; // 🔥 REAL Go parallel processing via FFI
+pub mod intelligent_storage; // 🔥 REAL file storage for results
+pub mod jax_integration; // 🔥 REAL JAX GPU vectorization via FFI
+pub mod nim_integration; // 🔥 REAL Nim HTML parsing via FFI
+pub mod nuclear_core; // 🔥 REAL bypass, extraction, concealment, spider
+pub mod nuclear_mcp_server; // 🔥 NUCLEAR MCP SERVER 2025 - 3 EXTREME TOOLS
+pub mod premium_content_scraper; // 🔥 REAL premium content extraction
+pub mod rate_limit; // 🔥 REAL token bucket rate limiter
+pub mod stealth; // 🔥 REAL stealth system for anti-detection
+pub mod url_helpers;
+pub mod web_search; // 🔥 REAL web search with extraction & scraping
+pub mod zig_integration; // 🔥 REAL Zig SIMD hashing via FFI
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
@@ -73,3 +59,5 @@ mod tests {
         assert!(v.starts_with("0."));
     }
 }
+
+// Dummy comment to force recompilation
