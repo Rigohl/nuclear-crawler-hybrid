@@ -23,30 +23,17 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 # Install Go
 RUN apt-get update && apt-get install -y golang-go && rm -rf /var/lib/apt/lists/*
 
-# Install Nim from binary
-RUN mkdir -p /opt && \
-    cd /opt && \
-    wget -q https://nim-lang.org/download/nim-1.6.14.tar.xz && \
-    tar -xf nim-1.6.14.tar.xz && \
-    cd nim-1.6.14 && \
-    ./build_all.sh && \
-    ln -s /opt/nim-1.6.14/bin/nim /usr/local/bin/nim
-
-# Install Zig from binary
-RUN mkdir -p /opt && \
-    cd /opt && \
-    wget -q https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz && \
-    tar -xf zig-linux-x86_64-0.13.0.tar.xz && \
-    ln -s /opt/zig-linux-x86_64-0.13.0/zig /usr/local/bin/zig
+# Optional: Nim, Zig can be added later if needed
+# For now, use Rust-only build (faster, more stable)
 
 # Copy source
 COPY . /build/
 
-# Build MCP server with FFI
+# Build MCP server (Rust-only, pure implementation)
 RUN . $HOME/.cargo/env && \
-    export PATH="/opt/nim-1.6.14/bin:$PATH" && \
     cd /build && \
-    cargo build --release --bin nuclear-mcp
+    cargo build --release --bin nuclear-mcp && \
+    cargo build --release --bin nuclear-data
 
 # ===== RUNTIME STAGE =====
 FROM ubuntu:22.04
@@ -62,11 +49,12 @@ RUN apt-get update && apt-get install -y \
     libssl3 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy binary from builder
+# Copy binaries from builder
 COPY --from=builder /build/target/release/nuclear-mcp /app/nuclear-mcp
+COPY --from=builder /build/target/release/nuclear-data /app/nuclear-data
 
 # Make executable
-RUN chmod +x /app/nuclear-mcp
+RUN chmod +x /app/nuclear-mcp /app/nuclear-data
 
 # Expose port
 EXPOSE 8079
