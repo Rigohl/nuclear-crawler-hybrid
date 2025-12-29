@@ -223,7 +223,7 @@ For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 }
 ```
 
-For detailed configuration instructions, see [MCP_SETUP_GUIDE.md](MCP_SETUP_GUIDE.md) (archived).
+For detailed configuration instructions, see the Configuration section above or [DEPLOYMENT.md](DEPLOYMENT.md) for production setup.
 
 ---
 
