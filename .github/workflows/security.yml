@@ -2,52 +2,107 @@ name: Security Scan
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Weekly
+    - cron: '0 0 * * 0'  # Weekly on Sunday
   pull_request:
     paths:
       - '**/Cargo.lock'
       - '**/Cargo.toml'
+      - '.github/workflows/security.yml'
   workflow_dispatch:
 
 jobs:
-  audit:
+  cargo-audit:
+    name: Cargo Audit
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      
+      - name: Install cargo-audit
+        run: cargo install cargo-audit --locked
+      
+      - name: Run cargo-audit
+        run: cargo audit --deny warnings
 
-    - name: Setup Rust
-      uses: dtolnay/rust-toolchain@stable
+  cargo-deny:
+    name: Cargo Deny
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      
+      - name: Install cargo-deny
+        run: cargo install cargo-deny --locked
+      
+      - name: Run cargo-deny
+        run: cargo deny check
 
-    - name: Install TRAE CLI
-      run: cargo install --git https://github.com/Kimberlyindiva/trae-cli.git
+  clippy-security:
+    name: Clippy Security Lints
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      
+      - name: Run Clippy with security warnings
+        run: cargo clippy --all-targets -- -W clippy::all -W clippy::pedantic -W clippy::cargo
 
-    - name: TRAE Security Analysis
-      run: trae clippy --strict --pedantic
+  codeql:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: rust
+          queries: security-extended
+      
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      
+      - name: Build for CodeQL
+        run: cargo build --all-targets
+      
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:rust"
 
-    - name: Install cargo-audit
-      run: cargo install cargo-audit
-
-    - name: Run cargo-audit
-      run: cargo audit
-
-    - name: CodeQL Analysis
-      uses: github/codeql-action/init@v2
-      with:
-        languages: rust
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-
-    - name: Dependency Check
-      uses: dependency-check/Dependency-Check_Action@main
-      with:
-        project: 'Nuclear Crawler Hybrid'
-        path: '.'
-        format: 'ALL'
-
-    - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: reports/dependency-check-report.sarif
-      if: always()
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+          deny-licenses: GPL-3.0, AGPL-3.0
