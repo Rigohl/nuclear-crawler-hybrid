@@ -75,6 +75,9 @@ parking_lot = "0.12"
 # HTML scraping - ESSENTIAL for web search
 scraper = "0.18"
 
+# Directory walking
+walkdir = "2.4"
+
 # Random number generation for stealth
 oorandom = "11.1"
 
@@ -84,6 +87,10 @@ urlencoding = "2.1"
 [[bin]]
 name = "nuclear-mcp"
 path = "src/bin/nuclear_ultimate.rs"
+
+[[bin]]
+name = "nuclear-data"
+path = "src/bin/nuclear_data.rs"
 
 [profile.release]
 opt-level = 3
