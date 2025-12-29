@@ -5,23 +5,41 @@
 # Core functionality
 src/ @core-team
 src/nuclear_core.rs @lead-developer
+src/bin/nuclear_ultimate.rs @mcp-team @core-team
+
+# MCP Integration & Tools
+src/bin/nuclear_ultimate.rs @mcp-team
+src/web_search.rs @mcp-team
+src/file_search.rs @mcp-team
+src/deepweb_tor.rs @mcp-team
+src/premium_content_scraper.rs @mcp-team
+tests/integration_real_mcp.rs @mcp-team @qa-team
 
 # FFI Integrations
-go/ @ffi-team
-zig/ @ffi-team
-nim/ @ffi-team
+ffi/ @ffi-team
+ffi/go/ @ffi-team
+ffi/zig/ @ffi-team
+ffi/nim/ @ffi-team
+src/go_integration.rs @ffi-team
+src/zig_integration.rs @ffi-team
+src/nim_integration.rs @ffi-team
+src/jax_integration.rs @ffi-team
 libs/ @ffi-team
 
 # Scripts and automation
 scripts/ @devops-team
 .github/ @devops-team
+.github/workflows/ @devops-team
+.github/workflows/mcp-validation.yml @mcp-team @devops-team
+.github/CODE_QUALITY.md @mcp-team @core-team
 
 # Documentation
 *.md @docs-team
 README.md @docs-team
+.github/CODE_QUALITY.md @mcp-team @docs-team
 
 # MCP and configuration
-mcp.json @core-team
+mcp.json @mcp-team @core-team
 Cargo.toml @core-team
 
 # Results and reports

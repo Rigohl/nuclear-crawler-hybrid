@@ -16,7 +16,7 @@ extern "C" {
     // It is kept for future FFI integration
 }
 
-#[cfg(has_nim)]
+/// 🔥 FFI Result structure for Nim HTML parsing
 #[repr(C)]
 #[derive(Debug, Clone)]
 pub struct NimHtmlResult {
