@@ -529,11 +529,11 @@ fn test_mcp_server_compilation_real() {
     }
 
     println!("✅ Server compilation successful - REAL implementation");
-    
+
     // Step 2: Validate no mocks in source
     println!("\n🔍 Validating no mock patterns in source code...");
     let mock_patterns = vec!["mock!", "unimplemented!", "todo!", "#[cfg(test)]"];
-    
+
     // Check src/bin/nuclear_ultimate.rs
     if let Ok(content) = std::fs::read_to_string("src/bin/nuclear_ultimate.rs") {
         let mut found_mocks = false;
@@ -546,7 +546,7 @@ fn test_mcp_server_compilation_real() {
                 }
             }
         }
-        
+
         if !found_mocks {
             println!("✅ No significant mock patterns detected");
         }
@@ -558,7 +558,7 @@ fn test_mcp_server_compilation_real() {
         if content.contains("jsonrpc") && content.contains("2.0") {
             println!("✅ JSON-RPC 2.0 structures present");
         }
-        
+
         if content.contains("tools/list") && content.contains("tools/call") {
             println!("✅ MCP protocol methods present");
         }
@@ -568,7 +568,7 @@ fn test_mcp_server_compilation_real() {
     println!("\n🔧 Verifying 4 tools are implemented...");
     let tools = vec!["websearch", "file_search", "deepweb_search", "premium_content_scraper"];
     let mut found_tools = 0;
-    
+
     for tool in &tools {
         if let Ok(content) = std::fs::read_to_string("src/bin/nuclear_ultimate.rs") {
             if content.contains(tool) {
@@ -577,7 +577,7 @@ fn test_mcp_server_compilation_real() {
             }
         }
     }
-    
+
     assert_eq!(found_tools, 4, "❌ Not all 4 tools found in code");
 
     println!("\n✨ CONCLUSION:");
