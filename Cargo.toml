@@ -70,7 +70,7 @@ url = "2.5"
 libloading = "0.8"
 
 # LRU cache - USED
-lru = "0.12"
+lru = "0.16"
 
 # Lazy static - USED
 lazy_static = "1.4"
