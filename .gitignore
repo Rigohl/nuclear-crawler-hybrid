@@ -6,6 +6,10 @@
 target/
 Cargo.lock
 
+# Allow committed binaries in bin/ directory
+!bin/
+!bin/nuclear-mcp-*
+
 # Cargo build artifacts
 **/*.rs.bk
 *.pdb
