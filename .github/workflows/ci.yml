@@ -33,21 +33,5 @@ jobs:
       - name: Run integration tests (REAL MCP Server - No Mocks)
         run: cargo test --test integration_real_mcp --release -- --nocapture --test-threads=1
 
-  mcp-validation:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Cache Rust
-        uses: Swatinem/rust-cache@v2
-
-      - name: Build MCP Server
-        run: cargo build --bin nuclear_ultimate --release
-
-      - name: Run MCP Integration Tests
-        run: cargo test --test integration_real_mcp --release -- --nocapture --test-threads=1
+      - name: Verify MCP Protocol (exactly 5 tools)
+        run: cargo test test_exactly_5_tools --release -- --nocapture

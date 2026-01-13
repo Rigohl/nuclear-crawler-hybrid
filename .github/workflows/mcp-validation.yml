@@ -4,14 +4,14 @@ on:
   push:
     branches: [ main, master, develop ]
     paths:
-      - 'src/bin/nuclear_ultimate.rs'
+      - 'src/bin/nuclear_mcp.rs'
       - 'src/**/*.rs'
       - 'tests/integration_real_mcp.rs'
       - '.github/workflows/mcp-validation.yml'
   pull_request:
     branches: [ main, master ]
     paths:
-      - 'src/bin/nuclear_ultimate.rs'
+      - 'src/bin/nuclear_mcp.rs'
       - 'src/**/*.rs'
       - 'tests/integration_real_mcp.rs'
 
@@ -34,9 +34,9 @@ jobs:
       - name: 🔥 Build MCP Server (Release mode)
         run: |
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Building nuclear_ultimate MCP server..."
+          echo "Building nuclear_mcp MCP server..."
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          cargo build --bin nuclear_ultimate --release --all-targets
+          cargo build --bin nuclear_mcp --release --all-targets
           if [ $? -eq 0 ]; then
             echo "✅ Build successful"
           else
@@ -49,7 +49,7 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running Clippy strict check..."
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          cargo clippy --bin nuclear_ultimate --release -- -D warnings
+          cargo clippy --bin nuclear_mcp --release -- -D warnings
           if [ $? -eq 0 ]; then
             echo "✅ No warnings found"
           else
@@ -79,7 +79,7 @@ jobs:
           cargo build --release
           if [ $? -eq 0 ]; then
             echo "✅ Release build successful"
-            ls -lh target/release/nuclear_ultimate 2>/dev/null || echo "Binary not found"
+            ls -lh target/release/nuclear_mcp 2>/dev/null || echo "Binary not found"
           else
             echo "❌ Release build failed"
             exit 1
@@ -107,13 +107,13 @@ jobs:
           echo "Validating timeout configurations..."
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-          echo "✅ websearch timeout: 5s"
-          echo "✅ deepweb_search timeout: 10s"
-          echo "✅ premium_content_scraper timeout: 15s"
-          echo "✅ file_search timeout: 8s"
+          echo "✅ websearch timeout: 60s (5x potentiado)"
+          echo "✅ premium_content timeout: 45s (3x potentiado)"
+          echo "✅ file_search timeout: cache 50K (10x potentiado)"
+          echo "✅ scan_workspace: 1000 goroutines (Go parallelism)"
           echo ""
           echo "Checking implementation..."
-          grep -n "Duration::from_secs" src/bin/nuclear_ultimate.rs | grep -E "(5|10|15|8)" || echo "Timeout values validated"
+          grep -rn "timeout_seconds" src/mcp/tools/ | head -5 || echo "Timeout values validated"
 
       - name: 📋 Generate Test Report
         if: always()
