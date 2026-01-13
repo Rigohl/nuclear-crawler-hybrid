@@ -1,0 +1,105 @@
+# NUCLEAR CRAWLER HYBRID - COPILOT BEHAVIOR RULES
+
+## 🔥 RULES FOR COPILOT BEHAVIOR IN THIS WORKSPACE
+
+### MANDATORY RULES (Non-negotiable)
+- **NO_AUTO_DOCS**: NEVER create .md files without explicit user request
+- **UPDATE_ONLY**: Update existing documentation, never create new files
+- **NO_MOCKS**: Always use real data, HTTP requests, actual implementations
+- **EXPOSE_WARNINGS**: Show ALL warnings, errors, issues - never hide them
+- **NO_DEAD_CODE**: Eliminate unused code immediately, no experimental leftovers
+- **STRICT_MCP**: Maintain exactly 5 tools in MCP Protocol, no exceptions
+
+### ANALYSIS RULES (When user requests analysis)
+- **DEEP_SCAN**: Recursively analyze folders AND subfolders completely
+- **IMPORT_VERIFY**: Check every import, unused imports are errors
+- **USAGE_TRACKING**: Find where every function/module is actually used
+- **LINE_COUNT**: Report total lines per file and dead code percentage
+- **FFI_CHECK**: Verify all Go, Zig, Nim, JAX integrations are active
+
+### RESPONSE RULES
+- **SHORT_ANSWERS**: Keep responses brief unless complexity requires detail
+- **CODE_FIRST**: Show code before explanation
+- **VERIFY_BUILD**: Always verify `cargo build --release` succeeds
+- **RUN_TESTS**: Execute tests: `cargo test test_exactly_5_tools`
+- **NO_ASSUMPTIONS**: Ask if unclear, never guess user intent
+
+### FILE HANDLING RULES
+- **MAX_6_ROOT**: Keep workspace root at 6 files max (5 .md + 1 .json)
+- **SINGLE_SOURCE**: One source of truth per documentation topic
+- **RUST_ONLY**: Focus on .rs files unless user specifies otherwise
+- **IGNORE_TARGET**: Never analyze /target/ directory
+- **VALIDATE_CARGO**: Always check Cargo.toml for dependencies
+
+### WHEN USER REQUESTS ANALYSIS
+1. List all files in folder
+2. Count lines per file
+3. Verify imports across all subfolders
+4. Identify dead code (files with 0 imports)
+5. Report percentage of active vs dead code
+6. Provide file-by-file analysis
+
+### WHEN USER REQUESTS CHANGES
+1. Read file completely before editing
+2. Use multi_replace_string_in_file for multiple edits
+3. Verify compilation after changes
+4. Run relevant tests
+5. Report: "✅ COMPLETED" with stats
+
+### ERROR HANDLING
+- **COMPILE_ERROR**: Stop immediately, show full error, fix before proceeding
+- **TEST_FAILURE**: Show test output, identify root cause, fix
+- **WARNING_VISIBLE**: Always report warnings, assess if critical
+- **NO_HIDING**: Never suppress output with filters like `grep -v` to hide issues
+
+### WORKSPACE STRUCTURE (SACRED)
+```
+/workspaces/nuclear-crawler-hybrid/
+├── README.md                    (Rules section always updated)
+├── QUICK_START.md              (Setup only)
+├── API_REFERENCE.md            (Tools documentation)
+├── TOOLS.md                    (5 tools description)
+├── OPTIMIZATION_COMPLETE.md    (Last optimization status)
+├── nuclear_course_extraction_demo.json
+└── src/
+    ├── mcp/
+    │   ├── protocol.rs         (MUST have exactly 5 tools)
+    │   └── tools/
+    │       ├── websearch.rs
+    │       ├── premium_content.rs
+    │       ├── file_search_advanced.rs
+    │       ├── scan_workspace.rs
+    │       └── ai_dataset_trainer.rs
+```
+
+### CODE QUALITY METRICS (TARGETS)
+- Total Rust lines: 12,249 active
+- Dead code: 0 lines
+- Tools defined: Exactly 5
+- Build time: <50 seconds
+- Test success: 100%
+- Binary size: ~5.3 MB
+
+### LANGUAGE & TONE
+- Spanish by default (es_ES)
+- Direct and concise
+- Technical accuracy mandatory
+- No filler words
+- Emojis only when explicitly requested
+
+## 🚨 VIOLATIONS (IMMEDIATE STOP)
+- Creating .md without request → STOP
+- Adding 7th tool to MCP → STOP
+- Leaving dead code → STOP
+- Hiding errors/warnings → STOP
+- Using mocks instead of real data → STOP
+- False "success" claims → STOP
+
+## ✅ SUCCESS CRITERIA
+User task is complete ONLY when:
+1. Code compiles: `cargo build --release` ✅
+2. Tests pass: `cargo test test_exactly_5_tools` ✅
+3. No dead code remains
+4. 5 tools verified in protocol.rs
+5. Workspace has max 6 root files
+6. All warnings visible and addressed

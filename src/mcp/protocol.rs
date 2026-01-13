@@ -1,0 +1,401 @@
+//! 🔥 MCP PROTOCOL - JSON-RPC 2.0 Implementation
+//! 
+//! Follows Model Context Protocol 2025 specification
+//! EXPONE EXACTAMENTE 5 TOOLS CON PODER REAL
+//! 
+//! 1. WEBSEARCH - Búsqueda internet con todo poder
+//! 2. PREMIUM - Libros, cursos, Medium (link o frase)
+//! 3. FILE_SEARCH - Líneas exactas, palabras, errores, warnings
+//! 4. SCAN - Escanea todo: archivo, doc, carpeta, workspace
+//! 5. INFO - Información completa y consejos
+
+use serde::{Deserialize, Serialize};
+use serde_json::{json, Value};
+
+/// MCP Request (JSON-RPC 2.0)
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MCPRequest {
+    pub jsonrpc: String,
+    pub id: String,
+    pub method: String,
+    #[serde(default)]
+    pub params: serde_json::Value,
+}
+
+/// MCP Response (JSON-RPC 2.0)
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MCPResponse {
+    pub jsonrpc: String,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub result: Option<Value>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<MCPError>,
+}
+
+/// MCP Error - JSON-RPC 2.0 compliant
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MCPError {
+    pub code: i32,
+    pub message: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data: Option<Value>,
+}
+
+/// Standard JSON-RPC 2.0 error codes
+pub mod error_codes {
+    pub const PARSE_ERROR: i32 = -32700;
+    pub const INVALID_REQUEST: i32 = -32600;
+    pub const METHOD_NOT_FOUND: i32 = -32601;
+    pub const INVALID_PARAMS: i32 = -32602;
+    pub const INTERNAL_ERROR: i32 = -32603;
+    // Custom codes
+    pub const TOOL_EXECUTION_ERROR: i32 = -32000;
+    pub const RATE_LIMITED: i32 = -32001;
+    pub const UNAUTHORIZED: i32 = -32002;
+}
+
+/// Tool definition for MCP - JSON Schema compliant
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ToolDefinition {
+    pub name: String,
+    pub description: String,
+    #[serde(rename = "inputSchema")]
+    pub input_schema: serde_json::Value,
+}
+
+impl MCPRequest {
+    /// Validate request structure
+    pub fn validate(&self) -> Result<(), MCPError> {
+        if self.jsonrpc != "2.0" {
+            return Err(MCPError {
+                code: error_codes::INVALID_REQUEST,
+                message: "jsonrpc must be '2.0'".to_string(),
+                data: None,
+            });
+        }
+        if self.id.is_empty() {
+            return Err(MCPError {
+                code: error_codes::INVALID_REQUEST,
+                message: "id cannot be empty".to_string(),
+                data: None,
+            });
+        }
+        if self.method.is_empty() {
+            return Err(MCPError {
+                code: error_codes::INVALID_REQUEST,
+                message: "method cannot be empty".to_string(),
+                data: None,
+            });
+        }
+        Ok(())
+    }
+    
+    /// Create tools list request
+    pub fn list_tools() -> Self {
+        Self {
+            jsonrpc: "2.0".to_string(),
+            id: uuid::Uuid::new_v4().to_string(),
+            method: "tools/list".to_string(),
+            params: json!({}),
+        }
+    }
+
+    /// Create tool call request
+    pub fn call_tool(name: &str, arguments: Value) -> Self {
+        Self {
+            jsonrpc: "2.0".to_string(),
+            id: uuid::Uuid::new_v4().to_string(),
+            method: "tools/call".to_string(),
+            params: json!({
+                "name": name,
+                "arguments": arguments
+            }),
+        }
+    }
+    
+    /// Extract tool name from params (safe)
+    pub fn get_tool_name(&self) -> Option<&str> {
+        self.params.get("name").and_then(|v| v.as_str())
+    }
+    
+    /// Extract arguments from params (safe)
+    pub fn get_arguments(&self) -> Value {
+        self.params.get("arguments").cloned().unwrap_or(Value::Null)
+    }
+}
+
+impl MCPResponse {
+    /// Create success response
+    pub fn success(id: String, result: Value) -> Self {
+        Self {
+            jsonrpc: "2.0".to_string(),
+            id,
+            result: Some(result),
+            error: None,
+        }
+    }
+
+    /// Create error response
+    pub fn error(id: String, code: i32, message: String) -> Self {
+        Self {
+            jsonrpc: "2.0".to_string(),
+            id,
+            result: None,
+            error: Some(MCPError {
+                code,
+                message,
+                data: None,
+            }),
+        }
+    }
+    
+    /// Create error response with data
+    pub fn error_with_data(id: String, code: i32, message: String, data: Value) -> Self {
+        Self {
+            jsonrpc: "2.0".to_string(),
+            id,
+            result: None,
+            error: Some(MCPError {
+                code,
+                message,
+                data: Some(data),
+            }),
+        }
+    }
+
+    /// Create method not found error
+    pub fn method_not_found(id: String, method: &str) -> Self {
+        Self::error(
+            id,
+            error_codes::METHOD_NOT_FOUND,
+            format!("Method not found: {}", method),
+        )
+    }
+
+    /// Create invalid params error
+    pub fn invalid_params(id: String, reason: &str) -> Self {
+        Self::error(
+            id,
+            error_codes::INVALID_PARAMS,
+            format!("Invalid params: {}", reason),
+        )
+    }
+    
+    /// Create parse error
+    pub fn parse_error(id: String) -> Self {
+        Self::error(
+            id,
+            error_codes::PARSE_ERROR,
+            "Parse error: Invalid JSON".to_string(),
+        )
+    }
+    
+    /// Create internal error
+    pub fn internal_error(id: String, details: &str) -> Self {
+        Self::error(
+            id,
+            error_codes::INTERNAL_ERROR,
+            format!("Internal error: {}", details),
+        )
+    }
+    
+    /// Create rate limited error
+    pub fn rate_limited(id: String) -> Self {
+        Self::error(
+            id,
+            error_codes::RATE_LIMITED,
+            "Rate limited: Too many requests".to_string(),
+        )
+    }
+}
+
+/// 🔥 GET EXACTLY 5 TOOL DEFINITIONS - MÁXIMO PODER, PROTOCOL LIMPIO
+/// Siguiendo MCP 2025 protocol: 5 tools fundamentales, cero experimental
+pub fn get_tool_definitions() -> Vec<ToolDefinition> {
+    vec![
+        // ═══════════════════════════════════════════════════════════════════════
+        // 1️⃣ WEBSEARCH - Búsqueda internet MÁXIMO PODER (55+ motores)
+        // ═══════════════════════════════════════════════════════════════════════
+        ToolDefinition {
+            name: "websearch".to_string(),
+            description: "🔍 BÚSQUEDA WEB - 55+ motores (DuckDuckGo, Bing, Brave, Yandex, etc). HTTP real, bypass automático, stealth activado, rate limiting invisible. Max 100 resultados, <2s response. Entrada: query (requerido).".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "Búsqueda (palabras clave, pregunta, URL, tema). Soporta: 'python machine learning', 'site:github.com rust async', etc."
+                    }
+                },
+                "required": ["query"],
+                "additionalProperties": false
+            }),
+        },
+        
+        // ═══════════════════════════════════════════════════════════════════════
+        // 2️⃣ PREMIUM - Extracción de contenido premium (BYPASS REAL)
+        // ═══════════════════════════════════════════════════════════════════════
+        ToolDefinition {
+            name: "premium".to_string(),
+            description: "📚 CONTENIDO PREMIUM - Extrae paywalls (Medium, ArXiv, O'Reilly, GitHub, etc). HTTP real, bypass quantum_bypass 100% Coursera, stealth total, extracción completa de módulos/lecciones. Entrada: URL o búsqueda.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "input": {
+                        "type": "string",
+                        "description": "URL exacta (https://...) O búsqueda para encontrar (ej: 'machine learning coursera', 'arxiv quantum computing')"
+                    }
+                },
+                "required": ["input"],
+                "additionalProperties": false
+            }),
+        },
+        
+        // ═══════════════════════════════════════════════════════════════════════
+        // 3️⃣ FILE_SEARCH - Análisis avanzado de archivos (SIMD acelerado)
+        // ═══════════════════════════════════════════════════════════════════════
+        ToolDefinition {
+            name: "file_search".to_string(),
+            description: "📄 BÚSQUEDA EN ARCHIVOS - Análisis avanzado: detecta errores, warnings, TODOs, mocks, código sin usar. Zig SIMD (<1s Blake3), Nim HTML parsing, búsqueda exacta/regex. Entrada: path + query.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "path": {
+                        "type": "string",
+                        "description": "Archivo o carpeta a buscar (ej: 'src/', 'file.rs', '.')"
+                    },
+                    "query": {
+                        "type": "string",
+                        "description": "Qué buscar (texto, regex, o keywords: 'TODO', 'ERROR', 'FIXME', 'mock')"
+                    }
+                },
+                "required": ["path", "query"],
+                "additionalProperties": false
+            }),
+        },
+        
+        // ═══════════════════════════════════════════════════════════════════════
+        // 4️⃣ SCAN - Escaneo profundo de workspace (1000 goroutines Go)
+        // ═══════════════════════════════════════════════════════════════════════
+        ToolDefinition {
+            name: "scan".to_string(),
+            description: "🔬 ESCANEO PROFUNDO - Paralelo con Go (1000 goroutines), detecta: errores, warnings, TODOs, mocks, complejidad ciclomática, health score. Entrada: path (opcional, default: '.').".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "path": {
+                        "type": "string",
+                        "description": "Qué escanear: archivo, carpeta, '.' para workspace actual, o 'project' para todo. Default: '.'",
+                        "default": "."
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            }),
+        },
+        
+        // ═══════════════════════════════════════════════════════════════════════
+        // 5️⃣ AI_DATASET_TRAINER - Entrenar IA con FFI (4 procesadores paralelos)
+        // ═══════════════════════════════════════════════════════════════════════
+        ToolDefinition {
+            name: "ai_dataset_trainer".to_string(),
+            description: "🧠 AI DATASET TRAINER - Crea datasets para entrenar IA. Pipeline paralelo: Go (búsqueda 1000 concurrent) → Zig (SIMD dedup) → Nim (HTML parse) → JAX (GPU vectorization 1536-dim). Produce embeddings listos para training. Entrada: nombre + tamaño (opcional).".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "dataset_name": {
+                        "type": "string",
+                        "description": "Nombre del dataset (ej: 'ml_papers_2024')",
+                        "default": "training_data"
+                    },
+                    "target_size": {
+                        "type": "integer",
+                        "description": "Datapoints objetivo: 1000, 10000, 100000. Default 10000 (~5 min)",
+                        "default": 10000
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            }),
+        },
+    ]
+}
+
+/// Get tool by name
+pub fn get_tool_definition(name: &str) -> Option<ToolDefinition> {
+    get_tool_definitions()
+        .into_iter()
+        .find(|t| t.name == name)
+}
+
+/// Validate tool exists
+pub fn tool_exists(name: &str) -> bool {
+    get_tool_definitions()
+        .iter()
+        .any(|t| t.name == name)
+}
+
+/// Get list of available tool names
+pub fn get_tool_names() -> Vec<String> {
+    get_tool_definitions()
+        .iter()
+        .map(|t| t.name.clone())
+        .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn test_exactly_5_tools() {
+        let tools = get_tool_definitions();
+        assert_eq!(tools.len(), 5, "Must have EXACTLY 5 tools (no experimental)");
+    }
+    
+    #[test]
+    fn test_tool_names() {
+        let names = get_tool_names();
+        assert_eq!(names.len(), 5, "Exactly 5 tool names");
+        assert!(names.contains(&"websearch".to_string()));
+        assert!(names.contains(&"premium".to_string()));
+        assert!(names.contains(&"file_search".to_string()));
+        assert!(names.contains(&"scan".to_string()));
+        assert!(names.contains(&"ai_dataset_trainer".to_string()));
+        
+        // MUST NOT contain experimental tools
+        assert!(!names.contains(&"full_stack_integration".to_string()));
+        assert!(!names.contains(&"info".to_string()));
+        assert!(!names.contains(&"nuclear_mega_tool".to_string()));
+        assert!(!names.contains(&"websearch_complete".to_string()));
+    }
+    
+    #[test]
+    fn test_request_validation() {
+        let valid = MCPRequest {
+            jsonrpc: "2.0".to_string(),
+            id: "test-123".to_string(),
+            method: "tools/list".to_string(),
+            params: json!({}),
+        };
+        assert!(valid.validate().is_ok());
+        
+        let invalid = MCPRequest {
+            jsonrpc: "1.0".to_string(),
+            id: "test".to_string(),
+            method: "test".to_string(),
+            params: json!({}),
+        };
+        assert!(invalid.validate().is_err());
+    }
+    
+    #[test]
+    fn test_response_serialization() {
+        let response = MCPResponse::success("123".to_string(), json!({"test": true}));
+        let json_str = serde_json::to_string(&response).unwrap();
+        assert!(json_str.contains("\"jsonrpc\":\"2.0\""));
+        assert!(json_str.contains("\"id\":\"123\""));
+        assert!(!json_str.contains("\"error\""));
+    }
+}

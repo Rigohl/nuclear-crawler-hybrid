@@ -106,7 +106,7 @@ impl Default for WebSearchConfig {
                 "rust-lang.org".to_string(),
             ],
             use_ai: false,       // 🔥 ULTRA FAST: Desactivar AI para velocidad
-            use_stealth: false,  // 🔥 ULTRA FAST: Desactivar stealth para velocidad
+            use_stealth: true,   // ✅ STEALTH SIEMPRE ACTIVO: Concealment extremo rotante
             max_parallel: 10,  // 🔥 Reducir paralelismo para velocidad
             timeout_secs: 4,     // 🔥 ULTRA FAST: 4 segundos (margen de 1s para procesamiento)
             max_urls: 10,       // 🔥 ULTRA FAST: 100 URLs máximo en paralelo
@@ -118,7 +118,7 @@ impl Default for WebSearchConfig {
 }
 
 impl WebSearchConfig {
-    /// 🔥🔥🔥 NUCLEAR UNLIMITED: Configuración para búsqueda masiva SIN LÍMITES 🔥🔥🔥
+    /// 🔥🔥🔥 NUCLEAR UNLIMITED: Configuración para búsqueda masiva SIN LÍMITES + STEALTH 🔥🔥🔥
     pub fn unlimited() -> Self {
         Self {
             query: String::new(),
@@ -1405,8 +1405,54 @@ impl WebSearch {
         urls.push(format!("https://www.v2ex.com/search?q={}", query_encoded));
 
         // ═══════════════════════════════════════════════════════════════
-        // 🔥 TUTORIALES Y CURSOS
+        // 🔥 TUTORIALES Y CURSOS - 🔥🔥🔥 PLATAFORMAS PRINCIPALES 🔥🔥🔥
         // ═══════════════════════════════════════════════════════════════
+        
+        // 🔥 COURSERA - Plataforma principal de cursos
+        urls.push(format!(
+            "https://www.coursera.org/search?query={}",
+            query_encoded
+        ));
+        urls.push(format!(
+            "https://www.coursera.org/specializations?keywords={}",
+            query_encoded
+        ));
+        
+        // 🔥 UDEMY - Plataforma de cursos online
+        urls.push(format!(
+            "https://www.udemy.com/courses/search/?q={}",
+            query_encoded
+        ));
+        urls.push(format!(
+            "https://www.udemy.com/courses/it-and-software/?search={}",
+            query_encoded
+        ));
+        
+        // 🔥 SKILLSHARE - Cursos de creación y tecnología
+        urls.push(format!(
+            "https://www.skillshare.com/search?query={}",
+            query_encoded
+        ));
+        urls.push(format!(
+            "https://www.skillshare.com/browse/technology?query={}",
+            query_encoded
+        ));
+        
+        // 🔥 OTRAS PLATAFORMAS PRINCIPALES
+        urls.push(format!(
+            "https://www.edx.org/search?q={}",
+            query_encoded
+        ));
+        urls.push(format!(
+            "https://www.linkedin-learning.com/search?keywords={}",
+            query_encoded
+        ));
+        urls.push(format!(
+            "https://www.pluralsight.com/search?q={}",
+            query_encoded
+        ));
+        
+        // 🔥 TUTORIALES GRATUITOS
         urls.push(format!(
             "https://www.freecodecamp.org/news/search/?query={}",
             query_encoded
@@ -1425,6 +1471,20 @@ impl WebSearch {
         ));
         urls.push(format!(
             "https://www.geeksforgeeks.org/search/?q={}",
+            query_encoded
+        ));
+        
+        // 🔥 PLATAFORMAS ALTERNATIVAS
+        urls.push(format!(
+            "https://www.treehouse.com/search?s={}",
+            query_encoded
+        ));
+        urls.push(format!(
+            "https://www.datacamp.com/courses/search?q={}",
+            query_encoded
+        ));
+        urls.push(format!(
+            "https://www.masterclass.com/search?q={}",
             query_encoded
         ));
 

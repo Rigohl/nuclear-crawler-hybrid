@@ -1,31 +1,41 @@
 //! Nuclear Crawler Hybrid - Real MCP Server
 //!
-//! 🔥 ONLY 2 TOOLS: WEB SEARCH & FILE SEARCH
+//! 🔥 MCP PROTOCOL 2025: EXACTLY 5 TOOLS IN MAXIMUM POWER
 //! 🔥 REAL IMPLEMENTATIONS: No fake FFI or simulations
 //! 🔥 WORKING CODE: Web scraping, file analysis, bypass systems
-//! 🔥 MINIMAL DEPENDENCIES: Only essential crates for maximum power
+//! 🔥 ZERO DEAD CODE: All experimental modules removed
 
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 
-// 🔥 ESSENTIAL MODULES FOR 2 TOOLS - NO DEAD CODE
-pub mod file_search; // 🔥 REAL file analysis with error detection
-pub mod nuclear_core; // 🔥 REAL bypass, extraction, concealment, spider
-pub mod premium_content_scraper; // 🔥 REAL premium content extraction
-pub mod url_helpers;
-pub mod web_search; // 🔥 REAL web search with extraction & scraping // Utility functions
+// 🔥 MCP PROTOCOL & 5 TOOLS
+pub mod mcp; // Model Context Protocol with exactly 5 production tools
+
+// 🔥 CORE MODULES FOR TOOLS - ONLY ACTIVE CODE
+pub mod nuclear_core; // REAL bypass, extraction, concealment, spider
+pub mod premium_content_scraper; // REAL premium content extraction
+pub mod data_management; // REAL data indexing and search
+pub mod url_helpers; // URL utilities
+pub mod web_search; // REAL web search with 55+ engines
+
+// 🔥 OPTIONAL ADVANCED MODULES (commented, integrated where needed)
+// Uncomment if needed for specific features:
+// pub mod chromium_rendering; // Chrome DevTools Protocol (optional)
+// pub mod proxy_rotation;      // Proxy rotation (optional)
+// pub mod data_extraction;     // Advanced extraction (optional)
 
 // 🔥 FFI ACCELERATION MODULES - REAL HIGH-PERFORMANCE COMPUTING
-pub mod go_integration; // 🔥 REAL Go parallel processing via FFI
-pub mod jax_integration; // 🔥 REAL JAX GPU vectorization via FFI
-pub mod nim_integration; // 🔥 REAL Nim HTML parsing via FFI
-pub mod zig_integration; // 🔥 REAL Zig SIMD hashing via FFI
+pub mod go_integration; // Go parallel processing (1000 goroutines)
+pub mod jax_integration; // JAX GPU vectorization
+pub mod nim_integration; // Nim HTML parsing
+pub mod zig_integration; // Zig SIMD hashing
 
 // 🔥 INFRASTRUCTURE MODULES FOR SERVER
-pub mod cache; // 🔥 REAL LRU cache implementation
-pub mod deepweb_tor;
-pub mod intelligent_storage; // 🔥 REAL file storage for results
-pub mod rate_limit; // 🔥 REAL token bucket rate limiter // 🔥 REAL deep web search via Tor
+pub mod cache; // LRU cache implementation
+pub mod deepweb_tor; // Deep web search via Tor
+pub mod intelligent_storage; // JSON file storage
+pub mod rate_limit; // Token bucket rate limiter
+pub mod advanced_bypass; // Advanced lock detection and bypass
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;

@@ -1,11 +1,8 @@
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 use std::fs;
-use std::path::Path;
 use chrono::{DateTime, Utc};
 use anyhow::Result;
-use std::sync::Arc;
-use tokio::sync::RwLock;
 
 /// Data Management System - Gestión inteligente de información extraída
 /// Sistema completo para organizar, indexar y analizar datos de búsquedas
