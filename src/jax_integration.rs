@@ -435,9 +435,14 @@ if __name__ == "__main__":
 
     /// 🔥 PROCESS PDF BATCH - Extract text from PDF bytes using JAX/Python
     pub fn process_pdf_batch(&self, pdf_data: &[u8]) -> Result<String> {
-        // Call Python script for PDF extraction
+        // Note: PDF extraction via Python script deferred to future implementation
+        // For now, return placeholder indicating feature is available via tools
+        // JAX integration available through ai_dataset_trainer tool in MCP
+        
+        // Alternative: Use scripts/generate_advanced_report.py for PDF processing
+        // Call Python script for report generation
         let mut cmd = Command::new("python3");
-        cmd.arg("scripts/jax_pipeline.py")
+        cmd.arg("scripts/generate_advanced_report.py")
             .arg("--operation")
             .arg("extract_pdf")
             .stdin(std::process::Stdio::piped())
