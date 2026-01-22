@@ -49,6 +49,7 @@ pub struct FileAnalysisResult {
 }
 
 pub struct AdvancedFileSearchTool {
+    #[allow(dead_code)]
     config: FileSearchConfig,
     cache: Arc<Cache>,
 }

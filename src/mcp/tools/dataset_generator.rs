@@ -55,10 +55,13 @@ impl Default for DatasetConfig {
 
 /// 🔥 DATASET GENERATOR TOOL - MÁXIMO PODER
 pub struct DatasetGeneratorTool {
+    #[allow(dead_code)]
     config: DatasetConfig,
     // 🔥 ALIMENTADO DE MÓDULOS CORE
     storage: Arc<tokio::sync::Mutex<IntelligentStorage>>,
+    #[allow(dead_code)]
     jax_processor: Arc<tokio::sync::Mutex<Option<JaxProcessor>>>,
+    #[allow(dead_code)]
     zig_processor: Arc<tokio::sync::Mutex<Option<ZigSimdProcessor>>>,
 }
 
