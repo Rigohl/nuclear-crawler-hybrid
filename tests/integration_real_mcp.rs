@@ -16,11 +16,11 @@
 //! - No test fixtures masquerading as real data
 //! - Pure implementation against live server
 
+use reqwest::Client;
+use serde_json::{json, Value};
 use std::process::{Command, Stdio};
 use std::thread;
 use std::time::{Duration, Instant};
-use reqwest::Client;
-use serde_json::{json, Value};
 
 const MCP_HOST: &str = "127.0.0.1";
 const MCP_PORT: u16 = 8079;
@@ -141,13 +141,21 @@ async fn wait_for_server_ready(retries: usize) -> Result<(), String> {
     let client = Client::new();
     let mut attempts = 0;
 
-    println!("\n⏳ Esperando a que el servidor esté listo (timeout: {}s)...", STARTUP_TIMEOUT);
+    println!(
+        "\n⏳ Esperando a que el servidor esté listo (timeout: {}s)...",
+        STARTUP_TIMEOUT
+    );
 
     while attempts < retries {
         thread::sleep(Duration::from_millis(500));
         attempts += 1;
 
-        match client.get(HEALTH_CHECK_URL).timeout(Duration::from_secs(2)).send().await {
+        match client
+            .get(HEALTH_CHECK_URL)
+            .timeout(Duration::from_secs(2))
+            .send()
+            .await
+        {
             Ok(response) => {
                 if response.status().is_success() {
                     println!(
@@ -196,7 +204,10 @@ async fn send_jsonrpc_request(method: &str, params: Value, id: i32) -> Result<Va
         .map_err(|e| format!("Error en HTTP request: {}", e))?;
 
     let status = response.status();
-    let body = response.json::<Value>().await.map_err(|e| format!("Error parseando JSON: {}", e))?;
+    let body = response
+        .json::<Value>()
+        .await
+        .map_err(|e| format!("Error parseando JSON: {}", e))?;
 
     println!("📥 Response status: {}", status);
 
@@ -219,7 +230,10 @@ async fn test_health_check() -> Result<(), String> {
         .map_err(|e| format!("Health check falló: {}", e))?;
 
     if !response.status().is_success() {
-        return Err(format!("Health check returned status: {}", response.status()));
+        return Err(format!(
+            "Health check returned status: {}",
+            response.status()
+        ));
     }
 
     let body = response.text().await.map_err(|e| e.to_string())?;
@@ -280,7 +294,10 @@ async fn test_tools_list() -> Result<(), String> {
     // Extraer lista de herramientas
     if let Some(result) = response.get("result") {
         if let Some(tools) = result.get("tools").and_then(|t| t.as_array()) {
-            println!("✅ Tools list exitoso - {} herramientas disponibles:", tools.len());
+            println!(
+                "✅ Tools list exitoso - {} herramientas disponibles:",
+                tools.len()
+            );
 
             let tool_names: Vec<&str> = tools
                 .iter()
@@ -292,10 +309,18 @@ async fn test_tools_list() -> Result<(), String> {
             }
 
             // Verificar que las 4 herramientas esperadas estén presentes
-            let expected = ["websearch", "deepweb_search", "premium_content_scraper", "file_search"];
+            let expected = [
+                "websearch",
+                "deepweb_search",
+                "premium_content_scraper",
+                "file_search",
+            ];
             for expected_tool in &expected {
                 if !tool_names.contains(expected_tool) {
-                    return Err(format!("❌ Herramienta esperada no encontrada: {}", expected_tool));
+                    return Err(format!(
+                        "❌ Herramienta esperada no encontrada: {}",
+                        expected_tool
+                    ));
                 }
             }
 
@@ -337,7 +362,10 @@ async fn test_websearch_real() -> Result<(), String> {
 
         // Mostrar primeros 500 caracteres de respuesta real
         let result_str = result.to_string();
-        println!("📊 Response (primeros 500 chars):\n{}", &result_str[..result_str.len().min(500)]);
+        println!(
+            "📊 Response (primeros 500 chars):\n{}",
+            &result_str[..result_str.len().min(500)]
+        );
 
         // Validar que hay datos reales (results, urls, etc.)
         if let Some(data) = result.get("data") {
@@ -388,7 +416,10 @@ async fn test_file_search_real() -> Result<(), String> {
 
         // Mostrar primeros 500 caracteres
         let result_str = result.to_string();
-        println!("📊 Response (primeros 500 chars):\n{}", &result_str[..result_str.len().min(500)]);
+        println!(
+            "📊 Response (primeros 500 chars):\n{}",
+            &result_str[..result_str.len().min(500)]
+        );
     }
 
     println!("⏱️  Tiempo total HTTP: {:?}", elapsed);
@@ -421,12 +452,18 @@ async fn test_deepweb_search_real() -> Result<(), String> {
     if let Some(result) = response.get("result") {
         if let Some(exec_time) = result.get("execution_ms").and_then(|e| e.as_u64()) {
             validate_timeout(exec_time, 10)?;
-            println!("✅ Deepweb search completado en {}ms (< 10000ms)", exec_time);
+            println!(
+                "✅ Deepweb search completado en {}ms (< 10000ms)",
+                exec_time
+            );
         }
 
         // Mostrar primeros 500 caracteres de respuesta real
         let result_str = result.to_string();
-        println!("📊 Response (primeros 500 chars):\n{}", &result_str[..result_str.len().min(500)]);
+        println!(
+            "📊 Response (primeros 500 chars):\n{}",
+            &result_str[..result_str.len().min(500)]
+        );
     }
 
     println!("⏱️  Tiempo total HTTP: {:?}", elapsed);
@@ -459,12 +496,18 @@ async fn test_premium_content_scraper_real() -> Result<(), String> {
     if let Some(result) = response.get("result") {
         if let Some(exec_time) = result.get("execution_ms").and_then(|e| e.as_u64()) {
             validate_timeout(exec_time, 15)?;
-            println!("✅ Premium scraper completado en {}ms (< 15000ms)", exec_time);
+            println!(
+                "✅ Premium scraper completado en {}ms (< 15000ms)",
+                exec_time
+            );
         }
 
         // Mostrar primeros 500 caracteres de respuesta real
         let result_str = result.to_string();
-        println!("📊 Response (primeros 500 chars):\n{}", &result_str[..result_str.len().min(500)]);
+        println!(
+            "📊 Response (primeros 500 chars):\n{}",
+            &result_str[..result_str.len().min(500)]
+        );
     }
 
     println!("⏱️  Tiempo total HTTP: {:?}", elapsed);
@@ -566,7 +609,12 @@ fn test_mcp_server_compilation_real() {
 
     // Step 4: List tools in server code
     println!("\n🔧 Verifying 4 tools are implemented...");
-    let tools = vec!["websearch", "file_search", "deepweb_search", "premium_content_scraper"];
+    let tools = vec![
+        "websearch",
+        "file_search",
+        "deepweb_search",
+        "premium_content_scraper",
+    ];
     let mut found_tools = 0;
 
     for tool in &tools {

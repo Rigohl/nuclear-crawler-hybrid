@@ -12,9 +12,9 @@
 pub mod mcp; // Model Context Protocol with exactly 5 production tools
 
 // 🔥 CORE MODULES FOR TOOLS - ONLY ACTIVE CODE
+pub mod data_management; // REAL data indexing and search
 pub mod nuclear_core; // REAL bypass, extraction, concealment, spider
 pub mod premium_content_scraper; // REAL premium content extraction
-pub mod data_management; // REAL data indexing and search
 pub mod url_helpers; // URL utilities
 pub mod web_search; // REAL web search with 55+ engines
 
@@ -31,11 +31,11 @@ pub mod nim_integration; // Nim HTML parsing
 pub mod zig_integration; // Zig SIMD hashing
 
 // 🔥 INFRASTRUCTURE MODULES FOR SERVER
+pub mod advanced_bypass;
 pub mod cache; // LRU cache implementation
 pub mod deepweb_tor; // Deep web search via Tor
 pub mod intelligent_storage; // JSON file storage
-pub mod rate_limit; // Token bucket rate limiter
-pub mod advanced_bypass; // Advanced lock detection and bypass
+pub mod rate_limit; // Token bucket rate limiter // Advanced lock detection and bypass
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;

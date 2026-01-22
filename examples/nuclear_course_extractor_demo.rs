@@ -1,6 +1,6 @@
 use anyhow::Result;
-use nuclear_crawler_hybrid::nuclear_core::NuclearCore;
 use nuclear_crawler_hybrid::cache::Cache;
+use nuclear_crawler_hybrid::nuclear_core::NuclearCore;
 use serde_json::json;
 use std::sync::Arc;
 
@@ -19,14 +19,14 @@ async fn main() -> Result<()> {
     // 🔥 PASO 1: Inicializar infraestructura nuclear
     println!("🔧 PASO 1: Inicializar Infraestructura Nuclear");
     println!("──────────────────────────────────────────────");
-    
+
     let cache = Arc::new(Cache::new(10000));
     println!("  ✅ Cache: 10,000 resultados");
-    
+
     // 🔥 PASO 2: Crear instancia de NuclearCore con bypass
     println!("\n🔓 PASO 2: Inicializar NuclearBypass + NuclearCore");
     println!("──────────────────────────────────────────────");
-    
+
     let nuclear_core = NuclearCore::new()?;
     println!("  ✅ NuclearCore initialized with 6 bypass methods:");
     println!("     ├─ quantum_bypass");
@@ -39,7 +39,7 @@ async fn main() -> Result<()> {
     // 🔥 PASO 3: Definir URLs de cursos objetivo
     println!("\n🎯 PASO 3: URLs Objetivo - CURSOS");
     println!("──────────────────────────────────");
-    
+
     let course_urls = vec![
         (
             "Coursera - Machine Learning Specialization",
@@ -87,25 +87,27 @@ async fn main() -> Result<()> {
                 println!("      Palabras extraídas: {}", extracted_data.word_count);
                 println!("      Idioma detectado: {}", extracted_data.language);
                 println!("      Links encontrados: {}", extracted_data.links.len());
-                println!("      Imágenes encontradas: {}", extracted_data.images.len());
+                println!(
+                    "      Imágenes encontradas: {}",
+                    extracted_data.images.len()
+                );
 
                 // 🔥 PROCESAR CONTENIDO COMPLETO
-                let extracted = extract_course_with_full_content(
-                    course_name,
-                    url,
-                    &extracted_data,
-                );
-                
+                let extracted = extract_course_with_full_content(course_name, url, &extracted_data);
+
                 extracted_courses.push(extracted);
             }
             Err(e) => {
                 println!("   ⚠️  Maximum Power falló: {}", e);
                 println!("   🔄 Intentando con bypass alternativo...");
-                
+
                 // Fallback: intentar bypass directo
                 match nuclear_core.bypass.bypass(url).await {
                     Ok(bypass_result) => {
-                        println!("   ✅ Bypass alternativo exitoso: {}", bypass_result.bypass_method);
+                        println!(
+                            "   ✅ Bypass alternativo exitoso: {}",
+                            bypass_result.bypass_method
+                        );
                         let extracted = extract_course_content(
                             course_name,
                             url,
@@ -125,7 +127,7 @@ async fn main() -> Result<()> {
                             "status": "success",
                             "data_quality": "medium",
                         });
-                        
+
                         extracted_courses.push(extracted);
                         println!("   ✅ Fallback exitoso");
                     }
@@ -145,12 +147,25 @@ async fn main() -> Result<()> {
     println!();
 
     for (idx, course) in extracted_courses.iter().enumerate() {
-        println!("{}. {}", idx + 1, course.get("course_name").unwrap_or(&json!("")));
-        println!("   • Plataforma: {}", course.get("platform").unwrap_or(&json!("")));
+        println!(
+            "{}. {}",
+            idx + 1,
+            course.get("course_name").unwrap_or(&json!(""))
+        );
+        println!(
+            "   • Plataforma: {}",
+            course.get("platform").unwrap_or(&json!(""))
+        );
         println!("   • URL: {}", course.get("url").unwrap_or(&json!("")));
-        println!("   • Método: {}", course.get("extraction_method").unwrap_or(&json!("N/A")));
-        println!("   • Estado: {}", course.get("status").unwrap_or(&json!("N/A")));
-        
+        println!(
+            "   • Método: {}",
+            course.get("extraction_method").unwrap_or(&json!("N/A"))
+        );
+        println!(
+            "   • Estado: {}",
+            course.get("status").unwrap_or(&json!("N/A"))
+        );
+
         if let Some(content) = course.get("content") {
             if let Some(s) = content.as_str() {
                 let preview = if s.len() > 100 {
@@ -167,7 +182,7 @@ async fn main() -> Result<()> {
     // 🔥 PASO 6: GUARDAR RESULTADOS
     println!("💾 PASO 6: GUARDANDO RESULTADOS");
     println!("──────────────────────────────");
-    
+
     let output_json = json!({
         "extraction_timestamp": chrono::Utc::now().to_rfc3339(),
         "system": "Nuclear Crawler Hybrid v5.0",
@@ -234,10 +249,10 @@ fn extract_course_with_full_content(
     extracted_data: &nuclear_crawler_hybrid::nuclear_core::ExtractedData,
 ) -> serde_json::Value {
     let platform = get_platform(url);
-    
+
     // 🔥 SYLLABUS COMPLETO EXTRAÍDO
     let full_syllabus = extract_syllabus_by_platform(&platform);
-    
+
     json!({
         "platform": platform.clone(),
         "course_name": course_name,
@@ -246,7 +261,7 @@ fn extract_course_with_full_content(
         "status": "success",
         "data_quality": "high",
         "content_type": "complete_extraction",
-        
+
         // 📊 METADATOS EXTRAÍDOS
         "metadata": {
             "total_words_extracted": extracted_data.word_count,
@@ -256,20 +271,20 @@ fn extract_course_with_full_content(
             "structured_data_found": !extracted_data.structured_data.is_null(),
             "extraction_timestamp": chrono::Utc::now().to_rfc3339(),
         },
-        
+
         // 🎓 INFORMACIÓN DEL CURSO
         "course_info": get_course_info(&platform, course_name),
-        
+
         // 📚 SYLLABUS COMPLETO
         "syllabus": full_syllabus,
-        
+
         // 📖 CONTENIDO EXTRAÍDO
         "main_content": {
             "text": extracted_data.main_text.chars().take(500).collect::<String>(),
             "word_count": extracted_data.word_count,
             "full_text_available": true,
         },
-        
+
         // 🔗 RECURSOS ENCONTRADOS
         "resources": {
             "links": extracted_data.links.iter().take(20).cloned().collect::<Vec<_>>(),
@@ -277,10 +292,10 @@ fn extract_course_with_full_content(
             "total_links": extracted_data.links.len(),
             "total_images": extracted_data.images.len(),
         },
-        
+
         // 🏛️ DATOS ESTRUCTURADOS
         "structured_data": extracted_data.structured_data.clone(),
-        
+
         // ✅ GARANTÍAS
         "guarantees": {
             "real_http_request": true,
@@ -300,10 +315,10 @@ fn extract_course_content(
     method: &str,
 ) -> serde_json::Value {
     let platform = get_platform(url);
-    
+
     // 🔥 EXTRACCIÓN ESPECÍFICA POR PLATAFORMA - FALLBACK
     let full_syllabus = extract_syllabus_by_platform(&platform);
-    
+
     json!({
         "platform": platform.clone(),
         "course_name": course_name,
@@ -636,7 +651,7 @@ fn extract_syllabus_by_platform(platform: &str) -> serde_json::Value {
             "status": "syllabus_extracted",
             "total_lessons": 15,
             "estimated_hours": 20
-        })
+        }),
     }
 }
 
@@ -696,7 +711,7 @@ fn get_course_info(platform: &str, course_name: &str) -> serde_json::Value {
             "title": course_name,
             "platform": platform,
             "status": "information_extracted"
-        })
+        }),
     }
 }
 

@@ -809,7 +809,12 @@ impl NuclearCore {
 
         // Add additional stealth headers
         let mut header_map = reqwest::header::HeaderMap::new();
-        header_map.insert("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8".parse().unwrap());
+        header_map.insert(
+            "Accept",
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+                .parse()
+                .unwrap(),
+        );
         header_map.insert("Accept-Language", "en-US,en;q=0.5".parse().unwrap());
         header_map.insert("Accept-Encoding", "gzip, deflate".parse().unwrap());
         header_map.insert("DNT", "1".parse().unwrap());

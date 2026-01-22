@@ -248,7 +248,12 @@ impl ZigSimdProcessor {
     }
 
     /// Real Zig FFI call for pattern matching
-    fn zig_find_pattern(&self, _lib: &Library, text: &str, pattern: &str) -> Result<ZigPatternResult> {
+    fn zig_find_pattern(
+        &self,
+        _lib: &Library,
+        text: &str,
+        pattern: &str,
+    ) -> Result<ZigPatternResult> {
         // Fallback to CPU version
         self.cpu_fallback_pattern_match(text, &[pattern.to_string()])
             .map(|mut results| results.pop().unwrap())
@@ -263,16 +268,16 @@ impl ZigSimdProcessor {
     /// CPU fallback for hashing - Powerful SIMD alternative when FFI unavailable
     pub fn cpu_fallback_hash(&self, data: &[u8]) -> Result<ZigHashResult> {
         let start = std::time::Instant::now();
-        
+
         // Use simple hash computation
         let mut hash: u64 = 0;
         for &byte in data {
             hash = hash.wrapping_mul(31).wrapping_add(byte as u64);
         }
         let hash_hex = format!("{:x}", hash);
-        
+
         let processing_time_ns = start.elapsed().as_nanos() as u64;
-        
+
         Ok(ZigHashResult {
             hash: hash_hex,
             algorithm: "simd_cpu".to_string(),
@@ -282,7 +287,11 @@ impl ZigSimdProcessor {
     }
 
     /// CPU fallback for pattern matching
-    pub fn cpu_fallback_pattern_match(&self, text: &str, patterns: &[String]) -> Result<Vec<ZigPatternResult>> {
+    pub fn cpu_fallback_pattern_match(
+        &self,
+        text: &str,
+        patterns: &[String],
+    ) -> Result<Vec<ZigPatternResult>> {
         let start = std::time::Instant::now();
         let mut results = Vec::new();
 

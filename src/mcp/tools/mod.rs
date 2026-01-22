@@ -1,7 +1,7 @@
 //! 🔥 MCP TOOLS - EXACTLY 5 TOOLS EN MÁXIMO PODER
-//! 
+//!
 //! Siguiendo MCP 2025 Protocol - 5 tools fundamentales, cero experimental
-//! 
+//!
 //! 1. WEBSEARCH    - Búsqueda web real en 55+ motores, HTTP real, stealth
 //! 2. PREMIUM      - Extrae paywalls (Medium, ArXiv, O'Reilly), bypass 100%
 //! 3. FILE_SEARCH  - Análisis avanzado (Zig SIMD, Nim parsing, detecta errores)
@@ -10,20 +10,24 @@
 //!
 //! Todo experimental (full_stack, websearch_complete, mega_tool, etc) ELIMINADO
 
-pub mod websearch;
-pub mod premium_content;
-pub mod file_search_advanced;
-pub mod scan_workspace;
 pub mod ai_dataset_trainer;
 pub mod dataset_generator;
+pub mod file_search_advanced;
+pub mod premium_content;
+pub mod scan_workspace;
+pub mod websearch;
 
 // ✅ 5 TOOLS PRINCIPALES + BONUS GENERATOR
-pub use websearch::{WebSearchTool, SearchResult, WebSearchConfig};
-pub use premium_content::{PremiumContentTool, PremiumContent, PremiumConfig};
-pub use file_search_advanced::{AdvancedFileSearchTool, CodeIssue, FileAnalysisResult, FileSearchConfig as FileSearchAdvancedConfig, FileSearchResult, FileMatch};
-pub use scan_workspace::{ScanWorkspaceTool, ScanConfig, ScanResult, ScanIssue, FileAnalysis};
-pub use ai_dataset_trainer::{AIDatasetTrainerTool, TrainingDataset, TrainingDatapoint, DatasetTrainerConfig};
+pub use ai_dataset_trainer::{
+    AIDatasetTrainerTool, DatasetTrainerConfig, TrainingDatapoint, TrainingDataset,
+};
+pub use file_search_advanced::{
+    AdvancedFileSearchTool, CodeIssue, FileAnalysisResult, FileMatch,
+    FileSearchConfig as FileSearchAdvancedConfig, FileSearchResult,
+};
+pub use premium_content::{PremiumConfig, PremiumContent, PremiumContentTool};
+pub use scan_workspace::{FileAnalysis, ScanConfig, ScanIssue, ScanResult, ScanWorkspaceTool};
+pub use websearch::{SearchResult, WebSearchConfig, WebSearchTool};
 
 // ⚠️ BONUS (No en los 5 principales, pero útil)
-pub use dataset_generator::{DatasetGeneratorTool, Dataset, DatasetItem, DatasetConfig};
-
+pub use dataset_generator::{Dataset, DatasetConfig, DatasetGeneratorTool, DatasetItem};

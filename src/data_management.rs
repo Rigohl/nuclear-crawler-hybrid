@@ -1,8 +1,8 @@
+use anyhow::Result;
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 use std::fs;
-use chrono::{DateTime, Utc};
-use anyhow::Result;
 
 /// Data Management System - Gestión inteligente de información extraída
 /// Sistema completo para organizar, indexar y analizar datos de búsquedas
@@ -96,7 +96,9 @@ impl DataIndex {
             .filter(|r| {
                 r.title.to_lowercase().contains(&keyword.to_lowercase())
                     || r.snippet.to_lowercase().contains(&keyword.to_lowercase())
-                    || r.tags.iter().any(|t| t.to_lowercase().contains(&keyword.to_lowercase()))
+                    || r.tags
+                        .iter()
+                        .any(|t| t.to_lowercase().contains(&keyword.to_lowercase()))
             })
             .collect()
     }
@@ -145,7 +147,8 @@ impl DataIndex {
             total_tags: self.tags.len(),
             total_sources: self.sources.len(),
             total_unique_urls: self.urls_seen.len(),
-            tools_used: self.results
+            tools_used: self
+                .results
                 .iter()
                 .map(|r| r.tool.clone())
                 .collect::<HashSet<_>>()
@@ -153,7 +156,8 @@ impl DataIndex {
             avg_relevance: if self.results.is_empty() {
                 0.0
             } else {
-                self.results.iter().map(|r| r.relevance_score).sum::<f32>() / self.results.len() as f32
+                self.results.iter().map(|r| r.relevance_score).sum::<f32>()
+                    / self.results.len() as f32
             },
         }
     }
@@ -248,23 +252,40 @@ impl DataReport {
     pub fn to_text(&self) -> String {
         let mut text = format!("═══════════════════════════════════════════\n");
         text.push_str(&format!("📊 {}\n", self.title));
-        text.push_str(&format!("Generated: {}\n", self.generated_at.format("%Y-%m-%d %H:%M:%S")));
+        text.push_str(&format!(
+            "Generated: {}\n",
+            self.generated_at.format("%Y-%m-%d %H:%M:%S")
+        ));
         text.push_str("═══════════════════════════════════════════\n\n");
 
         // Estadísticas
         text.push_str("📈 ESTADÍSTICAS\n");
-        text.push_str(&format!("  Total resultados: {}\n", self.stats.total_results));
-        text.push_str(&format!("  URLs únicas: {}\n", self.stats.total_unique_urls));
+        text.push_str(&format!(
+            "  Total resultados: {}\n",
+            self.stats.total_results
+        ));
+        text.push_str(&format!(
+            "  URLs únicas: {}\n",
+            self.stats.total_unique_urls
+        ));
         text.push_str(&format!("  Categorías: {}\n", self.stats.total_categories));
         text.push_str(&format!("  Tags: {}\n", self.stats.total_tags));
         text.push_str(&format!("  Fuentes: {}\n", self.stats.total_sources));
         text.push_str(&format!("  Tools usadas: {}\n", self.stats.tools_used));
-        text.push_str(&format!("  Relevancia promedio: {:.2}\n\n", self.stats.avg_relevance));
+        text.push_str(&format!(
+            "  Relevancia promedio: {:.2}\n\n",
+            self.stats.avg_relevance
+        ));
 
         // Top resultados
         text.push_str("🏆 TOP RESULTADOS\n");
         for (i, result) in self.top_results.iter().enumerate() {
-            text.push_str(&format!("  {}. {} ({})\n", i + 1, result.title, result.relevance_score));
+            text.push_str(&format!(
+                "  {}. {} ({})\n",
+                i + 1,
+                result.title,
+                result.relevance_score
+            ));
         }
         text.push_str("\n");
 

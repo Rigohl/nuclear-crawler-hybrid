@@ -1,17 +1,17 @@
 //! 🔥 DATASET GENERATOR - Create datasets from web searches
-//! 
+//!
 //! Generate datasets from:
 //! - Web search results
 //! - Premium content
 //! - File analysis
 //! - ALIMENTADO DE: data_management, intelligent_storage, jax_integration, zig_integration
 
-use anyhow::Result;
-use serde::{Deserialize, Serialize};
-use std::sync::Arc;
 use crate::intelligent_storage::IntelligentStorage;
 use crate::jax_integration::JaxProcessor;
 use crate::zig_integration::ZigSimdProcessor;
+use anyhow::Result;
+use serde::{Deserialize, Serialize};
+use std::sync::Arc;
 
 /// Dataset item
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -73,7 +73,7 @@ impl DatasetGeneratorTool {
         eprintln!("   ✅ Compresión: {}", config.compress);
         eprintln!("   ✅ Metadatos: {}", config.include_metadata);
         eprintln!("   ✅ Storage: IntelligentStorage + JAX + Zig");
-        Self { 
+        Self {
             config,
             storage: Arc::new(tokio::sync::Mutex::new(IntelligentStorage::new())),
             jax_processor: Arc::new(tokio::sync::Mutex::new(None)),
@@ -82,7 +82,12 @@ impl DatasetGeneratorTool {
     }
 
     /// Create dataset from items - MÁXIMO PODER
-    pub fn create_dataset(&self, name: &str, description: &str, items: Vec<DatasetItem>) -> Result<Dataset> {
+    pub fn create_dataset(
+        &self,
+        name: &str,
+        description: &str,
+        items: Vec<DatasetItem>,
+    ) -> Result<Dataset> {
         eprintln!("📊 Creando dataset: {} ({} items)", name, items.len());
         eprintln!("   ✅ Storage: Inteligente");
         eprintln!("   ✅ Compresión: Activa");
@@ -103,19 +108,17 @@ impl DatasetGeneratorTool {
     /// Export dataset to file - USANDO IntelligentStorage del core
     pub async fn export_dataset(&self, dataset: &Dataset, filepath: &str) -> Result<String> {
         eprintln!("💾 Exporting dataset: {}", filepath);
-        
+
         // 1️⃣ USA IntelligentStorage para guardar
         let storage = self.storage.lock().await;
-        
+
         let json_data = serde_json::json!(dataset);
-        let result_path = storage.store_search_results(
-            "dataset",
-            &dataset.name,
-            &json_data,
-        ).await?;
+        let result_path = storage
+            .store_search_results("dataset", &dataset.name, &json_data)
+            .await?;
 
         eprintln!("✅ Dataset exported to: {}", result_path);
-        
+
         // 2️⃣ USA Zig SIMD para hash de integridad (si disponible)
         #[cfg(has_zig)]
         {
@@ -123,7 +126,8 @@ impl DatasetGeneratorTool {
                 let dataset_bytes = serde_json::to_vec(dataset)?;
                 match zig.hash_data(&dataset_bytes) {
                     Ok(hash_result) => {
-                        eprintln!("   ✅ Integrity hash: {} ({}ns)", 
+                        eprintln!(
+                            "   ✅ Integrity hash: {} ({}ns)",
                             &hash_result.hash[..16],
                             hash_result.processing_time_ns
                         );
@@ -139,10 +143,12 @@ impl DatasetGeneratorTool {
         if dataset.item_count > 100 {
             eprintln!("🔥 JAX: Vectorizing {} items...", dataset.item_count);
             if let Some(jax) = self.jax_processor.lock().await.as_ref() {
-                let contents: Vec<String> = dataset.items.iter()
+                let contents: Vec<String> = dataset
+                    .items
+                    .iter()
                     .map(|item| item.content.clone())
                     .collect();
-                
+
                 match jax.process_results(&contents) {
                     Ok(results) => {
                         eprintln!("   ✅ JAX vectorization: {} scores computed", results.len());
@@ -160,12 +166,12 @@ impl DatasetGeneratorTool {
     /// Convert dataset to CSV format
     pub fn to_csv(&self, dataset: &Dataset) -> Result<String> {
         eprintln!("📄 Converting dataset to CSV format");
-        
+
         let mut csv = String::new();
-        
+
         // Header
         csv.push_str("id,title,source,created_at\n");
-        
+
         // Rows
         for item in &dataset.items {
             csv.push_str(&format!(
@@ -181,10 +187,10 @@ impl DatasetGeneratorTool {
     /// Load dataset from storage
     pub async fn load_dataset(&self, filepath: &str) -> Result<Dataset> {
         eprintln!("📂 Loading dataset from: {}", filepath);
-        
+
         // 1️⃣ USA IntelligentStorage para cargar
         let storage = self.storage.lock().await;
-        
+
         match storage.load_search_results(filepath).await {
             Ok(json_data) => {
                 let dataset: Dataset = serde_json::from_value(json_data)?;
@@ -201,20 +207,24 @@ impl DatasetGeneratorTool {
     /// Batch processing of datasets - USA JAX GPU acceleration
     pub async fn batch_process(&self, datasets: Vec<Dataset>) -> Result<Vec<Dataset>> {
         eprintln!("⚙️ Batch processing {} datasets", datasets.len());
-        
+
         let mut processed = Vec::new();
 
         for dataset in datasets {
             // 1️⃣ USA JAX para procesar si hay muchos items
             if dataset.item_count > 50 {
-                eprintln!("   🔥 JAX: Processing {} items from '{}'", 
-                    dataset.item_count, dataset.name);
-                
+                eprintln!(
+                    "   🔥 JAX: Processing {} items from '{}'",
+                    dataset.item_count, dataset.name
+                );
+
                 if let Some(jax) = self.jax_processor.lock().await.as_ref() {
-                    let contents: Vec<String> = dataset.items.iter()
+                    let contents: Vec<String> = dataset
+                        .items
+                        .iter()
                         .map(|item| item.content.clone())
                         .collect();
-                    
+
                     match jax.process_results(&contents) {
                         Ok(_scores) => {
                             eprintln!("      ✅ JAX processing complete");

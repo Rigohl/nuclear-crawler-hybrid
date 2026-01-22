@@ -1,8 +1,8 @@
 //! 🔥 MCP PROTOCOL - JSON-RPC 2.0 Implementation
-//! 
+//!
 //! Follows Model Context Protocol 2025 specification
 //! EXPONE EXACTAMENTE 5 TOOLS CON PODER REAL
-//! 
+//!
 //! 1. WEBSEARCH - Búsqueda internet con todo poder
 //! 2. PREMIUM - Libros, cursos, Medium (link o frase)
 //! 3. FILE_SEARCH - Líneas exactas, palabras, errores, warnings
@@ -90,7 +90,7 @@ impl MCPRequest {
         }
         Ok(())
     }
-    
+
     /// Create tools list request
     pub fn list_tools() -> Self {
         Self {
@@ -113,12 +113,12 @@ impl MCPRequest {
             }),
         }
     }
-    
+
     /// Extract tool name from params (safe)
     pub fn get_tool_name(&self) -> Option<&str> {
         self.params.get("name").and_then(|v| v.as_str())
     }
-    
+
     /// Extract arguments from params (safe)
     pub fn get_arguments(&self) -> Value {
         self.params.get("arguments").cloned().unwrap_or(Value::Null)
@@ -149,7 +149,7 @@ impl MCPResponse {
             }),
         }
     }
-    
+
     /// Create error response with data
     pub fn error_with_data(id: String, code: i32, message: String, data: Value) -> Self {
         Self {
@@ -181,7 +181,7 @@ impl MCPResponse {
             format!("Invalid params: {}", reason),
         )
     }
-    
+
     /// Create parse error
     pub fn parse_error(id: String) -> Self {
         Self::error(
@@ -190,7 +190,7 @@ impl MCPResponse {
             "Parse error: Invalid JSON".to_string(),
         )
     }
-    
+
     /// Create internal error
     pub fn internal_error(id: String, details: &str) -> Self {
         Self::error(
@@ -199,7 +199,7 @@ impl MCPResponse {
             format!("Internal error: {}", details),
         )
     }
-    
+
     /// Create rate limited error
     pub fn rate_limited(id: String) -> Self {
         Self::error(
@@ -324,16 +324,12 @@ pub fn get_tool_definitions() -> Vec<ToolDefinition> {
 
 /// Get tool by name
 pub fn get_tool_definition(name: &str) -> Option<ToolDefinition> {
-    get_tool_definitions()
-        .into_iter()
-        .find(|t| t.name == name)
+    get_tool_definitions().into_iter().find(|t| t.name == name)
 }
 
 /// Validate tool exists
 pub fn tool_exists(name: &str) -> bool {
-    get_tool_definitions()
-        .iter()
-        .any(|t| t.name == name)
+    get_tool_definitions().iter().any(|t| t.name == name)
 }
 
 /// Get list of available tool names
@@ -347,13 +343,17 @@ pub fn get_tool_names() -> Vec<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_exactly_5_tools() {
         let tools = get_tool_definitions();
-        assert_eq!(tools.len(), 5, "Must have EXACTLY 5 tools (no experimental)");
+        assert_eq!(
+            tools.len(),
+            5,
+            "Must have EXACTLY 5 tools (no experimental)"
+        );
     }
-    
+
     #[test]
     fn test_tool_names() {
         let names = get_tool_names();
@@ -363,14 +363,14 @@ mod tests {
         assert!(names.contains(&"file_search".to_string()));
         assert!(names.contains(&"scan".to_string()));
         assert!(names.contains(&"ai_dataset_trainer".to_string()));
-        
+
         // MUST NOT contain experimental tools
         assert!(!names.contains(&"full_stack_integration".to_string()));
         assert!(!names.contains(&"info".to_string()));
         assert!(!names.contains(&"nuclear_mega_tool".to_string()));
         assert!(!names.contains(&"websearch_complete".to_string()));
     }
-    
+
     #[test]
     fn test_request_validation() {
         let valid = MCPRequest {
@@ -380,7 +380,7 @@ mod tests {
             params: json!({}),
         };
         assert!(valid.validate().is_ok());
-        
+
         let invalid = MCPRequest {
             jsonrpc: "1.0".to_string(),
             id: "test".to_string(),
@@ -389,7 +389,7 @@ mod tests {
         };
         assert!(invalid.validate().is_err());
     }
-    
+
     #[test]
     fn test_response_serialization() {
         let response = MCPResponse::success("123".to_string(), json!({"test": true}));
