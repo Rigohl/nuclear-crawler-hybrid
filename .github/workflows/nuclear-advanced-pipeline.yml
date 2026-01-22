@@ -1,26 +1,26 @@
-name: 🚀 Nuclear Multi-Agent CI/CD Pipeline
+name: 🚀 Nuclear Multi-Agent CI/CD Pipeline (DISABLED)
+
+# This workflow is disabled because it has complex dependencies that need to be set up
+# To enable: uncomment the 'on:' section below
+
+# on:
+#   push:
+#     branches: [main, develop]
+#   pull_request:
+#     branches: [main]
+#   workflow_dispatch:
 
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-  issues:
-    types: [opened, labeled]
-  schedule:
-    - cron: '0 2 * * 1'  # Weekly research on Mondays
   workflow_dispatch:
     inputs:
-      analysis_mode:
-        description: 'Analysis mode'
-        required: false
-        default: 'full'
+      enable_advanced:
+        description: 'Enable advanced pipeline (requires setup)'
+        required: true
+        default: 'false'
         type: choice
         options:
-          - full
-          - quick
-          - research
-          - optimization
+          - 'false'
+          - 'true'
 
 env:
   CARGO_TERM_COLOR: always
