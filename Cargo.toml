@@ -117,7 +117,7 @@ mime = "0.3"
 
 # 🔥 NEW: Chatbot capabilities
 # For chat interface and conversation management
-toml = "0.8"
+toml = "0.9"
 
 [[bin]]
 name = "nuclear-mcp"
