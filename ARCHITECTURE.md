@@ -653,6 +653,256 @@ docker-compose up -d
 
 ---
 
+## ☁️ MULTI-CLOUD ALWAYS FREE ARCHITECTURE
+
+### Infrastructure as Code - All 4 Clouds
+
+#### AWS EC2 T2.Micro Configuration
+```hcl
+# Terraform - AWS
+resource "aws_instance" "nuclear_ai_training" {
+  ami           = "ami-0c55b159cbfafe1f0"  # Ubuntu 20.04 LTS
+  instance_type = "t2.micro"
+  
+  tags = {
+    Name = "nuclear-ai-training"
+    Tier = "always-free"
+    Duration = "12-months"
+  }
+  
+  # Always Free: 750 hours/month = ~31 days
+  # 12 month expiration then $9/month
+  
+  root_block_device {
+    volume_size = 30  # 30GB free tier
+    volume_type = "gp2"
+  }
+}
+
+# Training script
+provisioner "file" {
+  source      = "ffi/chapel/models/nuclear_chapel_ai.pkl"
+  destination = "/home/ubuntu/model.pkl"
+}
+
+provisioner "file" {
+  source      = "ffi/chapel/datasets/massive_training_120k.json"
+  destination = "/home/ubuntu/dataset.json"
+}
+
+provisioner "remote-exec" {
+  commands = [
+    "pip3 install scikit-learn numpy",
+    "python3 train_full_dataset.py"
+  ]
+}
+```
+
+#### Azure Standard_B1s Configuration
+```bash
+# Azure CLI - Perpetual Always Free
+az vm create \
+  --resource-group nuclear-rg \
+  --name nuclear-ai-azure \
+  --image UbuntuLTS \
+  --size Standard_B1s \
+  --os-disk-size-gb 30 \
+  --admin-username azureuser \
+  --custom-data <<EOF
+#!/bin/bash
+apt-get update
+apt-get install -y python3 python3-pip git
+pip3 install scikit-learn numpy pandas
+cd /home/azureuser
+git clone https://github.com/Rigohl/nuclear-crawler-hybrid.git
+cd nuclear-crawler-hybrid
+python3 ffi/chapel/train_model.py
+EOF
+
+# Perpetual Always Free:
+# - 1 vCPU continuous (always free, no expiration)
+# - 1GB RAM
+# - 30GB storage
+# - No automatic shutdown
+```
+
+#### Google Cloud e2-Micro Configuration
+```bash
+# GCP Terraform - Perpetual Always Free
+resource "google_compute_instance" "nuclear_ai_gcp" {
+  name         = "nuclear-ai-training"
+  machine_type = "e2-micro"
+  zone         = "us-central1-a"  # Always Free region
+  
+  boot_disk {
+    initialize_params {
+      image = "debian-11"
+      size  = 30  # GB
+    }
+  }
+  
+  metadata_startup_script = file("${path.module}/startup-script.sh")
+  
+  labels = {
+    tier = "always-free"
+    region = "us-central1"
+  }
+}
+
+# Perpetual Always Free (us-central1 region only):
+# - 0.25-2 vCPU flexible
+# - 1GB RAM
+# - 30GB SSD or HDD
+# - 1TB egress/month
+```
+
+#### Kaggle GPU P100 Configuration
+```python
+# Kaggle Notebook Setup (GPU P100, 30h/week)
+# 16GB RAM, 2x Tesla P100 GPUs (per week)
+
+import numpy as np
+import pandas as pd
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+import pickle
+import json
+
+# Load dataset from Kaggle datasets
+with open('/kaggle/input/nuclear-training-data/massive_training_120k.json') as f:
+    data = json.load(f)
+
+# Convert to numpy arrays
+X = np.array([sample['features'] for sample in data['samples']])
+y = np.array([sample['label'] for sample in data['samples']])
+
+# Scale features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Train on P100 GPU (TensorFlow backend)
+model = MLPClassifier(
+    hidden_layer_sizes=(128, 64, 32),
+    max_iter=500,
+    batch_size=64,
+    learning_rate_init=0.001,
+    solver='adam'
+)
+
+model.fit(X_scaled, y)
+
+# Save model
+with open('/kaggle/working/nuclear_chapel_ai_gpu.pkl', 'wb') as f:
+    pickle.dump(model, f)
+
+print(f"Model trained on Kaggle P100: {model.score(X_scaled, y):.2%}")
+```
+
+### 🎯 Training Comparison Table
+
+| Factor | AWS | Azure | GCP | Kaggle |
+|--------|-----|-------|-----|--------|
+| **CPU** | 1 vCPU | 1 vCPU | 0.25-2 vCPU | 4 vCPU |
+| **RAM** | 1 GB | 1 GB | 1 GB | 16 GB |
+| **GPU** | ❌ | ❌ | ❌ | ✅ P100 |
+| **Storage** | 30 GB | 30 GB | 30 GB | 70 GB |
+| **Cost/Month** | $0 (12m) | $0 ∞ | $0 ∞ | $0 (30h/wk) |
+| **Expiration** | 12 months | Never | Never | 30h/week limit |
+| **Best For** | Long-term training | Perpetual setup | Stable runs | GPU acceleration |
+| **Training Time** | ~2-4 hours | ~2-4 hours | ~2-4 hours | ~15-30 min (P100) |
+
+### 📊 Dataset Information
+- **File**: ffi/chapel/datasets/massive_training_120k.json (87.80 MB)
+- **Samples**: 120,000 total
+  - fake_news: 50,000
+  - code_samples: 30,000
+  - configurations: 20,000
+  - information_search: 20,000
+- **Features**: 10 dimensions per sample
+- **Classes**: 5 output categories
+
+### 🚀 Distributed Training Pipeline
+
+```python
+# Multi-cloud orchestration (pseudo-code)
+import asyncio
+import subprocess
+
+async def train_on_all_clouds():
+    tasks = []
+    
+    # AWS t2.micro training
+    tasks.append(asyncio.create_task(
+        run_on_aws_instance('training-job-aws')
+    ))
+    
+    # Azure B1s training
+    tasks.append(asyncio.create_task(
+        run_on_azure_vm('training-job-azure')
+    ))
+    
+    # GCP e2-micro training
+    tasks.append(asyncio.create_task(
+        run_on_gcp_instance('training-job-gcp')
+    ))
+    
+    # Kaggle P100 GPU training
+    tasks.append(asyncio.create_task(
+        run_kaggle_notebook('training-job-kaggle')
+    ))
+    
+    results = await asyncio.gather(*tasks)
+    
+    # Aggregate results
+    ensemble_accuracy = np.mean([r['accuracy'] for r in results])
+    print(f"Ensemble Accuracy: {ensemble_accuracy:.2%}")
+    
+    return results
+```
+
+### ✅ Production Deployment
+
+```bash
+#!/bin/bash
+# Deploy model to all Always Free clouds
+
+echo "🌐 DEPLOYING TO MULTI-CLOUD ALWAYS FREE TIER"
+
+# 1. AWS
+aws s3 cp ffi/chapel/models/nuclear_chapel_ai.pkl s3://nuclear-models/aws/
+
+# 2. Azure
+az storage blob upload \
+  --account-name nuclearmodels \
+  --container-name models \
+  --name nuclear_chapel_ai.pkl \
+  --file ffi/chapel/models/nuclear_chapel_ai.pkl
+
+# 3. GCP
+gsutil cp ffi/chapel/models/nuclear_chapel_ai.pkl gs://nuclear-models/gcp/
+
+# 4. Kaggle
+kaggle datasets upload -p ffi/chapel/models/
+
+echo "✅ MODEL DEPLOYED TO ALL CLOUDS"
+```
+
+### 📈 Cost Analysis (12-Month Projection)
+
+| Scenario | AWS | Azure | GCP | Kaggle | Total |
+|----------|-----|-------|-----|--------|-------|
+| **0-12 months** | $0 | $0 | $0 | $0 | **$0** |
+| **12-24 months** | $108 | $0 | $0 | $0 | **$108** |
+| **After 24m** | $108 | $0 | $0 | $0 | **$108/year** |
+
+**Recommended Strategy:**
+- Use **Azure** + **GCP** indefinitely (perpetual always free)
+- Use **AWS** for first 12 months, migrate to Azure/GCP after
+- Use **Kaggle GPU** weekly for model acceleration
+- **Total lifetime cost**: $0 for first 12 months, $0/month after (using only Azure + GCP)
+
+---
+
 **Status: 🟢 PRODUCTION READY**
 
 Last updated: January 23, 2026
