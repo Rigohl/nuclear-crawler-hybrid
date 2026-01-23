@@ -13,7 +13,7 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
+use std::sync::{Arc, OnceLock, RwLock};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Chapel AI Learning Context
@@ -67,7 +67,7 @@ impl PatternDatabase {
     fn add_pattern(&mut self, pattern_id: String, context: ChapelContext) {
         self.patterns
             .entry(pattern_id.clone())
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(context.clone());
 
         *self.pattern_count.entry(pattern_id.clone()).or_insert(0) += 1;
@@ -336,16 +336,11 @@ impl Default for ChapelAI {
 }
 
 /// Global Chapel AI instance (singleton pattern)
-static mut CHAPEL_AI: Option<ChapelAI> = None;
+static CHAPEL_AI: OnceLock<ChapelAI> = OnceLock::new();
 
 /// Get global Chapel AI instance
 pub fn get_chapel_ai() -> &'static ChapelAI {
-    unsafe {
-        if CHAPEL_AI.is_none() {
-            CHAPEL_AI = Some(ChapelAI::new());
-        }
-        CHAPEL_AI.as_ref().unwrap()
-    }
+    CHAPEL_AI.get_or_init(ChapelAI::new)
 }
 
 /// Helper to create Chapel context for learning

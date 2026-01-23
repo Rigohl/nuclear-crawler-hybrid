@@ -429,7 +429,7 @@ impl DeepWebSearch {
             score -= 0.3;
         }
 
-        score.max(0.0_f32).min(1.0_f32)
+        score.clamp(0.0_f32, 1.0_f32)
     }
 
     /// Get known DeepWeb directories and search engines

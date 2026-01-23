@@ -406,13 +406,13 @@ impl AIDatasetTrainerTool {
         for (idx, ((text, hash, headings), embedding)) in
             parsed_content.iter().zip(embeddings.iter()).enumerate()
         {
-            let quality = self.assess_quality(text, &headings);
+            let quality = self.assess_quality(text, headings);
             if quality >= self.config.min_quality_score {
                 let datapoint = TrainingDatapoint {
                     id: format!("dp_{:06}", idx),
                     text: text.clone(),
-                    source: self.select_source(&headings),
-                    category: self.categorize_content(text, &headings),
+                    source: self.select_source(headings),
+                    category: self.categorize_content(text, headings),
                     metadata: {
                         let mut m = HashMap::new();
                         m.insert("headings_count".to_string(), headings.len().to_string());

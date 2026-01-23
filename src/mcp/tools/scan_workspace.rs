@@ -499,7 +499,7 @@ impl ScanWorkspaceTool {
             lines_blank,
             issues,
             health_score,
-            complexity_score: complexity_score.max(0.0).min(100.0),
+            complexity_score: complexity_score.clamp(0.0, 100.0),
         })
     }
 
@@ -552,7 +552,7 @@ impl ScanWorkspaceTool {
         let issues_ratio = (total_issues as f64 / total_lines as f64) * 1000.0;
         let issues_penalty = (issues_ratio * 2.0).min(30.0);
 
-        (avg_health - issues_penalty).max(0.0).min(100.0)
+        (avg_health - issues_penalty).clamp(0.0, 100.0)
     }
 
     fn generate_advice(

@@ -216,14 +216,11 @@ impl WebSearchTool {
         {
             eprintln!("📡 Go FFI not available, using parse_html_with_go fallback");
             for engine_url in search_engines.iter().take(5) {
-                match self.fetch_results_real(engine_url).await {
-                    Ok(html_content_results) => {
-                        for res in html_content_results {
-                            let parsed = self.parse_html_with_go(&format!("href=\"{}\"", res.url));
-                            results.extend(parsed);
-                        }
+                if let Ok(html_content_results) = self.fetch_results_real(engine_url).await {
+                    for res in html_content_results {
+                        let parsed = self.parse_html_with_go(&format!("href=\"{}\"", res.url));
+                        results.extend(parsed);
                     }
-                    Err(_) => {}
                 }
             }
         }
@@ -293,7 +290,7 @@ impl WebSearchTool {
         self.cache.set_simple(&cache_key, json_result);
 
         // 🧠 Chapel AI: Learn from search quality
-        let quality = if results.len() > 0 {
+        let quality = if !results.is_empty() {
             (results.len() as f64 / self.config.max_results as f64).min(1.0)
         } else {
             0.0
@@ -432,7 +429,7 @@ impl WebSearchTool {
                         if !url_str.contains("google.com") && !url_str.contains("bing.com") {
                             results.push(SearchResult {
                                 url: url_str.to_string(),
-                                title: url_str.split('/').last().unwrap_or("Result").to_string(),
+                                title: url_str.rsplit('/').next().unwrap_or("Result").to_string(),
                                 snippet: "Extracted from search results".to_string(),
                                 source: "web_extraction".to_string(),
                                 relevance_score: 0.75,
