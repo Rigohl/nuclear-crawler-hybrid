@@ -40,7 +40,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -113,7 +113,7 @@ jobs:
           echo "score=$OPTIMIZATION_SCORE" >> $GITHUB_OUTPUT
 
       - name: 📊 Upload Analysis Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: nuclear-analysis-results
           path: analysis_results.json
@@ -133,7 +133,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 🤖 Setup GitHub Copilot CLI
         run: |
@@ -150,7 +150,7 @@ jobs:
           gh copilot suggest "create implementation proposals for integrating advanced AI models in Nuclear Crawler"
 
       - name: 📤 Create Research PR
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v8
         with:
           title: "🔬 AI-Generated Research & Implementation Proposals"
           body: "Automated research on latest technologies and implementation suggestions"
@@ -167,12 +167,12 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📥 Download Analysis Results
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: nuclear-analysis-results
 
@@ -191,7 +191,7 @@ jobs:
           cargo fmt
 
       - name: 📤 Create Optimization PR
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v8
         with:
           title: "🔧 Automated Code Fixes & Optimizations"
           body: "Critical issues fixed and performance optimizations applied"
@@ -208,7 +208,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 📊 Generate Advanced Report
         run: |
@@ -225,14 +225,14 @@ jobs:
           echo "Critical Issues: ${{ needs.multi_agent_analysis.outputs.critical_issues }}" >> metrics.txt
 
       - name: 📤 Upload Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: nuclear-advanced-report
           path: NUCLEAR_ANALYSIS_REPORT.md
 
       - name: 💬 Comment on PR
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
@@ -255,7 +255,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 🐳 Build Docker Image
         run: |
@@ -285,10 +285,10 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 🔒 Security Scan
-        uses: github/super-linter/slim@v5
+        uses: github/super-linter/slim@v7
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
