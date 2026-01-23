@@ -17,8 +17,8 @@ use serde::{Deserialize, Serialize};
 use std::collections::VecDeque;
 use std::sync::{Arc, RwLock};
 
-use crate::chapel_integration::{create_context, get_chapel_ai, ChapelAdvice};
-use crate::huggingface_integration::{ChatMessage, ChatResponse, HuggingFaceClient};
+use crate::chapel_integration::{create_context, get_chapel_ai};
+use crate::huggingface_integration::{ChatMessage, HuggingFaceClient};
 
 /// Chatbot configuration
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -252,7 +252,11 @@ impl Chatbot {
                 🧠 Chapel AI - Continuous learning system\n\
                 \nTools currently available: {}\n\
                 \nHow can I help you today?",
-                if tools_used.is_empty() { "All tools ready" } else { &tools_used.join(", ") }
+                if tools_used.is_empty() { 
+                    "All tools ready".to_string() 
+                } else { 
+                    tools_used.join(", ")
+                }
             )
         } else {
             "I understand your question. I'm ready to help with web searches, file analysis, code scanning, content extraction, and AI dataset generation. Could you provide more details about what you need?".to_string()
@@ -261,7 +265,7 @@ impl Chatbot {
 
     /// Assess the quality of a response
     fn assess_response_quality(&self, response: &str) -> f64 {
-        let mut score = 0.5;
+        let mut score: f64 = 0.5;
 
         // Length factor
         let len = response.len();
