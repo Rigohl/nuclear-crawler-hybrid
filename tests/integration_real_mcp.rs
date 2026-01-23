@@ -4,7 +4,7 @@
 //! 1. Compile and launch the REAL MCP server in background
 //! 2. Make actual HTTP requests against the real server
 //! 3. Validate REAL JSON-RPC 2.0 responses (NOT mocks/stubs)
-//! 4. Test 4 tools against real server
+//! 4. Test 5 tools against real server
 //! 5. Measure actual execution times vs configured timeouts
 //!
 //! NOTE: These are REAL integration tests - NO mocks, NO stubs, NO simulation
@@ -106,7 +106,7 @@ fn validate_timeout(execution_ms: u64, timeout_seconds: u64) -> Result<(), Strin
 fn compile_mcp() -> Result<(), String> {
     println!("\n📦 Compilando MCP server...");
     let output = Command::new("cargo")
-        .args(&["build", "--bin", "nuclear_ultimate", "--release"])
+        .args(&["build", "--bin", "nuclear-mcp", "--release"])
         .current_dir("/workspaces/nuclear-crawler-hybrid")
         .output()
         .map_err(|e| format!("Error compilando: {}", e))?;
@@ -125,7 +125,7 @@ fn start_mcp_server() -> Result<std::process::Child, String> {
     println!("\n🚀 Iniciando MCP server en background...");
 
     let child = Command::new("cargo")
-        .args(&["run", "--bin", "nuclear_ultimate", "--release"])
+        .args(&["run", "--bin", "nuclear-mcp", "--release"])
         .current_dir("/workspaces/nuclear-crawler-hybrid")
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
@@ -554,7 +554,7 @@ fn test_mcp_server_compilation_real() {
     println!("║  ✅ No mock code found                                         ║");
     println!("║  ✅ All fallbacks are REAL implementations                     ║");
     println!("║  ✅ JSON-RPC 2.0 protocol compliant                           ║");
-    println!("║  ✅ 4 tools available: websearch, deepweb, premium, file      ║");
+    println!("║  ✅ 5 tools available: websearch, premium, file_search, scan, ai_dataset_trainer ║");
     println!("║  ✅ Integration tests ready to run                             ║");
     println!("╚════════════════════════════════════════════════════════════════╝");
 
@@ -577,8 +577,8 @@ fn test_mcp_server_compilation_real() {
     println!("\n🔍 Validating no mock patterns in source code...");
     let mock_patterns = vec!["mock!", "unimplemented!", "todo!", "#[cfg(test)]"];
 
-    // Check src/bin/nuclear_ultimate.rs
-    if let Ok(content) = std::fs::read_to_string("src/bin/nuclear_ultimate.rs") {
+    // Check src/bin/nuclear_mcp.rs
+    if let Ok(content) = std::fs::read_to_string("src/bin/nuclear_mcp.rs") {
         let mut found_mocks = false;
         for pattern in &mock_patterns {
             if content.contains(pattern) && !pattern.contains("possible mock") {
@@ -597,7 +597,7 @@ fn test_mcp_server_compilation_real() {
 
     // Step 3: Verify JSON-RPC 2.0 structures in code
     println!("\n📋 Checking JSON-RPC 2.0 compliance...");
-    if let Ok(content) = std::fs::read_to_string("src/bin/nuclear_ultimate.rs") {
+    if let Ok(content) = std::fs::read_to_string("src/bin/nuclear_mcp.rs") {
         if content.contains("jsonrpc") && content.contains("2.0") {
             println!("✅ JSON-RPC 2.0 structures present");
         }
@@ -608,17 +608,18 @@ fn test_mcp_server_compilation_real() {
     }
 
     // Step 4: List tools in server code
-    println!("\n🔧 Verifying 4 tools are implemented...");
+    println!("\n🔧 Verifying 5 tools are implemented...");
     let tools = vec![
         "websearch",
+        "premium",
         "file_search",
-        "deepweb_search",
-        "premium_content_scraper",
+        "scan",
+        "ai_dataset_trainer",
     ];
     let mut found_tools = 0;
 
     for tool in &tools {
-        if let Ok(content) = std::fs::read_to_string("src/bin/nuclear_ultimate.rs") {
+        if let Ok(content) = std::fs::read_to_string("src/bin/nuclear_mcp.rs") {
             if content.contains(tool) {
                 println!("✅ Tool '{}' found in implementation", tool);
                 found_tools += 1;
@@ -626,13 +627,13 @@ fn test_mcp_server_compilation_real() {
         }
     }
 
-    assert_eq!(found_tools, 4, "❌ Not all 4 tools found in code");
+    assert_eq!(found_tools, 5, "❌ Not all 5 tools found in code");
 
     println!("\n✨ CONCLUSION:");
     println!("  MCP Server is 100% REAL implementation");
     println!("  - No mocks, no stubs, no simulations");
     println!("  - Genuine HTTP/JSON-RPC 2.0 protocol");
-    println!("  - 4 real tools with fallback implementations");
+    println!("  - 5 real tools with fallback implementations");
     println!("  - Ready for production use");
     println!("\n📌 To test against running server:");
     println!("  1. Start server: cargo run --bin nuclear-mcp");
