@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -133,7 +133,7 @@ jobs:
           echo "scan=success" >> $GITHUB_OUTPUT
 
       - name: 📊 Upload Analysis Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: nuclear-analysis-results
           path: |
@@ -158,7 +158,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 🦀 Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -171,7 +171,7 @@ jobs:
           cache-on-failure: true
 
       - name: 📥 Download Analysis Results
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: nuclear-analysis-results
 
@@ -203,14 +203,14 @@ jobs:
           fi
 
       - name: 📤 Upload Quality Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: quality-report
           path: QUALITY_REPORT.md
 
       - name: 💬 Comment on PR
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
@@ -242,7 +242,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 🦀 Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -273,7 +273,7 @@ jobs:
           echo "For detailed security information, check the CI logs." >> SECURITY_REPORT.md
 
       - name: 📤 Upload Security Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: security-report
           path: SECURITY_REPORT.md
