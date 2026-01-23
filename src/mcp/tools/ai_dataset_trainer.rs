@@ -430,6 +430,7 @@ impl AIDatasetTrainerTool {
                         zig_simd: self.config.use_zig_dedup,
                         nim_parsing: self.config.use_nim_parsing,
                         jax_embedding: self.config.enable_gpu_vectorization,
+                        chapel_ai: false, // Chapel AI not yet implemented
                     },
                 };
                 datapoints.push(datapoint);
