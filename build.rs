@@ -42,7 +42,7 @@ fn main() {
     println!("cargo::rustc-check-cfg=cfg(has_go)");
     println!("cargo::rustc-check-cfg=cfg(has_zig)");
     println!("cargo::rustc-check-cfg=cfg(has_nim)");
-
+    println!("cargo::rustc-check-cfg=cfg(has_chapel)"); // Chapel AI added
     let manifest_dir = std::env::var("CARGO_MANIFEST_DIR").unwrap_or_else(|_| ".".to_string());
     let pid = std::process::id();
     let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
@@ -217,7 +217,23 @@ fn main() {
                 &format!("{{\"nimLibPath\":\"{}\"}}", nim_path.replace('\\', "\\\\")),
             );
         }
+    }
+
+    // ============================================================
+    // CHAPEL AI FFI - Cross-platform (Linux + Windows)
+    // ============================================================
+    let chapel_lib_path = format!("{}/ffi/chapel/libchapel_ai.so", manifest_dir);
+    if std::path::Path::new(&chapel_lib_path).exists() {
+        println!("cargo:rustc-link-search=native={}/ffi/chapel", manifest_dir);
+        println!("cargo:rustc-link-lib=dylib=chapel_ai");
+        println!("cargo:rustc-cfg=has_chapel");
+        eprintln!("🧠 Chapel AI FFI: ENABLED (libchapel_ai.so found)");
     } else {
+        eprintln!("⚠️ Chapel AI FFI: Not available");
+        eprintln!("   To enable: cd ffi/chapel && make");
+    }
+
+    if !cfg!(target_os = "windows") {
         // En Linux/Unix: usar fallbacks REALES (async, no mocks)
         eprintln!("📝 build.rs: Non-Windows platform ({})", target_os);
         eprintln!("   → FFI Go/Zig/Nim desactivado (solo en Windows)");
@@ -239,6 +255,8 @@ fn main() {
     println!("cargo:rerun-if-changed=ffi/go/stealth_go_msvc.lib");
     println!("cargo:rerun-if-changed=ffi/zig/nuclear_zig.lib");
     println!("cargo:rerun-if-changed=ffi/nim/nuclear_nim.lib");
+    println!("cargo:rerun-if-changed=ffi/chapel/libchapel_ai.so");
+    println!("cargo:rerun-if-changed=ffi/chapel/chapel_ai.chpl");
     write_debug_log(
         "H3",
         "build.rs:exit",
