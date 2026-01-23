@@ -55,7 +55,7 @@ jobs:
           echo $! > nuclear_pid.txt
           sleep 5
           # Verify server is running on correct port (8079)
-          curl -f http://localhost:8079/health || exit 1
+          curl -f http://localhost:8079/health || (echo "❌ Failed to connect to MCP server on port 8079"; exit 1)
 
       - name: 🔍 Verify MCP Tools
         run: |
@@ -172,13 +172,11 @@ jobs:
 
       - name: 📝 Format Check
         continue-on-error: true
-        run: |
-          cargo fmt -- --check || echo "⚠️ Formatting issues found"
+        run: cargo fmt -- --check
 
       - name: 🔍 Clippy Analysis
         continue-on-error: true
-        run: |
-          cargo clippy --all-targets -- -D warnings || echo "⚠️ Clippy warnings found"
+        run: cargo clippy --all-targets -- -D warnings
 
       - name: 📊 Generate Quality Report
         run: |
@@ -244,13 +242,13 @@ jobs:
       - name: 🛡️ Cargo Audit
         continue-on-error: true
         run: |
-          cargo install cargo-audit
+          cargo install cargo-audit --locked
           cargo audit
 
       - name: 🔒 Dependency Check
         continue-on-error: true
         run: |
-          cargo install cargo-outdated
+          cargo install cargo-outdated --locked
           cargo outdated
 
       - name: 📊 Security Report
