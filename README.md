@@ -74,10 +74,42 @@ cargo build --release
 
 ---
 
+## 🤖 NEW: Chatbot & HuggingFace Integration
+
+### Interactive AI Chatbot
+```bash
+# Chat via MCP
+curl -X POST http://localhost:8079/mcp/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "chatbot",
+    "arguments": {
+      "message": "Hello! Can you help me?"
+    }
+  }'
+```
+
+### HuggingFace Integration
+```bash
+# Set token for AI training
+export HF_TOKEN="your_hf_token"
+
+# Upload datasets, fine-tune models, deploy chatbots
+# See docs/HUGGINGFACE_INTEGRATION.md for details
+```
+
+---
+
 ## 📚 Documentación
 
 | Archivo | Propósito |
 |---------|-----------|
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitectura técnica completa |
+| [API_REFERENCE.md](API_REFERENCE.md) | Referencia API |
+| [TOOLS.md](TOOLS.md) | Especificaciones de herramientas |
+| [HUGGINGFACE_INTEGRATION.md](docs/HUGGINGFACE_INTEGRATION.md) | Guía de HuggingFace |
+| [CHATBOT_GUIDE.md](docs/CHATBOT_GUIDE.md) | Guía del chatbot |
+| [WSL_DEPLOYMENT.md](WSL_DEPLOYMENT.md) | Guía de instalación WSL |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitectura técnica completa |
 | [API_REFERENCE.md](API_REFERENCE.md) | Referencia API |
 | [WSL_DEPLOYMENT.md](WSL_DEPLOYMENT.md) | Guía de instalación WSL |
