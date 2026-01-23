@@ -60,10 +60,15 @@ jobs:
       - name: 🔍 Verify MCP Tools
         run: |
           # List available tools
-          curl -X POST http://localhost:8079/mcp/tools/list \
+          RESPONSE=$(curl -s -X POST http://localhost:8079/mcp/tools/list \
             -H "Content-Type: application/json" \
-            -d '{"jsonrpc":"2.0","id":"test","method":"tools/list","params":{}}' \
-            | jq '.result.tools[] | .name'
+            -d '{"jsonrpc":"2.0","id":"test","method":"tools/list","params":{}}')
+          
+          echo "Server response:"
+          echo "$RESPONSE" | jq '.' || (echo "❌ Failed to parse server response"; echo "$RESPONSE"; exit 1)
+          
+          # Extract and display tool names
+          echo "$RESPONSE" | jq -r '.result.tools[]?.name // empty' || echo "⚠️ Could not extract tool names"
 
       - name: 🤖 Execute Multi-Agent Analysis
         id: analysis
@@ -209,9 +214,17 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const report = fs.existsSync('QUALITY_REPORT.md') 
-              ? fs.readFileSync('QUALITY_REPORT.md', 'utf8')
-              : '## 🔥 Code Quality Report\n\nNo report generated.';
+            let report = '## 🔥 Code Quality Report\n\n';
+            
+            if (fs.existsSync('QUALITY_REPORT.md')) {
+              report = fs.readFileSync('QUALITY_REPORT.md', 'utf8');
+            } else {
+              report += 'Report generation skipped or failed.\n\n';
+              report += '**Possible reasons:**\n';
+              report += '- Analysis artifacts not available\n';
+              report += '- JSON parsing failed\n';
+              report += '- Check workflow logs for details\n';
+            }
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,
