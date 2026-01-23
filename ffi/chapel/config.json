@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "model_name": "nuclear_chapel_ai",
+  "tokenizer": {
+    "type": "byte-pair-encoding",
+    "vocab_size": 10000,
+    "max_token_length": 32,
+    "special_tokens": {
+      "padding": "<PAD>",
+      "unknown": "<UNK>",
+      "start": "<START>",
+      "end": "<END>",
+      "mask": "<MASK>"
+    }
+  },
+  "training": {
+    "layers": [10, 32, 5],
+    "activation": "relu",
+    "output_activation": "softmax",
+    "optimizer": "adam",
+    "learning_rate": 0.001,
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-8,
+    "epochs": 20,
+    "batch_size": 64
+  },
+  "data": {
+    "total_samples": 81000,
+    "layer1_samples": 50000,
+    "layer2_samples": 31000,
+    "layer3_epochs": 20,
+    "test_ratio": 0.2,
+    "validation_ratio": 0.1
+  },
+  "performance": {
+    "expected_time_seconds": 135,
+    "parallel_strategy": "blockdist",
+    "locales": 4,
+    "max_threads": 32
+  },
+  "features": [
+    "fake_detection",
+    "scientific_analysis",
+    "parallel_search",
+    "code_analysis",
+    "pattern_learning"
+  ]
+}
