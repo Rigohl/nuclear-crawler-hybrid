@@ -1,0 +1,70 @@
+FROM ubuntu:24.04
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    python3-dev \
+    python3-pip \
+    llvm-14 \
+    clang-14 \
+    llvm-14-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    libgfortran5 \
+    libffi-dev \
+    libssl-dev \
+    curl \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Chapel
+RUN cd /tmp && \
+    git clone --depth 1 https://github.com/chapel-lang/chapel.git && \
+    cd chapel && \
+    export CHPL_HOME=/opt/chapel && \
+    export CHPL_LLVM=bundled && \
+    export CHPL_TARGET_CPU=native && \
+    export CHPL_TASKS=qthreads && \
+    mv . "$CHPL_HOME" && \
+    cd "$CHPL_HOME" && \
+    make -j$(nproc) > /dev/null 2>&1 && \
+    echo "export CHPL_HOME=/opt/chapel" >> /etc/profile.d/chapel.sh && \
+    echo "export PATH=/opt/chapel/bin:\$PATH" >> /etc/profile.d/chapel.sh && \
+    chpl --version
+
+# Python dependencies for Gradio app
+RUN pip install --no-cache-dir \
+    gradio \
+    huggingface-hub \
+    numpy \
+    scipy
+
+# Create data directories
+RUN mkdir -p /data/checkpoints /data/datasets /data/logs
+
+# Set environment
+ENV CHAPEL_HOME=/opt/chapel \
+    PATH=/opt/chapel/bin:$PATH \
+    CHPL_LLVM=bundled \
+    CHPL_TARGET_CPU=native
+
+# Copy training pipeline
+COPY ffi/chapel/ /data/
+
+# Set working directory
+WORKDIR /data
+
+# Install Python app dependencies
+RUN pip install --no-cache-dir -r requirements.txt 2>/dev/null || true
+
+# Expose Gradio port
+EXPOSE 7860
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD chpl --version && ls -d /data/training_pipeline.chpl || exit 1
+
+# Run Gradio app
+CMD ["python3", "hf_spaces_app.py"]

@@ -46,6 +46,44 @@ Chapel AI integrates with all 5 MCP tools:
 4. **scan** - Enhances workspace analysis, path optimization
 5. **ai_dataset_trainer** - Refines dataset generation, learning trajectories
 
+### Code Tools Suite
+
+**Advanced Tools for Code Intelligence:**
+
+1. **Code Analyzer** (`tools/code_analyzer.chpl`)
+   - Tokenization of source code
+   - Cyclomatic complexity metrics
+   - Code smell detection (long lines, deep nesting, long functions)
+   - Duplicate block detection
+   - Uses neural AI for pattern recognition
+
+2. **Code Repair Engine** (`tools/code_repair.chpl`)
+   - 4-pass repair system:
+     - **Pass 1**: Style violations (trailing spaces, operator spacing)
+     - **Pass 2**: Common bugs (missing semicolons, array indexing)
+     - **Pass 3**: Performance optimizations (forall parallelism, BlockDist)
+     - **Pass 4**: Safety improvements (error handling, bounds checking)
+   - Automated code fixing with confidence scores
+   - Detailed repair reports
+
+3. **Code Reviewer** (`tools/code_reviewer.chpl`)
+   - Comprehensive code review with A-F grading
+   - Reviews: Performance, Safety, Style, Complexity
+   - Statistical analysis of code quality
+   - A/B testing recommendations
+   - Production-ready code certification
+
+### Debug & Analysis Capabilities
+
+**Built-in Debugging:**
+
+- **Token-level Analysis** - Exact position tracking (line/column)
+- **Metrics Collection** - Real-time code metric computation
+- **Pattern Matching** - Duplicate detection with location reporting
+- **Issue Categorization** - Critical/warning/info severity levels
+- **Confidence Scoring** - 0.0-1.0 confidence for each fix
+- **Pass Tracking** - Multi-pass repair with granular visibility
+
 ## Building
 
 ### Prerequisites
@@ -237,9 +275,57 @@ export CHPL_RT_NUM_THREADS_PER_LOCALE=16
 - ✅ Compiled to native shared library
 - ✅ Full ML capabilities
 - ✅ Production-ready
+- ✅ Code Analysis, Repair & Review tools
+- ✅ Debug capabilities at every level
 - ❌ NO mock functions
 - ❌ NO stub implementations
 - ❌ NO simulations
+
+## Complete Tool Ecosystem
+
+All files in `ffi/chapel/tools/`:
+
+```
+tools/
+├── code_analyzer.chpl       # Static analysis + metrics
+├── code_repair.chpl         # 4-pass automatic repair
+├── code_reviewer.chpl       # Production code certification
+├── code_debugger.chpl       # Runtime debug + trace
+├── data_mining.chpl         # Data analysis
+├── analysis.chpl            # Information analysis
+├── six_sigma.chpl           # DMAIC methodology + variance analysis
+├── marketing_optimizer.chpl # A/B testing, segmentation, ROI
+├── sentiment_analyzer.chpl  # NLP emotion + sentiment detection
+└── ...other tools
+```
+
+Each tool uses `nuclear_chapel_ai.chpl` as core engine.
+
+## Advanced Capabilities (New)
+
+### 🔢 Six Sigma & Advanced Mathematics
+- **DMAIC Framework**: Define → Measure → Analyze → Improve → Control
+- **Statistical Methods**: Variance analysis, p-values, confidence intervals
+- **Pattern Recognition**: Time series, forecasting, anomaly detection
+- **Decision Support**: Multi-criteria analysis, game theory
+
+### 📊 Marketing Intelligence
+- **Campaign Optimization**: A/B testing, multivariate testing
+- **Customer Segmentation**: K-means clustering, cohort analysis
+- **Churn Prediction**: Survival analysis, propensity scoring
+- **ROI Optimization**: Budget allocation, attribution modeling
+
+### ❤️ Sentiment & Emotion Detection
+- **Sentiment Analysis**: Text classification (positive/negative/neutral)
+- **Emotion Detection**: 6 basic emotions (joy, sadness, anger, etc.)
+- **Toxicity Detection**: Harmful content identification
+- **NLP Pipeline**: Tokenization, embeddings, transformers integration
+
+### ☁️ Multi-Cloud Training
+- **AWS**: EC2 t2.micro free tier (750h/mo, 12 months)
+- **Azure**: VM B1s free tier (750h/mo)
+- **Google Cloud**: Compute e2-micro free tier (720h/mo)
+- **Kaggle**: GPU P100 (30h/week), 16GB RAM
 
 ## License
 

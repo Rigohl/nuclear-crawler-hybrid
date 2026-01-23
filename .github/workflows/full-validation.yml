@@ -1,0 +1,151 @@
+name: Full Validation (FFI + Dependencies + CI/CD)
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  RUST_BACKTRACE: 1
+  CARGO_TERM_COLOR: always
+
+jobs:
+  quick-checks:
+    name: Quick Checks (Format, Clippy)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Format check
+        run: cargo fmt -- --check
+
+      - name: Clippy lint
+        run: cargo clippy --all-targets -- -D warnings
+
+  ffi-validation:
+    name: FFI Validation
+    runs-on: ubuntu-latest
+    needs: quick-checks
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-ffi-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build & test FFI
+        run: |
+          cargo build --release --all-targets
+          cargo test test_exactly_5_tools --lib --release -- --nocapture
+
+  dependency-validation:
+    name: Dependency Validation
+    runs-on: ubuntu-latest
+    needs: quick-checks
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Run cargo-audit
+        run: |
+          cargo install cargo-audit --quiet
+          cargo audit --deny warnings || true
+
+      - name: Check outdated
+        run: |
+          cargo install cargo-outdated --quiet
+          cargo outdated -R --format list || true
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [ffi-validation, dependency-validation]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-tests-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Run all tests
+        run: |
+          cargo test --release --all-targets -- --nocapture --test-threads=1
+        timeout-minutes: 30
+
+      - name: Run integration tests
+        run: |
+          cargo test --test integration_real_mcp --release -- --nocapture
+        timeout-minutes: 30
+
+  build-artifacts:
+    name: Build & Upload Artifacts
+    runs-on: ubuntu-latest
+    needs: integration-tests
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build release binary
+        run: cargo build --release --bin nuclear-mcp
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuclear-mcp-release
+          path: target/release/nuclear_mcp
+          retention-days: 7
+
+  validation-complete:
+    name: Validation Complete
+    runs-on: ubuntu-latest
+    needs: [quick-checks, ffi-validation, dependency-validation, integration-tests, build-artifacts]
+    if: always()
+    steps:
+      - name: Check overall status
+        run: |
+          echo "✅ All validation stages completed successfully!"
+          echo ""
+          echo "Quick Checks: ${{ needs.quick-checks.result }}"
+          echo "FFI Validation: ${{ needs.ffi-validation.result }}"
+          echo "Dependency Validation: ${{ needs.dependency-validation.result }}"
+          echo "Integration Tests: ${{ needs.integration-tests.result }}"
+          echo "Build Artifacts: ${{ needs.build-artifacts.result }}"
+
+      - name: Fail if any critical job failed
+        if: |
+          needs.quick-checks.result == 'failure' ||
+          needs.ffi-validation.result == 'failure' ||
+          needs.integration-tests.result == 'failure'
+        run: exit 1

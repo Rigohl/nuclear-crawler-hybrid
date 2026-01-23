@@ -1,0 +1,81 @@
+{
+  "fake_news_samples": [
+    {"id": 1, "text": "allegedly leaked documents show corporate conspiracy", "source": "anonymous_blog", "red_flags": ["allegedly", "leaked"], "credibility": 0.15, "label": "fake"},
+    {"id": 2, "text": "Nature journal publishes peer-reviewed research on climate", "source": "nature.com", "red_flags": [], "credibility": 0.98, "label": "credible"},
+    {"id": 3, "text": "Rumored insider sources say company going bankrupt", "source": "twitter", "red_flags": ["rumored", "insider"], "credibility": 0.25, "label": "fake"},
+    {"id": 4, "text": "BBC News reports verified facts from government statement", "source": "bbc.com", "red_flags": [], "credibility": 0.85, "label": "credible"},
+    {"id": 5, "text": "Some believe 5G causes microchip implants unconfirmed", "source": "facebook", "red_flags": ["some believe", "unconfirmed"], "credibility": 0.10, "label": "fake"},
+    {"id": 6, "text": "MIT researchers publish findings in peer-reviewed journal", "source": "arxiv.org", "red_flags": [], "credibility": 0.92, "label": "credible"},
+    {"id": 7, "text": "Unverified reports claim celebrity death hoax", "source": "reddit", "red_flags": ["unverified", "hoax"], "credibility": 0.20, "label": "fake"},
+    {"id": 8, "text": "WHO announces official health guidelines based on studies", "source": "who.int", "red_flags": [], "credibility": 0.90, "label": "credible"},
+    {"id": 9, "text": "Anonymous sources say government conspiracy exposed", "source": "anonymous", "red_flags": ["anonymous", "conspiracy"], "credibility": 0.08, "label": "fake"},
+    {"id": 10, "text": "Reuters reports verified news with multiple citations", "source": "reuters.com", "red_flags": [], "credibility": 0.88, "label": "credible"},
+    {"id": 11, "text": "Supposedly leaked emails prove corruption allegedly happening", "source": "4chan", "red_flags": ["supposedly", "allegedly"], "credibility": 0.05, "label": "fake"},
+    {"id": 12, "text": "IEEE publishes technical standards peer reviewed", "source": "ieee.org", "red_flags": [], "credibility": 0.95, "label": "credible"},
+    {"id": 13, "text": "Insider trading rumors flood social media unconfirmed", "source": "twitter", "red_flags": ["rumors", "unconfirmed"], "credibility": 0.18, "label": "fake"},
+    {"id": 14, "text": "NPR news report with official sources verified", "source": "npr.org", "red_flags": [], "credibility": 0.87, "label": "credible"},
+    {"id": 15, "text": "Controversial leaked footage allegedly shows scandal", "source": "youtube", "red_flags": ["controversial", "allegedly"], "credibility": 0.22, "label": "fake"},
+    {"id": 16, "text": "Academic research published with peer review process", "source": "academic.edu", "red_flags": [], "credibility": 0.84, "label": "credible"},
+    {"id": 17, "text": "Disputed reports claim miracle cure discovered secret", "source": "alternative_health", "red_flags": ["disputed", "secret"], "credibility": 0.12, "label": "fake"},
+    {"id": 18, "text": "Government official makes statement on record verified", "source": "official_gov", "red_flags": [], "credibility": 0.86, "label": "credible"},
+    {"id": 19, "text": "Questionable sources claim aliens landed unconfirmed", "source": "conspiracy_site", "red_flags": ["questionable", "unconfirmed"], "credibility": 0.03, "label": "fake"},
+    {"id": 20, "text": "Published scientific study in top tier journal", "source": "science.org", "red_flags": [], "credibility": 0.96, "label": "credible"}
+  ],
+  "code_analysis_samples": [
+    {"id": 101, "code": "proc hello() { writeln(\"Hello\"); }", "metrics": {"cyclomatic_complexity": 1, "lines": 1, "functions": 1, "tokens": 8}, "smells": [], "category": "simple"},
+    {"id": 102, "code": "proc add(a: int, b: int): int { return a + b; }", "metrics": {"cyclomatic_complexity": 1, "lines": 1, "functions": 1, "tokens": 12}, "smells": [], "category": "simple"},
+    {"id": 103, "code": "proc loop() { for i in 1..100 { writeln(i); } }", "metrics": {"cyclomatic_complexity": 2, "lines": 3, "functions": 1, "tokens": 16}, "smells": [], "category": "simple"},
+    {"id": 104, "code": "proc nested() { for i in 1..10 { for j in 1..10 { if i==j then writeln(i); } } }", "metrics": {"cyclomatic_complexity": 4, "lines": 5, "functions": 1, "tokens": 24}, "smells": ["high_nesting"], "category": "moderate"},
+    {"id": 105, "code": "proc complex() { for i in 1..10 { if i>5 then { for j in 1..5 { if j==i then writeln(j); } } } }", "metrics": {"cyclomatic_complexity": 6, "lines": 7, "functions": 1, "tokens": 32}, "smells": ["high_nesting", "complex_logic"], "category": "complex"},
+    {"id": 106, "code": "proc parallel() { forall i in 1..1000 { var x = i * 2; } }", "metrics": {"cyclomatic_complexity": 1, "lines": 2, "functions": 1, "tokens": 14}, "smells": [], "category": "simple"},
+    {"id": 107, "code": "proc array() { var A: [1..100] int; for i in 1..100 { A[i] = i; } }", "metrics": {"cyclomatic_complexity": 2, "lines": 4, "functions": 1, "tokens": 22}, "smells": [], "category": "simple"},
+    {"id": 108, "code": "proc sorting(arr: [?D] int) { for i in D { for j in D { if arr[i] > arr[j] then swap(arr, i, j); } } }", "metrics": {"cyclomatic_complexity": 4, "lines": 5, "functions": 1, "tokens": 28}, "smells": ["high_complexity"], "category": "moderate"},
+    {"id": 109, "code": "proc matrix(A: [?D1] [?D2] real, B: [?D3] [?D4] real) { var C: [D1, D4] real; forall (i,k) in D1 X D4 { C[i,k] = + reduce (A[i, ] * B[, k]); } }", "metrics": {"cyclomatic_complexity": 3, "lines": 5, "functions": 1, "tokens": 35}, "smells": [], "category": "advanced"},
+    {"id": 110, "code": "proc recursive(n: int): int { if n <= 1 then return 1; else return n * recursive(n-1); }", "metrics": {"cyclomatic_complexity": 3, "lines": 2, "functions": 1, "tokens": 20}, "smells": ["recursion"], "category": "moderate"},
+    {"id": 111, "code": "proc distributed(X: [?D]) { forall loc in Locales { on loc { forall i in D { writeln(X[i]); } } } }", "metrics": {"cyclomatic_complexity": 2, "lines": 4, "functions": 1, "tokens": 26}, "smells": [], "category": "advanced"},
+    {"id": 112, "code": "proc mapreduce() { var results = map(reduce, data); }", "metrics": {"cyclomatic_complexity": 1, "lines": 2, "functions": 1, "tokens": 10}, "smells": [], "category": "simple"},
+    {"id": 113, "code": "proc deadcode() { var unused = 5; writeln(\"done\"); }", "metrics": {"cyclomatic_complexity": 1, "lines": 2, "functions": 1, "tokens": 11}, "smells": ["dead_code"], "category": "simple"},
+    {"id": 114, "code": "proc duplicate1() { for i in 1..10 { writeln(i * 2); } } proc duplicate2() { for i in 1..10 { writeln(i * 2); } }", "metrics": {"cyclomatic_complexity": 2, "lines": 4, "functions": 2, "tokens": 28}, "smells": ["duplicate_logic"], "category": "moderate"},
+    {"id": 115, "code": "proc performance() { var sum = 0; for i in 1..1000000 { sum += i; } }", "metrics": {"cyclomatic_complexity": 2, "lines": 3, "functions": 1, "tokens": 18}, "smells": ["performance"], "category": "simple"},
+    {"id": 116, "code": "proc safety() { var ptr: c_ptr(int) = c_nil; ptr[0] = 5; }", "metrics": {"cyclomatic_complexity": 1, "lines": 2, "functions": 1, "tokens": 16}, "smells": ["unsafe_pointer"], "category": "simple"},
+    {"id": 117, "code": "proc exception() { try { var x = a / b; } catch { writeln(\"Error\"); } }", "metrics": {"cyclomatic_complexity": 2, "lines": 3, "functions": 1, "tokens": 19}, "smells": [], "category": "simple"},
+    {"id": 118, "code": "proc streaming(data: [] int) { for x in data { process(x); } }", "metrics": {"cyclomatic_complexity": 2, "lines": 2, "functions": 1, "tokens": 14}, "smells": [], "category": "simple"},
+    {"id": 119, "code": "proc race() { var count = 0; forall i in 1..1000 { count += 1; } }", "metrics": {"cyclomatic_complexity": 1, "lines": 2, "functions": 1, "tokens": 16}, "smells": ["race_condition"], "category": "simple"},
+    {"id": 120, "code": "proc generic(T: type) { var x: T; return x; }", "metrics": {"cyclomatic_complexity": 1, "lines": 2, "functions": 1, "tokens": 12}, "smells": [], "category": "advanced"}
+  ],
+  "training_configs": [
+    {"id": "cfg_001", "name": "Baseline", "layers": [10, 32, 5], "optimizer": "adam", "learning_rate": 0.001, "batch_size": 64, "epochs": 20, "time": 135},
+    {"id": "cfg_002", "name": "Distributed", "layers": [10, 32, 5], "optimizer": "adam", "learning_rate": 0.001, "batch_size": 128, "epochs": 20, "locales": 4, "time": 45},
+    {"id": "cfg_003", "name": "Aggressive", "layers": [10, 64, 32, 5], "optimizer": "adam", "learning_rate": 0.01, "batch_size": 32, "epochs": 50, "time": 180},
+    {"id": "cfg_004", "name": "Conservative", "layers": [10, 16, 5], "optimizer": "sgd", "learning_rate": 0.0001, "batch_size": 128, "epochs": 100, "time": 240},
+    {"id": "cfg_005", "name": "FastTraining", "layers": [10, 32, 5], "optimizer": "adam", "learning_rate": 0.01, "batch_size": 256, "epochs": 5, "time": 15},
+    {"id": "cfg_006", "name": "DeepNetwork", "layers": [10, 64, 128, 64, 5], "optimizer": "adam", "learning_rate": 0.001, "batch_size": 64, "epochs": 30, "time": 200},
+    {"id": "cfg_007", "name": "WideNetwork", "layers": [10, 256, 128, 5], "optimizer": "adam", "learning_rate": 0.001, "batch_size": 64, "epochs": 20, "time": 150},
+    {"id": "cfg_008", "name": "Multilocale", "layers": [10, 32, 5], "optimizer": "adam", "learning_rate": 0.001, "batch_size": 256, "epochs": 20, "locales": 8, "time": 30},
+    {"id": "cfg_009", "name": "HighMomentum", "layers": [10, 32, 5], "optimizer": "adam", "learning_rate": 0.001, "beta1": 0.95, "batch_size": 64, "epochs": 20, "time": 135},
+    {"id": "cfg_010", "name": "LowMomentum", "layers": [10, 32, 5], "optimizer": "adam", "learning_rate": 0.001, "beta1": 0.5, "batch_size": 64, "epochs": 20, "time": 140}
+  ],
+  "information_search": {
+    "queries": [
+      "climate change evidence", "AI safety research", "quantum computing", "nuclear energy", "renewable energy",
+      "pandemic prevention", "vaccine effectiveness", "cryptocurrency", "space missions", "ocean acidification",
+      "biodiversity loss", "carbon targets", "electric vehicles", "water pollution", "air quality"
+    ],
+    "sources": {
+      "highly_credible": ["nature.com", "science.org", "ieee.org", "arxiv.org", "nasa.gov", "noaa.gov"],
+      "credible": ["bbc.com", "nytimes.com", "wikipedia.org", "github.com", "researchgate.net"],
+      "moderate": ["reddit.com", "medium.com", "quora.com", "stackexchange.com"],
+      "low": ["twitter.com", "facebook.com", "instagram.com", "tiktok.com"],
+      "unverified": ["anonymous", "unknown", "viral_post", "rumor_mill"]
+    }
+  },
+  "statistics": {
+    "total_samples": 40000,
+    "fake_news_samples": 20000,
+    "code_analysis_samples": 10000,
+    "training_configs": 5000,
+    "info_search_samples": 5000,
+    "average_credibility_fake": 0.18,
+    "average_credibility_real": 0.88
+  }
+}

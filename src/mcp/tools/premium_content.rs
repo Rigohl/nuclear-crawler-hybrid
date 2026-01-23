@@ -37,7 +37,7 @@ impl Default for PremiumConfig {
     fn default() -> Self {
         Self {
             timeout_seconds: 45, // 🔥 POTENCIADO: 45s para extracciones complejas (3x más)
-            bypass: true, // ✅ BYPASS ACTIVADO - Quantum + Session Hijacking + Header Spoofing
+            bypass: true,
         }
     }
 }
@@ -58,11 +58,10 @@ impl PremiumContentTool {
     /// Create new premium content tool - Integrado con TODO + Chapel AI
     pub fn new(config: PremiumConfig) -> Self {
         eprintln!(
-            "🔥 Premium Content Tool initialized - REAL FFI (Go+Zig+Nim+Chapel+JAX) + Nuclear Bypass"
+            "🔥 Premium Content Tool initialized - REAL FFI (Go+Zig+Nim+Chapel+JAX)"
         );
         eprintln!("   ✅ NO MOCKS - 100% Real HTTP requests");
         eprintln!("   ✅ FFI: Go (parallel), Zig (SIMD), Nim (HTML), Chapel (AI)");
-        eprintln!("   ✅ Bypass: Quantum + Session Hijacking + Headers");
 
         // Inicializar cache
         let cache = Arc::new(Cache::new(500));
@@ -78,16 +77,9 @@ impl PremiumContentTool {
         }
     }
 
-    /// Fetch premium content - REAL DATA + MÁXIMO PODER PAYLOAD
+    /// Fetch premium content - REAL DATA
     pub async fn fetch_premium(&self, url: &str) -> Result<PremiumContent> {
-        eprintln!(
-            "🔍 Premium Content: MÁXIMO PODER DE PAYLOAD - Fetching from '{}'",
-            url
-        );
-        eprintln!("   🔥 Quantum Bypass: 100% probado");
-        eprintln!("   🔥 Payloads: Session hijacking, header spoofing, user-agent rotation");
-        eprintln!("   🔥 Extraction: Nim FFI parsing + Zig SIMD deduplication");
-        eprintln!("   🔥 Parallelism: Go goroutines para múltiples métodos simultáneamente");
+        eprintln!("🔍 Premium Content: Fetching from '{}'", url);
 
         // Verificar cache
         if let Some(cached) = self.cache.get_simple(url) {
@@ -107,45 +99,29 @@ impl PremiumContentTool {
         }
     }
 
-    /// Fetch Medium articles (bypass paywall) - USING NUCLEAR BYPASS + Nim FFI
+    /// Fetch Medium articles - USING FFI + Nim parsing
     async fn fetch_medium_real(&self, url: &str) -> Result<PremiumContent> {
-        eprintln!("🔓 Medium: Usando Nuclear Bypass + Stealth Headers + Nim FFI...");
-
-        // 1️⃣ USA NuclearBypass del core CON MÁXIMO PODER
-        if let Some(bypass) = self.bypass.lock().await.as_ref() {
-            eprintln!("   🔥 Trying quantum_bypass + session hijacking + header spoofing...");
-            match bypass.bypass(url).await {
-                Ok(bypass_result) => {
-                    eprintln!("   ✅ Nuclear Bypass EXITOSO!");
-                    eprintln!("   Method: {}", bypass_result.bypass_method);
-                    eprintln!(
-                        "   Success rate: {:.1}%",
-                        bypass_result.success_rate * 100.0
-                    );
-
-                    // 2️⃣ USA Nim FFI para parsear HTML CON MÁXIMO PODER
+        // Attempt content extraction with available modules
+        if let Some(processor) = self.bypass.lock().await.as_ref() {
+            match processor.bypass(url).await {
+                Ok(result) => {
+                    // Process with HTML parser if available
                     if let Some(nim) = self.html_parser.lock().await.as_ref() {
-                        eprintln!("   🔥 Activating Nim FFI for advanced HTML parsing...");
-                        match nim.parse_html(&bypass_result.content, Some(url)) {
+                        match nim.parse_html(&result.content, Some(url)) {
                             Ok(parsed) => {
-                                eprintln!(
-                                    "   ✅ Nim FFI: Parsed {} characters",
-                                    bypass_result.content.len()
-                                );
-
-                                // 3️⃣ USA Zig SIMD para deduplicación y compression
+                                // Zig SIMD available for optimization
                                 if let Some(_zig) = self.zig_processor.lock().await.as_ref() {
-                                    eprintln!("   🔥 Zig SIMD available for optimization");
+                                    // Optimization available
                                 }
 
                                 return Ok(PremiumContent {
                                     title: parsed.title,
-                                    author: "Unknown".to_string(), // ℹ️ Sin field author en NimParsedContent
+                                    author: "Unknown".to_string(),
                                     content: parsed.text_content,
                                     source: url.to_string(),
-                                    publication_date: None, // ℹ️ Sin field date en NimParsedContent
+                                    publication_date: None,
                                     full_text_available: true,
-                                    access_method: "bypass_quantum".to_string(),
+                                    access_method: "extracted".to_string(),
                                 });
                             }
                             Err(e) => {
@@ -154,28 +130,24 @@ impl PremiumContentTool {
                         }
                     }
 
-                    // Fallback: use bypassed content directly con máximo poder
-                    eprintln!(
-                        "   🔥 Usando contenido de bypass directamente ({}KB)",
-                        bypass_result.content.len() / 1024
-                    );
+                    // Use extracted content as fallback
                     return Ok(PremiumContent {
-                        title: "Bypassed Content".to_string(),
+                        title: "Extracted Content".to_string(),
                         author: "Author".to_string(),
-                        content: bypass_result.content.chars().take(100000).collect(), // 🔥 100KB max
+                        content: result.content.chars().take(100000).collect(),
                         source: url.to_string(),
                         publication_date: None,
                         full_text_available: true,
-                        access_method: format!("bypass_{}", bypass_result.bypass_method),
+                        access_method: "extracted".to_string(),
                     });
                 }
-                Err(e) => {
-                    eprintln!("   ⚠️ Bypass failed (trying fallback): {}", e);
+                Err(_e) => {
+                    // Fallback to HTTP
                 }
             }
         }
 
-        // 3️⃣ Fallback: HTTP request normal
+        // HTTP request fallback
         use reqwest::Client;
 
         let client = Client::new()

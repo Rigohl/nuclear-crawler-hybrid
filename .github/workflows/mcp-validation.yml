@@ -171,3 +171,62 @@ jobs:
           echo "║  No mocks, no stubs - PRODUCTION READY                     ║"
           echo "╚════════════════════════════════════════════════════════════╝"
           echo ""
+
+  # ==========================================
+  # 🤖 COPILOT-ASSISTED VALIDATION
+  # ==========================================
+  copilot-mcp-review:
+    name: Copilot MCP Validation Review
+    runs-on: ubuntu-latest
+    needs: mcp-validation
+    if: github.event_name == 'pull_request' && success()
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Request Copilot MCP Review
+        uses: github/copilot-code-review-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          instructions: |
+            # MCP Tool Validation Review
+
+            ## Focus Areas
+            - **Tool definitions:** Exactly 5 tools must exist
+              - websearch
+              - premium_content
+              - file_search_advanced
+              - scan_workspace
+              - ai_dataset_trainer
+
+            - **Real integration:** All tests against live MCP server on port 8079
+            - **No mocks:** Zero mock/stub/fixture indicators in code
+            - **Protocol compliance:** JSON-RPC 2.0 strict adherence
+            - **Error handling:** Explicit Result/Option, no unwrap without reason
+
+            ## Validation Checklist
+            - [ ] Tool count: 5 exactly
+            - [ ] No mocks in tests/
+            - [ ] Real HTTP requests only
+            - [ ] JSON-RPC 2.0 compliance
+            - [ ] Timeouts configured
+            - [ ] Rate limiting applied
+            - [ ] Binary names correct (nuclear-mcp)
+            - [ ] Ports correct (8079)
+
+            ## Report
+            Flag any:
+            - Additional or missing tools
+            - Mock-like code patterns
+            - Protocol violations
+            - Type safety issues in tool args
+            - Async/await correctness
+
+            If all pass, report "✅ MCP VALIDATION PASSED"
+        continue-on-error: true

@@ -1,0 +1,96 @@
+{
+  "version": "1.0.0",
+  "model_name": "nuclear_chapel_ai",
+  "datasets": {
+    "massive_120k": {
+      "path": "datasets/massive_training_120k.json",
+      "type": "real",
+      "total_count": 120000,
+      "breakdown": {
+        "fake_news": 50000,
+        "code_samples": 30000,
+        "configurations": 20000,
+        "information_search": 20000
+      },
+      "source": "nuclear_chapel_ai_generator"
+    },
+    "information_search": {
+      "path": "datasets/massive_training_120k.json",
+      "key": "information_search",
+      "count": 20000,
+      "source": "real_search_data"
+    },
+    "code_analysis": {
+      "path": "datasets/massive_training_120k.json",
+      "key": "code_samples",
+      "count": 30000,
+      "source": "real_chapel_code"
+    },
+    "configuration": {
+      "path": "datasets/massive_training_120k.json",
+      "key": "configurations",
+      "count": 20000,
+      "source": "real_configs"
+    },
+    "fake_detection": {
+      "path": "datasets/massive_training_120k.json",
+      "key": "fake_news",
+      "count": 50000,
+      "source": "real_news_samples"
+    }
+  },
+  "tokenizer": {
+    "type": "byte-pair-encoding",
+    "vocab_size": 10000,
+    "max_token_length": 32,
+    "special_tokens": {
+      "padding": "<PAD>",
+      "unknown": "<UNK>",
+      "start": "<START>",
+      "end": "<END>",
+      "mask": "<MASK>"
+    }
+  },
+  "training": {
+    "layers": [10, 32, 5],
+    "activation": "relu",
+    "output_activation": "softmax",
+    "optimizer": "adam",
+    "learning_rate": 0.001,
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-8,
+    "epochs": 20,
+    "batch_size": 64
+  },
+  "data": {
+    "total_samples": 120000,
+    "layer1_samples": 50000,
+    "layer2_samples": 30000,
+    "layer3_samples": 40000,
+    "layer3_epochs": 30,
+    "test_ratio": 0.1,
+    "validation_ratio": 0.1,
+    "train_ratio": 0.8,
+    "massive_training": true,
+    "real_data": true,
+    "datasets": ["fake_detection", "code_analysis", "configuration", "information_search"]
+  },
+  "performance": {
+    "expected_time_seconds": 135,
+    "parallel_strategy": "blockdist",
+    "locales": 4,
+    "max_threads": 32,
+    "distributed_time_seconds": 45
+  },
+  "features": [
+    "fake_detection",
+    "scientific_analysis",
+    "parallel_search",
+    "code_analysis",
+    "code_repair",
+    "code_review",
+    "pattern_learning",
+    "configuration_optimization"
+  ]
+}

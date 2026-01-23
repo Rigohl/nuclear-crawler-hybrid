@@ -20,6 +20,7 @@ pub mod nuclear_core; // REAL bypass, extraction, concealment, spider
 pub mod premium_content_scraper; // REAL premium content extraction
 pub mod url_helpers; // URL utilities
 pub mod web_search; // REAL web search with 55+ engines
+pub mod dataset_generator; // REAL dataset generation for Chapel AI training
 
 // 🔥 OPTIONAL ADVANCED MODULES (commented, integrated where needed)
 // Uncomment if needed for specific features:
