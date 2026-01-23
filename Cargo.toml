@@ -19,6 +19,8 @@ nim_integration = []
 zig_integration = []
 chromium_rendering = ["chromiumoxide"]
 advanced_tor = []
+# Advanced feature bundle: enables all advanced capabilities for the multi-agent pipeline
+advanced = ["chromium_rendering", "advanced_tor"]
 
 [package.metadata.mcp]
 protocol-version = "2025-01-01"
