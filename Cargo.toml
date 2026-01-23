@@ -110,6 +110,15 @@ bincode = "1.3"
 # 🔥 NEW: Async runtime utilities
 async-trait = "0.1"
 
+# 🔥 NEW: HuggingFace integration for AI training
+# HuggingFace API client capabilities
+base64 = "0.22"
+mime = "0.3"
+
+# 🔥 NEW: Chatbot capabilities
+# For chat interface and conversation management
+toml = "0.8"
+
 [[bin]]
 name = "nuclear-mcp"
 path = "src/bin/nuclear_mcp.rs"

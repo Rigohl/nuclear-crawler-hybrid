@@ -4,6 +4,9 @@
 //! 🔥 REAL IMPLEMENTATIONS: No fake FFI or simulations
 //! 🔥 WORKING CODE: Web scraping, file analysis, bypass systems
 //! 🔥 ZERO DEAD CODE: All experimental modules removed
+//! 🧠 CHAPEL AI: Continuous learning system connected to all tools
+//! 🤗 HUGGINGFACE: Model training and deployment integration
+//! 🤖 CHATBOT: Interactive AI assistant with tool access
 
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
@@ -31,12 +34,21 @@ pub mod jax_integration; // JAX GPU vectorization
 pub mod nim_integration; // Nim HTML parsing
 pub mod zig_integration; // Zig SIMD hashing
 
+// 🔥 NEW AI & CHATBOT MODULES
+pub mod chatbot; // Interactive AI chatbot with tool integration
+pub mod huggingface_integration; // HuggingFace model training & deployment
+
 // 🔥 INFRASTRUCTURE MODULES FOR SERVER
 pub mod advanced_bypass;
 pub mod cache; // LRU cache implementation
 pub mod deepweb_tor; // Deep web search via Tor
 pub mod intelligent_storage; // JSON file storage
 pub mod rate_limit; // Token bucket rate limiter // Advanced lock detection and bypass
+
+// Re-exports for convenience
+pub use chapel_integration::{get_chapel_ai, ChapelAI, ChapelContext};
+pub use chatbot::{Chatbot, ChatbotConfig};
+pub use huggingface_integration::{HuggingFaceClient, HuggingFaceConfig};
 
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
