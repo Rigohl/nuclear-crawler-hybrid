@@ -5,10 +5,6 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
-    reviewers:
-      - "core-team"
-    assignees:
-      - "maintainer"
     commit-message:
       prefix: "deps"
       include: "scope"
@@ -21,8 +17,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "devops-team"
     commit-message:
       prefix: "ci"
       include: "scope"
@@ -31,8 +25,14 @@ updates:
     directory: "/scripts"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "core-team"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+
+  - package-ecosystem: "gomod"
+    directory: "/scripts"
+    schedule:
+      interval: "weekly"
     commit-message:
       prefix: "deps"
       include: "scope"

@@ -1,0 +1,6 @@
+# Python dependencies for Nuclear Crawler Hybrid scripts
+# Used by benchmark.py for system monitoring
+psutil>=5.9.0
+
+# Used by benchmark.py for HTTP requests
+requests>=2.31.0
