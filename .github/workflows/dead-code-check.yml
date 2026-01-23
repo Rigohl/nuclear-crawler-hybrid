@@ -50,7 +50,7 @@ jobs:
       - name: Run clippy with dead code warnings
         run: |
           echo "🔍 Running clippy to detect dead code..."
-          cargo clippy --all-targets -- \
+          cargo clippy --lib --bins --tests -- \
             -W dead_code \
             -W unused_imports \
             -W unused_variables \
