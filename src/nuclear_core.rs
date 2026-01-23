@@ -127,7 +127,8 @@ impl NuclearBypass {
             }),
         }
     }
-// For NuclearBypassRouter (line 131)
+    // Helper used by NuclearBypassRouter to normalize URLs to their domain
+    // so routing and rate-limiting decisions can be made per domain.
     fn extract_domain(&self, url: &str) -> Option<String> {
         url::Url::parse(url)
             .ok()?
