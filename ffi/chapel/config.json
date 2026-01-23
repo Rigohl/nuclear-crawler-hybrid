@@ -1,6 +1,26 @@
 {
   "version": "1.0.0",
   "model_name": "nuclear_chapel_ai",
+  "datasets": {
+    "information_search": {
+      "path": "datasets/training_samples.json",
+      "key": "fake_news_samples",
+      "count": 40500,
+      "source": "web_search_training"
+    },
+    "code_analysis": {
+      "path": "datasets/training_samples.json",
+      "key": "code_analysis_samples",
+      "count": 27000,
+      "source": "chapel_code_training"
+    },
+    "configuration": {
+      "path": "datasets/training_samples.json",
+      "key": "training_configs",
+      "count": 13500,
+      "source": "config_optimization"
+    }
+  },
   "tokenizer": {
     "type": "byte-pair-encoding",
     "vocab_size": 10000,
@@ -30,20 +50,26 @@
     "layer1_samples": 50000,
     "layer2_samples": 31000,
     "layer3_epochs": 20,
-    "test_ratio": 0.2,
-    "validation_ratio": 0.1
+    "test_ratio": 0.1,
+    "validation_ratio": 0.1,
+    "train_ratio": 0.8,
+    "datasets": ["information_search", "code_analysis", "configuration"]
   },
   "performance": {
     "expected_time_seconds": 135,
     "parallel_strategy": "blockdist",
     "locales": 4,
-    "max_threads": 32
+    "max_threads": 32,
+    "distributed_time_seconds": 45
   },
   "features": [
     "fake_detection",
     "scientific_analysis",
     "parallel_search",
     "code_analysis",
-    "pattern_learning"
+    "code_repair",
+    "code_review",
+    "pattern_learning",
+    "configuration_optimization"
   ]
 }

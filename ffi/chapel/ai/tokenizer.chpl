@@ -219,4 +219,38 @@ module Tokenizer {
     
     return embeddings;
   }
+  
+  // Process dataset for training
+  proc processDataset(texts: [] string, labels: [] string, tokenizer: NuclearTokenizer): ([] [] int, [] int) {
+    var max_length = 512;
+    var encoded: [1..texts.size, 1..max_length] int;
+    var label_ids: [1..labels.size] int;
+    
+    // Tokenize all texts
+    forall (i, text) in zip(1..texts.size, texts) {
+      var tokens = tokenizer.tokenize(text);
+      var padded = tokenizer.padSequence(tokens, max_length);
+      encoded[i, ] = padded;
+    }
+    
+    // Convert labels to IDs
+    var label_map = new map(string, int);
+    var label_count = 0;
+    
+    for label in labels {
+      if !label_map.contains(label) {
+        label_map[label] = label_count;
+        label_count += 1;
+      }
+      var idx = 0;
+      for (j, lbl) in zip(1..labels.size, labels) {
+        if lbl == label {
+          label_ids[j] = label_map[label];
+          idx = j;
+        }
+      }
+    }
+    
+    return (encoded, label_ids);
+  }
 }
