@@ -80,7 +80,7 @@ Nuclear Crawler Hybrid is a Rust 2021 MCP (Model Context Protocol) server that e
 ## Known Issues / Workarounds
 - **Build/test/clippy failure**: `bincode v3.0.0` contains a `compile_error!` in its crate root. Any build/tests that compile dependencies will fail until the dependency is replaced or downgraded.
 - **Formatting**: `cargo fmt -- --check` fails due to formatting in `examples/nuclear_course_extractor_demo.rs`.
-- **Integration test binary names**: `tests/integration_real_mcp.rs` references `nuclear_ultimate` and `src/bin/nuclear_ultimate.rs`, but the only configured binary in `Cargo.toml` is `nuclear-mcp` and no `src/bin/` directory exists. Adjust carefully if you touch tests.
+- **Integration test binary names**: `tests/integration_real_mcp.rs` references `nuclear_ultimate` and `src/bin/nuclear_ultimate.rs`, while `Cargo.toml` defines `nuclear-mcp` with path `src/bin/nuclear_mcp.rs` (that path does not exist). Adjust carefully if you touch tests or bin paths.
 
 ## How to Make Changes Efficiently
 1. **Start with** `src/mcp/server.rs`, `src/mcp/protocol.rs`, and `src/mcp/tools/` for tool-related changes.
