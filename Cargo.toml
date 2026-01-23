@@ -105,7 +105,7 @@ tokio-socks = "0.5"
 ndarray = "0.17"
 
 # 🔥 NEW: Zero-copy serialization for performance
-bincode = "3.0"
+bincode = "2.0"
 
 # 🔥 NEW: Async runtime utilities
 async-trait = "0.1"

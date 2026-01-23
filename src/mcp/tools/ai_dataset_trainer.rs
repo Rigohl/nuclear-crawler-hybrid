@@ -22,7 +22,6 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 
 use crate::cache::Cache;
-use crate::chapel_integration::{create_context, get_chapel_ai};
 use crate::go_integration::{GoParallelConfig, GoParallelProcessor};
 use crate::jax_integration::JaxProcessor;
 use crate::nim_integration::{NimHtmlParser, NimParserConfig};
@@ -430,6 +429,7 @@ impl AIDatasetTrainerTool {
                         zig_simd: self.config.use_zig_dedup,
                         nim_parsing: self.config.use_nim_parsing,
                         jax_embedding: self.config.enable_gpu_vectorization,
+                        chapel_ai: false,
                     },
                 };
                 datapoints.push(datapoint);
