@@ -195,35 +195,12 @@ class CodeRepairEngine {
 
 **4-Pass Repair System:**
 
-1. **Pass 1 - Style Violations**:
-   - Remove trailing whitespace
-   - Normalize operator spacing (=, ==, !=, +, -, etc.)
-   - Fix comma spacing
-   - Standardize parentheses spacing
-   - Confidence: 95%
+1. **Pass 1 - Style Violations**: 95% confidence
+2. **Pass 2 - Common Bugs**: 80% confidence
+3. **Pass 3 - Performance Optimizations**: 70% confidence
+4. **Pass 4 - Safety Improvements**: 85% confidence
 
-2. **Pass 2 - Common Bugs**:
-   - Add missing semicolons
-   - Fix array indexing off-by-one errors
-   - Initialize uninitialized variables
-   - Improve error handling (unwrap → ?)
-   - Confidence: 80%
-
-3. **Pass 3 - Performance Optimizations**:
-   - Replace `for` with `forall` (parallelism)
-   - Add BlockDist for array distributions
-   - Change `var` to `const` when appropriate
-   - Loop optimization opportunities
-   - Confidence: 70%
-
-4. **Pass 4 - Safety Improvements**:
-   - Replace unwrap/expect with Result types
-   - Add bounds checking for array access
-   - Add null checks for pointer dereferences
-   - Improve error propagation
-   - Confidence: 85%
-
-**Output:** Repaired source code + detailed fix report with per-line annotations
+**Output:** Repaired source code + detailed fix report
 
 ---
 
@@ -234,52 +211,95 @@ class CodeRepairEngine {
 ```chapel
 class CodeReviewer {
   var source_code: string;
-  var findings: [1..0] ReviewFinding;    // Issues found
-  var metrics: [1..0] ReviewMetric;      // Quality metrics
-  var scores: [1..0] ReviewScore;        // Area scores
-  var overall_grade: string = "B";       // A+, A, B+, B, C
+  var findings: [1..0] ReviewFinding;
+  var scores: [1..0] ReviewScore;
+  var overall_grade: string = "B";
 }
 ```
 
 **Review Categories:**
+- Performance (30% weight)
+- Safety (35% weight)
+- Style (15% weight)
+- Complexity (20% weight)
 
-1. **Performance** (⚡):
-   - String concatenation in loops
-   - Unnecessary copies/clones
-   - Missing vectorization (forall)
-   - BlockDist usage analysis
-   - Grade weight: 30%
+**Grading:** A+ to F scale
 
-2. **Safety** (🔒):
-   - Unchecked array access
-   - Null pointer dereferences
-   - Integer overflow risks
-   - Error handling presence
-   - Grade weight: 35%
+---
 
-3. **Style** (🎨):
-   - Variable naming clarity
-   - Function documentation
-   - Indentation consistency
-   - Code readability
-   - Grade weight: 15%
+### Six Sigma Analytics (New)
 
-4. **Complexity** (🧠):
-   - Cyclomatic complexity threshold (>10 = issue)
-   - Nesting depth limit (>4 = issue)
-   - Function length limits (>50 lines = warning)
-   - Overall architectural structure
-   - Grade weight: 20%
+**Purpose:** Statistical analysis, variance, forecasting, decision support
 
-**Grading Scale:**
-- **A+** (95-100): Production-ready, excellent code
-- **A** (90-94): High quality, minimal issues
-- **B+** (85-89): Good, minor improvements needed
-- **B** (70-84): Acceptable, improvements recommended
-- **C** (60-69): Needs work before production
-- **F** (<60): Critical issues, requires major revision
+```chapel
+class SixSigmaAnalyzer {
+  var data: [1..0] real;
+  var mean: real;
+  var std_dev: real;
+  var confidence_level: real = 0.95;
+  var process_capability: real;
+}
+```
 
-**Output:** A-F overall grade + per-area scores + detailed findings with severity levels
+**DMAIC Framework:**
+- **Define**: Problem statement, goals
+- **Measure**: Data collection, baseline metrics
+- **Analyze**: Root cause analysis, variance decomposition
+- **Improve**: Solutions, optimization
+- **Control**: Monitoring, sustained improvement
+
+**Methods:**
+- Variance analysis (Welford's algorithm)
+- Time series forecasting (ARIMA)
+- Anomaly detection
+- Multi-criteria decision analysis
+
+---
+
+### Marketing Intelligence Module (New)
+
+**Purpose:** Campaign optimization, segmentation, ROI analysis
+
+```chapel
+class MarketingOptimizer {
+  var campaigns: map(string, Campaign);
+  var segments: [1..0] CustomerSegment;
+  var metrics: [1..0] MarketingMetric;
+}
+```
+
+**Capabilities:**
+- A/B testing (statistical significance)
+- Multivariate testing
+- Customer segmentation (K-means, hierarchical)
+- Churn prediction (survival analysis)
+- ROI optimization (budget allocation)
+- Attribution modeling
+
+**Output:** Campaign insights, segment profiles, budget recommendations
+
+---
+
+### Sentiment & Emotion Detection (New)
+
+**Purpose:** NLP-based sentiment, emotion, toxicity detection
+
+```chapel
+class SentimentAnalyzer {
+  var model: TransformerModel;  // Fine-tuned BERT
+  var vocab: map(string, int);
+  var emotions: [1..0] string = ["joy", "sadness", "anger", "fear", "surprise", "neutral"];
+}
+```
+
+**Analyses:**
+- Sentiment classification (positive/negative/neutral)
+- Emotion detection (6 basic emotions)
+- Toxicity scoring
+- Subjectivity analysis
+- Intent classification
+
+**Integration:** HuggingFace transformers (distilBERT, RoBERTa)
 
 ---
 
@@ -287,13 +307,16 @@ class CodeReviewer {
 
 **Built-in Debugging Features:**
 
-- **Token-level tracking**: Exact line/column position for every token
-- **Real-time metrics**: Live cyclomatic complexity calculation
-- **Pattern matching traces**: Shows where duplicates were found
+- **Token-level tracking**: Exact line/column position
+- **Real-time metrics**: Live cyclomatic complexity
+- **Pattern matching traces**: Shows duplication locations
 - **Pass tracking**: Detailed log of each repair pass
-- **Confidence scoring**: 0.0-1.0 confidence for every fix
-- **Issue categorization**: Critical → warning → info hierarchy
+- **Confidence scoring**: 0.0-1.0 for every fix
+- **Issue categorization**: Critical → warning → info
 - **Report generation**: Exportable analysis/repair/review reports
+- **Six Sigma monitoring**: SPC charts, control limits
+- **Sentiment traces**: Token-level emotion scoring
+- **Marketing attribution**: Multi-touch attribution paths
 - **Quantum Annealing**: For combinatorial optimization
 - **Superposition States**: Explore multiple strategies
 - **Entanglement**: Correlated pattern pairs

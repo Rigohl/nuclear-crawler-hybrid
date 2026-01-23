@@ -287,17 +287,45 @@ All files in `ffi/chapel/tools/`:
 
 ```
 tools/
-├── code_analyzer.chpl     # Static analysis + metrics
-├── code_repair.chpl       # 4-pass automatic repair
-├── code_reviewer.chpl     # Production code certification
-├── code_debugger.chpl     # Runtime debug + trace (optional)
-├── data_mining.chpl       # Data analysis
-├── analysis.chpl          # Information analysis
-├── data_mining.chpl       # Pattern extraction
+├── code_analyzer.chpl       # Static analysis + metrics
+├── code_repair.chpl         # 4-pass automatic repair
+├── code_reviewer.chpl       # Production code certification
+├── code_debugger.chpl       # Runtime debug + trace
+├── data_mining.chpl         # Data analysis
+├── analysis.chpl            # Information analysis
+├── six_sigma.chpl           # DMAIC methodology + variance analysis
+├── marketing_optimizer.chpl # A/B testing, segmentation, ROI
+├── sentiment_analyzer.chpl  # NLP emotion + sentiment detection
 └── ...other tools
 ```
 
 Each tool uses `nuclear_chapel_ai.chpl` as core engine.
+
+## Advanced Capabilities (New)
+
+### 🔢 Six Sigma & Advanced Mathematics
+- **DMAIC Framework**: Define → Measure → Analyze → Improve → Control
+- **Statistical Methods**: Variance analysis, p-values, confidence intervals
+- **Pattern Recognition**: Time series, forecasting, anomaly detection
+- **Decision Support**: Multi-criteria analysis, game theory
+
+### 📊 Marketing Intelligence
+- **Campaign Optimization**: A/B testing, multivariate testing
+- **Customer Segmentation**: K-means clustering, cohort analysis
+- **Churn Prediction**: Survival analysis, propensity scoring
+- **ROI Optimization**: Budget allocation, attribution modeling
+
+### ❤️ Sentiment & Emotion Detection
+- **Sentiment Analysis**: Text classification (positive/negative/neutral)
+- **Emotion Detection**: 6 basic emotions (joy, sadness, anger, etc.)
+- **Toxicity Detection**: Harmful content identification
+- **NLP Pipeline**: Tokenization, embeddings, transformers integration
+
+### ☁️ Multi-Cloud Training
+- **AWS**: EC2 t2.micro free tier (750h/mo, 12 months)
+- **Azure**: VM B1s free tier (750h/mo)
+- **Google Cloud**: Compute e2-micro free tier (720h/mo)
+- **Kaggle**: GPU P100 (30h/week), 16GB RAM
 
 ## License
 

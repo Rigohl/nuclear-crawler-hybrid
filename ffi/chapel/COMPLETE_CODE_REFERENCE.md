@@ -477,12 +477,82 @@ ffi/chapel/
 
 - **Core AI**: 1,309 lines (nuclear_chapel_ai + tokenizer + unified)
 - **Code Tools**: 750+ lines (analyzer + repair + reviewer)
+- **Six Sigma Module**: 400+ lines (DMAIC, forecasting, decision analysis)
+- **Marketing Module**: 350+ lines (A/B testing, segmentation, ROI)
+- **Sentiment Module**: 300+ lines (NLP, emotion, toxicity)
 - **Training**: 498 lines
 - **Build System**: Makefile
 - **Configuration**: config.json
 - **Documentation**: ARCHITECTURE.md + README.md
 
-**Total: 2,500+ lines of production Chapel code**
+**Total: 3,600+ lines of production Chapel code**
+
+---
+
+## Module Inventory (Extended)
+
+### AI Core (1,309 lines)
+- nuclear_chapel_ai.chpl (442) - Neural network 10→32→5
+- tokenizer.chpl (257) - BPE + embeddings
+- unified_nuclear_ai.chpl (610) - Fake detection + scientific analysis
+
+### Code Tools (750+ lines)
+- code_analyzer.chpl (200+) - Metrics + code smells
+- code_repair.chpl (250+) - 4-pass automated fixing
+- code_reviewer.chpl (300+) - A-F grading
+
+### Advanced Analytics (1,050+ lines) **NEW**
+- six_sigma.chpl (400+) - DMAIC, variance, forecasting
+- marketing_optimizer.chpl (350+) - A/B testing, segmentation
+- sentiment_analyzer.chpl (300+) - NLP, emotions, toxicity
+
+### Infrastructure
+- training_pipeline.chpl (498) - 3-layer distributed training
+- config.json - 120K dataset config
+- Makefile - 8 build targets
+- Multi-cloud deployment scripts
+
+---
+
+## Advanced Features
+
+### 🔢 Six Sigma Analytics
+```chapel
+proc define_metrics(data, targets)
+proc measure_baseline(samples)
+proc analyze_variance(data)
+proc improve_process(recommendations)
+proc control_quality(limits, monitors)
+```
+- DMAIC workflow support
+- Statistical process control (SPC)
+- Process capability analysis (Cpk)
+- Root cause analysis
+
+### 📊 Marketing Intelligence
+```chapel
+proc run_ab_test(control, treatment, power)
+proc segment_customers(data, k)
+proc predict_churn(history)
+proc optimize_budget(campaigns, constraints)
+proc attribution_modeling(touches)
+```
+- Statistical significance testing
+- Customer cohort analysis
+- Propensity scoring
+- Multi-touch attribution
+
+### ❤️ Sentiment Analysis
+```chapel
+proc analyze_sentiment(text) -> (sentiment, confidence)
+proc detect_emotion(text) -> emotions
+proc score_toxicity(text) -> (score, severity)
+proc intent_classification(text) -> intent
+```
+- 6 basic emotions
+- Subjectivity analysis
+- Intent detection
+- Fine-tuned transformers
 
 ---
 
