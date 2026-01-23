@@ -554,7 +554,9 @@ fn test_mcp_server_compilation_real() {
     println!("║  ✅ No mock code found                                         ║");
     println!("║  ✅ All fallbacks are REAL implementations                     ║");
     println!("║  ✅ JSON-RPC 2.0 protocol compliant                           ║");
-    println!("║  ✅ 5 tools available: websearch, premium, file_search, scan, ai_dataset_trainer ║");
+    println!(
+        "║  ✅ 5 tools available: websearch, premium, file_search, scan, ai_dataset_trainer ║"
+    );
     println!("║  ✅ Integration tests ready to run                             ║");
     println!("╚════════════════════════════════════════════════════════════════╝");
 

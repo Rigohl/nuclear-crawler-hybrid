@@ -356,7 +356,7 @@ mod tests {
         let data = b"Hello, World!";
         let result = processor.cpu_fallback_hash(data).unwrap();
         assert!(!result.hash.is_empty());
-        assert_eq!(result.algorithm, "simd_cpu");  // CPU fallback uses simd_cpu, not blake3
+        assert_eq!(result.algorithm, "simd_cpu"); // CPU fallback uses simd_cpu, not blake3
         assert_eq!(result.input_size, data.len());
     }
 
