@@ -55,3 +55,61 @@ jobs:
           name: nuclear-mcp-binary
           path: target/release/nuclear-mcp
           retention-days: 7
+
+  # ==========================================
+  # 🤖 COPILOT CODE QUALITY AGENT
+  # ==========================================
+  copilot-code-review:
+    name: Copilot Code Review
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Request Copilot Review
+        uses: github/copilot-code-review-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          instructions: |
+            # Nuclear Crawler Hybrid Code Review Guidelines
+
+            ## Core Rules
+            - **NO mocks/stubs:** Validate that all tests use REAL HTTP requests and real MCP server
+            - **Exactly 5 MCP tools:** Ensure tools definition remains: websearch, premium_content, file_search_advanced, scan_workspace, ai_dataset_trainer
+            - **Real integration:** All tests must run against actual server, no fixtures or fake data
+            - **Error handling:** Explicit error management, no unwrap/expect without justification
+
+            ## Rust Style
+            - Imports ordered: external -> internal -> relative
+            - snake_case for functions/vars, PascalCase for types
+            - SCREAMING_SNAKE_CASE for constants
+            - Use &str over String in parameters
+            - No magic numbers; use named constants
+
+            ## Known Issues
+            - bincode v3.0.0 compile_error breaks builds (document this in PR)
+            - cargo fmt: formatting issues in examples/nuclear_course_extractor_demo.rs
+            - Integration tests may fail due to build issues (expected)
+
+            ## What to Check
+            - Tool definitions match exactly 5 tools
+            - No test fixtures or mock data introduced
+            - Binary paths and names match actual structure
+            - FFI integrations (Go/Zig/Nim) only on Windows/MSVC builds
+            - Async operations properly awaited
+            - Result/Option handled explicitly
+
+            ## Report Format
+            - List findings by severity (critical, warning, info)
+            - Reference specific lines in code
+            - Suggest concrete fixes
+            - Note if changes pass test_exactly_5_tools
+        continue-on-error: true
