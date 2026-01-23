@@ -1,9 +1,11 @@
-//! 🔥 WEBSEARCH TOOL - Search 55+ search engines with REAL data
+//! 🔥 WEBSEARCH TOOL - Search 55+ search engines with REAL data + Chapel AI
 //!
 //! NO MOCKS - 100% REAL HTTP requests to live search engines
+//! CHAPEL AI - Result optimization and intelligent suggestions
 //! ALIMENTADO DE: web_search, go_integration, rate_limit, cache, deepweb_tor
 
 use crate::cache::Cache;
+use crate::chapel_integration::{get_chapel_ai, create_context};
 use crate::deepweb_tor::DeepWebSearch;
 use crate::go_integration::GoParallelProcessor;
 use crate::rate_limit::RateLimiter;
@@ -52,12 +54,13 @@ pub struct WebSearchTool {
 }
 
 impl WebSearchTool {
-    /// Create new websearch tool with REAL HTTP - Integrado con TODO
+    /// Create new websearch tool with REAL HTTP - Integrado con TODO + Chapel AI
     pub fn new(config: WebSearchConfig) -> Self {
-        eprintln!("🔥 WebSearch Tool initialized - MÁXIMO PODER");
+        eprintln!("🔥 WebSearch Tool initialized - MÁXIMO PODER + Chapel AI");
         eprintln!("   ✅ Max Results: {}", config.max_results);
         eprintln!("   ✅ Timeout: {}s", config.timeout_seconds);
         eprintln!("   ✅ Bypass: {} (TODOS LOS 55+ MOTORES)", config.bypass);
+        eprintln!("   ✅ Chapel AI: Result optimization, stealth suggestions");
 
         // Inicializar rate limiter (1000 req/sec para máximo poder)
         let rate_limiter = Arc::new(RateLimiter::new(1000, 2000));
@@ -281,11 +284,24 @@ impl WebSearchTool {
 
         eprintln!("📊 Final results: {} items", results.len());
 
+        // 🧠 Chapel AI: Optimize results based on learned patterns
+        let chapel = get_chapel_ai();
+        results = chapel.optimize_results("websearch", results);
+
         // 9️⃣ Guardar en cache
         let json_result = serde_json::to_string(&results)?;
         self.cache.set_simple(&cache_key, json_result);
 
-        eprintln!("✅ Found {} real results", results.len());
+        // 🧠 Chapel AI: Learn from search quality
+        let quality = if results.len() > 0 {
+            (results.len() as f64 / self.config.max_results as f64).min(1.0)
+        } else {
+            0.0
+        };
+        let context = create_context("websearch", "search", query, quality);
+        let _ = chapel.learn(context);
+
+        eprintln!("✅ Found {} real results (optimized by Chapel AI)", results.len());
         Ok(results)
     }
 

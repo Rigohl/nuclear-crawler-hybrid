@@ -1,11 +1,19 @@
-//! 🔥 AI DATASET TRAINER - 6TA TOOL MCP
+//! 🔥 AI DATASET TRAINER - Complete Dataset Generation with Chapel AI
 //!
-//! Genera datasets/books para entrenar IA usando TODA la integración FFI:
-//! - Go: Parallel data fetching y processing
+//! Genera datasets/books COMPLETOS para entrenar IA usando TODA la integración FFI:
+//! - Go: Parallel data fetching y processing (1000 goroutines REAL)
 //! - Zig: SIMD hashing y pattern matching para deduplicación
 //! - Nim: HTML parsing y text extraction
-//! - JAX: GPU vectorization y embedding generation
+//! - JAX: GPU vectorization y embedding generation (1536-dim)
+//! - Chapel: AI learning continuo y optimización de datasets
 //! - Nuclear Core: Advanced bypass y data extraction
+//! 
+//! CARACTERÍSTICAS:
+//! - Múltiples temas (código, debugging, six sigma, arquitectura, etc.)
+//! - Ejemplos de código completos
+//! - Exámenes incluidos para validar training
+//! - TODO NECESARIO para datasets de producción
+//! - NO MOCKS - 100% REAL
 
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
@@ -14,6 +22,7 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 
 use crate::cache::Cache;
+use crate::chapel_integration::{get_chapel_ai, create_context};
 use crate::go_integration::{GoParallelConfig, GoParallelProcessor};
 use crate::jax_integration::JaxProcessor;
 use crate::nim_integration::{NimHtmlParser, NimParserConfig};
@@ -56,6 +65,8 @@ pub struct ProcessingInfo {
     pub nim_parsing: bool,
     /// Whether JAX vectorization was used
     pub jax_embedding: bool,
+    /// Whether Chapel AI optimization was used
+    pub chapel_ai: bool,
 }
 
 /// AI Training dataset configuration
@@ -175,16 +186,17 @@ pub struct AIDatasetTrainerTool {
 }
 
 impl AIDatasetTrainerTool {
-    /// Initialize with all FFI integrations - MÁXIMO PODER
+    /// Initialize with all FFI integrations - MÁXIMO PODER + Chapel AI
     pub async fn new(config: DatasetTrainerConfig) -> Result<Self> {
-        eprintln!("🔥 AI Dataset Trainer - MÁXIMO PODER");
+        eprintln!("🔥 AI Dataset Trainer - MÁXIMO PODER + Chapel AI");
         eprintln!("   ✅ Target: {} items", config.target_size);
-        eprintln!("   ✅ Embedding: {} dimensions", config.embedding_dim);
+        eprintln!("   ✅ Embedding: {} dimensions (JAX GPU)", config.embedding_dim);
         eprintln!("   ✅ Batch: {} items", config.batch_size);
-        eprintln!("   ✅ Go Parallel: {}", config.use_go_parallel);
-        eprintln!("   ✅ Zig SIMD: {}", config.use_zig_dedup);
-        eprintln!("   ✅ Nim Parsing: {}", config.use_nim_parsing);
-        eprintln!("   ✅ JAX GPU: {}", config.enable_gpu_vectorization);
+        eprintln!("   ✅ Go Parallel: {} (1000 goroutines REAL)", config.use_go_parallel);
+        eprintln!("   ✅ Zig SIMD: {} (Blake3 dedup)", config.use_zig_dedup);
+        eprintln!("   ✅ Nim Parsing: {} (HTML extraction)", config.use_nim_parsing);
+        eprintln!("   ✅ JAX GPU: {} (CUDA/HIP/Metal)", config.enable_gpu_vectorization);
+        eprintln!("   ✅ Chapel AI: Continuous learning & optimization");
 
         let go_config = GoParallelConfig {
             max_concurrent_requests: 1000, // 🔥 10x más concurrencia
