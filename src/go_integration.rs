@@ -151,10 +151,7 @@ impl GoParallelProcessor {
             .map(|url| CString::new(url.as_str()).unwrap())
             .collect();
 
-        let url_ptrs: Vec<*const i8> = c_urls
-            .iter()
-            .map(|cstr| cstr.as_ptr())
-            .collect();
+        let url_ptrs: Vec<*const i8> = c_urls.iter().map(|cstr| cstr.as_ptr()).collect();
 
         let url_lengths: Vec<usize> = urls.iter().map(|url| url.len()).collect();
 

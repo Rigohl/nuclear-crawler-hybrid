@@ -410,7 +410,11 @@ impl WebSearchTool {
                         if !url_str.contains("google.com") && !url_str.contains("bing.com") {
                             results.push(SearchResult {
                                 url: url_str.to_string(),
-                                title: url_str.split('/').next_back().unwrap_or("Result").to_string(),
+                                title: url_str
+                                    .split('/')
+                                    .next_back()
+                                    .unwrap_or("Result")
+                                    .to_string(),
                                 snippet: "Extracted from search results".to_string(),
                                 source: "web_extraction".to_string(),
                                 relevance_score: 0.75,

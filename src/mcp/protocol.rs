@@ -232,7 +232,7 @@ pub fn get_tool_definitions() -> Vec<ToolDefinition> {
                 "additionalProperties": false
             }),
         },
-        
+
         // ═══════════════════════════════════════════════════════════════════════
         // 2️⃣ PREMIUM - Extracción de contenido premium (BYPASS REAL)
         // ═══════════════════════════════════════════════════════════════════════
@@ -251,7 +251,7 @@ pub fn get_tool_definitions() -> Vec<ToolDefinition> {
                 "additionalProperties": false
             }),
         },
-        
+
         // ═══════════════════════════════════════════════════════════════════════
         // 3️⃣ FILE_SEARCH - Análisis avanzado de archivos (SIMD acelerado)
         // ═══════════════════════════════════════════════════════════════════════
@@ -274,7 +274,7 @@ pub fn get_tool_definitions() -> Vec<ToolDefinition> {
                 "additionalProperties": false
             }),
         },
-        
+
         // ═══════════════════════════════════════════════════════════════════════
         // 4️⃣ SCAN - Escaneo profundo de workspace (1000 goroutines Go)
         // ═══════════════════════════════════════════════════════════════════════
@@ -294,7 +294,7 @@ pub fn get_tool_definitions() -> Vec<ToolDefinition> {
                 "additionalProperties": false
             }),
         },
-        
+
         // ═══════════════════════════════════════════════════════════════════════
         // 5️⃣ AI_DATASET_TRAINER - Entrenar IA con FFI (4 procesadores paralelos)
         // ═══════════════════════════════════════════════════════════════════════
