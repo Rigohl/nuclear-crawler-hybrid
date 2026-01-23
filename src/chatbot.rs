@@ -263,31 +263,38 @@ impl Chatbot {
         }
     }
 
+    // Quality score weights (configured for balanced assessment)
+    const QUALITY_LENGTH_LONG: f64 = 0.2;      // Bonus for detailed responses (>200 chars)
+    const QUALITY_LENGTH_MEDIUM: f64 = 0.1;    // Bonus for adequate responses (>100 chars)
+    const QUALITY_INFORMATIVE: f64 = 0.1;      // Bonus for using informative markers
+    const QUALITY_HELPFUL: f64 = 0.1;          // Bonus for offering help or questions
+    const QUALITY_STRUCTURED: f64 = 0.1;       // Bonus for structured formatting
+
     /// Assess the quality of a response
     fn assess_response_quality(&self, response: &str) -> f64 {
         let mut score: f64 = 0.5;
 
-        // Length factor
+        // Length factor: longer responses tend to be more detailed
         let len = response.len();
         if len > 200 {
-            score += 0.2;
+            score += Self::QUALITY_LENGTH_LONG;
         } else if len > 100 {
-            score += 0.1;
+            score += Self::QUALITY_LENGTH_MEDIUM;
         }
 
-        // Informativeness (has specific details)
+        // Informativeness: uses emojis or specific markers
         if response.contains("✅") || response.contains("🔍") || response.contains("📄") {
-            score += 0.1;
+            score += Self::QUALITY_INFORMATIVE;
         }
 
-        // Helpfulness (offers next steps)
+        // Helpfulness: offers next steps or asks clarifying questions
         if response.contains("?") || response.contains("help") || response.contains("can") {
-            score += 0.1;
+            score += Self::QUALITY_HELPFUL;
         }
 
-        // Structure (has lists or formatting)
+        // Structure: has lists or formatting (multiline)
         if response.contains("\n") {
-            score += 0.1;
+            score += Self::QUALITY_STRUCTURED;
         }
 
         score.min(1.0)

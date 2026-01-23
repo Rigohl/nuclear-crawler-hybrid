@@ -8,6 +8,7 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
+use std::sync::OnceLock;
 
 use crate::chatbot::{Chatbot, ChatbotConfig};
 use crate::huggingface_integration::{HuggingFaceClient, HuggingFaceConfig};
@@ -35,26 +36,23 @@ pub struct ChatbotResult {
     pub conversation_turns: usize,
 }
 
-/// Global chatbot instance (singleton)
-static mut CHATBOT: Option<Chatbot> = None;
+/// Global chatbot instance (thread-safe singleton)
+static CHATBOT: OnceLock<Chatbot> = OnceLock::new();
 
 /// Initialize the global chatbot
 fn get_or_create_chatbot() -> &'static Chatbot {
-    unsafe {
-        if CHATBOT.is_none() {
-            // Try to create HuggingFace client if token is set
-            let hf_client = if std::env::var("HF_TOKEN").is_ok() {
-                let config = HuggingFaceConfig::default();
-                HuggingFaceClient::new(config).ok()
-            } else {
-                None
-            };
+    CHATBOT.get_or_init(|| {
+        // Try to create HuggingFace client if token is set
+        let hf_client = if std::env::var("HF_TOKEN").is_ok() {
+            let config = HuggingFaceConfig::default();
+            HuggingFaceClient::new(config).ok()
+        } else {
+            None
+        };
 
-            let config = ChatbotConfig::default();
-            CHATBOT = Some(Chatbot::new(config, hf_client));
-        }
-        CHATBOT.as_ref().unwrap()
-    }
+        let config = ChatbotConfig::default();
+        Chatbot::new(config, hf_client)
+    })
 }
 
 /// Execute chatbot tool
