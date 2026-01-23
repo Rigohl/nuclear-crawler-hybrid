@@ -112,7 +112,7 @@ fn validate_timeout(execution_ms: u64, timeout_seconds: u64) -> Result<(), Strin
 fn compile_mcp() -> Result<(), String> {
     println!("\n📦 Compilando MCP server...");
     let output = Command::new("cargo")
-        .args(["build", "--bin", "nuclear_ultimate", "--release"])
+        .args(["build", "--bin", "nuclear-mcp", "--release"])
         .current_dir("/workspaces/nuclear-crawler-hybrid")
         .output()
         .map_err(|e| format!("Error compilando: {}", e))?;
