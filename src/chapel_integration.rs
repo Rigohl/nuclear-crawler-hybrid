@@ -271,6 +271,79 @@ impl ChapelAI {
         Ok(stats)
     }
 
+    /// Save learning data to file (persistence)
+    pub fn save_to_file(&self, path: &str) -> Result<()> {
+        let db = self
+            .db
+            .read()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+
+        let data = serde_json::json!({
+            "patterns": db.patterns,
+            "pattern_count": db.pattern_count,
+            "success_rate": db.success_rate,
+        });
+
+        std::fs::write(path, serde_json::to_string_pretty(&data)?)?;
+        eprintln!("💾 Chapel AI: Learning data saved to {}", path);
+        Ok(())
+    }
+
+    /// Load learning data from file (persistence)
+    pub fn load_from_file(&self, path: &str) -> Result<()> {
+        let content = std::fs::read_to_string(path)?;
+        let data: serde_json::Value = serde_json::from_str(&content)?;
+
+        let mut db = self
+            .db
+            .write()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+
+        if let Some(patterns) = data.get("patterns") {
+            db.patterns = serde_json::from_value(patterns.clone())?;
+        }
+        if let Some(pattern_count) = data.get("pattern_count") {
+            db.pattern_count = serde_json::from_value(pattern_count.clone())?;
+        }
+        if let Some(success_rate) = data.get("success_rate") {
+            db.success_rate = serde_json::from_value(success_rate.clone())?;
+        }
+
+        eprintln!("📂 Chapel AI: Learning data loaded from {}", path);
+        eprintln!("   Loaded {} patterns", db.patterns.len());
+        Ok(())
+    }
+
+    /// Export learning data to HuggingFace format
+    pub fn export_for_huggingface(&self) -> Result<Vec<serde_json::Value>> {
+        let db = self
+            .db
+            .read()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+
+        let mut training_data = Vec::new();
+
+        for (pattern_id, contexts) in &db.patterns {
+            let success_rate = db.get_success_rate(pattern_id);
+            
+            for context in contexts {
+                let entry = serde_json::json!({
+                    "text": format!("{}: {}", context.operation, context.input_data),
+                    "label": if context.output_quality >= 0.7 { "success" } else { "failure" },
+                    "quality_score": context.output_quality,
+                    "success_rate": success_rate,
+                    "tool_name": context.tool_name,
+                    "operation": context.operation,
+                    "metadata": context.metadata,
+                });
+                training_data.push(entry);
+            }
+        }
+
+        eprintln!("🤗 Chapel AI: Exported {} training examples for HuggingFace", training_data.len());
+        Ok(training_data)
+    }
+
     /// Optimize results based on learned patterns
     pub fn optimize_results<T>(&self, tool_name: &str, results: Vec<T>) -> Vec<T> {
         // In real implementation, this would apply learned patterns

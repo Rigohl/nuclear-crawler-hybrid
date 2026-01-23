@@ -1,38 +1,118 @@
 version: 2
 updates:
+  # Rust dependencies with intelligent grouping
   - package-ecosystem: "cargo"
     directory: "/"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 15
     reviewers:
-      - "core-team"
+      - "Rigohl"
     assignees:
-      - "maintainer"
+      - "Rigohl"
     commit-message:
       prefix: "deps"
       include: "scope"
+    # Allow both version updates and security updates
+    allow:
+      - dependency-type: "all"
+    # Separate groups for better management
     groups:
-      rust-dependencies:
+      # Critical security dependencies
+      security-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "patch"
+          - "minor"
+        patterns:
+          - "tokio*"
+          - "hyper*"
+          - "axum*"
+          - "reqwest*"
+      # HTTP/Network stack
+      network-stack:
+        patterns:
+          - "axum"
+          - "hyper"
+          - "tokio*"
+          - "reqwest"
+          - "tokio-stream"
+          - "futures"
+          - "async-trait"
+      # Serialization dependencies
+      serialization:
+        patterns:
+          - "serde*"
+          - "bincode"
+          - "serde_json"
+      # FFI and system dependencies
+      ffi-system:
+        patterns:
+          - "libloading"
+          - "parking_lot"
+      # Web scraping stack
+      scraping:
+        patterns:
+          - "scraper"
+          - "regex"
+          - "url"
+          - "urlencoding"
+      # Data processing
+      data-processing:
+        patterns:
+          - "dashmap"
+          - "lru"
+          - "rayon"
+          - "ndarray"
+      # Hashing and crypto
+      crypto:
+        patterns:
+          - "blake3"
+      # Other dependencies
+      other-dependencies:
         patterns:
           - "*"
+    # Ignore problematic dependencies that need manual updates
+    ignore:
+      # Ignore bincode v3 - contains compile_error
+      - dependency-name: "bincode"
+        versions: [">=2.0.0"]
 
+  # GitHub Actions with security focus
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 5
     reviewers:
-      - "devops-team"
+      - "Rigohl"
+    assignees:
+      - "Rigohl"
     commit-message:
       prefix: "ci"
       include: "scope"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
+  # Python dependencies (if any in scripts)
   - package-ecosystem: "pip"
     directory: "/scripts"
     schedule:
       interval: "weekly"
+      time: "04:00"
+    open-pull-requests-limit: 5
     reviewers:
-      - "core-team"
+      - "Rigohl"
+    assignees:
+      - "Rigohl"
     commit-message:
-      prefix: "deps"
+      prefix: "deps(python)"
       include: "scope"
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
