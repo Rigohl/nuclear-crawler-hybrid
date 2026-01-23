@@ -20,7 +20,7 @@ async fn main() -> Result<()> {
     println!("🔧 PASO 1: Inicializar Infraestructura Nuclear");
     println!("──────────────────────────────────────────────");
 
-    let cache = Arc::new(Cache::new(10000));
+    let _cache = Arc::new(Cache::new(10000));
     println!("  ✅ Cache: 10,000 resultados");
 
     // 🔥 PASO 2: Crear instancia de NuclearCore con bypass
@@ -733,6 +733,7 @@ fn get_platform(url: &str) -> String {
 }
 
 /// Extrae título específico de Coursera
+#[allow(dead_code)]
 fn extract_title_coursera(content: &str) -> String {
     if content.contains("Machine Learning") {
         "Machine Learning Specialization".to_string()

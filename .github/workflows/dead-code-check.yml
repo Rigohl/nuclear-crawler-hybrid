@@ -1,0 +1,89 @@
+name: Dead Code Detection
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 0 * * 1'  # Weekly on Monday
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  detect-dead-code:
+    name: Detect Unused Dependencies and Dead Code
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+
+      - name: Install cargo-udeps
+        run: cargo install cargo-udeps --locked
+
+      - name: Install cargo-machete  
+        run: cargo install cargo-machete --locked
+
+      - name: Check for unused dependencies
+        run: |
+          echo "🔍 Checking for unused dependencies..."
+          cargo +nightly udeps --all-targets || echo "⚠️ Found unused dependencies"
+        continue-on-error: true
+
+      - name: Check for dead code with machete
+        run: |
+          echo "🔍 Checking for dead code..."
+          cargo machete || echo "⚠️ Found potential dead code"
+        continue-on-error: true
+
+      - name: Run clippy with dead code warnings
+        run: |
+          echo "🔍 Running clippy to detect dead code..."
+          cargo clippy --all-targets -- \
+            -W dead_code \
+            -W unused_imports \
+            -W unused_variables \
+            -W unused_mut \
+            || echo "⚠️ Found dead code warnings"
+        continue-on-error: true
+
+      - name: Generate report
+        if: always()
+        run: |
+          echo "📊 Dead Code Detection Report" > dead-code-report.md
+          echo "================================" >> dead-code-report.md
+          echo "" >> dead-code-report.md
+          echo "Generated on: $(date)" >> dead-code-report.md
+          echo "" >> dead-code-report.md
+          echo "## Summary" >> dead-code-report.md
+          echo "" >> dead-code-report.md
+          echo "This workflow checks for:" >> dead-code-report.md
+          echo "- Unused dependencies (cargo-udeps)" >> dead-code-report.md
+          echo "- Dead code (cargo-machete)" >> dead-code-report.md
+          echo "- Unused code via clippy warnings" >> dead-code-report.md
+          echo "" >> dead-code-report.md
+          echo "## How to Fix" >> dead-code-report.md
+          echo "" >> dead-code-report.md
+          echo "1. Remove unused dependencies from Cargo.toml" >> dead-code-report.md
+          echo "2. Remove or fix dead code identified by the tools" >> dead-code-report.md
+          echo "3. Use #[allow(dead_code)] for intentionally unused code" >> dead-code-report.md
+          cat dead-code-report.md
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dead-code-report
+          path: dead-code-report.md
+          retention-days: 30

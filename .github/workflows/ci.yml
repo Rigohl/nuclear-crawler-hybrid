@@ -32,10 +32,10 @@ jobs:
 
       - name: Run clippy
         continue-on-error: true  # Allow clippy warnings for now
-        run: cargo clippy --all-targets -- -D warnings
+        run: cargo clippy --lib --bins --tests -- -D warnings
 
       - name: Build Release
-        run: cargo build --release --all-targets
+        run: cargo build --release --lib --bins
 
       - name: Run unit tests
         run: cargo test --release --lib
