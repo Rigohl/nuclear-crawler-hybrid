@@ -31,7 +31,7 @@ async fn main() -> anyhow::Result<()> {
         eprintln!("   Host: {}", args.host);
         eprintln!("   Port: {}", args.port);
         eprintln!("   Protocol: HTTP + JSON-RPC 2.0");
-        eprintln!("   Tools: 5 (websearch, premium, file_search, scan, info)");
+        eprintln!("   Tools: 5 (websearch, premium, file_search, scan, ai_dataset_trainer)");
         eprintln!("");
     }
 
@@ -55,13 +55,10 @@ async fn main() -> anyhow::Result<()> {
     println!("   • premium           - Premium content scraping");
     println!("   • file_search       - Advanced file search");
     println!("   • scan              - Workspace analysis");
-    println!("   • info              - Project information");
+    println!("   • ai_dataset_trainer - AI training dataset creation");
     println!("");
 
-    axum::Server::from_tcp(listener.into_std()?)
-        .unwrap()
-        .serve(app.into_make_service())
-        .await?;
+    axum::serve(listener, app).await?;
 
     Ok(())
 }

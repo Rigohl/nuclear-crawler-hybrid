@@ -2080,8 +2080,8 @@ mod tests {
     fn test_web_search_config_default() {
         let config = WebSearchConfig::default();
         assert!(!config.sources.is_empty());
-        assert_eq!(config.max_parallel, 10000);
-        assert!(config.use_ai);
+        assert_eq!(config.max_parallel, 10);
+        assert!(!config.use_ai); // Default is false for ultra-fast mode
         assert!(config.use_stealth);
     }
 
