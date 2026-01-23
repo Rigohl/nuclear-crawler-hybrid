@@ -213,7 +213,7 @@ jobs:
       - name: 📊 Generate Advanced Report
         run: |
           python scripts/generate_advanced_report.py \
-            --analysis-results analysis_results.json \
+            --input analysis_results.json \
             --metrics "${{ needs.multi_agent_analysis.outputs.score }}" \
             --template advanced_report_template.md \
             --output NUCLEAR_ANALYSIS_REPORT.md
