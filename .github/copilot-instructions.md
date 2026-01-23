@@ -1,163 +1,97 @@
-[copilot-memory-mcp]
+# Copilot Onboarding Instructions: nuclear-crawler-hybrid
 
-You are given tools from Copilot Memory MCP server for knowledge storage, rules management, code indexing, and **smart context enrichment**:
+## Repository Summary
+Nuclear Crawler Hybrid is a Rust 2021 MCP (Model Context Protocol) server that exposes **exactly five tools** (websearch, premium, file_search, scan, ai_dataset_trainer) over JSON-RPC 2.0 using Axum. It ships with optional FFI accelerators (Go/Zig/Nim/JAX) but runs on pure Rust fallbacks on Linux. The repo includes Docker packaging, integration tests that hit a **real running server** (no mocks), and multiple GitHub workflows (CI, MCP validation, security, Docker, release, multi-agent pipeline).
 
-## CRITICAL: Always Retrieve Rules First
+## Project Size & Tech Stack
+- **Language/Runtime**: Rust 2021 (Tokio async + Axum HTTP)
+- **Other runtimes**: Go/Zig/Nim FFIs used when libs exist (Windows/MSVC only in build.rs)
+- **Repo size**: small-to-medium (Rust sources under `src/`, ~20+ modules, tests in `tests/`)
+- **Key crates**: axum, tokio, reqwest, serde, dashmap, lru, blake3, rayon
+- **Binaries**: `nuclear-mcp` (see Cargo.toml); prebuilt binary in repo root
+- **Docker**: multi-stage build in `Dockerfile`, compose in `docker-compose.yml`
 
-**At the start of EVERY chat session**, you MUST call `mcp_copilot-memor_retrieve_rules` to load active coding rules and guidelines. These rules define how you should write code, structure projects, and respond to user requests.
+## Critical Constraints
+- **No mocks/stubs** in tests or tool implementations. Integration tests expect **real HTTP requests**.
+- **Exactly five MCP tools** are defined in `src/mcp/protocol.rs` and used in `src/mcp/server.rs`.
+- **Rust builds currently fail** due to a dependency issue (see Build Notes below). Document this in your PRs.
 
-Example first action in every chat:
-```
-retrieve_rules() // Load all active rules
-```
+## Repository Layout (high-signal paths)
+- `src/mcp/server.rs`: Axum HTTP server, routes, tool dispatch (uses tools: websearch/premium/file_search/scan/ai_dataset_trainer).
+- `src/mcp/protocol.rs`: JSON-RPC 2.0 structs + **tool definitions** (exactly 5).
+- `src/mcp/tools/`: tool implementations.
+- `src/lib.rs`: module exports, feature gates, and wasm helpers.
+- `tests/integration_real_mcp.rs`: real-server integration tests (expects binary names and paths).
+- `build.rs`: Windows-only FFI linking logic; on Linux uses pure Rust fallback.
+- `Cargo.toml`: crate metadata, features, and dependencies.
+- `.github/workflows/`: CI, MCP validation, security, Docker, release, multi-agent pipeline.
+- `Dockerfile` + `docker-compose.yml`: containerized builds/run.
+- `README.md`, `ARCHITECTURE.md`, `API_REFERENCE.md`, `TOOLS.md`: product docs.
 
-## Knowledge Storage Tools (3 tools)
+### Root files list (repo root)
+`API_REFERENCE.md`, `ARCHITECTURE.md`, `Cargo.lock`, `Cargo.toml`, `Dockerfile`, `README.md`, `TOOLS.md`, `USAGE_EXAMPLE.rs`, `WSL_DEPLOYMENT.md`, `build.rs`, `docker-compose.yml`, `nuclear-mcp` (prebuilt binary), `nuclear-data`, `nuclear_course_extraction_demo.json`, plus folders: `.github/`, `src/`, `tests/`, `examples/`, `ffi/`, `scripts/`, `docs/`, `bin/`, `.cargo/`.
 
-### 1. `mcp_copilot-memor_store_knowledge`
-You `MUST` always use this tool when:
+## Build, Test, Lint, Run (validated locally)
+> **Important**: Commands below were executed. Some fail due to known issues (documented here). Always note failures in PRs.
 
-+ Learning new patterns, APIs, or architectural decisions from the codebase
-+ Encountering error solutions or debugging techniques
-+ Finding reusable code patterns or utility functions
-+ Completing any significant task or plan implementation
-+ User explicitly asks to "remember" or "save" information
-+ Discovering project-specific conventions or configurations
+### Prereqs
+- Rust stable toolchain (CI uses `dtolnay/rust-toolchain@stable`).
+- Linux builds do **not** require Go/Zig/Nim; those are Windows/MSVC-only in `build.rs`.
 
-### 2. `mcp_copilot-memor_retrieve_knowledge`
-You `MUST` always use this tool when:
+### Lint / Format
+- **Format check (fails today)**:
+  - `cargo fmt -- --check`
+  - **Observed failure**: formatting diff in `examples/nuclear_course_extractor_demo.rs`.
+  - Workaround: run `cargo fmt` to reformat if you are changing code in examples; otherwise note existing fmt failure.
+- **Clippy (fails today)**:
+  - `cargo clippy --all-targets -- -D warnings`
+  - **Observed failure**: build fails before clippy due to `bincode v3.0.0` (see below).
 
-+ Starting any new task or implementation to gather relevant context
-+ Before making architectural decisions to understand existing patterns
-+ When debugging issues to check for previous solutions
-+ Working with unfamiliar parts of the codebase
-+ User explicitly asks to "retrieve" or "recall" information
-+ Need context about past decisions or implementations
+### Build
+- **Release build (fails today)**:
+  - `cargo build --release --all-targets`
+  - **Observed failure**: dependency `bincode v3.0.0` emits `compile_error!("https://xkcd.com/2347/")` and stops compilation.
 
-### 3. `mcp_copilot-memor_list_knowledge`
-You `MUST` use this tool when:
+### Tests
+- **Unit tests (fails today)**:
+  - `cargo test --release --lib`
+  - Fails for the same `bincode v3.0.0` compile_error.
+- **Integration tests (fails today)**:
+  - `cargo test --test integration_real_mcp --release -- --nocapture --test-threads=1`
+  - Fails due to `bincode v3.0.0` compile_error before tests run.
 
-+ User wants to see all stored knowledge
-+ Need to browse available context and patterns
-+ Checking what information is already saved
-+ Getting statistics about stored knowledge
+### Run
+- If build succeeds, run server:
+  - `cargo run --bin nuclear-mcp --release`
+  - Health check: `curl http://localhost:8079/health`
+  - Tools list: `POST /mcp/tools/list`
+  - Tool call: `POST /mcp/tools/call`
 
-## Rules Management Tools (5 tools)
+### Docker
+- Build image: `docker build -t nuclear-mcp:latest .`
+- Run: `docker run -p 8079:8079 nuclear-mcp:latest`
+- Compose: `docker-compose up -d`
 
-### 4. `mcp_copilot-memor_store_rule`
-Use when user says "save as rule", "remember this rule", or "add this to rules":
+### CI Workflows (replicate locally)
+- **CI** (`.github/workflows/ci.yml`): fmt, clippy, release build, unit tests, integration tests, `test_exactly_5_tools`.
+- **MCP validation** (`mcp-validation.yml`): release build, clippy strict, integration tests, tool count, mock detection.
+- **Security** (`security.yml`): cargo-audit, cargo-deny, clippy security lints, CodeQL.
 
-+ Stores coding guidelines, conventions, and best practices
-+ Rules are automatically applied to every chat session
-+ Categories: "code-style", "architecture", "testing", "general"
-+ Priority: 0-10 (higher = more important)
+## Known Issues / Workarounds
+- **Build/test/clippy failure**: `bincode v3.0.0` contains a `compile_error!` in its crate root. Any build/tests that compile dependencies will fail until the dependency is replaced or downgraded.
+- **Formatting**: `cargo fmt -- --check` fails due to formatting in `examples/nuclear_course_extractor_demo.rs`.
+- **Integration test binary names**: `tests/integration_real_mcp.rs` references `nuclear_ultimate` and `src/bin/nuclear_ultimate.rs`, but the only configured binary in `Cargo.toml` is `nuclear-mcp` and no `src/bin/` directory exists. Adjust carefully if you touch tests.
 
-### 5. `mcp_copilot-memor_retrieve_rules`
-**MUST be called at the start of every chat**:
+## How to Make Changes Efficiently
+1. **Start with** `src/mcp/server.rs`, `src/mcp/protocol.rs`, and `src/mcp/tools/` for tool-related changes.
+2. Verify tool list stays at 5 (`test_exactly_5_tools` in `src/mcp/protocol.rs`).
+3. Avoid changing FFI unless you can build Windows MSVC artifacts; Linux builds use Rust fallback.
+4. If a change requires build/test verification, note the current `bincode` compile_error in your PR summary.
 
-+ Loads all active rules to guide your responses
-+ Returns rules sorted by priority
-+ Apply these rules to all code you write
+## README Snapshot (for quick context)
+- Production MCP server with 5 tools.
+- Quick start: `cargo build --release` then `./target/release/nuclear-mcp --serve tcp://0.0.0.0:8079`.
+- Docker deployment available.
 
-### 6. `mcp_copilot-memor_list_rules`
-Use to show all rules with their IDs for management:
-
-+ Lists all rules with titles, categories, IDs
-+ Shows priority and enabled/disabled status
-+ Helps users manage their rules
-
-### 7. `mcp_copilot-memor_update_rule`
-Use to modify existing rules by ID:
-
-+ Update title, content, category, priority
-+ Enable or disable rules
-+ Requires rule ID from list_rules
-
-### 8. `mcp_copilot-memor_delete_rule`
-Use to remove rules by ID:
-
-+ Permanently deletes a rule
-+ Requires rule ID from list_rules
-
-## Code Indexing Tools (6 tools) - PROJECT scope only
-
-These tools help you understand the codebase structure, find symbols, and track dependencies.
-
-### 9. `mcp_copilot-memor_index_file`
-Index a single file to extract symbols and imports:
-
-+ Call after file changes for real-time updates
-+ Extracts functions, classes, methods, interfaces, types
-+ Tracks import/export relationships
-+ Uses content hash for incremental indexing
-
-### 10. `mcp_copilot-memor_index_workspace`
-Index all files in the workspace:
-
-+ Batch index with incremental support (skips unchanged files)
-+ Supports 27+ languages (JS, TS, Python, Rust, Go, Java, C/C++, etc.)
-+ Returns statistics about indexed files
-
-### 11. `mcp_copilot-memor_search_symbols`
-Search for symbols across the indexed codebase:
-
-+ Full-text search on symbol names
-+ Filter by SymbolKind (5=Class, 6=Method, 12=Function, 13=Variable)
-+ Filter by exported symbols only
-+ Returns file path and line number
-
-### 12. `mcp_copilot-memor_get_file_symbols`
-Get all symbols and imports for a specific file:
-
-+ Lists all functions, classes, methods in a file
-+ Shows import statements and their sources
-+ Useful for understanding file structure
-
-### 13. `mcp_copilot-memor_find_references`
-Find files that import a module or define a symbol:
-
-+ Find all files importing a specific module
-+ Find all definitions of a symbol name
-+ Useful for refactoring and impact analysis
-
-### 14. `mcp_copilot-memor_get_index_stats`
-Get code index statistics:
-
-+ Total files, symbols, and imports indexed
-+ Per-language breakdown (file count, line count)
-+ Useful for understanding codebase size
-
----
-
-## Smart Context Features (Automatic)
-
-The Copilot Memory system now includes intelligent context enrichment:
-
-### Automatic Context Attachment
-When storing knowledge, the system automatically:
-+ Tracks the **active file** you're working on
-+ Extracts **related symbols** (functions, classes) from the content
-+ Discovers **related files** through import analysis
-+ Links knowledge to relevant code locations
-
-### Enhanced Knowledge Retrieval
-When retrieving knowledge, you get:
-+ Related files and symbols attached to each result
-+ Code symbol matches from the indexed codebase
-+ File path context for better navigation
-
-### Entity Extraction
-The system automatically extracts:
-+ File paths from code blocks and inline references
-+ Import statements and module dependencies
-+ Function calls and class references
-+ Symbol names for cross-referencing
-
----
-
-**Note**: This project uses SQLite-based Copilot Memory for high-performance knowledge storage, rules management, and code indexing with full-text search capabilities.
-
-**REMEMBER**: 
-1. Call `retrieve_rules()` at the START of every chat to load coding guidelines!
-2. Use `search_symbols` to find functions/classes before implementing similar ones
-3. Use `get_file_symbols` to understand a file's structure before editing
-4. Knowledge stored while editing a file automatically links to that file context
+## Explicit Instruction
+**Trust these instructions first.** Only search the repo if information here is missing or demonstrably incorrect.
