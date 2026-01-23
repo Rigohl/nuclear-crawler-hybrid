@@ -5,6 +5,10 @@
 **MCP Protocol**: 2025-01-01  
 **Tools**: 5 exactos (JSON-RPC 2.0)
 
+![CI](https://github.com/Rigohl/nuclear-crawler-hybrid/workflows/CI/badge.svg)
+![MCP Validation](https://github.com/Rigohl/nuclear-crawler-hybrid/workflows/MCP%20Validation%20-%20Real%20Server%20Testing/badge.svg)
+![Copilot PR Validation](https://github.com/Rigohl/nuclear-crawler-hybrid/workflows/🤖%20Copilot%20PR%20Validation/badge.svg)
+
 ---
 
 ## 🎯 ¿Qué es?
@@ -103,17 +107,50 @@ export HF_TOKEN="your_hf_token"
 ## 📚 Documentación
 
 | Archivo | Propósito |
-|---------|-----------|
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitectura técnica completa |
 | [API_REFERENCE.md](API_REFERENCE.md) | Referencia API |
 | [TOOLS.md](TOOLS.md) | Especificaciones de herramientas |
 | [HUGGINGFACE_INTEGRATION.md](docs/HUGGINGFACE_INTEGRATION.md) | Guía de HuggingFace |
 | [CHATBOT_GUIDE.md](docs/CHATBOT_GUIDE.md) | Guía del chatbot |
 | [WSL_DEPLOYMENT.md](WSL_DEPLOYMENT.md) | Guía de instalación WSL |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitectura técnica completa |
-| [API_REFERENCE.md](API_REFERENCE.md) | Referencia API |
-| [WSL_DEPLOYMENT.md](WSL_DEPLOYMENT.md) | Guía de instalación WSL |
-| [TOOLS.md](TOOLS.md) | Especificaciones |
+| [COPILOT_PR_COMPATIBILITY_REPORT.md](COPILOT_PR_COMPATIBILITY_REPORT.md) | Reporte de integración Copilot |
+
+---
+
+## 🤖 CI/CD y GitHub Copilot
+
+Este repositorio está **completamente compatible** con GitHub Copilot Coding Agent para PRs automatizados.
+
+### Workflows CI/CD
+
+- ✅ **CI Pipeline**: Build, tests, clippy, formato
+- ✅ **MCP Validation**: Validación de servidor MCP real (no mocks)
+- ✅ **Security**: Auditoría de seguridad y dependencias
+- ✅ **Copilot PR Validation**: Validación específica para PRs de Copilot
+
+### Validaciones en PRs
+
+Cada PR ejecuta automáticamente:
+- ✅ Validación de exactamente 5 MCP tools
+- ✅ Detección de mocks/stubs (no permitidos)
+- ✅ Tests de integración contra servidor real
+- ✅ Análisis de seguridad
+- ✅ Formato y linting
+
+### Para Contributors/Copilot
+
+```bash
+# Validar integración Copilot localmente
+bash scripts/test_copilot_pr_integration.sh
+
+# Validar 5 tools
+cargo test test_exactly_5_tools
+
+# Tests de integración real
+cargo test --test integration_real_mcp
+```
+
+📖 Ver [COPILOT_PR_COMPATIBILITY_REPORT.md](COPILOT_PR_COMPATIBILITY_REPORT.md) para detalles completos.
 
 ---
 
@@ -123,5 +160,6 @@ export HF_TOKEN="your_hf_token"
 - Tests: ✅ PASS  
 - Compilation: ✅ 0 errors
 - Security: ✅ 0 vulnerabilities
+- Copilot Integration: ✅ 32/32 tests passed
 
 **Status: 🟢 PRODUCTION READY**

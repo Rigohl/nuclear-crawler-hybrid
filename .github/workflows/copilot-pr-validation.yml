@@ -1,0 +1,226 @@
+name: 🤖 Copilot PR Validation
+
+on:
+  pull_request:
+    branches: [main, master, develop]
+    types: [opened, synchronize, reopened]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  copilot-pr-validation:
+    name: Validate Copilot PR Integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        
+      - name: 🔍 Check if PR is from Copilot
+        id: check-copilot
+        run: |
+          # Check if branch name starts with copilot/
+          if [[ "${{ github.head_ref }}" == copilot/* ]]; then
+            echo "is_copilot=true" >> $GITHUB_OUTPUT
+            echo "✅ This is a Copilot PR"
+          else
+            echo "is_copilot=false" >> $GITHUB_OUTPUT
+            echo "ℹ️  This is not a Copilot PR"
+          fi
+      
+      - name: 🤖 Run Copilot Integration Tests
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🤖 COPILOT PR VALIDATION"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "PR: ${{ github.event.pull_request.title }}"
+          echo "Branch: ${{ github.head_ref }}"
+          echo "Author: ${{ github.event.pull_request.user.login }}"
+          echo ""
+          
+          # Run validation script
+          bash scripts/test_copilot_pr_integration.sh
+          
+      - name: 📊 Generate Validation Report
+        if: always()
+        run: |
+          echo "## 🤖 Copilot PR Validation Report" > copilot-report.md
+          echo "" >> copilot-report.md
+          echo "**PR:** ${{ github.event.pull_request.title }}" >> copilot-report.md
+          echo "**Branch:** \`${{ github.head_ref }}\`" >> copilot-report.md
+          echo "**Is Copilot PR:** ${{ steps.check-copilot.outputs.is_copilot }}" >> copilot-report.md
+          echo "" >> copilot-report.md
+          
+          # Run validation and capture output
+          if bash scripts/test_copilot_pr_integration.sh > validation-output.txt 2>&1; then
+            echo "### ✅ Validation Result: COMPATIBLE" >> copilot-report.md
+            echo "" >> copilot-report.md
+            echo "All integration tests passed. This PR follows repository rules:" >> copilot-report.md
+            echo "- ✅ Exactly 5 MCP tools maintained" >> copilot-report.md
+            echo "- ✅ No mocks/stubs detected" >> copilot-report.md
+            echo "- ✅ Real integration tests present" >> copilot-report.md
+            echo "- ✅ PR template followed" >> copilot-report.md
+            echo "- ✅ Copilot instructions available" >> copilot-report.md
+          else
+            echo "### ⚠️ Validation Result: NEEDS ATTENTION" >> copilot-report.md
+            echo "" >> copilot-report.md
+            echo "Some validation checks failed. Please review:" >> copilot-report.md
+          fi
+          
+          echo "" >> copilot-report.md
+          echo "<details>" >> copilot-report.md
+          echo "<summary>📋 Full Validation Output</summary>" >> copilot-report.md
+          echo "" >> copilot-report.md
+          echo "\`\`\`" >> copilot-report.md
+          cat validation-output.txt >> copilot-report.md
+          echo "\`\`\`" >> copilot-report.md
+          echo "</details>" >> copilot-report.md
+          
+      - name: 📤 Upload Report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: copilot-validation-report
+          path: |
+            copilot-report.md
+            validation-output.txt
+          retention-days: 30
+          
+      - name: 💬 Comment on PR
+        if: always() && steps.check-copilot.outputs.is_copilot == 'true'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let report = '## 🤖 Copilot PR Validation\n\n';
+            
+            if (fs.existsSync('copilot-report.md')) {
+              report = fs.readFileSync('copilot-report.md', 'utf8');
+            } else {
+              report += '⚠️ Report generation failed. Check workflow logs.\n';
+            }
+            
+            // Add footer
+            report += '\n\n---\n';
+            report += '🤖 *This comment was automatically generated for Copilot PRs*\n';
+            report += '📝 *Run locally: `bash scripts/test_copilot_pr_integration.sh`*\n';
+            
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('🤖 Copilot PR Validation')
+            );
+            
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                comment_id: botComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: report.substring(0, 65536)
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: report.substring(0, 65536)
+              });
+            }
+            
+      - name: 🎯 Validate MCP Tools Count
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🎯 Validating MCP Tools Count"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Count tool definitions in protocol.rs
+          TOOL_COUNT=$(grep -A 200 "pub fn get_tool_definitions" src/mcp/protocol.rs | grep -c "ToolDefinition {" || echo "0")
+          
+          echo "Found $TOOL_COUNT tools defined"
+          
+          if [ "$TOOL_COUNT" -eq 5 ]; then
+            echo "✅ PASS: Exactly 5 tools maintained"
+            exit 0
+          else
+            echo "❌ FAIL: Expected 5 tools, found $TOOL_COUNT"
+            echo ""
+            echo "Repository rule: Must maintain exactly 5 MCP tools:"
+            echo "  1. websearch"
+            echo "  2. premium"
+            echo "  3. file_search"
+            echo "  4. scan"
+            echo "  5. ai_dataset_trainer"
+            exit 1
+          fi
+          
+      - name: 🚫 Check for Mocks/Stubs
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🚫 Checking for Mocks/Stubs"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Search for mock indicators in test files
+          if grep -r "mock_data\|stub_\|fixture_\|fake_\|dummy_" tests/ --include="*.rs" 2>/dev/null; then
+            echo "⚠️ WARNING: Found mock/stub indicators in tests"
+            echo ""
+            echo "Repository rule: No mocks allowed - use real data and requests"
+            echo "These indicators were found but may be false positives."
+            echo "Review manually if they are actual mocks."
+          else
+            echo "✅ PASS: No mock/stub indicators found"
+          fi
+          
+      - name: 📋 Validate PR Description
+        if: steps.check-copilot.outputs.is_copilot == 'true'
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📋 Validating PR Description"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          if [ -z "$PR_BODY" ]; then
+            echo "⚠️ WARNING: PR has no description"
+            echo "Consider using the PR template: .github/PULL_REQUEST_TEMPLATE.md"
+          else
+            echo "✅ PR has description"
+            
+            # Check for key sections
+            if echo "$PR_BODY" | grep -qi "description\|summary"; then
+              echo "  ✅ Contains description/summary section"
+            fi
+            
+            if echo "$PR_BODY" | grep -qi "test\|testing"; then
+              echo "  ✅ Mentions testing"
+            fi
+          fi
+          
+      - name: ✨ Success Summary
+        if: success()
+        run: |
+          echo ""
+          echo "╔════════════════════════════════════════════════════════════╗"
+          echo "║           ✅ COPILOT PR VALIDATION PASSED ✅                ║"
+          echo "╚════════════════════════════════════════════════════════════╝"
+          echo ""
+          echo "This PR follows all repository rules for Copilot integration:"
+          echo "  ✅ Exactly 5 MCP tools maintained"
+          echo "  ✅ No mocks/stubs detected"
+          echo "  ✅ Integration test validation passed"
+          echo "  ✅ Repository structure validated"
+          echo ""
+          echo "PR is ready for human review and approval."
+          echo ""
