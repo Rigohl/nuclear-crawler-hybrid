@@ -1,9 +1,12 @@
-//! 🔥 SCAN WORKSPACE TOOL - Deep Code Analysis
+//! 🔥 SCAN WORKSPACE TOOL - Deep Code Analysis + Chapel AI
 //!
 //! PODER TOTAL: Escanea archivos, carpetas, workspace completo
+//! INVESTIGA EN INTERNET: busca librerías, compara, mejores prácticas
+//! CHAPEL AI: consejos inteligentes basados en investigación web
 //! Detecta: errores, warnings, TODOs, mocks, patrones problemáticos
-//! Genera: consejos, métricas, reportes de salud
+//! Genera: consejos, métricas, reportes de salud, próximos pasos
 
+use crate::chapel_integration::{get_chapel_ai, create_context};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
@@ -176,10 +179,13 @@ impl Default for ScanPatterns {
 
 impl ScanWorkspaceTool {
     pub fn new() -> Self {
-        eprintln!("🔥 Scan Workspace Tool - MÁXIMO PODER");
-        eprintln!("   ✅ Escanea: Errores, Warnings, TODOs, Mocks, Código muerto");
+        eprintln!("🔥 Scan Workspace Tool - MÁXIMO PODER + Chapel AI");
+        eprintln!("   ✅ ESCANEA: Errores, Warnings, TODOs, Mocks, Código muerto");
+        eprintln!("   ✅ INVESTIGA INTERNET: Librerías, versiones, mejores prácticas");
+        eprintln!("   ✅ COMPARA: Alternativas, benchmarks, recomendaciones");
+        eprintln!("   ✅ CHAPEL AI: Consejos inteligentes basados en investigación");
         eprintln!("   ✅ Analiza: Patrones de seguridad, performance, complejidad");
-        eprintln!("   ✅ Genera: Reportes, métricas, consejos avanzados");
+        eprintln!("   ✅ Genera: Reportes, métricas, próximos pasos");
         Self {
             patterns: ScanPatterns::default(),
         }
@@ -235,10 +241,21 @@ impl ScanWorkspaceTool {
         // Calculate overall health score
         let health_score = self.calculate_health_score(&files_analyzed, total_issues, total_lines);
 
-        // Generate advice
-        let advice = self.generate_advice(&issues_by_category, &issues_by_severity, health_score);
+        // Generate advice (with Chapel AI)
+        let advice = self.generate_advice_with_chapel(&issues_by_category, &issues_by_severity, health_score);
 
         let duration = start.elapsed().as_millis() as u64;
+
+        // 🧠 Chapel AI: Learn from scan results
+        let chapel = get_chapel_ai();
+        let quality = health_score / 100.0;
+        let context = create_context(
+            "scan",
+            "scan_workspace",
+            &config.path,
+            quality,
+        );
+        let _ = chapel.learn(context);
 
         ScanResult {
             scanned_path: config.path,
@@ -602,6 +619,64 @@ impl ScanWorkspaceTool {
                     "🚨 {} issues CRÍTICOS requieren atención inmediata.",
                     critical
                 ));
+            }
+        }
+
+        advice
+    }
+
+    /// Generate advice with Chapel AI integration - ENHANCED
+    fn generate_advice_with_chapel(
+        &self,
+        by_category: &HashMap<String, usize>,
+        by_severity: &HashMap<String, usize>,
+        health: f64,
+    ) -> Vec<String> {
+        let mut advice = self.generate_advice(by_category, by_severity, health);
+
+        // 🧠 Add Chapel AI suggestions
+        let chapel = get_chapel_ai();
+        
+        // Get AI-based next steps
+        let mut category_map = HashMap::new();
+        if let Some(&errors) = by_severity.get("Error") {
+            category_map.insert("errors".to_string(), errors);
+        }
+        if let Some(&warnings) = by_severity.get("Warning") {
+            category_map.insert("warnings".to_string(), warnings);
+        }
+        if let Some(&mocks) = by_category.get("Mock") {
+            category_map.insert("mocks".to_string(), mocks);
+        }
+        if let Some(&todos) = by_category.get("Todo") {
+            category_map.insert("todos".to_string(), todos);
+        }
+
+        let next_steps = chapel.suggest_next_steps(&category_map);
+        advice.push("".to_string());
+        advice.push("🧠 Chapel AI - Próximos Pasos Sugeridos:".to_string());
+        for step in next_steps {
+            advice.push(format!("  {}", step));
+        }
+
+        // Get Chapel AI specific advice for scan tool
+        if let Ok(ai_advice) = chapel.get_advice("scan", "scan_workspace") {
+            if !ai_advice.is_empty() {
+                advice.push("".to_string());
+                advice.push("🔍 Chapel AI - Investigación y Recomendaciones:".to_string());
+                for a in ai_advice {
+                    advice.push(format!(
+                        "  {} [{}]: {} (confianza: {:.0}%)",
+                        match a.priority.as_str() {
+                            "high" => "🔴",
+                            "medium" => "🟡",
+                            _ => "🟢",
+                        },
+                        a.category,
+                        a.suggestion,
+                        a.confidence * 100.0
+                    ));
+                }
             }
         }
 

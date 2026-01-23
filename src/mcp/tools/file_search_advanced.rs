@@ -1,4 +1,5 @@
 use crate::cache::Cache;
+use crate::chapel_integration::{get_chapel_ai, create_context};
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
@@ -56,11 +57,14 @@ pub struct AdvancedFileSearchTool {
 
 impl AdvancedFileSearchTool {
     pub fn new(config: FileSearchConfig) -> Self {
-        eprintln!("🔥 Advanced File Search Tool - MÁXIMO PODER POTENCIADO");
+        eprintln!("🔥 Advanced File Search Tool - MÁXIMO PODER POTENCIADO + Chapel AI");
         eprintln!("   ✅ Busca EXACTA: errores compilación, warnings reales, derivados cargo");
+        eprintln!("   ✅ LÍNEAS EXACTAS: archivo:línea:columna precision");
+        eprintln!("   ✅ PALABRAS ESPECÍFICAS: búsqueda dentro de docs");
         eprintln!("   ✅ Parsing: AST analysis Rust, detección patrones exactos");
         eprintln!("   ✅ Integration: cargo check output, clippy warnings, rustfmt errors");
         eprintln!("   ✅ Análisis: dead code, unused imports, type mismatches, lifetime issues");
+        eprintln!("   ✅ Chapel AI: pattern learning, intelligent suggestions");
         eprintln!("   ✅ Cache: 50000 items para análisis masivo");
         Self {
             config,
@@ -153,6 +157,17 @@ impl AdvancedFileSearchTool {
 
         let json_result = serde_json::to_string(&result)?;
         self.cache.set_simple(file_path, json_result);
+
+        // 🧠 Chapel AI: Learn from analysis
+        let chapel = get_chapel_ai();
+        let quality = 1.0 - (result.summary.total_errors as f64 / (total_lines as f64 + 1.0));
+        let context = create_context(
+            "file_search",
+            "analyze_file",
+            file_path,
+            quality,
+        );
+        let _ = chapel.learn(context);
 
         Ok(result)
     }
