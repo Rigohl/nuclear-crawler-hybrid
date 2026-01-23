@@ -58,10 +58,7 @@ async fn main() -> anyhow::Result<()> {
     println!("   • info              - Project information");
     println!("");
 
-    axum::Server::from_tcp(listener.into_std()?)
-        .unwrap()
-        .serve(app.into_make_service())
-        .await?;
+    axum::serve(listener, app).await?;
 
     Ok(())
 }

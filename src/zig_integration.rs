@@ -182,7 +182,7 @@ impl ZigSimdProcessor {
         ];
 
         for lib_path in &lib_paths {
-            match unsafe { Library::new(lib_path) } {
+            match unsafe { Library::new(*lib_path) } {
                 Ok(lib) => {
                     eprintln!("✅ Zig library loaded from: {}", lib_path);
                     return Some(lib);
