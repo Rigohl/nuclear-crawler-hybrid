@@ -361,7 +361,8 @@ mod tests {
         let contents = vec![
             "<p>Hello world</p>".to_string(),
             "<script>alert('test')</script><p>Content</p>".to_string(),
-        ];        let processed = processor.cpu_fallback_process(&contents).unwrap();
+        ];
+        let processed = processor.cpu_fallback_process(&contents).unwrap();
         assert_eq!(processed.len(), 2);
         // Second content should have script tags neutralized
         assert!(!processed[1].contains("<script>"));

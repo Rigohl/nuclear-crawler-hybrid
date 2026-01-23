@@ -1,12 +1,10 @@
 // 🔥 EJEMPLO COMPLETO - UniversalSearchTool
-// 
+//
 // Este archivo muestra cómo usar UniversalSearchTool sin modos
 // Compile con: cargo build --example universal_search_demo --release
 // Ejecute con: cargo run --example universal_search_demo --release
 
-use nuclear_crawler_hybrid::mcp::tools::{
-    UniversalSearchTool, SimpleSearchConfig, SearchType,
-};
+use nuclear_crawler_hybrid::mcp::tools::{SearchType, SimpleSearchConfig, UniversalSearchTool};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -26,7 +24,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let query = "machine learning rust";
     println!("Query: '{}'\n", query);
 
-    let result = tool.search_phrase(query, SimpleSearchConfig::default()).await?;
+    let result = tool
+        .search_phrase(query, SimpleSearchConfig::default())
+        .await?;
 
     println!("✅ Búsqueda completada:");
     println!("   • Total resultados: {}", result.total_found);
@@ -39,16 +39,30 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     println!("\n📊 Estadísticas:");
-    println!("   • Total módulos disponibles: {}", result.statistics.total_modules_available);
-    println!("   • Aceleración SIMD: {}", result.statistics.acceleration_applied);
+    println!(
+        "   • Total módulos disponibles: {}",
+        result.statistics.total_modules_available
+    );
+    println!(
+        "   • Aceleración SIMD: {}",
+        result.statistics.acceleration_applied
+    );
     println!("   • ML aplicado: {}", result.statistics.ml_applied);
     println!("   • Resultados indexados: {}", result.statistics.indexed);
 
     println!("\n🔎 Top 3 resultados:");
     for (i, item) in result.results.iter().take(3).enumerate() {
-        println!("   {}. {} (score: {:.2})", i + 1, item.title, item.relevance_score);
+        println!(
+            "   {}. {} (score: {:.2})",
+            i + 1,
+            item.title,
+            item.relevance_score
+        );
         println!("      URL: {}", item.url);
-        println!("      Snippet: {}...", &item.snippet[..item.snippet.len().min(80)]);
+        println!(
+            "      Snippet: {}...",
+            &item.snippet[..item.snippet.len().min(80)]
+        );
         println!("      Procesado por: {:?}", item.processed_by);
     }
 
@@ -69,7 +83,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("✅ Análisis completado:");
     println!("   • Tipo: {:?}", result.search_type);
     println!("   • Latencia: {:.2}ms", result.latency_ms);
-    println!("   • Módulos utilizados: {}", result.modules_activated.len());
+    println!(
+        "   • Módulos utilizados: {}",
+        result.modules_activated.len()
+    );
 
     println!("\n📊 Módulos en análisis profundo:");
     for module in &result.modules_activated {
@@ -100,12 +117,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     config.search_type = SearchType::Phrase;
     config.query = query.to_string();
     config.max_results = 100;
-    
+
     // Activar opcionales
-    config.use_deep_web = true;           // 🌐 Buscar en Tor
-    config.use_jax_ml = true;             // 🤖 ML vectorization
-    config.use_zig_acceleration = true;   // ⚡ SIMD hashing
-    
+    config.use_deep_web = true; // 🌐 Buscar en Tor
+    config.use_jax_ml = true; // 🤖 ML vectorization
+    config.use_zig_acceleration = true; // ⚡ SIMD hashing
+
     println!("Configuración:");
     println!("   • Max resultados: {}", config.max_results);
     println!("   • Deep Web: {}", config.use_deep_web);
@@ -121,9 +138,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("   • Módulos: {}", result.modules_activated.len());
 
     println!("\n📊 Estadísticas de potenciación:");
-    println!("   • Deep Web resultados: {}", result.statistics.deep_web_results);
-    println!("   • Resultados en caché: {}", result.statistics.cached_results);
-    println!("   • Aceleración SIMD: {}", result.statistics.acceleration_applied);
+    println!(
+        "   • Deep Web resultados: {}",
+        result.statistics.deep_web_results
+    );
+    println!(
+        "   • Resultados en caché: {}",
+        result.statistics.cached_results
+    );
+    println!(
+        "   • Aceleración SIMD: {}",
+        result.statistics.acceleration_applied
+    );
     println!("   • ML aplicado: {}", result.statistics.ml_applied);
     println!("   • Indexados: {}", result.statistics.indexed);
 
@@ -160,11 +186,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("═══════════════════════════════════════════════════════════════\n");
 
     let modules = tool.get_all_modules_info();
-    
+
     println!("🔥 Módulos Disponibles ({}):", modules.len());
     for (i, module) in modules.iter().enumerate() {
-        println!("   {}. {} ({} líneas) - {}", 
-            i + 1, module.name, module.lines, module.category);
+        println!(
+            "   {}. {} ({} líneas) - {}",
+            i + 1,
+            module.name,
+            module.lines,
+            module.category
+        );
     }
 
     println!("\n✨ Características:");

@@ -1,8 +1,8 @@
+use crate::cache::Cache;
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use walkdir::WalkDir;
-use crate::cache::Cache;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct FileSearchConfig {
@@ -49,6 +49,7 @@ pub struct FileAnalysisResult {
 }
 
 pub struct AdvancedFileSearchTool {
+    #[allow(dead_code)]
     config: FileSearchConfig,
     cache: Arc<Cache>,
 }
@@ -61,15 +62,15 @@ impl AdvancedFileSearchTool {
         eprintln!("   ✅ Integration: cargo check output, clippy warnings, rustfmt errors");
         eprintln!("   ✅ Análisis: dead code, unused imports, type mismatches, lifetime issues");
         eprintln!("   ✅ Cache: 50000 items para análisis masivo");
-        Self { 
+        Self {
             config,
-            cache: Arc::new(Cache::new(50000)),  // 🔥 Cache 100x: análisis masivo de codebase
+            cache: Arc::new(Cache::new(50000)), // 🔥 Cache 100x: análisis masivo de codebase
         }
     }
 
     pub fn analyze_file(&self, file_path: &str) -> Result<FileAnalysisResult> {
         eprintln!("📄 Analyzing file: {}", file_path);
-        
+
         if let Some(cached) = self.cache.get_simple(file_path) {
             eprintln!("✅ Cache hit");
             return Ok(serde_json::from_str(&cached)?);
@@ -102,7 +103,10 @@ impl AdvancedFileSearchTool {
                 issues.push(CodeIssue {
                     file: file_path.to_string(),
                     line_number,
-                    column: line.find("TODO").or_else(|| line.find("FIXME")).unwrap_or(0),
+                    column: line
+                        .find("TODO")
+                        .or_else(|| line.find("FIXME"))
+                        .unwrap_or(0),
                     severity: "info".to_string(),
                     issue_type: "todo".to_string(),
                     message: format!("TODO/FIXME: {}", line.trim()),
@@ -139,23 +143,23 @@ impl AdvancedFileSearchTool {
         }
 
         let summary = self.generate_summary(&issues, total_lines);
-        
+
         let result = FileAnalysisResult {
             file_path: file_path.to_string(),
             total_lines,
             issues,
             summary,
         };
-        
+
         let json_result = serde_json::to_string(&result)?;
         self.cache.set_simple(file_path, json_result);
-        
+
         Ok(result)
     }
 
     pub fn analyze_directory(&self, dir_path: &str) -> Result<Vec<FileAnalysisResult>> {
         eprintln!("📁 Analyzing directory: {}", dir_path);
-        
+
         let mut results = Vec::new();
 
         for entry in WalkDir::new(dir_path)
@@ -182,8 +186,15 @@ impl AdvancedFileSearchTool {
 
     fn has_mock_pattern(&self, line: &str) -> bool {
         let patterns = vec![
-            "mock", "stub", "fake", "dummy", "placeholder",
-            "todo!()", "unimplemented!()", "panic!(", "unreachable!()",
+            "mock",
+            "stub",
+            "fake",
+            "dummy",
+            "placeholder",
+            "todo!()",
+            "unimplemented!()",
+            "panic!(",
+            "unreachable!()",
         ];
         patterns.iter().any(|p| line.to_lowercase().contains(p))
     }
@@ -193,8 +204,7 @@ impl AdvancedFileSearchTool {
     }
 
     fn has_syntax_error(&self, line: &str) -> bool {
-        (line.contains("{{") || line.contains("}}"))
-            && !line.contains("json!")
+        (line.contains("{{") || line.contains("}}")) && !line.contains("json!")
     }
 
     fn generate_summary(&self, issues: &[CodeIssue], _file_size: usize) -> AnalysisSummary {
@@ -202,8 +212,11 @@ impl AdvancedFileSearchTool {
         let total_warnings = issues.iter().filter(|i| i.severity == "warning").count();
         let mocks_found = issues.iter().filter(|i| i.issue_type == "mock").count();
         let todos_found = issues.iter().filter(|i| i.issue_type == "todo").count();
-        let fake_code_found = issues.iter().filter(|i| i.issue_type == "unused_var").count();
-        
+        let fake_code_found = issues
+            .iter()
+            .filter(|i| i.issue_type == "unused_var")
+            .count();
+
         let health_score = if issues.is_empty() {
             100.0
         } else {
@@ -275,13 +288,13 @@ impl AdvancedFileSearchTool {
         context_lines: usize,
     ) -> Result<FileSearchResult> {
         eprintln!("📄 search_files_real: path={}, query={:?}", path, query);
-        
+
         let mut matches = Vec::new();
         let mut errors_count = 0;
         let mut warnings_count = 0;
         let mut todos_count = 0;
         let mut files_searched = 0;
-        
+
         // Compile regex if needed
         let regex_pattern = if let Some(q) = query {
             if is_regex {
@@ -299,22 +312,33 @@ impl AdvancedFileSearchTool {
         } else {
             None
         };
-        
+
         // Patterns for finding errors, warnings, todos
         let error_patterns = vec![
-            "unwrap()", "expect(", "panic!", "unreachable!", "unimplemented!",
-            "Error", "error:", "ERROR", "failed", "FAILED",
+            "unwrap()",
+            "expect(",
+            "panic!",
+            "unreachable!",
+            "unimplemented!",
+            "Error",
+            "error:",
+            "ERROR",
+            "failed",
+            "FAILED",
         ];
         let warning_patterns = vec![
-            "warning", "Warning", "WARN", "deprecated", "unused", "#[allow(",
+            "warning",
+            "Warning",
+            "WARN",
+            "deprecated",
+            "unused",
+            "#[allow(",
         ];
-        let todo_patterns = vec![
-            "TODO", "FIXME", "HACK", "XXX", "BUG", "OPTIMIZE",
-        ];
-        
+        let todo_patterns = vec!["TODO", "FIXME", "HACK", "XXX", "BUG", "OPTIMIZE"];
+
         // Walk directory or file
         let path_buf = std::path::PathBuf::from(path);
-        
+
         let files_to_search: Vec<std::path::PathBuf> = if path_buf.is_file() {
             vec![path_buf]
         } else {
@@ -323,26 +347,30 @@ impl AdvancedFileSearchTool {
                 .filter_map(|e| e.ok())
                 .filter(|e| {
                     let p = e.path();
-                    p.is_file() && p.extension().map_or(false, |ext| {
-                        let ext_str = ext.to_str().unwrap_or("");
-                        ["rs", "py", "go", "js", "ts", "c", "h", "nim", "toml", "json", "yaml", "md"]
+                    p.is_file()
+                        && p.extension().map_or(false, |ext| {
+                            let ext_str = ext.to_str().unwrap_or("");
+                            [
+                                "rs", "py", "go", "js", "ts", "c", "h", "nim", "toml", "json",
+                                "yaml", "md",
+                            ]
                             .contains(&ext_str)
-                    })
+                        })
                 })
                 .map(|e| e.path().to_path_buf())
                 .collect()
         };
-        
+
         for file_path in files_to_search {
             files_searched += 1;
-            
+
             if let Ok(content) = std::fs::read_to_string(&file_path) {
                 let lines: Vec<&str> = content.lines().collect();
                 let file_str = file_path.display().to_string();
-                
+
                 for (line_idx, line) in lines.iter().enumerate() {
                     let line_num = line_idx + 1;
-                    
+
                     // Search for query pattern
                     if let Some(ref re) = regex_pattern {
                         if let Some(m) = re.find(line) {
@@ -358,7 +386,7 @@ impl AdvancedFileSearchTool {
                                 .take(context_lines)
                                 .map(|s| s.to_string())
                                 .collect();
-                            
+
                             matches.push(FileMatch {
                                 file: file_str.clone(),
                                 line: line_num,
@@ -370,7 +398,7 @@ impl AdvancedFileSearchTool {
                             });
                         }
                     }
-                    
+
                     // Find errors
                     if find_errors {
                         for pattern in &error_patterns {
@@ -391,7 +419,7 @@ impl AdvancedFileSearchTool {
                             }
                         }
                     }
-                    
+
                     // Find warnings
                     if find_warnings {
                         for pattern in &warning_patterns {
@@ -401,7 +429,11 @@ impl AdvancedFileSearchTool {
                                     matches.push(FileMatch {
                                         file: file_str.clone(),
                                         line: line_num,
-                                        column: line.to_lowercase().find(&pattern.to_lowercase()).unwrap_or(0) + 1,
+                                        column: line
+                                            .to_lowercase()
+                                            .find(&pattern.to_lowercase())
+                                            .unwrap_or(0)
+                                            + 1,
                                         match_type: "warning".to_string(),
                                         content: line.to_string(),
                                         context_before: Vec::new(),
@@ -412,7 +444,7 @@ impl AdvancedFileSearchTool {
                             }
                         }
                     }
-                    
+
                     // Find TODOs
                     if find_todos {
                         for pattern in &todo_patterns {
@@ -436,7 +468,7 @@ impl AdvancedFileSearchTool {
                 }
             }
         }
-        
+
         Ok(FileSearchResult {
             matches,
             errors_count,

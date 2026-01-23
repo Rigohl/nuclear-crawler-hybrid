@@ -524,7 +524,8 @@ export_presets.cfg
 *.apk
 *.ap_
 *.dex
-bin/
+# Exclude compiled binary directory at root (but NOT src/bin/)
+/bin/
 gen/
 .gradle/
 local.properties

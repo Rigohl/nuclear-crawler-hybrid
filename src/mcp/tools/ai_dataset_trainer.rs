@@ -1,5 +1,5 @@
 //! 🔥 AI DATASET TRAINER - 6TA TOOL MCP
-//! 
+//!
 //! Genera datasets/books para entrenar IA usando TODA la integración FFI:
 //! - Go: Parallel data fetching y processing
 //! - Zig: SIMD hashing y pattern matching para deduplicación
@@ -13,11 +13,11 @@ use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
-use crate::go_integration::{GoParallelProcessor, GoParallelConfig};
-use crate::zig_integration::{ZigSimdProcessor, ZigSimdConfig};
-use crate::nim_integration::{NimHtmlParser, NimParserConfig};
-use crate::jax_integration::JaxProcessor;
 use crate::cache::Cache;
+use crate::go_integration::{GoParallelConfig, GoParallelProcessor};
+use crate::jax_integration::JaxProcessor;
+use crate::nim_integration::{NimHtmlParser, NimParserConfig};
+use crate::zig_integration::{ZigSimdConfig, ZigSimdProcessor};
 
 /// Dataset item with embeddings ready for training
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -92,8 +92,8 @@ impl Default for DatasetTrainerConfig {
         Self {
             name: "default_dataset".to_string(),
             description: "AI Training Dataset - MÁXIMO PODER".to_string(),
-            target_size: 100000,  // 🔥 10x más datos
-            min_quality_score: 0.3,  // 🔥 Más datos de calidad variable
+            target_size: 100000,    // 🔥 10x más datos
+            min_quality_score: 0.3, // 🔥 Más datos de calidad variable
             sources: vec![
                 "arxiv".to_string(),
                 "academic".to_string(),
@@ -101,7 +101,7 @@ impl Default for DatasetTrainerConfig {
             ],
             categories: {
                 let mut m = HashMap::new();
-                m.insert("programming".to_string(), 20000);  // 🔥 10x más cada categoría
+                m.insert("programming".to_string(), 20000); // 🔥 10x más cada categoría
                 m.insert("ml_ai".to_string(), 20000);
                 m.insert("data_science".to_string(), 20000);
                 m.insert("web_tech".to_string(), 20000);
@@ -109,8 +109,8 @@ impl Default for DatasetTrainerConfig {
                 m
             },
             enable_gpu_vectorization: true,
-            embedding_dim: 1536,  // 🔥 Embeddings más grandes para mejor precisión
-            batch_size: 1024,  // 🔥 Batch más grande para velocidad
+            embedding_dim: 1536, // 🔥 Embeddings más grandes para mejor precisión
+            batch_size: 1024,    // 🔥 Batch más grande para velocidad
             use_go_parallel: true,
             use_zig_dedup: true,
             use_nim_parsing: true,
@@ -164,13 +164,13 @@ pub struct QualityIssue {
 /// 🔥 AI DATASET TRAINER TOOL - USES ALL FFI INTEGRATIONS
 pub struct AIDatasetTrainerTool {
     config: DatasetTrainerConfig,
-    
+
     // FFI Processors
     go_processor: Arc<Mutex<GoParallelProcessor>>,
     zig_processor: Arc<Mutex<ZigSimdProcessor>>,
     nim_parser: Arc<Mutex<NimHtmlParser>>,
     jax_processor: Arc<Mutex<JaxProcessor>>,
-    
+
     cache: Arc<Cache>,
 }
 
@@ -185,21 +185,21 @@ impl AIDatasetTrainerTool {
         eprintln!("   ✅ Zig SIMD: {}", config.use_zig_dedup);
         eprintln!("   ✅ Nim Parsing: {}", config.use_nim_parsing);
         eprintln!("   ✅ JAX GPU: {}", config.enable_gpu_vectorization);
-        
+
         let go_config = GoParallelConfig {
-            max_concurrent_requests: 1000,  // 🔥 10x más concurrencia
-            request_timeout_ms: 60000,  // 🔥 Más tiempo
-            retry_attempts: 10,  // 🔥 Más reintentos
+            max_concurrent_requests: 1000, // 🔥 10x más concurrencia
+            request_timeout_ms: 60000,     // 🔥 Más tiempo
+            retry_attempts: 10,            // 🔥 Más reintentos
             user_agent: std::ffi::CString::new("AIDatasetTrainer/1.0-MAXPOWER").unwrap(),
         };
-        
+
         let zig_config = ZigSimdConfig {
             enable_simd: true,
             hash_algorithm: "blake3".to_string(),
             buffer_size: 1024 * 1024, // 1MB
             parallel_chunks: 16,
         };
-        
+
         let nim_config = NimParserConfig {
             enable_javascript_extraction: true,
             extract_metadata: true,
@@ -207,19 +207,22 @@ impl AIDatasetTrainerTool {
             timeout_ms: 30000,
             max_content_length: 10_000_000, // 10MB max
         };
-        
+
         let go_processor = Arc::new(Mutex::new(GoParallelProcessor::new(go_config)?));
         let zig_processor = Arc::new(Mutex::new(ZigSimdProcessor::new(zig_config)?));
         let nim_parser = Arc::new(Mutex::new(NimHtmlParser::new(nim_config)?));
         let jax_processor = Arc::new(Mutex::new(JaxProcessor::new()?));
         let cache = Arc::new(Cache::new(5000)); // 5000 capacity
-        
+
         eprintln!("✅ Dataset Trainer ready with:");
-        eprintln!("   🔗 Go: Parallel fetching ({} concurrent)", config.batch_size);
+        eprintln!(
+            "   🔗 Go: Parallel fetching ({} concurrent)",
+            config.batch_size
+        );
         eprintln!("   ⚡ Zig: SIMD deduplication (Blake3)");
         eprintln!("   📄 Nim: HTML parsing");
         eprintln!("   🧠 JAX: GPU vectorization ({}D)", config.embedding_dim);
-        
+
         Ok(Self {
             config,
             go_processor,
@@ -229,19 +232,16 @@ impl AIDatasetTrainerTool {
             cache,
         })
     }
-    
+
     /// Generate training dataset using all FFI integrations
-    pub async fn generate_dataset(
-        &self,
-        sources: Vec<String>,
-    ) -> Result<TrainingDataset> {
+    pub async fn generate_dataset(&self, sources: Vec<String>) -> Result<TrainingDataset> {
         eprintln!("📚 Generating AI Training Dataset...");
         let start = std::time::Instant::now();
-        
+
         let mut datapoints = Vec::new();
         let mut stats = DatasetStatistics::default();
         let mut quality_report = QualityReport::default();
-        
+
         // 🔥 PHASE 1: Parallel data fetching with Go
         eprintln!("\n[1/4] 🔗 Go Phase: Parallel data fetching...");
         let fetched_urls = if self.config.use_go_parallel && !sources.is_empty() {
@@ -254,14 +254,14 @@ impl AIDatasetTrainerTool {
             vec![]
         };
         stats.processors_used.push("go_parallel".to_string());
-        
+
         // 🔥 PHASE 2: Deduplicate with Zig SIMD
         eprintln!("\n[2/4] ⚡ Zig Phase: SIMD deduplication...");
         let deduplicated = if self.config.use_zig_dedup {
             let zig = self.zig_processor.lock().await;
             let mut seen_hashes = std::collections::HashSet::new();
             let mut unique_data = Vec::new();
-            
+
             for content in fetched_urls {
                 let hash_result = zig.hash_data(content.as_bytes())?;
                 if !seen_hashes.contains(&hash_result.hash) {
@@ -272,38 +272,51 @@ impl AIDatasetTrainerTool {
                     stats.deduplication_removed += 1;
                 }
             }
-            eprintln!("   ✅ Zig dedup: {} unique items (removed {})", 
-                unique_data.len(), stats.deduplication_removed);
+            eprintln!(
+                "   ✅ Zig dedup: {} unique items (removed {})",
+                unique_data.len(),
+                stats.deduplication_removed
+            );
             unique_data
         } else {
             eprintln!("   ⚠️ Zig dedup disabled");
-            fetched_urls.into_iter().map(|c| (c, String::new())).collect()
+            fetched_urls
+                .into_iter()
+                .map(|c| (c, String::new()))
+                .collect()
         };
         stats.processors_used.push("zig_simd".to_string());
-        
+
         // 🔥 PHASE 3: Parse HTML with Nim
         eprintln!("\n[3/4] 📄 Nim Phase: HTML parsing and extraction...");
         let mut parsed_content: Vec<(String, String, Vec<String>)> = Vec::new();
-        
+
         if self.config.use_nim_parsing {
             let nim = self.nim_parser.lock().await;
-            
+
             for (content, hash) in deduplicated {
                 // 🔥 Check cache first
                 if let Some(cached) = self.cache.get_simple(&hash) {
-                    if let Ok(cached_result) = serde_json::from_str::<(String, Vec<String>)>(&cached) {
-                        eprintln!("   ♻️  Cache hit for {}", hash.chars().take(8).collect::<String>());
+                    if let Ok(cached_result) =
+                        serde_json::from_str::<(String, Vec<String>)>(&cached)
+                    {
+                        eprintln!(
+                            "   ♻️  Cache hit for {}",
+                            hash.chars().take(8).collect::<String>()
+                        );
                         parsed_content.push((cached_result.0, hash, cached_result.1));
                         continue;
                     }
                 }
-                
+
                 // Parse and cache
                 if let Ok(result) = nim.parse_html(&content, None) {
-                    let headings: Vec<String> = result.metadata.get("headings")
+                    let headings: Vec<String> = result
+                        .metadata
+                        .get("headings")
                         .map(|h| h.split(',').map(|s| s.to_string()).collect())
                         .unwrap_or_default();
-                    
+
                     // Cache result for future use
                     let cache_data = (result.text_content.clone(), headings.clone());
                     if let Ok(json) = serde_json::to_string(&cache_data) {
@@ -320,28 +333,38 @@ impl AIDatasetTrainerTool {
             }
         }
         stats.processors_used.push("nim_parsing".to_string());
-        
+
         // 🔥 PHASE 4: Vectorize with JAX GPU
         eprintln!("\n[4/4] 🧠 JAX Phase: GPU vectorization...");
         let embeddings = if self.config.enable_gpu_vectorization {
             let jax = self.jax_processor.lock().await;
             let texts: Vec<String> = parsed_content.iter().map(|(t, _, _)| t.clone()).collect();
-            
+
             // 🔥 Use Zig for batch hashing of texts before embedding
             let zig = self.zig_processor.lock().await;
-            let _text_hashes: Vec<String> = texts.iter().map(|t| {
-                if let Ok(hash_result) = zig.hash_data(t.as_bytes()) {
-                    eprintln!("   ✅ Zig: Hashed {} bytes in {}ns", t.len(), hash_result.processing_time_ns);
-                    hash_result.hash
-                } else {
-                    String::new()
-                }
-            }).collect();
-            
+            let _text_hashes: Vec<String> = texts
+                .iter()
+                .map(|t| {
+                    if let Ok(hash_result) = zig.hash_data(t.as_bytes()) {
+                        eprintln!(
+                            "   ✅ Zig: Hashed {} bytes in {}ns",
+                            t.len(),
+                            hash_result.processing_time_ns
+                        );
+                        hash_result.hash
+                    } else {
+                        String::new()
+                    }
+                })
+                .collect();
+
             match jax.vectorize_content(&texts) {
                 Ok(vecs) => {
-                    eprintln!("   ✅ JAX vectorized: {} texts → {}D embeddings", 
-                        texts.len(), self.config.embedding_dim);
+                    eprintln!(
+                        "   ✅ JAX vectorized: {} texts → {}D embeddings",
+                        texts.len(),
+                        self.config.embedding_dim
+                    );
                     vecs
                 }
                 Err(e) => {
@@ -354,12 +377,12 @@ impl AIDatasetTrainerTool {
             vec![]
         };
         stats.processors_used.push("jax_gpu".to_string());
-        
+
         // 🔥 BUILD TRAINING DATAPOINTS
         eprintln!("\n📊 Building training datapoints...");
-        for (idx, ((text, hash, headings), embedding)) in 
-            parsed_content.iter().zip(embeddings.iter()).enumerate() {
-            
+        for (idx, ((text, hash, headings), embedding)) in
+            parsed_content.iter().zip(embeddings.iter()).enumerate()
+        {
             let quality = self.assess_quality(text, &headings);
             if quality >= self.config.min_quality_score {
                 let datapoint = TrainingDatapoint {
@@ -388,27 +411,31 @@ impl AIDatasetTrainerTool {
                 datapoints.push(datapoint);
             }
         }
-        
+
         stats.total_datapoints = datapoints.len();
-        let passed = datapoints.iter()
-            .filter(|dp| dp.quality_score >= self.config.min_quality_score).count();
+        let passed = datapoints
+            .iter()
+            .filter(|dp| dp.quality_score >= self.config.min_quality_score)
+            .count();
         let failed = parsed_content.len() - passed;
-        stats.avg_quality_score = datapoints.iter()
-            .map(|dp| dp.quality_score)
-            .sum::<f32>() / datapoints.len().max(1) as f32;
-        
+        stats.avg_quality_score = datapoints.iter().map(|dp| dp.quality_score).sum::<f32>()
+            / datapoints.len().max(1) as f32;
+
         quality_report.total_analyzed = parsed_content.len();
         quality_report.passed_quality = passed;
         quality_report.failed_quality = failed;
         quality_report.avg_quality = stats.avg_quality_score;
-        
+
         stats.processing_time_seconds = start.elapsed().as_secs_f64();
-        
+
         eprintln!("\n✅ Dataset generation complete!");
         eprintln!("   📊 Total datapoints: {}", stats.total_datapoints);
         eprintln!("   📈 Avg quality: {:.2}", stats.avg_quality_score);
-        eprintln!("   ⏱️  Processing time: {:.2}s", stats.processing_time_seconds);
-        
+        eprintln!(
+            "   ⏱️  Processing time: {:.2}s",
+            stats.processing_time_seconds
+        );
+
         Ok(TrainingDataset {
             config: self.config.clone(),
             datapoints,
@@ -416,47 +443,62 @@ impl AIDatasetTrainerTool {
             quality_report,
         })
     }
-    
-    
+
     /// Assess quality of text content
     fn assess_quality(&self, text: &str, _headings: &[String]) -> f32 {
         let mut score = 0.5;
-        
+
         // Length score
         let len = text.len();
-        if len > 1000 { score += 0.2; }
-        else if len > 500 { score += 0.1; }
-        
+        if len > 1000 {
+            score += 0.2;
+        } else if len > 500 {
+            score += 0.1;
+        }
+
         // Structure score (from headings)
-        if !_headings.is_empty() { score += 0.15; }
-        
+        if !_headings.is_empty() {
+            score += 0.15;
+        }
+
         // Diversity score
-        let unique_words = text.split_whitespace().collect::<std::collections::HashSet<_>>();
+        let unique_words = text
+            .split_whitespace()
+            .collect::<std::collections::HashSet<_>>();
         let diversity = unique_words.len() as f32 / text.split_whitespace().count().max(1) as f32;
         score += diversity * 0.15;
-        
+
         (score.min(1.0) * 100.0).round() / 100.0
     }
-    
+
     /// Categorize content based on text analysis
     fn categorize_content(&self, text: &str, _headings: &[String]) -> String {
         let text_lower = text.to_lowercase();
-        
+
         if text_lower.contains("machine learning") || text_lower.contains("neural") {
             "ml_ai".to_string()
-        } else if text_lower.contains("rust") || text_lower.contains("python") || text_lower.contains("javascript") {
+        } else if text_lower.contains("rust")
+            || text_lower.contains("python")
+            || text_lower.contains("javascript")
+        {
             "programming".to_string()
         } else if text_lower.contains("data") && text_lower.contains("analysis") {
             "data_science".to_string()
-        } else if text_lower.contains("react") || text_lower.contains("html") || text_lower.contains("web") {
+        } else if text_lower.contains("react")
+            || text_lower.contains("html")
+            || text_lower.contains("web")
+        {
             "web_tech".to_string()
-        } else if text_lower.contains("docker") || text_lower.contains("kubernetes") || text_lower.contains("ci/cd") {
+        } else if text_lower.contains("docker")
+            || text_lower.contains("kubernetes")
+            || text_lower.contains("ci/cd")
+        {
             "devops".to_string()
         } else {
             "other".to_string()
         }
     }
-    
+
     /// Select primary source from headings
     fn select_source(&self, headings: &[String]) -> String {
         if !headings.is_empty() {
@@ -465,18 +507,18 @@ impl AIDatasetTrainerTool {
             "unknown".to_string()
         }
     }
-    
+
     /// Export dataset to JSONL format
     pub async fn export_jsonl(&self, dataset: &TrainingDataset, path: &str) -> Result<()> {
         use std::fs::File;
         use std::io::Write;
-        
+
         let mut file = File::create(path)?;
         for datapoint in &dataset.datapoints {
             let json = serde_json::to_string(datapoint)?;
             writeln!(file, "{}", json)?;
         }
-        
+
         eprintln!("✅ Dataset exported to {}", path);
         Ok(())
     }

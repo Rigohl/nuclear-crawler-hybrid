@@ -438,7 +438,7 @@ if __name__ == "__main__":
         // Note: PDF extraction via Python script deferred to future implementation
         // For now, return placeholder indicating feature is available via tools
         // JAX integration available through ai_dataset_trainer tool in MCP
-        
+
         // Alternative: Use scripts/generate_advanced_report.py for PDF processing
         // Call Python script for report generation
         let mut cmd = Command::new("python3");

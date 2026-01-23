@@ -91,7 +91,7 @@ impl Default for WebSearchConfig {
             max_results: 10, // 🔥 ULTRA FAST: 10 resultados rápidos
             priority_sources: vec![
                 // 🔥🔥🔥 MÁXIMA VELOCIDAD: Solo motores más rápidos 🔥🔥🔥
-                "duckduckgo.com".to_string(),   // Motor más rápido (~500ms)
+                "duckduckgo.com".to_string(), // Motor más rápido (~500ms)
                 "search.brave.com".to_string(), // Brave muy rápido (~600ms)
                 "html.duckduckgo.com".to_string(), // DuckDuckGo HTML (más confiable)
                 "mojeek.com".to_string(),     // Mojeek (UK)
@@ -105,13 +105,13 @@ impl Default for WebSearchConfig {
                 "crates.io".to_string(),
                 "rust-lang.org".to_string(),
             ],
-            use_ai: false,       // 🔥 ULTRA FAST: Desactivar AI para velocidad
-            use_stealth: true,   // ✅ STEALTH SIEMPRE ACTIVO: Concealment extremo rotante
-            max_parallel: 10,  // 🔥 Reducir paralelismo para velocidad
-            timeout_secs: 4,     // 🔥 ULTRA FAST: 4 segundos (margen de 1s para procesamiento)
-            max_urls: 10,       // 🔥 ULTRA FAST: 100 URLs máximo en paralelo
-            unlimited_mode: false, // 🔥 Activar para búsqueda sin límites
-            use_native_ffi: false, // 🔥 Desactivar FFI para máxima velocidad
+            use_ai: false,           // 🔥 ULTRA FAST: Desactivar AI para velocidad
+            use_stealth: true,       // ✅ STEALTH SIEMPRE ACTIVO: Concealment extremo rotante
+            max_parallel: 10,        // 🔥 Reducir paralelismo para velocidad
+            timeout_secs: 4,         // 🔥 ULTRA FAST: 4 segundos (margen de 1s para procesamiento)
+            max_urls: 10,            // 🔥 ULTRA FAST: 100 URLs máximo en paralelo
+            unlimited_mode: false,   // 🔥 Activar para búsqueda sin límites
+            use_native_ffi: false,   // 🔥 Desactivar FFI para máxima velocidad
             deep_web_enabled: false, // 🔥 Desactivar deep web para máxima velocidad
         }
     }
@@ -1407,7 +1407,7 @@ impl WebSearch {
         // ═══════════════════════════════════════════════════════════════
         // 🔥 TUTORIALES Y CURSOS - 🔥🔥🔥 PLATAFORMAS PRINCIPALES 🔥🔥🔥
         // ═══════════════════════════════════════════════════════════════
-        
+
         // 🔥 COURSERA - Plataforma principal de cursos
         urls.push(format!(
             "https://www.coursera.org/search?query={}",
@@ -1417,7 +1417,7 @@ impl WebSearch {
             "https://www.coursera.org/specializations?keywords={}",
             query_encoded
         ));
-        
+
         // 🔥 UDEMY - Plataforma de cursos online
         urls.push(format!(
             "https://www.udemy.com/courses/search/?q={}",
@@ -1427,7 +1427,7 @@ impl WebSearch {
             "https://www.udemy.com/courses/it-and-software/?search={}",
             query_encoded
         ));
-        
+
         // 🔥 SKILLSHARE - Cursos de creación y tecnología
         urls.push(format!(
             "https://www.skillshare.com/search?query={}",
@@ -1437,12 +1437,9 @@ impl WebSearch {
             "https://www.skillshare.com/browse/technology?query={}",
             query_encoded
         ));
-        
+
         // 🔥 OTRAS PLATAFORMAS PRINCIPALES
-        urls.push(format!(
-            "https://www.edx.org/search?q={}",
-            query_encoded
-        ));
+        urls.push(format!("https://www.edx.org/search?q={}", query_encoded));
         urls.push(format!(
             "https://www.linkedin-learning.com/search?keywords={}",
             query_encoded
@@ -1451,7 +1448,7 @@ impl WebSearch {
             "https://www.pluralsight.com/search?q={}",
             query_encoded
         ));
-        
+
         // 🔥 TUTORIALES GRATUITOS
         urls.push(format!(
             "https://www.freecodecamp.org/news/search/?query={}",
@@ -1473,7 +1470,7 @@ impl WebSearch {
             "https://www.geeksforgeeks.org/search/?q={}",
             query_encoded
         ));
-        
+
         // 🔥 PLATAFORMAS ALTERNATIVAS
         urls.push(format!(
             "https://www.treehouse.com/search?s={}",
@@ -1951,12 +1948,10 @@ impl WebSearch {
                 vec![query.clone()]
             } else {
                 // Search query - generate search URLs using mojeek (no bot protection)
-                vec![
-                    format!(
-                        "https://www.mojeek.com/search?q={}",
-                        crate::url_helpers::encode_component(&query)
-                    ),
-                ]
+                vec![format!(
+                    "https://www.mojeek.com/search?q={}",
+                    crate::url_helpers::encode_component(&query)
+                )]
             };
 
             // 🔥 STEP 2: Use Nuclear Core for extraction with maximum power

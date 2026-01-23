@@ -223,8 +223,7 @@ impl AdvancedBypassEngine {
                 }
 
                 // 🔥 LOGIN WALL DETECTION
-                if body.contains("login")
-                    && (body.contains("sign in") || body.contains("log in"))
+                if body.contains("login") && (body.contains("sign in") || body.contains("log in"))
                     || body.contains("authentication required")
                     || status == 401
                 {
@@ -363,10 +362,7 @@ impl AdvancedBypassEngine {
             }
 
             // Delay between attempts
-            tokio::time::sleep(Duration::from_millis(
-                self.config.delay_between_attempts_ms,
-            ))
-            .await;
+            tokio::time::sleep(Duration::from_millis(self.config.delay_between_attempts_ms)).await;
         }
 
         // Return failure result
@@ -426,8 +422,11 @@ impl AdvancedBypassEngine {
                         modified_url = url.replace(host, &format!("m.{}", host));
                     }
                 }
-                headers.insert("User-Agent".to_string(), 
-                    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15".to_string());
+                headers.insert(
+                    "User-Agent".to_string(),
+                    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+                        .to_string(),
+                );
             }
             BypassMethod::ApiEndpoint => {
                 // Try API endpoint
@@ -452,7 +451,10 @@ impl AdvancedBypassEngine {
             }
             BypassMethod::MethodSwitching => {
                 // Will try HEAD first, then OPTIONS
-                headers.insert("Access-Control-Request-Method".to_string(), "GET".to_string());
+                headers.insert(
+                    "Access-Control-Request-Method".to_string(),
+                    "GET".to_string(),
+                );
             }
             BypassMethod::IpRotation => {
                 headers.insert("X-Forwarded-For".to_string(), self.random_ip());
@@ -473,10 +475,7 @@ impl AdvancedBypassEngine {
             "Accept".to_string(),
             "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8".to_string(),
         );
-        headers.insert(
-            "Accept-Language".to_string(),
-            "en-US,en;q=0.9".to_string(),
-        );
+        headers.insert("Accept-Language".to_string(), "en-US,en;q=0.9".to_string());
         headers.insert("DNT".to_string(), "1".to_string());
 
         // Make request
@@ -586,10 +585,19 @@ impl AdvancedBypassEngine {
         let mut headers = HashMap::new();
 
         headers.insert("User-Agent".to_string(), self.random_user_agent());
-        headers.insert("Accept".to_string(), 
-            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8".to_string());
-        headers.insert("Accept-Language".to_string(), "en-US,en;q=0.9,es;q=0.8".to_string());
-        headers.insert("Accept-Encoding".to_string(), "gzip, deflate, br".to_string());
+        headers.insert(
+            "Accept".to_string(),
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
+                .to_string(),
+        );
+        headers.insert(
+            "Accept-Language".to_string(),
+            "en-US,en;q=0.9,es;q=0.8".to_string(),
+        );
+        headers.insert(
+            "Accept-Encoding".to_string(),
+            "gzip, deflate, br".to_string(),
+        );
         headers.insert("DNT".to_string(), "1".to_string());
         headers.insert("Connection".to_string(), "keep-alive".to_string());
         headers.insert("Upgrade-Insecure-Requests".to_string(), "1".to_string());
@@ -701,11 +709,11 @@ mod tests {
     #[test]
     fn test_bypass_method_suggestions() {
         let engine = AdvancedBypassEngine::default();
-        
+
         let locks = vec![LockType::Cloudflare];
         let methods = engine.suggest_bypass_methods(&locks);
         assert!(!methods.is_empty());
-        
+
         let locks = vec![LockType::Paywall];
         let methods = engine.suggest_bypass_methods(&locks);
         assert!(methods.contains(&BypassMethod::ArchiveService));
