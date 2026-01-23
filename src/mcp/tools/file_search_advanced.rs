@@ -4,17 +4,9 @@ use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use walkdir::WalkDir;
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Default)]
 pub struct FileSearchConfig {
     pub case_sensitive: bool,
-}
-
-impl Default for FileSearchConfig {
-    fn default() -> Self {
-        Self {
-            case_sensitive: false,
-        }
-    }
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -168,7 +160,7 @@ impl AdvancedFileSearchTool {
             .filter(|e| {
                 let path = e.path();
                 path.is_file()
-                    && (path.extension().map_or(false, |ext| {
+                    && (path.extension().is_some_and(|ext| {
                         ext.eq("rs") || ext.eq("py") || ext.eq("js") || ext.eq("ts")
                     }))
             })
@@ -348,7 +340,7 @@ impl AdvancedFileSearchTool {
                 .filter(|e| {
                     let p = e.path();
                     p.is_file()
-                        && p.extension().map_or(false, |ext| {
+                        && p.extension().is_some_and(|ext| {
                             let ext_str = ext.to_str().unwrap_or("");
                             [
                                 "rs", "py", "go", "js", "ts", "c", "h", "nim", "toml", "json",

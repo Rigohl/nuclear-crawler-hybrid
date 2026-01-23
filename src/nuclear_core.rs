@@ -132,7 +132,6 @@ impl NuclearBypass {
         url::Url::parse(url)
             .ok()?
             .host_str()?
-            .to_string()
             .split('.')
             .next_back()?
             .to_string()
@@ -452,7 +451,6 @@ impl ExtremeConcealment {
         url::Url::parse(url)
             .ok()?
             .host_str()?
-            .to_string()
             .split('.')
             .next_back()?
             .to_string()

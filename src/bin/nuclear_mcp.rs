@@ -32,7 +32,7 @@ async fn main() -> anyhow::Result<()> {
         eprintln!("   Port: {}", args.port);
         eprintln!("   Protocol: HTTP + JSON-RPC 2.0");
         eprintln!("   Tools: 5 (websearch, premium, file_search, scan, info)");
-        eprintln!("");
+        eprintln!();
     }
 
     // Create MCP server
@@ -49,14 +49,14 @@ async fn main() -> anyhow::Result<()> {
     println!("   POST /mcp/tools/list   - List available tools");
     println!("   POST /mcp/tools/call   - Execute a tool");
     println!("   POST /mcp/rpc          - Generic JSON-RPC 2.0");
-    println!("");
+    println!();
     println!("🔧 Available tools:");
     println!("   • websearch         - Real-time web search");
     println!("   • premium           - Premium content scraping");
     println!("   • file_search       - Advanced file search");
     println!("   • scan              - Workspace analysis");
     println!("   • info              - Project information");
-    println!("");
+    println!();
 
     axum::Server::from_tcp(listener.into_std()?)
         .unwrap()

@@ -152,7 +152,7 @@ impl ZigSimdProcessor {
             let mut results = Vec::new();
             let mut all_ok = true;
             for text in &texts {
-                match self.zig_process_text(lib, &text) {
+                match self.zig_process_text(lib, text) {
                     Ok(result) => results.push(result),
                     Err(_e) => {
                         all_ok = false;
@@ -345,9 +345,9 @@ mod tests {
 
     #[test]
     fn test_zig_initialization() {
-        let processor = ZigSimdProcessor::new(ZigSimdConfig::default());
+        let _processor = ZigSimdProcessor::new(ZigSimdConfig::default());
         // Test passes even if Zig library is not available (fallback mode)
-        assert!(processor.is_ok() || true);
+        // Always succeeds since the processor handles fallback internally
     }
 
     #[test]

@@ -66,21 +66,21 @@ impl DataIndex {
         // Categorías
         self.categories
             .entry(result.category.clone())
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(result.id.clone());
 
         // Tags
         for tag in &result.tags {
             self.tags
                 .entry(tag.clone())
-                .or_insert_with(Vec::new)
+                .or_default()
                 .push(result.id.clone());
         }
 
         // Fuentes
         self.sources
             .entry(result.source.clone())
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(result.id.clone());
 
         self.results.push(result);
@@ -250,7 +250,7 @@ impl DataReport {
 
     /// Generar reporte en formato texto
     pub fn to_text(&self) -> String {
-        let mut text = format!("═══════════════════════════════════════════\n");
+        let mut text = "═══════════════════════════════════════════\n".to_string();
         text.push_str(&format!("📊 {}\n", self.title));
         text.push_str(&format!(
             "Generated: {}\n",
@@ -287,14 +287,14 @@ impl DataReport {
                 result.relevance_score
             ));
         }
-        text.push_str("\n");
+        text.push('\n');
 
         // Categorías
         text.push_str("📁 DISTRIBUCIÓN POR CATEGORÍA\n");
         for (cat, count) in &self.category_breakdown {
             text.push_str(&format!("  {}: {}\n", cat, count));
         }
-        text.push_str("\n");
+        text.push('\n');
 
         // Fuentes
         text.push_str("📌 DISTRIBUCIÓN POR FUENTE\n");

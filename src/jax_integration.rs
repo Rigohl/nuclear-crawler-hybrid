@@ -261,7 +261,7 @@ if __name__ == "__main__":
                 score -= 0.3;
             }
 
-            scores.push(score.max(0.0).min(1.0)); // Clamp to [0, 1]
+            scores.push(score.clamp(0.0, 1.0)); // Clamp to [0, 1]
         }
 
         Ok(scores)
@@ -485,9 +485,9 @@ mod tests {
 
     #[test]
     fn test_jax_initialization() {
-        let jax = JaxProcessor::new();
+        let _jax = JaxProcessor::new();
         // Test passes even if JAX library is not available (fallback mode)
-        assert!(jax.is_ok() || true); // Always passes - fallback is acceptable
+        // Always succeeds since the processor handles fallback internally
     }
 
     #[test]

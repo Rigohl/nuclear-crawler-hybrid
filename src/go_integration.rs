@@ -153,7 +153,7 @@ impl GoParallelProcessor {
 
         let url_ptrs: Vec<*const i8> = c_urls
             .iter()
-            .map(|cstr| cstr.as_ptr() as *const i8)
+            .map(|cstr| cstr.as_ptr())
             .collect();
 
         let url_lengths: Vec<usize> = urls.iter().map(|url| url.len()).collect();
@@ -342,9 +342,9 @@ mod tests {
 
     #[test]
     fn test_go_initialization() {
-        let processor = GoParallelProcessor::new(GoParallelConfig::default());
+        let _processor = GoParallelProcessor::new(GoParallelConfig::default());
         // Test passes even if Go library is not available (fallback mode)
-        assert!(processor.is_ok() || true);
+        // Always succeeds since the processor handles fallback internally
     }
 
     #[test]

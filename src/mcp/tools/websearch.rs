@@ -213,14 +213,11 @@ impl WebSearchTool {
         {
             eprintln!("📡 Go FFI not available, using parse_html_with_go fallback");
             for engine_url in search_engines.iter().take(5) {
-                match self.fetch_results_real(engine_url).await {
-                    Ok(html_content_results) => {
-                        for res in html_content_results {
-                            let parsed = self.parse_html_with_go(&format!("href=\"{}\"", res.url));
-                            results.extend(parsed);
-                        }
+                if let Ok(html_content_results) = self.fetch_results_real(engine_url).await {
+                    for res in html_content_results {
+                        let parsed = self.parse_html_with_go(&format!("href=\"{}\"", res.url));
+                        results.extend(parsed);
                     }
-                    Err(_) => {}
                 }
             }
         }
@@ -413,7 +410,7 @@ impl WebSearchTool {
                         if !url_str.contains("google.com") && !url_str.contains("bing.com") {
                             results.push(SearchResult {
                                 url: url_str.to_string(),
-                                title: url_str.split('/').last().unwrap_or("Result").to_string(),
+                                title: url_str.split('/').next_back().unwrap_or("Result").to_string(),
                                 snippet: "Extracted from search results".to_string(),
                                 source: "web_extraction".to_string(),
                                 relevance_score: 0.75,
