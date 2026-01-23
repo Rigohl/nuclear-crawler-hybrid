@@ -841,3 +841,4 @@ go/
 zig/
 nim/
 libs/
+ffi/chapel/datasets/massive_training_120k.json

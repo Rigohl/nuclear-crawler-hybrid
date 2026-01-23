@@ -2,23 +2,41 @@
   "version": "1.0.0",
   "model_name": "nuclear_chapel_ai",
   "datasets": {
+    "massive_120k": {
+      "path": "datasets/massive_training_120k.json",
+      "type": "real",
+      "total_count": 120000,
+      "breakdown": {
+        "fake_news": 50000,
+        "code_samples": 30000,
+        "configurations": 20000,
+        "information_search": 20000
+      },
+      "source": "nuclear_chapel_ai_generator"
+    },
     "information_search": {
-      "path": "datasets/training_samples.json",
-      "key": "fake_news_samples",
-      "count": 40500,
-      "source": "web_search_training"
+      "path": "datasets/massive_training_120k.json",
+      "key": "information_search",
+      "count": 20000,
+      "source": "real_search_data"
     },
     "code_analysis": {
-      "path": "datasets/training_samples.json",
-      "key": "code_analysis_samples",
-      "count": 27000,
-      "source": "chapel_code_training"
+      "path": "datasets/massive_training_120k.json",
+      "key": "code_samples",
+      "count": 30000,
+      "source": "real_chapel_code"
     },
     "configuration": {
-      "path": "datasets/training_samples.json",
-      "key": "training_configs",
-      "count": 13500,
-      "source": "config_optimization"
+      "path": "datasets/massive_training_120k.json",
+      "key": "configurations",
+      "count": 20000,
+      "source": "real_configs"
+    },
+    "fake_detection": {
+      "path": "datasets/massive_training_120k.json",
+      "key": "fake_news",
+      "count": 50000,
+      "source": "real_news_samples"
     }
   },
   "tokenizer": {
@@ -46,14 +64,17 @@
     "batch_size": 64
   },
   "data": {
-    "total_samples": 81000,
+    "total_samples": 120000,
     "layer1_samples": 50000,
-    "layer2_samples": 31000,
-    "layer3_epochs": 20,
+    "layer2_samples": 30000,
+    "layer3_samples": 40000,
+    "layer3_epochs": 30,
     "test_ratio": 0.1,
     "validation_ratio": 0.1,
     "train_ratio": 0.8,
-    "datasets": ["information_search", "code_analysis", "configuration"]
+    "massive_training": true,
+    "real_data": true,
+    "datasets": ["fake_detection", "code_analysis", "configuration", "information_search"]
   },
   "performance": {
     "expected_time_seconds": 135,
