@@ -5,7 +5,7 @@
 //! ALIMENTADO DE: web_search, go_integration, rate_limit, cache, deepweb_tor
 
 use crate::cache::Cache;
-use crate::chapel_integration::{get_chapel_ai, create_context};
+use crate::chapel_integration::{create_context, get_chapel_ai};
 use crate::deepweb_tor::DeepWebSearch;
 use crate::go_integration::GoParallelProcessor;
 use crate::rate_limit::RateLimiter;
@@ -301,7 +301,10 @@ impl WebSearchTool {
         let context = create_context("websearch", "search", query, quality);
         let _ = chapel.learn(context);
 
-        eprintln!("✅ Found {} real results (optimized by Chapel AI)", results.len());
+        eprintln!(
+            "✅ Found {} real results (optimized by Chapel AI)",
+            results.len()
+        );
         Ok(results)
     }
 

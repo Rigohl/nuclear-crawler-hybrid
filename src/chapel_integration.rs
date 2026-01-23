@@ -1,7 +1,7 @@
 //! 🔥 CHAPEL AI INTEGRATION - Continuous Learning System
 //!
 //! Chapel AI is the "brain" that connects all 5 MCP tools and learns continuously.
-//! 
+//!
 //! Features:
 //! - Pattern learning from all operations
 //! - Intelligent suggestions and advice
@@ -69,9 +69,9 @@ impl PatternDatabase {
             .entry(pattern_id.clone())
             .or_insert_with(Vec::new)
             .push(context.clone());
-        
+
         *self.pattern_count.entry(pattern_id.clone()).or_insert(0) += 1;
-        
+
         // Update success rate based on output quality
         let current_rate = self.success_rate.get(&pattern_id).unwrap_or(&0.0);
         let new_rate = (current_rate + context.output_quality) / 2.0;
@@ -101,7 +101,7 @@ impl ChapelAI {
         eprintln!("   ✅ Continuous Optimization: Active");
         eprintln!("   ✅ Connected to: All 5 MCP tools");
         eprintln!("   ✅ Internet Research: Ready");
-        
+
         Self {
             db: Arc::new(RwLock::new(PatternDatabase::new())),
             enabled: true,
@@ -115,13 +115,16 @@ impl ChapelAI {
         }
 
         let pattern_id = format!("{}:{}", context.tool_name, context.operation);
-        
+
         eprintln!(
             "🧠 Chapel AI Learning: {} (quality: {:.2})",
             pattern_id, context.output_quality
         );
 
-        let mut db = self.db.write().map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+        let mut db = self
+            .db
+            .write()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
         db.add_pattern(pattern_id, context);
 
         Ok(())
@@ -134,8 +137,11 @@ impl ChapelAI {
         }
 
         let pattern_id = format!("{}:{}", tool_name, operation);
-        let db = self.db.read().map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
-        
+        let db = self
+            .db
+            .read()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+
         let success_rate = db.get_success_rate(&pattern_id);
         let count = db.get_pattern_count(&pattern_id);
 
@@ -149,7 +155,8 @@ impl ChapelAI {
                     priority: "high".to_string(),
                     suggestion: format!(
                         "Low success rate ({:.1}%) detected for {}. Consider adjusting parameters.",
-                        success_rate * 100.0, operation
+                        success_rate * 100.0,
+                        operation
                     ),
                     reasoning: format!("Based on {} previous operations", count),
                     confidence: 0.8,
@@ -160,7 +167,8 @@ impl ChapelAI {
                     priority: "low".to_string(),
                     suggestion: format!(
                         "Excellent success rate ({:.1}%) for {}. Current approach is optimal.",
-                        success_rate * 100.0, operation
+                        success_rate * 100.0,
+                        operation
                     ),
                     reasoning: format!("Based on {} successful operations", count),
                     confidence: 0.9,
@@ -174,8 +182,10 @@ impl ChapelAI {
                 advice.push(ChapelAdvice {
                     category: "stealth".to_string(),
                     priority: "medium".to_string(),
-                    suggestion: "Enable stealth mode for better results and bypass rate limiting.".to_string(),
-                    reasoning: "Historical data shows 40% improvement with stealth enabled".to_string(),
+                    suggestion: "Enable stealth mode for better results and bypass rate limiting."
+                        .to_string(),
+                    reasoning: "Historical data shows 40% improvement with stealth enabled"
+                        .to_string(),
                     confidence: 0.85,
                 });
             }
@@ -183,8 +193,11 @@ impl ChapelAI {
                 advice.push(ChapelAdvice {
                     category: "research".to_string(),
                     priority: "medium".to_string(),
-                    suggestion: "Consider searching internet for library alternatives and best practices.".to_string(),
-                    reasoning: "Internet research provides 60% more actionable insights".to_string(),
+                    suggestion:
+                        "Consider searching internet for library alternatives and best practices."
+                            .to_string(),
+                    reasoning: "Internet research provides 60% more actionable insights"
+                        .to_string(),
                     confidence: 0.78,
                 });
             }
@@ -192,7 +205,9 @@ impl ChapelAI {
                 advice.push(ChapelAdvice {
                     category: "precision".to_string(),
                     priority: "high".to_string(),
-                    suggestion: "Use exact line detection for errors and warnings for precise debugging.".to_string(),
+                    suggestion:
+                        "Use exact line detection for errors and warnings for precise debugging."
+                            .to_string(),
                     reasoning: "Exact line numbers reduce debugging time by 70%".to_string(),
                     confidence: 0.92,
                 });
@@ -201,7 +216,8 @@ impl ChapelAI {
                 advice.push(ChapelAdvice {
                     category: "bypass".to_string(),
                     priority: "high".to_string(),
-                    suggestion: "Quantum bypass mode recommended for maximum content extraction.".to_string(),
+                    suggestion: "Quantum bypass mode recommended for maximum content extraction."
+                        .to_string(),
                     reasoning: "100% success rate on Medium and similar platforms".to_string(),
                     confidence: 0.95,
                 });
@@ -210,7 +226,9 @@ impl ChapelAI {
                 advice.push(ChapelAdvice {
                     category: "quality".to_string(),
                     priority: "high".to_string(),
-                    suggestion: "Include multiple themes and exams in dataset for better training results.".to_string(),
+                    suggestion:
+                        "Include multiple themes and exams in dataset for better training results."
+                            .to_string(),
                     reasoning: "Diverse datasets improve model accuracy by 45%".to_string(),
                     confidence: 0.88,
                 });
@@ -224,7 +242,7 @@ impl ChapelAI {
     /// Research on internet (for scan tool)
     pub async fn research_online(&self, query: &str) -> Result<Vec<String>> {
         eprintln!("🔍 Chapel AI: Researching online for '{}'", query);
-        
+
         // In a real implementation, this would use websearch tool
         // For now, return intelligent suggestions based on common patterns
         let suggestions = vec![
@@ -240,8 +258,11 @@ impl ChapelAI {
 
     /// Get learning statistics
     pub fn get_statistics(&self) -> Result<HashMap<String, usize>> {
-        let db = self.db.read().map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
-        
+        let db = self
+            .db
+            .read()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+
         let mut stats = HashMap::new();
         for (pattern_id, count) in &db.pattern_count {
             stats.insert(pattern_id.clone(), *count);
@@ -299,7 +320,9 @@ impl ChapelAI {
         }
 
         if steps.is_empty() {
-            steps.push("✅ Code looks good! Consider adding more tests or documentation.".to_string());
+            steps.push(
+                "✅ Code looks good! Consider adding more tests or documentation.".to_string(),
+            );
         }
 
         steps
@@ -353,7 +376,7 @@ mod tests {
     fn test_chapel_ai_learning() {
         let chapel = ChapelAI::new();
         let context = create_context("websearch", "search", "test query", 0.85);
-        
+
         assert!(chapel.learn(context).is_ok());
     }
 
@@ -361,7 +384,7 @@ mod tests {
     fn test_chapel_ai_advice() {
         let chapel = ChapelAI::new();
         let advice = chapel.get_advice("websearch", "search").unwrap();
-        
+
         assert!(!advice.is_empty());
     }
 
@@ -371,7 +394,7 @@ mod tests {
         let mut results = HashMap::new();
         results.insert("errors".to_string(), 5);
         results.insert("warnings".to_string(), 10);
-        
+
         let steps = chapel.suggest_next_steps(&results);
         assert!(!steps.is_empty());
         assert!(steps[0].contains("error"));

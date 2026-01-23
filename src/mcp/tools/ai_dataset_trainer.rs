@@ -7,7 +7,7 @@
 //! - JAX: GPU vectorization y embedding generation (1536-dim)
 //! - Chapel: AI learning continuo y optimización de datasets
 //! - Nuclear Core: Advanced bypass y data extraction
-//! 
+//!
 //! CARACTERÍSTICAS:
 //! - Múltiples temas (código, debugging, six sigma, arquitectura, etc.)
 //! - Ejemplos de código completos
@@ -22,7 +22,7 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 
 use crate::cache::Cache;
-use crate::chapel_integration::{get_chapel_ai, create_context};
+use crate::chapel_integration::{create_context, get_chapel_ai};
 use crate::go_integration::{GoParallelConfig, GoParallelProcessor};
 use crate::jax_integration::JaxProcessor;
 use crate::nim_integration::{NimHtmlParser, NimParserConfig};
@@ -190,12 +190,24 @@ impl AIDatasetTrainerTool {
     pub async fn new(config: DatasetTrainerConfig) -> Result<Self> {
         eprintln!("🔥 AI Dataset Trainer - MÁXIMO PODER + Chapel AI");
         eprintln!("   ✅ Target: {} items", config.target_size);
-        eprintln!("   ✅ Embedding: {} dimensions (JAX GPU)", config.embedding_dim);
+        eprintln!(
+            "   ✅ Embedding: {} dimensions (JAX GPU)",
+            config.embedding_dim
+        );
         eprintln!("   ✅ Batch: {} items", config.batch_size);
-        eprintln!("   ✅ Go Parallel: {} (1000 goroutines REAL)", config.use_go_parallel);
+        eprintln!(
+            "   ✅ Go Parallel: {} (1000 goroutines REAL)",
+            config.use_go_parallel
+        );
         eprintln!("   ✅ Zig SIMD: {} (Blake3 dedup)", config.use_zig_dedup);
-        eprintln!("   ✅ Nim Parsing: {} (HTML extraction)", config.use_nim_parsing);
-        eprintln!("   ✅ JAX GPU: {} (CUDA/HIP/Metal)", config.enable_gpu_vectorization);
+        eprintln!(
+            "   ✅ Nim Parsing: {} (HTML extraction)",
+            config.use_nim_parsing
+        );
+        eprintln!(
+            "   ✅ JAX GPU: {} (CUDA/HIP/Metal)",
+            config.enable_gpu_vectorization
+        );
         eprintln!("   ✅ Chapel AI: Continuous learning & optimization");
 
         let go_config = GoParallelConfig {

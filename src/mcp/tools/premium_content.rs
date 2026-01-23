@@ -4,7 +4,7 @@
 //! ALIMENTADO DE: premium_content_scraper, nuclear_core, nim_integration, zig_integration, go_integration, chapel_integration, cache
 
 use crate::cache::Cache;
-use crate::chapel_integration::{get_chapel_ai, create_context};
+use crate::chapel_integration::{create_context, get_chapel_ai};
 use crate::go_integration::GoParallelProcessor;
 use crate::nim_integration::NimHtmlParser;
 use crate::nuclear_core::NuclearBypass;
@@ -195,7 +195,11 @@ impl PremiumContentTool {
 
                 // 🧠 Chapel AI: Learn from extraction
                 let chapel = get_chapel_ai();
-                let quality = if content.full_text_available { 1.0 } else { 0.5 };
+                let quality = if content.full_text_available {
+                    1.0
+                } else {
+                    0.5
+                };
                 let context = create_context("premium", "fetch_medium", url, quality);
                 let _ = chapel.learn(context);
 

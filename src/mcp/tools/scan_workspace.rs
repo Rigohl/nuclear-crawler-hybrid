@@ -6,7 +6,7 @@
 //! Detecta: errores, warnings, TODOs, mocks, patrones problemáticos
 //! Genera: consejos, métricas, reportes de salud, próximos pasos
 
-use crate::chapel_integration::{get_chapel_ai, create_context};
+use crate::chapel_integration::{create_context, get_chapel_ai};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
@@ -242,19 +242,18 @@ impl ScanWorkspaceTool {
         let health_score = self.calculate_health_score(&files_analyzed, total_issues, total_lines);
 
         // Generate advice (with Chapel AI)
-        let advice = self.generate_advice_with_chapel(&issues_by_category, &issues_by_severity, health_score);
+        let advice = self.generate_advice_with_chapel(
+            &issues_by_category,
+            &issues_by_severity,
+            health_score,
+        );
 
         let duration = start.elapsed().as_millis() as u64;
 
         // 🧠 Chapel AI: Learn from scan results
         let chapel = get_chapel_ai();
         let quality = health_score / 100.0;
-        let context = create_context(
-            "scan",
-            "scan_workspace",
-            &config.path,
-            quality,
-        );
+        let context = create_context("scan", "scan_workspace", &config.path, quality);
         let _ = chapel.learn(context);
 
         ScanResult {
@@ -636,7 +635,7 @@ impl ScanWorkspaceTool {
 
         // 🧠 Add Chapel AI suggestions
         let chapel = get_chapel_ai();
-        
+
         // Get AI-based next steps
         let mut category_map = HashMap::new();
         if let Some(&errors) = by_severity.get("Error") {

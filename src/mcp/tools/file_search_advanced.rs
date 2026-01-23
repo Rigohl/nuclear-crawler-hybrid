@@ -1,5 +1,5 @@
 use crate::cache::Cache;
-use crate::chapel_integration::{get_chapel_ai, create_context};
+use crate::chapel_integration::{create_context, get_chapel_ai};
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
@@ -161,12 +161,7 @@ impl AdvancedFileSearchTool {
         // 🧠 Chapel AI: Learn from analysis
         let chapel = get_chapel_ai();
         let quality = 1.0 - (result.summary.total_errors as f64 / (total_lines as f64 + 1.0));
-        let context = create_context(
-            "file_search",
-            "analyze_file",
-            file_path,
-            quality,
-        );
+        let context = create_context("file_search", "analyze_file", file_path, quality);
         let _ = chapel.learn(context);
 
         Ok(result)
