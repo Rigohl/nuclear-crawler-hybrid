@@ -10,25 +10,26 @@
 ## 🎯 ¿Qué es?
 
 **Nuclear Crawler Hybrid** es un servidor MCP (Model Context Protocol) ultra-potenciado con:
-- **5 herramientas productivas** con capacidades avanzadas
-- **Integración FFI** con Go, Zig, Nim, JAX
+- **5 herramientas productivas** con capacidades avanzadas y IA integrada
+- **Integración FFI REAL** con Go, Zig, Nim, JAX, Chapel (NO MOCKS)
+- **Chapel AI Learning** - IA conectada que aprende continuamente
 - **Bypass avanzado** para contenido protegido
 - **GPU acceleration** con JAX (1536-dim embeddings)
-- **12,249 LOC Rust puro** (cero dead code)
+- **12,249 LOC Rust puro** (CERO código muerto, CERO mocks)
 - **Docker ready** (90.4 MB)
 - **WSL compatible**
 
 ---
 
-## ⚡ Las 5 Herramientas
+## ⚡ Las 5 Herramientas (Con Chapel AI Integration)
 
-| # | Herramienta | Capacidad |
+| # | Herramienta | Capacidad Potenciada |
 |---|---|---|
-| 1 | **websearch** | 55+ motores, 500 resultados, 60s |
-| 2 | **premium_content** | Bypass Medium/Coursera/ArXiv, 45s |
-| 3 | **file_search_advanced** | AST + Zig SIMD, 50K cache |
-| 4 | **scan_workspace** | 1000 goroutines Go, 50+ patterns |
-| 5 | **ai_dataset_trainer** | 4-phase FFI pipeline, GPU ready |
+| 1 | **websearch** | 55+ motores, stealth total, resultados potenciados con Chapel AI |
+| 2 | **premium** | FFI real (Rust+Go+Zig+Nim+Chapel+JAX), captura Medium sin mocks |
+| 3 | **file_search** | Detecta líneas exactas, errores, warnings, palabras específicas |
+| 4 | **scan** | Escanea workspace + investiga internet + consejos con Chapel AI |
+| 5 | **ai_dataset_trainer** | Crea datasets completos con temas múltiples, exámenes, Chapel learning |
 
 ---
 
