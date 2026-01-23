@@ -25,6 +25,7 @@ pub mod web_search; // REAL web search with 55+ engines
 // pub mod data_extraction;     // Advanced extraction (optional)
 
 // 🔥 FFI ACCELERATION MODULES - REAL HIGH-PERFORMANCE COMPUTING
+pub mod chapel_integration; // Chapel AI learning and optimization - NEW!
 pub mod go_integration; // Go parallel processing (1000 goroutines)
 pub mod jax_integration; // JAX GPU vectorization
 pub mod nim_integration; // Nim HTML parsing
