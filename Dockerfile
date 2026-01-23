@@ -2,42 +2,38 @@
 # Go, Nim, Zig, Rust integration
 
 # ===== BUILDER STAGE =====
-FROM ubuntu:22.04 AS builder
+FROM rust:1.80-slim AS builder
 
 WORKDIR /build
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install base dependencies
+# Install build dependencies
 RUN apt-get update && apt-get install -y \
-    curl \
-    wget \
     build-essential \
     git \
     ca-certificates \
     libssl-dev \
     pkg-config \
+    golang-go \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-# Install Go
-RUN apt-get update && apt-get install -y golang-go && rm -rf /var/lib/apt/lists/*
-
-# Optional: Nim, Zig can be added later if needed
-# For now, use Rust-only build (faster, more stable)
+# Update CA certificates to handle potential SSL issues
+RUN update-ca-certificates
 
 # Copy source
 COPY . /build/
 
 # Build MCP server (Rust-only, pure implementation)
-RUN . $HOME/.cargo/env && \
-    cd /build && \
-    cargo build --release --bin nuclear-mcp
+# Configure git to use system certificates if needed
+RUN git config --global http.sslVerify true || true
+
+# Build with cargo, using system certificates
+ENV CARGO_HTTP_CAINFO=/etc/ssl/certs/ca-certificates.crt
+RUN cargo build --release --bin nuclear-mcp
 
 # ===== RUNTIME STAGE =====
-FROM ubuntu:22.04
+FROM debian:bookworm-slim
 
 WORKDIR /app
 
