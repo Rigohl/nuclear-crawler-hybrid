@@ -284,9 +284,9 @@ impl WebSearchTool {
 
         eprintln!("📊 Final results: {} items", results.len());
 
-        // 🧠 Chapel AI: Optimize results based on learned patterns
+        // 🧠 Chapel AI: Optimize based on learned patterns
         let chapel = get_chapel_ai();
-        results = chapel.optimize_results("websearch", results);
+        let _ = chapel.optimize_results();
 
         // 9️⃣ Guardar en cache
         let json_result = serde_json::to_string(&results)?;

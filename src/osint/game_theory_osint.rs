@@ -369,10 +369,11 @@ impl SignalingGame {
             type_probs.insert(t.clone(), 1.0 / types.len() as f64);
         }
 
+        let receiver_belief = type_probs.clone();
         SignalingGame {
             type_probs,
             sender_strategy: HashMap::new(),
-            receiver_belief: type_probs.clone(),
+            receiver_belief,
         }
     }
 

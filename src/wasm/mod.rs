@@ -3,15 +3,12 @@
 
 #[cfg(target_arch = "wasm32")]
 pub mod file_search;
-pub mod file_search as file_search_module;
 
 #[cfg(target_arch = "wasm32")]
 pub mod neural_ops;
-pub mod neural_ops as neural_ops_module;
 
 #[cfg(target_arch = "wasm32")]
 pub mod data_search;
-pub mod data_search as data_search_module;
 
 /// WASM initialization (web target)
 #[cfg(target_arch = "wasm32")]

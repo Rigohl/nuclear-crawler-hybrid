@@ -363,7 +363,7 @@ impl OSINTNaiveBayes {
 
         // Compute class priors
         for class in &self.classes {
-            let count = y.iter().filter(|c| c == class).count();
+            let count = y.iter().filter(|c| *c == class).count();
             self.class_priors.insert(class.clone(), count as f64 / n_samples as f64);
         }
 
@@ -375,7 +375,7 @@ impl OSINTNaiveBayes {
                 let class_values: Vec<f64> = X
                     .iter()
                     .zip(y.iter())
-                    .filter(|(_, c)| c == class)
+                    .filter(|(_, c)| *c == class)
                     .map(|(x, _)| x[feature_idx])
                     .collect();
 
@@ -387,18 +387,14 @@ impl OSINTNaiveBayes {
                         .sum::<f64>()
                         / class_values.len() as f64;
 
-                    let key = format!("{}_{}", feature_name, class);
-                    self.feature_likelihoods.entry(feature_name).or_insert_with(HashMap::new);
+                    // Ensure entry exists
+                    self.feature_likelihoods.entry(feature_name.clone()).or_insert_with(HashMap::new);
 
                     // Store mean and variance
-                    self.feature_likelihoods
-                        .get_mut(&feature_name)
-                        .unwrap()
-                        .insert(format!("{}_mean", class), mean);
-                    self.feature_likelihoods
-                        .get_mut(&feature_name)
-                        .unwrap()
-                        .insert(format!("{}_var", class), variance + 1e-9);
+                    if let Some(inner_map) = self.feature_likelihoods.get_mut(&feature_name) {
+                        inner_map.insert(format!("{}_mean", class), mean);
+                        inner_map.insert(format!("{}_var", class), variance + 1e-9);
+                    }
                 }
             }
         }

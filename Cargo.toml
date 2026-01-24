@@ -17,6 +17,7 @@ default = []
 go_integration = []
 nim_integration = []
 zig_integration = []
+chapel_ffi = []
 chromium_rendering = ["chromiumoxide"]
 advanced_tor = []
 # Advanced feature bundle: enables all advanced capabilities for the multi-agent pipeline
@@ -88,6 +89,12 @@ walkdir = "2.4"
 
 # Random number generation for stealth
 oorandom = "11.1"
+
+# 🔥 NEW: Random number generation for ML algorithms  
+rand = "0.8"
+
+# 🔥 NEW: CPU count for parallelization
+num_cpus = "1.16"
 
 # URL encoding for headers
 urlencoding = "2.1"

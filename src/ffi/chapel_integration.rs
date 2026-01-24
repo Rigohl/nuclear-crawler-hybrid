@@ -19,9 +19,10 @@ use std::sync::{Arc, Mutex};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 // ═══════════════════════════════════════════════════════════
-// CHAPEL FFI DECLARATIONS
+// CHAPEL FFI DECLARATIONS (OPTIONAL - requires feature "chapel_ffi")
 // ═══════════════════════════════════════════════════════════
 
+#[cfg(feature = "chapel_ffi")]
 #[link(name = "chapel_ai", kind = "dylib")]
 extern "C" {
     fn chapel_ai_init() -> c_int;
@@ -100,37 +101,54 @@ pub struct ChapelAI {
 }
 
 impl ChapelAI {
-    /// Create new Chapel AI instance with REAL FFI
+    /// Create new Chapel AI instance with REAL FFI (when feature enabled)
     pub fn new() -> Self {
-        eprintln!("🧠 Chapel AI Initializing...");
-        
-        // Try to initialize Chapel FFI
-        let use_ffi = unsafe {
-            match chapel_ai_init() {
-                1 => {
-                    eprintln!("   ✅ Chapel FFI: LOADED (libchapel_ai.so)");
-                    eprintln!("   ✅ Pattern Learning: ENABLED");
-                    eprintln!("   ✅ ML Engine: REAL Chapel Implementation");
-                    eprintln!("   ✅ NO MOCKS: Production-ready");
-                    true
+        #[cfg(feature = "chapel_ffi")]
+        {
+            eprintln!("🧠 Chapel AI Initializing...");
+            
+            // Try to initialize Chapel FFI
+            let use_ffi = unsafe {
+                match chapel_ai_init() {
+                    1 => {
+                        eprintln!("   ✅ Chapel FFI: LOADED (libchapel_ai.so)");
+                        eprintln!("   ✅ Pattern Learning: ENABLED");
+                        eprintln!("   ✅ ML Engine: REAL Chapel Implementation");
+                        eprintln!("   ✅ NO MOCKS: Production-ready");
+                        true
+                    }
+                    _ => {
+                        eprintln!("   ⚠️ Chapel FFI: Not available (using Rust fallback)");
+                        eprintln!("   ℹ️ Compile Chapel library: cd ffi/chapel && make");
+                        false
+                    }
                 }
-                _ => {
-                    eprintln!("   ⚠️ Chapel FFI: Not available (using Rust fallback)");
-                    eprintln!("   ℹ️ Compile Chapel library: cd ffi/chapel && make");
-                    false
-                }
-            }
-        };
+            };
 
-        Self {
-            initialized: Arc::new(Mutex::new(use_ffi)),
-            use_ffi,
-            stats: Arc::new(Mutex::new(ChapelStats {
-                total_patterns: 0,
-                patterns_by_tool: HashMap::new(),
-                average_success_rate: 0.0,
-                optimization_cycles: 0,
-            })),
+            Self {
+                initialized: Arc::new(Mutex::new(use_ffi)),
+                use_ffi,
+                stats: Arc::new(Mutex::new(ChapelStats {
+                    total_patterns: 0,
+                    patterns_by_tool: HashMap::new(),
+                    average_success_rate: 0.0,
+                    optimization_cycles: 0,
+                })),
+            }
+        }
+
+        #[cfg(not(feature = "chapel_ffi"))]
+        {
+            Self {
+                initialized: Arc::new(Mutex::new(false)),
+                use_ffi: false,
+                stats: Arc::new(Mutex::new(ChapelStats {
+                    total_patterns: 0,
+                    patterns_by_tool: HashMap::new(),
+                    average_success_rate: 0.0,
+                    optimization_cycles: 0,
+                })),
+            }
         }
     }
 
@@ -140,37 +158,71 @@ impl ChapelAI {
             return Ok(());  // Fallback: no learning without Chapel FFI
         }
 
-        let tool_cstr = CString::new(context.tool_name.clone())?;
-        let operation_cstr = CString::new(context.operation.clone())?;
-        let input_cstr = CString::new(context.input_data.clone())?;
+        #[cfg(feature = "chapel_ffi")]
+        {
+            let tool_cstr = CString::new(context.tool_name.clone())?;
+            let operation_cstr = CString::new(context.operation.clone())?;
+            let input_cstr = CString::new(context.input_data.clone())?;
 
-        unsafe {
-            let result = chapel_ai_learn(
-                tool_cstr.as_ptr(),
-                operation_cstr.as_ptr(),
-                input_cstr.as_ptr(),
-                context.output_quality,
-            );
-
-            if result == 1 {
-                eprintln!(
-                    "🧠 Chapel AI Learned: {}:{} (quality: {:.2})",
-                    context.tool_name, context.operation, context.output_quality
+            unsafe {
+                let result = chapel_ai_learn(
+                    tool_cstr.as_ptr(),
+                    operation_cstr.as_ptr(),
+                    input_cstr.as_ptr(),
+                    context.output_quality,
                 );
 
-                // Update stats
-                if let Ok(mut stats) = self.stats.lock() {
-                    stats.total_patterns += 1;
-                    *stats.patterns_by_tool
-                        .entry(context.tool_name.clone())
-                        .or_insert(0) += 1;
-                }
+                if result == 1 {
+                    eprintln!(
+                        "🧠 Chapel AI Learned: {}:{} (quality: {:.2})",
+                        context.tool_name, context.operation, context.output_quality
+                    );
 
-                Ok(())
-            } else {
-                Err(anyhow::anyhow!("Chapel AI learning failed"))
+                    // Update stats
+                    if let Ok(mut stats) = self.stats.lock() {
+                        stats.total_patterns += 1;
+                        *stats.patterns_by_tool
+                            .entry(context.tool_name.clone())
+                            .or_insert(0) += 1;
+                    }
+
+                    Ok(())
+                } else {
+                    Err(anyhow::anyhow!("Chapel AI learning failed"))
+                }
             }
         }
+
+        #[cfg(not(feature = "chapel_ffi"))]
+        Ok(())
+    }
+
+    /// Alias: learn() - shorthand for learn_from_operation()
+    pub fn learn(&self, context: ChapelContext) -> Result<()> {
+        self.learn_from_operation(context)
+    }
+
+    /// Alias: optimize_results() - shorthand for optimize()
+    pub fn optimize_results(&self) -> Result<usize> {
+        self.optimize()
+    }
+
+    /// Suggest next steps for optimization
+    pub fn suggest_next_steps(&self) -> Result<Vec<String>> {
+        let stats = self.get_stats()?;
+        let mut suggestions = Vec::new();
+
+        if stats.average_success_rate < 0.7 {
+            suggestions.push("Increase learning samples for better pattern recognition".to_string());
+        }
+        if stats.total_patterns < 100 {
+            suggestions.push("Run more operations to build knowledge base".to_string());
+        }
+        if stats.optimization_cycles < 5 {
+            suggestions.push("Run optimize() multiple times for incremental improvements".to_string());
+        }
+
+        Ok(suggestions)
     }
 
     /// Get advice for a specific tool operation
@@ -179,36 +231,44 @@ impl ChapelAI {
             return Ok(Vec::new());
         }
 
-        let tool_cstr = CString::new(tool_name)?;
-        let operation_cstr = CString::new(operation)?;
-        let mut buffer = vec![0u8; 1024];
+        #[cfg(feature = "chapel_ffi")]
+        {
+            let tool_cstr = CString::new(tool_name)?;
+            let operation_cstr = CString::new(operation)?;
+            let mut buffer = vec![0u8; 1024];
 
-        unsafe {
-            let result = chapel_ai_get_advice(
-                tool_cstr.as_ptr(),
-                operation_cstr.as_ptr(),
-                buffer.as_mut_ptr() as *mut c_char,
-                1024,
-            );
+            unsafe {
+                let result = chapel_ai_get_advice(
+                    tool_cstr.as_ptr(),
+                    operation_cstr.as_ptr(),
+                    buffer.as_mut_ptr() as *mut c_char,
+                    1024,
+                );
 
-            if result == 1 {
-                let advice_str = CStr::from_ptr(buffer.as_ptr() as *const c_char)
-                    .to_string_lossy()
-                    .to_string();
+                if result == 1 {
+                    let advice_str = CStr::from_ptr(buffer.as_ptr() as *const c_char)
+                        .to_string_lossy()
+                        .to_string();
 
-                // Parse advice into structured format
-                let advice = ChapelAdvice {
-                    category: "pattern".to_string(),
-                    priority: if advice_str.contains("HIGH") { "high" } else { "medium" }.to_string(),
-                    suggestion: advice_str.clone(),
-                    reasoning: "Based on learned patterns".to_string(),
-                    confidence: self.get_confidence(tool_name, operation),
-                };
+                    // Parse advice into structured format
+                    let advice = ChapelAdvice {
+                        category: "pattern".to_string(),
+                        priority: if advice_str.contains("HIGH") { "high" } else { "medium" }.to_string(),
+                        suggestion: advice_str.clone(),
+                        reasoning: "Based on learned patterns".to_string(),
+                        confidence: self.get_confidence(tool_name, operation),
+                    };
 
-                Ok(vec![advice])
-            } else {
-                Ok(Vec::new())
+                    Ok(vec![advice])
+                } else {
+                    Ok(Vec::new())
+                }
             }
+        }
+
+        #[cfg(not(feature = "chapel_ffi"))]
+        {
+            Ok(Vec::new())
         }
     }
 
@@ -218,11 +278,19 @@ impl ChapelAI {
             return 0.0;
         }
 
-        let tool_cstr = CString::new(tool_name).unwrap_or_default();
-        let operation_cstr = CString::new(operation).unwrap_or_default();
+        #[cfg(feature = "chapel_ffi")]
+        {
+            let tool_cstr = CString::new(tool_name).unwrap_or_default();
+            let operation_cstr = CString::new(operation).unwrap_or_default();
 
-        unsafe {
-            chapel_ai_get_success_rate(tool_cstr.as_ptr(), operation_cstr.as_ptr())
+            unsafe {
+                chapel_ai_get_success_rate(tool_cstr.as_ptr(), operation_cstr.as_ptr())
+            }
+        }
+
+        #[cfg(not(feature = "chapel_ffi"))]
+        {
+            0.0
         }
     }
 
@@ -232,11 +300,19 @@ impl ChapelAI {
             return Ok(0);
         }
 
-        let tool_cstr = CString::new(tool_name)?;
+        #[cfg(feature = "chapel_ffi")]
+        {
+            let tool_cstr = CString::new(tool_name)?;
 
-        unsafe {
-            let count = chapel_ai_get_pattern_count(tool_cstr.as_ptr());
-            Ok(count as usize)
+            unsafe {
+                let count = chapel_ai_get_pattern_count(tool_cstr.as_ptr());
+                Ok(count as usize)
+            }
+        }
+
+        #[cfg(not(feature = "chapel_ffi"))]
+        {
+            Ok(0)
         }
     }
 
@@ -246,8 +322,14 @@ impl ChapelAI {
             return 0;
         }
 
+        #[cfg(feature = "chapel_ffi")]
         unsafe {
             chapel_ai_total_learned() as usize
+        }
+
+        #[cfg(not(feature = "chapel_ffi"))]
+        {
+            0
         }
     }
 
@@ -257,15 +339,23 @@ impl ChapelAI {
             return Ok(0);
         }
 
-        unsafe {
-            let pruned = chapel_ai_optimize();
-            
-            if let Ok(mut stats) = self.stats.lock() {
-                stats.optimization_cycles += 1;
-            }
+        #[cfg(feature = "chapel_ffi")]
+        {
+            unsafe {
+                let pruned = chapel_ai_optimize();
+                
+                if let Ok(mut stats) = self.stats.lock() {
+                    stats.optimization_cycles += 1;
+                }
 
-            eprintln!("🔧 Chapel AI Optimization: {} patterns pruned", pruned);
-            Ok(pruned as usize)
+                eprintln!("🔧 Chapel AI Optimization: {} patterns pruned", pruned);
+                Ok(pruned as usize)
+            }
+        }
+
+        #[cfg(not(feature = "chapel_ffi"))]
+        {
+            Ok(0)
         }
     }
 
@@ -306,10 +396,10 @@ impl Default for ChapelAI {
         Self::new()
     }
 }
-
 impl Drop for ChapelAI {
     fn drop(&mut self) {
         if self.use_ffi {
+            #[cfg(feature = "chapel_ffi")]
             unsafe {
                 chapel_ai_shutdown();
             }
@@ -355,6 +445,16 @@ pub fn global_chapel_ai() -> Arc<ChapelAI> {
     GLOBAL_CHAPEL_AI
         .get_or_init(|| Arc::new(ChapelAI::new()))
         .clone()
+}
+
+/// Alias for global_chapel_ai() - used by tools
+pub fn get_chapel_ai() -> Arc<ChapelAI> {
+    global_chapel_ai()
+}
+
+/// Create a new Chapel AI context lazily initialized
+pub fn create_context_lazy() -> Arc<ChapelAI> {
+    get_chapel_ai()
 }
 
 #[cfg(test)]

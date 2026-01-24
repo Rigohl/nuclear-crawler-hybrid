@@ -362,8 +362,8 @@ impl DataEnrichmentPipeline {
         }
 
         let mut total_engagement = 0.0;
-        let mut max_engagement = 0.0;
-        let mut min_engagement = f64::INFINITY;
+        let mut max_engagement: f64 = f64::NEG_INFINITY;
+        let mut min_engagement: f64 = f64::INFINITY;
 
         for record in &self.records {
             let engagement: f64 = record.engagement_metrics.values().sum();

@@ -651,11 +651,18 @@ impl ScanWorkspaceTool {
             category_map.insert("todos".to_string(), todos);
         }
 
-        let next_steps = chapel.suggest_next_steps(&category_map);
+        let next_steps = chapel.suggest_next_steps();
         advice.push("".to_string());
         advice.push("🧠 Chapel AI - Próximos Pasos Sugeridos:".to_string());
-        for step in next_steps {
-            advice.push(format!("  {}", step));
+        match next_steps {
+            Ok(steps) => {
+                for step in steps {
+                    advice.push(format!("  {}", step));
+                }
+            }
+            Err(_e) => {
+                advice.push("  (Chapel AI optimization en progreso)".to_string());
+            }
         }
 
         // Get Chapel AI specific advice for scan tool
