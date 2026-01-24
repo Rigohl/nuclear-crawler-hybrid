@@ -35,6 +35,22 @@ fn test_pr_template_exists() {
         content.contains("MCP") || content.contains("tools"),
         "Template debe mencionar validaciones MCP/tools"
     );
+    
+    // Verificar que menciona explícitamente las 5 tools MCP correctas
+    let expected_tools = [
+        "websearch",
+        "premium",
+        "file_search",
+        "scan",
+        "ai_dataset_trainer",
+    ];
+    for tool in &expected_tools {
+        assert!(
+            content.contains(tool),
+            "Template debe mencionar la tool MCP '{}'",
+            tool
+        );
+    }
 }
 
 #[test]

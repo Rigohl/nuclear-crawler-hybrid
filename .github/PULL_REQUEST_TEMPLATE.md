@@ -24,7 +24,7 @@ Please include a summary of the changes and the related issue. Please also inclu
 ## MCP Tool Testing (if applicable)
 - [ ] ✅ Tested against REAL MCP server (no mocks)
 - [ ] ✅ JSON-RPC 2.0 protocol compliance validated
-- [ ] ✅ All 4 tools tested: websearch, deepweb_search, premium_content_scraper, file_search
+- [ ] ✅ All 5 tools tested: websearch, premium, file_search, scan, ai_dataset_trainer
 - [ ] ✅ Response times within configured timeouts
 - [ ] ✅ Real data validation (no mock/stub indicators in responses)
 - [ ] ✅ `cargo test --test integration_real_mcp --release` passes

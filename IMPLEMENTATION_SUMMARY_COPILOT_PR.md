@@ -108,11 +108,11 @@ Se validó que los siguientes workflows se ejecutan correctamente en PRs:
 
 ### ⚠️ Issues Conocidos (Documentados)
 
-1. **Bincode Dependency**
-   - `bincode v3.0.0` contiene `compile_error!`
-   - Build completo falla
-   - Documentado en copilot-instructions.md
-   - No impide validaciones de Copilot
+1. **Dependencia Bincode (actualizada)**
+   - El proyecto usa actualmente `bincode = "1.3"` en `Cargo.toml`
+   - `Cargo.lock` resuelve `bincode 1.3.3` (sin `compile_error!` conocido)
+   - La nota previa sobre `bincode v3.0.0` se considera histórica y ya no aplica al estado actual del repositorio
+   - No se ha identificado un fallo de build atribuible específicamente a la versión actual de `bincode`
 
 2. **Formatting Issues**
    - `examples/nuclear_course_extractor_demo.rs` necesita formato

@@ -57,6 +57,23 @@ if [ -f ".github/PULL_REQUEST_TEMPLATE.md" ]; then
     
     if grep -q "MCP" .github/PULL_REQUEST_TEMPLATE.md || grep -q "tools" .github/PULL_REQUEST_TEMPLATE.md; then
         pass "Template menciona validaciones MCP/tools"
+        
+        # Verificar que la lista de tools del template coincide con las tools del protocolo
+        # Herramientas MCP actuales (ver src/mcp/protocol.rs)
+        EXPECTED_TOOLS=(websearch premium file_search scan ai_dataset_trainer)
+        missing_tools=()
+
+        for tool in "${EXPECTED_TOOLS[@]}"; do
+            if ! grep -q "$tool" .github/PULL_REQUEST_TEMPLATE.md; then
+                missing_tools+=("$tool")
+            fi
+        done
+
+        if [ "${#missing_tools[@]}" -eq 0 ]; then
+            pass "Template lista las 5 MCP tools actuales (websearch, premium, file_search, scan, ai_dataset_trainer)"
+        else
+            fail "Template MCP/tools desactualizado: faltan tools en PULL_REQUEST_TEMPLATE.md: ${missing_tools[*]}"
+        fi
     else
         warn "Template no menciona explícitamente MCP/tools"
     fi

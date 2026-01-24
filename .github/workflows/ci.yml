@@ -40,6 +40,10 @@ jobs:
       - name: Run unit tests
         run: cargo test --release --lib
 
+      - name: Run Copilot PR integration tests
+        run: cargo test --test test_copilot_pr_integration --release
+        continue-on-error: true  # Allow to continue even if this test fails
+
       - name: Run integration tests (REAL MCP Server - No Mocks)
         run: cargo test --test integration_real_mcp --release -- --nocapture --test-threads=1
         continue-on-error: true  # Allow to continue even if integration tests fail

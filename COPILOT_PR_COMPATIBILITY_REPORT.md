@@ -33,7 +33,7 @@ El repositorio tiene **documentación clara** para guiar a Copilot:
 - ✅ `.github/copilot-instructions.md` - 98 líneas de instrucciones detalladas
   - Menciona las 5 tools explícitamente
   - Prohíbe mocks/stubs
-  - Documenta known issues (bincode 3.0.0)
+  - Documenta known issues de build/test
   - Incluye comandos de build/test
   
 - ✅ `AGENTS.md` - 61 líneas de reglas para agentes

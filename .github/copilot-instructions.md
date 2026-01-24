@@ -14,6 +14,7 @@ Nuclear Crawler Hybrid is a Rust 2021 MCP (Model Context Protocol) server that e
 ## Critical Constraints
 - **No mocks/stubs** in tests or tool implementations. Integration tests expect **real HTTP requests**.
 - **Exactly five MCP tools** are defined in `src/mcp/protocol.rs` and used in `src/mcp/server.rs`.
+- **PROHIBITED: Creating new documentation files** without explicit user request specifying the file name or path. Only update existing documentation unless explicitly asked to create new files.
 - **Rust builds currently fail** due to a dependency issue (see Build Notes below). Document this in your PRs.
 
 ## Repository Layout (high-signal paths)

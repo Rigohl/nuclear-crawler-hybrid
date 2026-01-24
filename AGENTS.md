@@ -6,6 +6,7 @@ Este archivo define reglas para agentes y herramientas automaticas en este repo.
 ## Reglas obligatorias
 - No crear archivos .md sin pedido explicito del usuario.
 - Actualiza docs existentes; no crees docs nuevas salvo pedido explicito.
+- **PROHIBIDO crear documentación nueva** sin que el usuario lo solicite explícitamente por nombre o ruta.
 - No mocks: usar datos reales y requests reales.
 - No dead code: elimina codigo no usado.
 - Mantener exactamente 5 tools en MCP protocol.
@@ -40,8 +41,8 @@ Este archivo define reglas para agentes y herramientas automaticas en este repo.
 
 ## MCP protocol
 - Debe haber exactamente 5 tools en src/mcp/protocol.rs.
-- Herramientas oficiales: websearch, premium_content, file_search_advanced,
-  scan_workspace, ai_dataset_trainer.
+- Herramientas oficiales: websearch, premium, file_search,
+  scan, ai_dataset_trainer.
 - No agregar una 6ta o 7ma tool.
 
 ## Memoria MCP

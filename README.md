@@ -7,7 +7,7 @@
 
 ![CI](https://github.com/Rigohl/nuclear-crawler-hybrid/workflows/CI/badge.svg)
 ![MCP Validation](https://github.com/Rigohl/nuclear-crawler-hybrid/workflows/MCP%20Validation%20-%20Real%20Server%20Testing/badge.svg)
-![Copilot PR Validation](https://github.com/Rigohl/nuclear-crawler-hybrid/workflows/🤖%20Copilot%20PR%20Validation/badge.svg)
+![Copilot PR Validation](https://github.com/Rigohl/nuclear-crawler-hybrid/actions/workflows/copilot-pr-validation.yml/badge.svg)
 
 ---
 
