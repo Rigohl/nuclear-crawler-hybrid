@@ -330,3 +330,20 @@ Each tool uses `nuclear_chapel_ai.chpl` as core engine.
 ## License
 
 Part of Nuclear Crawler Hybrid - MIT OR Apache-2.0
+
+## Deployment & Sync
+
+This project is synchronized between GitHub and Hugging Face.
+
+### Remotes Setup
+- **GitHub**: `origin` (Primary code repository)
+- **Hugging Face**: `huggingface` (Deployment space)
+
+### Sync Command
+Use the included script to sync both:
+```bash
+./sync_remotes.sh
+```
+
+### Docker
+The Dockerfile includes the runtime for the MCP server, plus the Chapel runtime and JAX for Python integration.
