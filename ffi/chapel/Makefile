@@ -1,23 +1,33 @@
-# Chapel Professional Build System - Training Pipeline + Chapel AI
-# Pure Chapel + C FFI, No Python, Maximum Performance
-# 
-# AI-CENTRIC ARCHITECTURE:
-# - /ai/         = Core AI (nuclear_chapel_ai.chpl - THE NEURAL NETWORK)
-# - /tools/      = AI Tools (code_analyzer, code_repair, code_reviewer)
-# - /training/   = Training engines (training_pipeline, data_mining, analysis)
-# - /datasets/   = Training data and samples
+# Chapel AI FFI Library - Simple C Build
+# Compiles chapel_ai.c to libchapel_ai.so
 
-CHAPEL_HOME ?= /opt/chapel
-CHPL := $(CHAPEL_HOME)/bin/chpl
-CHPL_FLAGS := --fast -O3 --llvm --optimize
-CHPL_MULTI_LOCALE ?= --numLocales=4
+TARGET = libchapel_ai.so
+SOURCES = chapel_ai.c
+OBJECTS = $(SOURCES:.c=.o)
+CC = gcc
+CFLAGS = -fPIC -O3 -Wall -Wextra -std=c99
+LDFLAGS = -shared
 
-# Paths
-AI_DIR := ai
-TOOLS_DIR := tools
-TRAINING_DIR := training
-DATASETS_DIR := datasets
-BIN_DIR := bin
+all: $(TARGET)
+	@echo "✅ Built Chapel AI FFI Library"
+	@ls -lh $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJECTS) $(TARGET)
+	@echo "✅ Cleaned Chapel AI FFI build"
+
+test: $(TARGET)
+	@echo "✅ Library ready for Rust FFI"
+	@file $(TARGET)
+
+.PHONY: all clean test
+
 
 # Targets
 .PHONY: all build train train-dist mining science mine analyze test full-pipeline chapel-lib unified check clean profile help

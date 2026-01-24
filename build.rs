@@ -222,15 +222,43 @@ fn main() {
     // ============================================================
     // CHAPEL AI FFI - Cross-platform (Linux + Windows)
     // ============================================================
+    
+    // First, try system Chapel installation
+    let chapel_home = std::env::var("CHPL_HOME").ok();
+    let has_system_chapel = if let Some(home) = &chapel_home {
+        let lib_path = format!("{}/lib/libchapel.a", home);
+        std::path::Path::new(&lib_path).exists()
+    } else {
+        false
+    };
+    
+    // Second, check local compiled version
     let chapel_lib_path = format!("{}/ffi/chapel/libchapel_ai.so", manifest_dir);
-    if std::path::Path::new(&chapel_lib_path).exists() {
-        println!("cargo:rustc-link-search=native={}/ffi/chapel", manifest_dir);
+    let has_local_chapel = std::path::Path::new(&chapel_lib_path).exists();
+    
+    if has_system_chapel {
+        if let Some(home) = chapel_home {
+            println!("cargo:rustc-link-search=native={}/lib", home);
+            println!("cargo:rustc-link-lib=static=chapel");
+            println!("cargo:rustc-cfg=has_chapel");
+            eprintln!("🧠 Chapel AI FFI: ENABLED (System Chapel found at {})", home);
+        }
+    } else if has_local_chapel {
+        let chapel_lib_dir = format!("{}/ffi/chapel", manifest_dir);
+        println!("cargo:rustc-link-search=native={}", chapel_lib_dir);
         println!("cargo:rustc-link-lib=dylib=chapel_ai");
+        // Add rpath using absolute path so binary can find libchapel_ai.so
+        // when run from any directory
+        println!("cargo:rustc-link-arg=-Wl,-rpath,{}/ffi/chapel", manifest_dir);
         println!("cargo:rustc-cfg=has_chapel");
-        eprintln!("🧠 Chapel AI FFI: ENABLED (libchapel_ai.so found)");
+        eprintln!("🧠 Chapel AI FFI: ENABLED (Local libchapel_ai.so found)");
+        eprintln!("   ✅ Binary will use rpath: {}/ffi/chapel", manifest_dir);
     } else {
         eprintln!("⚠️ Chapel AI FFI: Not available");
-        eprintln!("   To enable: cd ffi/chapel && make");
+        eprintln!("   To enable Chapel:");
+        eprintln!("   1) System: Set CHPL_HOME=/path/to/chapel");
+        eprintln!("   2) Local:  cd ffi/chapel && make");
+        eprintln!("   3) Script: bash scripts/setup_chapel.sh");
     }
 
     if !cfg!(target_os = "windows") {
