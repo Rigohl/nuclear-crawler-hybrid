@@ -1,0 +1,225 @@
+name: 📦 Release Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.0.0)'
+        required: true
+        default: 'v0.0.0'
+
+env:
+  RUST_BACKTRACE: 1
+  CARGO_TERM_COLOR: always
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════
+  # PRE-RELEASE CHECKS
+  # ═══════════════════════════════════════════════════════════════════
+
+  pre-release-checks:
+    name: 🔍 Pre-Release Checks
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${{ github.ref_name }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📌 Release version: $VERSION"
+
+      - name: Verify tag format
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          if [[ ! $VERSION =~ ^v[0-9]+\.[0-9]+\.[0-9]+.*$ ]]; then
+            echo "❌ Invalid version format: $VERSION"
+            echo "Expected format: v1.0.0, v1.0.0-alpha, v1.0.0-rc1"
+            exit 1
+          fi
+          echo "✅ Version format valid: $VERSION"
+
+      - name: Check if already released
+        id: check
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          if git rev-parse "$VERSION" 2>/dev/null; then
+            echo "⚠️ Tag already exists, will update release"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            echo "✅ New release tag"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+  # ═══════════════════════════════════════════════════════════════════
+  # BUILD ARTIFACTS
+  # ═══════════════════════════════════════════════════════════════════
+
+  build-artifacts:
+    name: 🔨 Build Artifacts
+    needs: pre-release-checks
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            artifact_name: nuclear-mcp-linux-x86_64
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            artifact_name: nuclear-mcp-darwin-x86_64
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            artifact_name: nuclear-mcp-darwin-aarch64
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            artifact_name: nuclear-mcp-windows-x86_64.exe
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Build release
+        run: cargo build --release --target ${{ matrix.target }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: target/${{ matrix.target }}/release/nuclear-mcp${{ matrix.os == 'windows-latest' && '.exe' || '' }}
+
+  # ═══════════════════════════════════════════════════════════════════
+  # BUILD DOCKER IMAGE
+  # ═══════════════════════════════════════════════════════════════════
+
+  build-docker:
+    name: 🐳 Build Docker Image
+    needs: pre-release-checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ needs.pre-release-checks.outputs.version }}
+            ghcr.io/${{ github.repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ═══════════════════════════════════════════════════════════════════
+  # CREATE RELEASE
+  # ═══════════════════════════════════════════════════════════════════
+
+  create-release:
+    name: 📝 Create Release
+    needs: [pre-release-checks, build-artifacts, build-docker]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: List artifacts
+        run: |
+          echo "📦 Artifacts:"
+          find artifacts -type f | head -20
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          VERSION="${{ needs.pre-release-checks.outputs.version }}"
+          CHANGELOG_SECTION=$(sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | head -n -1 || echo "See git log for changes")
+          
+          cat > /tmp/release_notes.md << EOF
+          # $VERSION
+          
+          ## 📦 Binaries
+          - Linux (x86_64): \`nuclear-mcp-linux-x86_64\`
+          - macOS (Intel): \`nuclear-mcp-darwin-x86_64\`
+          - macOS (ARM): \`nuclear-mcp-darwin-aarch64\`
+          - Windows: \`nuclear-mcp-windows-x86_64.exe\`
+          
+          ## 🐳 Docker
+          \`\`\`bash
+          docker pull ghcr.io/${{ github.repository }}:$VERSION
+          \`\`\`
+          
+          ## 📝 Changes
+          $CHANGELOG_SECTION
+          
+          EOF
+          
+          cat /tmp/release_notes.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.pre-release-checks.outputs.version }}
+          files: artifacts/**/*
+          body_path: /tmp/release_notes.md
+          draft: false
+          prerelease: ${{ contains(needs.pre-release-checks.outputs.version, 'alpha') || contains(needs.pre-release-checks.outputs.version, 'beta') || contains(needs.pre-release-checks.outputs.version, 'rc') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ═══════════════════════════════════════════════════════════════════
+  # POST-RELEASE
+  # ═══════════════════════════════════════════════════════════════════
+
+  post-release:
+    name: ✅ Post-Release Tasks
+    needs: [pre-release-checks, create-release]
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 📢 Announce Release
+        run: |
+          echo "╔═══════════════════════════════════════════════════════════╗"
+          echo "║  ✅ RELEASE PUBLISHED                                   ║"
+          echo "║  Version: ${{ needs.pre-release-checks.outputs.version }}"
+          echo "╚═══════════════════════════════════════════════════════════╝"
+          echo ""
+          echo "🎉 Release is now available!"
+          echo "📦 Downloads: https://github.com/${{ github.repository }}/releases/tag/${{ needs.pre-release-checks.outputs.version }}"
+          echo "🐳 Docker: ghcr.io/${{ github.repository }}:${{ needs.pre-release-checks.outputs.version }}"
+
+      - name: Update release status
+        run: |
+          echo "✅ Release pipeline completed successfully"

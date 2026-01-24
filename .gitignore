@@ -842,3 +842,10 @@ zig/
 nim/
 libs/
 ffi/chapel/datasets/massive_training_120k.json
+
+# Large ML models
+*.safetensors
+ffi/chapel/models/
+
+# Keep only config, not the actual model
+!ffi/chapel/models/*/config.json
