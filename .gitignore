@@ -216,7 +216,9 @@ zig-out/
 *.o
 *.a
 *.so.*
-chapel-*
+# chapel-* but allow workflows
+chapel-* 
+!.github/workflows/chapel-*.yml
 
 ## 🏃‍♂️ Runtime and Logs
 # Logs
