@@ -1,0 +1,13 @@
+*** Begin Patch
+*** Update File: ffi/chapel/tests/fail_example.chpl
+@@
+-proc main() {
+-  var s: string = "hello";
+-  var p = s.cstring();
+-  writeln("pointer: ", p);
+-}
++proc main() {
++  var s: string = "hello";
++  writeln("string: ", s);
++}
+*** End Patch
