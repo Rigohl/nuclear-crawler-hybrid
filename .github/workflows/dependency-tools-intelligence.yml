@@ -25,11 +25,9 @@ jobs:
       - name: Dependency Analysis
         run: |
           echo "📊 WEEKLY INTELLIGENCE REPORT"
-          echo "════════════════════════════════════════"
-          echo ""
+          echo "===================================="
           echo "1️⃣ CARGO DEPENDENCIES"
-          grep "^[a-z]" Cargo.toml | grep "=" | wc -l | xargs echo "   Total dependencies:"
-          
+          grep "^[a-z]" Cargo.toml 2>/dev/null | grep "=" | wc -l | xargs echo "   Total:"
           echo ""
           echo "2️⃣ MCP TOOLS STATUS"
           echo "   ✅ websearch"
@@ -37,24 +35,9 @@ jobs:
           echo "   ✅ file_search"
           echo "   ✅ scan"
           echo "   ✅ ai_dataset_trainer"
-          
           echo ""
           echo "3️⃣ BUILD CHECK"
-          cargo check 2>&1 | tail -10 || true
-
-      - name: Generate Report
-        run: |
-          cat > /tmp/intelligence_report.md << 'EOF'
-# Intelligence Agent Report
-- Status: ✅ All Systems Operational
-- Tool Status: 5/5 MCP tools active
-EOF
-
-      - name: Archive Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: intelligence-report
-          path: /tmp/intelligence_report.md
+          cargo check 2>&1 | tail -5 || true
 
   validation:
     name: ✅ System Validation

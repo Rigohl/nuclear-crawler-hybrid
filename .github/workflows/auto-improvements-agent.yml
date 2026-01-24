@@ -33,18 +33,15 @@ jobs:
         run: |
           echo "🔍 Analyzing system for improvements..."
           
-          # Check if release profile exists
-          if grep -q "\[profile.release\]" Cargo.toml; then
+          if grep -q "\\[profile.release\\]" Cargo.toml; then
             echo "release_profile=exists" >> $GITHUB_OUTPUT
           else
             echo "release_profile=missing" >> $GITHUB_OUTPUT
           fi
           
-          # Count dependencies
-          DEPS=$(grep "^[a-z]" Cargo.toml | grep "=" | wc -l)
+          DEPS=$(grep "^[a-z]" Cargo.toml 2>/dev/null | grep "=" | wc -l)
           echo "dependencies=$DEPS" >> $GITHUB_OUTPUT
           
-          # Check for common patterns
           if grep -q "opt-level" Cargo.toml; then
             echo "optimizations=present" >> $GITHUB_OUTPUT
           else
@@ -58,29 +55,16 @@ jobs:
           BRANCH="improvements/build-optimizations-$(date +%s)"
           git checkout -b "$BRANCH"
           
-          # Add release profile optimizations
-          cat >> Cargo.toml << 'EOF'
-
-[profile.release]
-lto = "fat"
-codegen-units = 1
-opt-level = 3
-strip = true
-panic = "abort"
-EOF
+          echo "" >> Cargo.toml
+          echo "[profile.release]" >> Cargo.toml
+          echo "lto = \"fat\"" >> Cargo.toml
+          echo "codegen-units = 1" >> Cargo.toml
+          echo "opt-level = 3" >> Cargo.toml
+          echo "strip = true" >> Cargo.toml
+          echo "panic = \"abort\"" >> Cargo.toml
           
           git add Cargo.toml
-          git commit -m "🤖 Auto: Add release profile optimizations
-
-- LTO: fat (inter-procedural optimization)
-- Codegen units: 1 (maximum optimization)
-- Opt-level: 3 (aggressive optimization)
-- Strip: true (remove symbols)
-
-Performance Impact:
-- Binary size: -10-15% reduction
-- Execution: +5-10% faster
-- Build time: +20-30% (LTO amortized)"
+          git commit -m "🤖 Auto: Add release profile optimizations - LTO fat, codegen-units 1, opt-level 3"
           
           git push -u origin "$BRANCH"
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
@@ -91,20 +75,7 @@ Performance Impact:
         run: |
           gh pr create \
             --title "🤖 Auto: Add release profile optimizations" \
-            --body "**Automated Improvement by 🤖 Auto-Improvements Agent**
-
-## Changes
-- ✅ Added \`[profile.release]\` section
-- ✅ Enabled LTO (Link-Time Optimization)
-- ✅ Optimized codegen units
-- ✅ Applied aggressive opt-level=3
-
-## Expected Impact
-- 📊 Binary size: -10-15%
-- ⚡ Execution speed: +5-10%
-- 🔨 Build time: +20-30%
-
-Type: Performance Optimization" \
+            --body "Automated Release Profile Optimization by 🤖 Agent. Changes: LTO fat, codegen-units 1, opt-level 3, symbol stripping. Expected: 10-15% smaller binary, 5-10% faster execution." \
             --base main \
             --head "${{ steps.branch.outputs.branch }}" \
             --label "automated,performance" || true
@@ -112,7 +83,6 @@ Type: Performance Optimization" \
       - name: Summary
         run: |
           echo "✅ Auto-Improvements Summary"
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Release Profile: ${{ steps.detect.outputs.release_profile }}"
           echo "Dependencies: ${{ steps.detect.outputs.dependencies }}"
           echo "Optimizations: ${{ steps.detect.outputs.optimizations }}"

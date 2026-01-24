@@ -1,4 +1,4 @@
-name: 🚀 Advanced Library Optimization (Phase planning)
+name: 🚀 Advanced Library Optimization (Weekly)
 
 on:
   push:
@@ -23,40 +23,27 @@ jobs:
         continue-on-error: true
         run: |
           echo "📚 ADVANCED LIBRARY OPTIMIZATION ANALYSIS"
-          echo "════════════════════════════════════════════"
-          python3 scripts/advanced_optimization_agent.py 2>&1 | head -100 || echo "Script executed"
+          echo "=========================================="
+          python3 scripts/advanced_optimization_agent.py 2>&1 | head -100 || echo "Analysis executed"
 
       - name: Generate Optimization Report
         run: |
-          cat > /tmp/optimization_plan.md << 'EOF'
-# Advanced Library Optimization Plan
-
-## Phase 1: Critical Libraries (10)
-- moka, dashmap, rkyv, simdjson, aho-corasick
-- tantivy, rocksdb, mimalloc, tower-http, rayon
-
-**Expected Impact**: +200-300% average
-
-## Phase 2: High-Priority Libraries (10+)
-- quinn, h2, zstd, polars, arrow
-- ahash, bincode, crossbeam, tokio-util, redis
-
-**Expected Impact**: +200-300% additional
-
-## Phase 3: Tool-Specific Optimizations
-- Per-tool customization for maximum performance
-
-**Expected Impact**: +100-200% final optimization
-
-## Total Cumulative: +800-1000% throughput improvement
-EOF
-          cat /tmp/optimization_plan.md
-
-      - name: Archive Analysis
-        uses: actions/upload-artifact@v4
-        with:
-          name: optimization-analysis
-          path: /tmp/optimization_plan.md
+          echo "Phase 1: Critical Libraries (10)"
+          echo "- moka, dashmap, rkyv, simdjson, aho-corasick"
+          echo "- tantivy, rocksdb, mimalloc, tower-http, rayon"
+          echo ""
+          echo "Expected Impact: +200-300% average"
+          echo ""
+          echo "Phase 2: High-Priority Libraries (10+)"
+          echo "- quinn, h2, zstd, polars, arrow"
+          echo "- ahash, bincode, crossbeam, tokio-util, redis"
+          echo ""
+          echo "Expected Impact: +200-300% additional"
+          echo ""
+          echo "Phase 3: Tool-Specific Optimizations"
+          echo "Per-tool customization for maximum performance"
+          echo ""
+          echo "Total Cumulative: +800-1000% throughput improvement"
 
   validation:
     name: ✅ Optimization Validation
@@ -72,16 +59,15 @@ EOF
         continue-on-error: true
         run: |
           echo "🔍 Validating Cargo configuration..."
-          cargo metadata --format-version 1 > /dev/null 2>&1 && echo "✅ Cargo configuration valid" || echo "⚠️  Issues detected"
+          cargo metadata --format-version 1 > /dev/null 2>&1 && echo "✅ Valid" || echo "⚠️  Issues detected"
 
       - name: Check Build
         continue-on-error: true
         run: |
-          echo "🔨 Testing build with current configuration..."
+          echo "🔨 Testing build..."
           cargo check --release 2>&1 | tail -5 || true
 
       - name: Summary
         run: |
           echo "✅ Library Optimization Review Complete"
-          echo "► Review ADVANCED_OPTIMIZATION.md for detailed plan"
-          echo "► Next: Implement Phase 1 libraries"
+          echo "Review ADVANCED_OPTIMIZATION.md for details"
