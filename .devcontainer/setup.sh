@@ -37,7 +37,7 @@ sudo apt-get install -y -qq \
 
 # Install Chapel
 echo "⛪ Installing Chapel Language..."
-CHAPEL_VERSION="2.7.0"
+CHAPEL_VERSION="2.1.0"
 CHAPEL_DIR="/opt/chapel"
 
 if [ ! -d "$CHAPEL_DIR" ]; then

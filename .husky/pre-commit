@@ -22,8 +22,9 @@ fi
 # Check for mocks
 echo "🚫 Checking for mock code..."
 if grep -r "mock_\|Mock\|TODO: implement\|unimplemented!" src/; then
-    echo "⚠️ WARNING: Potential mock code detected (NO MOCKS policy)"
+    echo "❌ VIOLATION: Mock code detected (NO MOCKS policy)"
     echo "Review and ensure all implementations are real"
+    exit 1
 fi
 
 # Clippy
