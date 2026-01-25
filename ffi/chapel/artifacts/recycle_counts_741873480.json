@@ -1,0 +1,146 @@
+[
+  {
+    "Extension": ".ps1",
+    "Count": 164
+  },
+  {
+    "Extension": ".py",
+    "Count": 144
+  },
+  {
+    "Extension": ".md",
+    "Count": 104
+  },
+  {
+    "Extension": ".json",
+    "Count": 92
+  },
+  {
+    "Extension": ".chpl",
+    "Count": 56
+  },
+  {
+    "Extension": "(noext)",
+    "Count": 51
+  },
+  {
+    "Extension": ".bat",
+    "Count": 28
+  },
+  {
+    "Extension": ".txt",
+    "Count": 16
+  },
+  {
+    "Extension": ".sh",
+    "Count": 14
+  },
+  {
+    "Extension": ".rs",
+    "Count": 12
+  },
+  {
+    "Extension": ".csv",
+    "Count": 10
+  },
+  {
+    "Extension": ".log",
+    "Count": 10
+  },
+  {
+    "Extension": ".exe",
+    "Count": 8
+  },
+  {
+    "Extension": ".toml",
+    "Count": 6
+  },
+  {
+    "Extension": ".lock",
+    "Count": 4
+  },
+  {
+    "Extension": ".zip",
+    "Count": 4
+  },
+  {
+    "Extension": ".ini",
+    "Count": 3
+  },
+  {
+    "Extension": ".agent",
+    "Count": 3
+  },
+  {
+    "Extension": ".backup",
+    "Count": 2
+  },
+  {
+    "Extension": ".carbon",
+    "Count": 2
+  },
+  {
+    "Extension": ".run",
+    "Count": 2
+  },
+  {
+    "Extension": ".cursor",
+    "Count": 2
+  },
+  {
+    "Extension": ".cursorrules",
+    "Count": 2
+  },
+  {
+    "Extension": ".example",
+    "Count": 2
+  },
+  {
+    "Extension": ".pdb",
+    "Count": 2
+  },
+  {
+    "Extension": ".patch",
+    "Count": 2
+  },
+  {
+    "Extension": ".o",
+    "Count": 2
+  },
+  {
+    "Extension": ".mojo",
+    "Count": 2
+  },
+  {
+    "Extension": ".gemini",
+    "Count": 2
+  },
+  {
+    "Extension": ".gitattributes",
+    "Count": 2
+  },
+  {
+    "Extension": ".jsonl",
+    "Count": 2
+  },
+  {
+    "Extension": ".gitignore",
+    "Count": 2
+  },
+  {
+    "Extension": ".yml",
+    "Count": 2
+  },
+  {
+    "Extension": ".html",
+    "Count": 2
+  },
+  {
+    "Extension": ".jl",
+    "Count": 2
+  },
+  {
+    "Extension": ".github",
+    "Count": 1
+  }
+]

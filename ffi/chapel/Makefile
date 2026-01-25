@@ -1,61 +1,76 @@
-# Chapel AI FFI Library - Simple C Build
-# Compiles chapel_ai.c to libchapel_ai.so
+# ═══════════════════════════════════════════════════════════════════════════
+# Chapel Professional Build System - Nuclear AI Training Pipeline
+# ═══════════════════════════════════════════════════════════════════════════
+# 
+# AI-CENTRIC ARCHITECTURE:
+# - /ai/         = Core AI (nuclear_chapel_ai.chpl, unified_nuclear_ai.chpl)
+# - /tools/      = Development tools (analyzer, repair, reviewer)
+# - /training/   = Training engines (pipeline, mining, analysis)
+# - /datasets/   = Training data and samples
+#
+# INTEGRATION:
+# - Part of nuclear-crawler-hybrid project
+# - Synced with HuggingFace: Kimberlyindiva/nuclear-chapel-training
+# - Supports FFI with Rust, Python, Julia, Mojo
+# ═══════════════════════════════════════════════════════════════════════════
 
-TARGET = libchapel_ai.so
-SOURCES = chapel_ai.c
-OBJECTS = $(SOURCES:.c=.o)
-CC = gcc
-CFLAGS = -fPIC -O3 -Wall -Wextra -std=c99
-LDFLAGS = -shared
+# ───────────────────────────────────────────────────────────────────────────
+# Configuration
+# ───────────────────────────────────────────────────────────────────────────
 
-all: $(TARGET)
-	@echo "✅ Built Chapel AI FFI Library"
-	@ls -lh $(TARGET)
+CHAPEL_HOME ?= /opt/chapel
+CHPL := $(CHAPEL_HOME)/bin/chpl
 
-$(TARGET): $(OBJECTS)
-	$(CC) $(LDFLAGS) -o $@ $^
+# GPU support (set GPU_ARCH=sm_80 for A100, sm_86 for RTX 3090, etc.)
+GPU_ARCH ?= none
+ifneq ($(GPU_ARCH), none)
+  CHPL_GPU_FLAGS = --gpu --gpu-arch=$(GPU_ARCH)
+endif
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Compiler flags
+CHPL_FLAGS := --fast -O3 --llvm --optimize $(CHPL_GPU_FLAGS)
+CHPL_MULTI_LOCALE ?= --numLocales=4
 
-clean:
-	rm -f $(OBJECTS) $(TARGET)
-	@echo "✅ Cleaned Chapel AI FFI build"
+# Paths
+AI_DIR := ai
+TOOLS_DIR := tools
+TRAINING_DIR := training
+DATASETS_DIR := datasets
+BIN_DIR := bin
 
-test: $(TARGET)
-	@echo "✅ Library ready for Rust FFI"
-	@file $(TARGET)
-
-.PHONY: all clean test
-
-
+# ───────────────────────────────────────────────────────────────────────────
 # Targets
-.PHONY: all build train train-dist mining science mine analyze test full-pipeline chapel-lib unified check clean profile help
+# ───────────────────────────────────────────────────────────────────────────
+
+.PHONY: all build train train-dist mining science analyze test full-pipeline \
+        chapel-lib unified run run-dist mine check clean profile debug help \
+        install deploy-hf execute-all analysis repair review run-unified
 
 # Default: Build everything
 all: build train unified
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Quick Build Target
-# ─────────────────────────────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════
+# BUILD TARGETS
+# ═══════════════════════════════════════════════════════════════════════════
 
 build: chapel-lib train
 	@echo "✅ Build complete"
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 # Chapel AI Library (shared library for FFI) - CORE AI
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 chapel-lib:
 	@echo "🔨 Compiling Chapel AI library (shared)..."
+	mkdir -p $(BIN_DIR)
 	$(CHPL) --library --dynamic $(CHPL_FLAGS) \
 		--ccflags -O3 --ccflags -march=native \
 		-o libchapel_ai.so $(AI_DIR)/nuclear_chapel_ai.chpl
 	@echo "✅ Library built: libchapel_ai.so (CORE AI)"
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 # Training Pipeline (single-locale)
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 train: $(AI_DIR)/nuclear_chapel_ai.chpl $(TRAINING_DIR)/training_pipeline.chpl
 	@echo "🔨 Compiling training pipeline (single-locale)..."
@@ -65,9 +80,9 @@ train: $(AI_DIR)/nuclear_chapel_ai.chpl $(TRAINING_DIR)/training_pipeline.chpl
 		$(TRAINING_DIR)/training_pipeline.chpl $(AI_DIR)/nuclear_chapel_ai.chpl
 	@echo "✅ Built: $(BIN_DIR)/training_pipeline"
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 # Training Pipeline (multi-locale, distributed)
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 train-dist:
 	@echo "🔨 Compiling training pipeline (multi-locale, 4 locales)..."
@@ -77,9 +92,9 @@ train-dist:
 		$(TRAINING_DIR)/training_pipeline.chpl $(AI_DIR)/nuclear_chapel_ai.chpl
 	@echo "✅ Built multi-locale: $(BIN_DIR)/training_pipeline_distributed"
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 # Data Mining Engine
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 mining: $(TRAINING_DIR)/data_mining.chpl
 	@echo "🔨 Compiling data mining engine..."
@@ -93,9 +108,9 @@ mine: mining
 	@echo "🔬 Running data mining pipeline..."
 	./$(BIN_DIR)/data_mining_engine
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 # Scientific Analysis Engine
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 science: $(TRAINING_DIR)/analysis.chpl
 	@echo "🔨 Compiling scientific analysis engine..."
@@ -109,9 +124,9 @@ analyze: science
 	@echo "📊 Running scientific analysis pipeline..."
 	./$(BIN_DIR)/scientific_analysis
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 # Unified Nuclear AI (integrated system)
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 unified: $(AI_DIR)/unified_nuclear_ai.chpl
 	@echo "🧠 Compiling Unified Nuclear AI..."
@@ -125,9 +140,13 @@ run-unified: unified
 	@echo "🚀 Running Unified Nuclear AI system..."
 	./$(BIN_DIR)/unified_nuclear_ai
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════
+# DEVELOPMENT TOOLS
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ───────────────────────────────────────────────────────────────────────────
 # Code Analysis Engine (TOOL)
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 analysis: $(TOOLS_DIR)/code_analyzer.chpl
 	@echo "🔨 Compiling code analyzer..."
@@ -137,9 +156,9 @@ analysis: $(TOOLS_DIR)/code_analyzer.chpl
 		$(TOOLS_DIR)/code_analyzer.chpl
 	@echo "✅ Built: $(BIN_DIR)/code_analyzer"
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 # Code Repair Engine (TOOL)
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 repair: $(TOOLS_DIR)/code_repair.chpl
 	@echo "🔨 Compiling code repair engine..."
@@ -149,9 +168,9 @@ repair: $(TOOLS_DIR)/code_repair.chpl
 		$(TOOLS_DIR)/code_repair.chpl
 	@echo "✅ Built: $(BIN_DIR)/code_repair"
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 # Code Reviewer Engine (TOOL)
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
 
 review: $(TOOLS_DIR)/code_reviewer.chpl
 	@echo "🔨 Compiling code reviewer..."
@@ -161,9 +180,13 @@ review: $(TOOLS_DIR)/code_reviewer.chpl
 		$(TOOLS_DIR)/code_reviewer.chpl
 	@echo "✅ Built: $(BIN_DIR)/code_reviewer"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Full Science Pipeline (All 7 Engines)
-# ─────────────────────────────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════
+# FULL PIPELINE TARGETS
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ───────────────────────────────────────────────────────────────────────────
+# Full Science Pipeline (All 8 Engines)
+# ───────────────────────────────────────────────────────────────────────────
 
 full-pipeline: build mine analyze train analysis repair review unified
 	@echo ""
@@ -178,9 +201,9 @@ full-pipeline: build mine analyze train analysis repair review unified
 	@echo "╚═══════════════════════════════════════════════════════════════════╝"
 	@echo ""
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Full Execution Targets
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────────────────
+# Execute All Systems
+# ───────────────────────────────────────────────────────────────────────────
 
 execute-all: build
 	@echo "🚀 Executing ALL 8 SYSTEMS in sequence..."
@@ -211,9 +234,9 @@ execute-all: build
 	@echo ""
 	@echo "✅ All 8 systems executed successfully!"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Execution (Individual)
-# ─────────────────────────────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════
+# EXECUTION TARGETS
+# ═══════════════════════════════════════════════════════════════════════════
 
 run: train
 	@echo "🚀 Running training pipeline (single-locale)..."
@@ -223,9 +246,9 @@ run-dist: train-dist
 	@echo "🚀 Running training pipeline (multi-locale, 4 locales)..."
 	./$(BIN_DIR)/training_pipeline_distributed --numLocales=4
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Validation & Debugging
-# ─────────────────────────────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════
+# VALIDATION & DEBUGGING
+# ═══════════════════════════════════════════════════════════════════════════
 
 check:
 	@echo "🔍 Checking Chapel syntax..."
@@ -240,6 +263,18 @@ check:
 
 test: build
 	@echo "🧪 Running tests..."
+	@if [ -f $(BIN_DIR)/training_pipeline ]; then \
+		echo "  ✅ Training pipeline binary exists"; \
+	else \
+		echo "  ❌ Training pipeline not built"; \
+		exit 1; \
+	fi
+	@if [ -f libchapel_ai.so ]; then \
+		echo "  ✅ Chapel AI library exists"; \
+	else \
+		echo "  ❌ Chapel AI library not built"; \
+		exit 1; \
+	fi
 	@echo "✅ Tests complete"
 
 profile: train
@@ -250,18 +285,39 @@ debug: CHPL_FLAGS = --fast -g
 debug: clean train
 	@echo "✅ Built with debug symbols"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Cleanup
-# ─────────────────────────────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════
+# DEPLOYMENT
+# ═══════════════════════════════════════════════════════════════════════════
+
+install: chapel-lib
+	@echo "📦 Installing Chapel AI library..."
+	mkdir -p ../shared
+	cp libchapel_ai.so ../shared/
+	@echo "✅ Installed to ../shared/"
+
+deploy-hf:
+	@echo "🤗 Deploying to HuggingFace Spaces..."
+	@if [ -f hf_spaces_app.py ] && [ -f space.yaml ]; then \
+		echo "  ✅ HuggingFace config found"; \
+		echo "  Run: huggingface-cli upload Kimberlyindiva/nuclear-chapel-training ."; \
+	else \
+		echo "  ❌ HuggingFace config missing"; \
+		exit 1; \
+	fi
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CLEANUP
+# ═══════════════════════════════════════════════════════════════════════════
 
 clean:
 	@echo "🧹 Cleaning build artifacts..."
-	rm -rf bin/ *.so *.o *.c
+	rm -rf bin/ *.so *.o *.a *.c
+	rm -rf .chpl_* _real_* chapel_ai_* *_real *.tmp
 	@echo "✅ Clean complete"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Help
-# ─────────────────────────────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════
+# HELP
+# ═══════════════════════════════════════════════════════════════════════════
 
 help:
 	@echo "╔════════════════════════════════════════════════════════════════════╗"
@@ -274,43 +330,61 @@ help:
 	@echo "  make train-dist    - Build distributed training (4 locales)"
 	@echo "  make mining        - Build data mining engine"
 	@echo "  make science       - Build scientific analysis engine"
-	@echo "  make full-pipeline - Run ALL engines sequentially"
+	@echo "  make unified       - Build unified nuclear AI"
+	@echo "  make full-pipeline - Build ALL engines"
 	@echo ""
 	@echo "🏃 RUN TARGETS:"
 	@echo "  make run           - Run training pipeline"
 	@echo "  make run-dist      - Run distributed training"
+	@echo "  make run-unified   - Run unified AI system"
 	@echo "  make mine          - Run data mining"
 	@echo "  make analyze       - Run scientific analysis"
+	@echo "  make execute-all   - Run ALL 8 systems sequentially"
+	@echo ""
+	@echo "🔧 DEVELOPMENT TOOLS:"
+	@echo "  make analysis      - Build code analyzer"
+	@echo "  make repair        - Build code repair engine"
+	@echo "  make review        - Build code reviewer"
 	@echo ""
 	@echo "📚 LIBRARY:"
 	@echo "  make chapel-lib    - Compile as shared library (.so)"
+	@echo "  make install       - Install library to ../shared/"
 	@echo ""
-	@echo "🔧 DEVELOPMENT:"
+	@echo "🔍 VALIDATION:"
 	@echo "  make check         - Validate Chapel syntax"
 	@echo "  make test          - Run test suite"
 	@echo "  make profile       - Profile with timing"
 	@echo "  make debug         - Build with debug symbols"
-	@echo "  make clean         - Remove artifacts"
+	@echo ""
+	@echo "🚀 DEPLOYMENT:"
+	@echo "  make deploy-hf     - Deploy to HuggingFace Spaces"
+	@echo ""
+	@echo "🧹 CLEANUP:"
+	@echo "  make clean         - Remove build artifacts"
 	@echo ""
 	@echo "⚙️  CONFIGURATION:"
 	@echo "  CHAPEL_HOME        - Chapel installation (default: /opt/chapel)"
 	@echo "  CHPL_FLAGS         - Compiler flags (default: --fast -O3)"
 	@echo "  CHPL_MULTI_LOCALE  - Number of locales (default: 4)"
+	@echo "  GPU_ARCH           - GPU architecture (none/sm_80/sm_86/etc)"
 	@echo ""
-	@echo "📊 4-ENGINE ARCHITECTURE:"
-	@echo "  [1] Training Pipeline  - 3-layer neural network + Adam optimizer"
-	@echo "  [2] Data Mining Engine - K-Means clustering + anomaly detection"
-	@echo "  [3] Scientific Analysis- Statistics + hypothesis testing + ML"
-	@echo "  [4] Chapel AI          - Neural network + FFI acceleration"
+	@echo "📊 8-ENGINE ARCHITECTURE:"
+	@echo "  [1] Chapel AI Library  - Neural network core + FFI"
+	@echo "  [2] Unified AI         - Integrated intelligence system"
+	@echo "  [3] Training Pipeline  - 3-layer network + Adam optimizer"
+	@echo "  [4] Data Mining        - K-Means clustering + anomaly detection"
+	@echo "  [5] Scientific Analysis- Statistics + hypothesis testing"
+	@echo "  [6] Code Analyzer      - Automated code analysis"
+	@echo "  [7] Code Repair        - Intelligent code fixing"
+	@echo "  [8] Code Reviewer      - AI-powered code review"
 	@echo ""
 	@echo "⭐ POWER-UP FEATURES:"
 	@echo "  ✓ Multi-locale parallelism (BlockDist + CyclicDist)"
-	@echo "  ✓ 50K+ training samples with real-world techniques"
-	@echo "  ✓ K-means++ clustering with silhouette scoring"
-	@echo "  ✓ Hypothesis testing with p-values & effect sizes"
-	@echo "  ✓ Feature importance + anomaly detection"
-	@echo "  ✓ C FFI acceleration (stealth, SimHash, Cloudflare)"
-	@echo "  ✓ Auto-synced GitHub ↔ HuggingFace Hub (every 6h)"
+	@echo "  ✓ 120K+ training samples (integrated datasets)"
+	@echo "  ✓ GPU acceleration support (--gpu flag)"
+	@echo "  ✓ FFI acceleration (Rust, Python, Julia, Mojo)"
+	@echo "  ✓ Auto-synced GitHub ↔ HuggingFace Hub"
+	@echo "  ✓ Integrated with nuclear-crawler-hybrid"
 	@echo ""
 	@echo "🎯 PERFORMANCE TARGETS:"
 	@echo "  Layer 1: 50K patterns in 45s (BlockDist)"
@@ -319,73 +393,11 @@ help:
 	@echo "  Mining:  12 clusters, anomaly detection"
 	@echo "  Analysis: Full statistical suite + feature selection"
 	@echo ""
-	@echo "✅ Debug build complete"
-
-clean:
-	@echo "🧹 Cleaning Chapel AI build artifacts..."
-	rm -f $(TARGET) *.o *.h *_real *.tmp
-	rm -rf .chpl_* _real_* chapel_ai_* 
-	@echo "✅ Cleaned"
-
-install: $(TARGET)
-	@echo "📦 Installing Chapel AI library..."
-	mkdir -p ../libs
-	cp $(TARGET) ../libs/
-	@echo "✅ Installed to ../libs/"
-
-test: $(TARGET)
-	@echo "🧪 Testing Chapel AI..."
-	@echo "   Testing library exists..."
-	test -f $(TARGET) && echo "   ✅ Library file OK" || (echo "   ❌ Library not found" && exit 1)
-	@echo "   Testing symbols..."
-	nm $(TARGET) | grep chapel_ai_init > /dev/null && echo "   ✅ Symbols OK" || (echo "   ❌ Symbols missing" && exit 1)
-	@echo "✅ All tests passed"
-
-benchmark: $(TARGET)
-	@echo "⚡ Running Chapel AI benchmarks..."
-	@echo "   TODO: Implement performance benchmarks"
+	@echo "🔗 INTEGRATION:"
+	@echo "  Project: nuclear-crawler-hybrid"
+	@echo "  HF Repo: Kimberlyindiva/nuclear-chapel-training"
+	@echo "  Datasets: ../../../models/ (120K+ samples)"
+	@echo "  MCP: ../../mcp-servers/github/ (GitHub integration)"
+	@echo ""
 
 .SILENT: help
-deploy-github:
-	@echo "📤 Deploying to GitHub..."
-	./deploy.sh
-
-deploy-release:
-	@echo "📦 Creating GitHub Release..."
-	@echo "1" | ./deploy.sh
-
-deploy-docs:
-	@echo "📝 Creating Documentation Issue..."
-	@echo "3" | ./deploy.sh
-
-deploy-hf:
-	@echo "🤗 Setting up HuggingFace Sync..."
-	@echo "4" | ./deploy.sh
-
-deploy-all:
-	@echo "🚀 Full deployment (GitHub + Release + Docs + HF)..."
-	@echo "5" | ./deploy.sh
-
-help:
-	@echo "Chapel AI Advanced Build System"
-	@echo ""
-	@echo "Build Targets:"
-	@echo "  make          - Compile with maximum optimizations"
-	@echo "  make debug    - Compile with debug symbols"
-	@echo "  make install  - Install to ../libs/"
-	@echo "  make test     - Run validation tests"
-	@echo "  make clean    - Remove build artifacts"
-	@echo ""
-	@echo "Deployment Targets (via GitHub CLI):"
-	@echo "  make deploy-github  - Push to GitHub"
-	@echo "  make deploy-release - Create GitHub Release"
-	@echo "  make deploy-docs    - Create Documentation Issue"
-	@echo "  make deploy-hf      - Setup HuggingFace Sync"
-	@echo "  make deploy-all     - Full deployment"
-	@echo ""
-	@echo "Features:"
-	@echo "  ⚡ Maximum optimizations (-O3, --fast)"
-	@echo "  🧵 Parallel processing (coforall)"
-	@echo "  🌐 Distributed computing ready"
-	@echo "  📊 Statistical analysis"
-	@echo "  🎯 Path optimization algorithms"

@@ -1,0 +1,13 @@
+{
+  "file": "ffi/chapel/tests/fail_example.chpl",
+  "timestamp": "2026-01-24T04:24:00Z",
+  "attempts": [
+    {
+      "patch": "ffi/chapel/artifacts/ai-fix-fail_example-1.patch",
+      "compiled": true,
+      "commit": "5d9fab6",
+      "branch": "main",
+      "note": "Applied directly to main as requested. Compiled successfully in WSL."
+    }
+  ]
+}

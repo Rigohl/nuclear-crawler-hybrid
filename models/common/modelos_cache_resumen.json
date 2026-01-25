@@ -1,0 +1,66 @@
+{
+  "modelos_encontrados": [
+    {
+      "name": "microsoft/codebert-base",
+      "specialty": "Comprension de codigo",
+      "languages": [
+        "Python",
+        "JavaScript",
+        "Java"
+      ],
+      "size_mb": 475.5,
+      "files": 2
+    },
+    {
+      "name": "microsoft/unixcoder-base",
+      "specialty": "Generacion de codigo",
+      "languages": [
+        "C/C++",
+        "Java",
+        "Python",
+        "Bash"
+      ],
+      "size_mb": 480.4,
+      "files": 2
+    },
+    {
+      "name": "gpt2",
+      "specialty": "Generacion de texto",
+      "languages": [
+        "Ingles"
+      ],
+      "size_mb": 522.7,
+      "files": 1
+    },
+    {
+      "name": "roberta-base",
+      "specialty": "Comprension de lenguaje",
+      "languages": [
+        "Ingles"
+      ],
+      "size_mb": 475.7,
+      "files": 1
+    },
+    {
+      "name": "t5-small",
+      "specialty": "Traduccion/Resumen",
+      "languages": [
+        "Multilingual"
+      ],
+      "size_mb": 230.8,
+      "files": 1
+    },
+    {
+      "name": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+      "specialty": "Analisis de sentimiento",
+      "languages": [
+        "Tweets",
+        "Redes sociales"
+      ],
+      "size_mb": 477.8,
+      "files": 2
+    }
+  ],
+  "tamano_total_gb": 2.60048828125,
+  "conclusion": "Modelos reales descargados, NO datos falsos"
+}

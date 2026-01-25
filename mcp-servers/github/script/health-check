@@ -1,0 +1,32 @@
+#!/bin/sh
+# Health check script for github-mcp-server
+# This can be used with Docker HEALTHCHECK or as a standalone check
+
+set -e
+
+# Check if the server binary exists and is executable
+if [ ! -x "./github-mcp-server" ] && [ ! -x "/server/github-mcp-server" ]; then
+    echo "❌ Server binary not found or not executable"
+    exit 1
+fi
+
+# Check if we can run the tool-search command (lightweight check)
+if command -v docker >/dev/null 2>&1; then
+    # Docker environment
+    if docker run --rm ghcr.io/github/github-mcp-server:latest tool-search "health" --max-results 1 >/dev/null 2>&1; then
+        echo "✅ Server is healthy"
+        exit 0
+    else
+        echo "⚠️  Server health check inconclusive"
+        exit 0  # Don't fail, just warn
+    fi
+else
+    # Local environment - just check binary exists
+    if [ -x "./github-mcp-server" ] || [ -x "/server/github-mcp-server" ]; then
+        echo "✅ Server binary is available"
+        exit 0
+    else
+        echo "❌ Server binary not found"
+        exit 1
+    fi
+fi

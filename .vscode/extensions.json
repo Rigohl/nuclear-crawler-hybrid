@@ -1,0 +1,39 @@
+{
+  "recommendations": [
+    // Rust Development
+    "rust-lang.rust-analyzer",
+    "vadimcn.vscode-lldb",
+    "serayuzgur.crates",
+    "tamasfe.even-better-toml",
+    
+    // Go Development
+    "golang.go",
+    
+    // Chapel Support
+    "chapel-lang.chapel-vscode",
+    
+    // Code Quality
+    "usernamehw.errorlens",
+    "streetsidesoftware.code-spell-checker",
+    "gruntfuggly.todo-tree",
+    
+    // Git & GitHub
+    "github.vscode-pull-request-github",
+    "eamodio.gitlens",
+    
+    // Testing
+    "hbenl.vscode-test-explorer",
+    
+    // Productivity
+    "formulahendry.terminal-manager",
+    "ms-vscode.live-server",
+    "christian-kohler.path-intellisense",
+    
+    // Data & JSON
+    "zainchen.json",
+    "randomfractalsinc.vscode-data-preview"
+  ],
+  "unwantedRecommendations": [
+    "ms-vscode.cpptools"
+  ]
+}

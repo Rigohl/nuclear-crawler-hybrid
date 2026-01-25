@@ -1,21 +1,44 @@
-# 🔥 Chapel AI - Advanced Machine Learning with Parallel Computing
+# 🚀 Nuclear Crawler Hybrid - Unified AI & Data Intelligence Platform
 
 ## Overview
 
-**Chapel AI** is the intelligent learning system that powers all 5 MCP tools in Nuclear Crawler Hybrid. Built with [Chapel](https://chapel-lang.org/) - a modern parallel programming language designed for productive high-performance computing.
+**Nuclear Crawler Hybrid** is a comprehensive AI-powered data intelligence platform combining:
 
-## Advanced Features ⭐
+- **Chapel AI** - Advanced parallel ML training engine with 120K+ datasets
+- **Multi-Language FFI** - Rust, Python, Julia, Mojo integration
+- **MCP Servers** - GitHub automation and extensible protocol support
+- **5 MCP Tools** - Web search, premium content, file ops, workspace scanning, dataset training
+- **OSINT Capabilities** - Advanced data mining and intelligence gathering
 
+Built with [Chapel](https://chapel-lang.org/) for productive high-performance parallel computing, integrated with modern tooling ecosystems.
+
+## 🌟 Key Features
+
+### Chapel AI Training Engine
 - ✅ **Massive Data Parallelism** - `coforall` for concurrent operations
+- ✅ **120K+ Training Samples** - Math, PowerShell, OSINT datasets
 - ✅ **Real Pattern Learning** - No mocks, actual ML algorithms
 - ✅ **Continuous Optimization** - Learns from every operation
 - ✅ **Multi-tool Integration** - Connected to all 5 MCP tools
 - ✅ **Distributed Computing** - Multi-locale support for scalability
 - ✅ **Scientific Analysis** - Statistical metrics (mean, variance, skewness)
-- ✅ **Path Optimization** - Dynamic programming for learning paths
-- ✅ **Lock-free Atomics** - High-performance concurrent operations
-- ✅ **Thread-safe** - Atomic operations for concurrent access
-- ✅ **GPU-ready** - Parallel reductions for accelerators
+- ✅ **GPU Acceleration** - Parallel reductions for accelerators
+
+### Multi-Language Ecosystem
+- ✅ **Rust FFI** - Safe type wrappers and performance monitoring
+- ✅ **Python Integration** - PyTorch, Transformers, HuggingFace
+- ✅ **Julia Scientific ML** - Distributed training and autodiff
+- ✅ **Mojo Datasets** - High-performance dataset processing
+
+### MCP Integration
+- ✅ **GitHub MCP Server** - Full GitHub API automation
+- ✅ **Extensible Architecture** - Easy to add new MCP servers
+- ✅ **Protocol Standards** - stdio-based MCP communication
+
+### OSINT & Intelligence
+- ✅ **Advanced Data Mining** - K-means clustering, anomaly detection
+- ✅ **Pattern Recognition** - AI-powered code analysis
+- ✅ **Dataset Generation** - Automated OSINT dataset creation
 
 ## Architecture
 
@@ -330,20 +353,3 @@ Each tool uses `nuclear_chapel_ai.chpl` as core engine.
 ## License
 
 Part of Nuclear Crawler Hybrid - MIT OR Apache-2.0
-
-## Deployment & Sync
-
-This project is synchronized between GitHub and Hugging Face.
-
-### Remotes Setup
-- **GitHub**: `origin` (Primary code repository)
-- **Hugging Face**: `huggingface` (Deployment space)
-
-### Sync Command
-Use the included script to sync both:
-```bash
-./sync_remotes.sh
-```
-
-### Docker
-The Dockerfile includes the runtime for the MCP server, plus the Chapel runtime and JAX for Python integration.

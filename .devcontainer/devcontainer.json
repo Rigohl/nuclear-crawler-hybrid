@@ -1,0 +1,101 @@
+{
+  "name": "Nuclear Crawler Hybrid - Chapel + Rust + Python + JAX + Multi-Language FFI",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/rust:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-python.black-formatter",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "golang.go",
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode-remote.remote-containers",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "redhat.vscode-yaml",
+        "ms-vscode.makefile-tools",
+        "humao.rest-client",
+        "ms-toolsai.jupyter",
+        "DavidAnson.vscode-markdownlint"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.ruffEnabled": true,
+        "python.formatting.provider": "black",
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "[rust]": {
+          "editor.formatOnSave": true
+        },
+        "[go]": {
+          "editor.formatOnSave": true
+        },
+        "rust-analyzer.checkOnSave.command": "clippy",
+        "files.watcherExclude": {
+          "**/target": true,
+          "**/node_modules": true,
+          "**/.venv": true
+        }
+      }
+    }
+  },
+  
+  "forwardPorts": [3000, 3001, 3002, 8000, 8080, 9000, 5432, 6379],
+  
+  "remoteEnv": {
+    "CHPL_HOME": "/opt/chapel",
+    "CHPL_VERSION": "2.1.0",
+    "CHAPEL_HOME": "/opt/chapel",
+    "PATH": "${containerEnv:PATH}:/opt/chapel/bin/linux64-x86_64:/root/.cargo/bin",
+    "LD_LIBRARY_PATH": "/opt/chapel/lib/linux64-x86_64:${containerEnv:LD_LIBRARY_PATH}",
+    "NUCLEAR_CRAWLER_MODE": "hybrid",
+    "CRAWLER_WORKERS": "8",
+    "ENABLE_FFI": "true",
+    "RUST_LOG": "debug",
+    "PYTHONUNBUFFERED": "1"
+  },
+  
+  "mounts": [
+    "source=${localWorkspaceFolder}/data,target=/workspace/data,type=bind"
+  ],
+  
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt=seccomp=unconfined",
+    "-e", "DOCKER_BUILDKIT=1"
+  ]
+}

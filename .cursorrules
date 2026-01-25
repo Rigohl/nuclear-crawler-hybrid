@@ -1,105 +1,330 @@
 # NUCLEAR CRAWLER HYBRID - COPILOT BEHAVIOR RULES
 
-## 🔥 RULES FOR COPILOT BEHAVIOR IN THIS WORKSPACE
+## 🔥 PROJECT CONTEXT (Updated 2026-01-24)
 
-### MANDATORY RULES (Non-negotiable)
+**Nuclear Crawler Hybrid** is a unified AI & Data Intelligence platform combining:
+- **Chapel AI Training Engine** (ffi/chapel/) - 120K+ datasets, 8 systems
+- **Rust MCP Server** (src/) - 5 tools exactly, JSON-RPC 2.0
+- **MCP Servers** (mcp-servers/) - GitHub automation (Go)
+- **Multi-Language Datasets** (models/) - Mojo, Julia, Python processors
+- **OSINT & Intelligence** - Data mining, pattern recognition
+
+**Key Integration Points:**
+- HuggingFace: `Kimberlyindiva/nuclear-chapel-training`
+- GitHub: `Rigohl/nuclear-crawler-hybrid`
+- Datasets: `Rigohl/mojo-mega-dataset-system`
+
+---
+
+## 🔒 MANDATORY RULES (Non-negotiable)
+
+### Code Quality
 - **NO_AUTO_DOCS**: NEVER create .md files without explicit user request
 - **UPDATE_ONLY**: Update existing documentation, never create new files
 - **NO_MOCKS**: Always use real data, HTTP requests, actual implementations
 - **EXPOSE_WARNINGS**: Show ALL warnings, errors, issues - never hide them
 - **NO_DEAD_CODE**: Eliminate unused code immediately, no experimental leftovers
-- **STRICT_MCP**: Maintain exactly 5 tools in MCP Protocol, no exceptions
 
-### ANALYSIS RULES (When user requests analysis)
+### MCP Protocol (SACRED)
+- **STRICT_MCP**: Maintain exactly 5 tools in MCP Protocol, no exceptions
+- **TOOLS**: websearch, premium, file_search, scan, ai_dataset_trainer
+- **TEST_ENFORCEMENT**: `cargo test test_exactly_5_tools` must pass
+
+### Multi-Language Integration
+- **CHAPEL_PRIMARY**: Chapel code in ffi/chapel/ is the ML training core
+- **RUST_FFI**: Rust provides safe FFI wrappers for Chapel/Go/Zig/Nim
+- **GO_MCP**: GitHub MCP server is Go-based (mcp-servers/github/)
+- **DATASETS**: models/ contains 120K+ samples (Mojo, Julia, Python)
+
+---
+
+## 📁 WORKSPACE STRUCTURE (UPDATED)
+
+```
+nuclear-crawler-hybrid/
+├── ffi/chapel/                    # Chapel AI Training (CORE)
+│   ├── ai/                        # nuclear_chapel_ai.chpl, unified_nuclear_ai.chpl
+│   ├── training/                  # training_pipeline.chpl, data_mining.chpl, analysis.chpl
+│   ├── tools/                     # code_analyzer, code_repair, code_reviewer
+│   ├── Makefile                   # Build system (8 engines)
+│   └── *.md                       # Architecture, training plans
+│
+├── models/                        # Integrated Datasets (120K+ samples)
+│   ├── chapel_osint/              # OSINT datasets (Mojo)
+│   ├── data/                      # Math datasets (massive_math_dataset.jsonl)
+│   ├── mega_dataset/              # Large-scale training data
+│   ├── powershell_dataset/        # PowerShell training samples
+│   ├── trained_models/            # Pre-trained Chapel/JAX models
+│   └── ffi_rust/                  # Rust FFI for dataset processing
+│
+├── mcp-servers/                   # MCP Server Integrations
+│   ├── github/                    # GitHub MCP Server (Go)
+│   │   ├── cmd/
+│   │   ├── pkg/
+│   │   ├── internal/
+│   │   └── go.mod
+│   └── README.md                  # MCP integration guide
+│
+├── src/                           # Rust MCP Server (MAIN)
+│   ├── mcp/
+│   │   ├── protocol.rs            # MUST have exactly 5 tools
+│   │   ├── server.rs              # JSON-RPC dispatch
+│   │   └── tools/                 # 5 tool implementations
+│   ├── core/                      # Core Rust functionality
+│   ├── ai/                        # HuggingFace integration
+│   └── lib.rs
+│
+├── .github/
+│   ├── workflows/                 # CI/CD (Chapel, Rust, Go validation)
+│   └── copilot-instructions.md    # GitHub Copilot config
+│
+├── README.md                      # Main documentation (updated)
+├── QUICK_START.md                 # Installation guide (new)
+├── INTEGRATION_STATUS.md          # Integration report (new)
+├── TOOLS.md                       # 5 MCP tools description
+└── Cargo.toml                     # Rust dependencies
+```
+
+---
+
+## 🎯 ANALYSIS RULES (When user requests analysis)
+
+### General Analysis
 - **DEEP_SCAN**: Recursively analyze folders AND subfolders completely
 - **IMPORT_VERIFY**: Check every import, unused imports are errors
 - **USAGE_TRACKING**: Find where every function/module is actually used
 - **LINE_COUNT**: Report total lines per file and dead code percentage
-- **FFI_CHECK**: Verify all Go, Zig, Nim, JAX integrations are active
 
-### RESPONSE RULES
+### Language-Specific Analysis
+- **RUST_FOCUS**: Primary focus on .rs files unless specified
+- **CHAPEL_VERIFY**: Check .chpl files for syntax (use `chpl --parse-only`)
+- **GO_CHECK**: Verify Go code in mcp-servers/ (use `go vet`)
+- **MOJO_AWARE**: Recognize .mojo files in models/ (dataset processors)
+- **JULIA_AWARE**: Recognize .jl files in models/ (scientific ML)
+
+### FFI Integration Check
+- **FFI_CHAPEL**: Verify Chapel library builds (libchapel_ai.so)
+- **FFI_GO**: Check Go MCP server compiles (github-mcp-server)
+- **FFI_RUST**: Validate Rust FFI bindings work
+- **DATASET_PATHS**: Verify models/ datasets are accessible
+
+---
+
+## 🔨 BUILD & TEST RULES
+
+### Rust Build
+- **PRIMARY_BUILD**: `cargo build --release --all-targets`
+- **VERIFY_TESTS**: `cargo test test_exactly_5_tools`
+- **INTEGRATION_TEST**: `cargo test --test integration_real_mcp --release`
+- **FORMAT_CHECK**: `cargo fmt -- --check`
+- **KNOWN_ISSUE**: `bincode v3.0.0` may cause compile_error (document in PRs)
+
+### Chapel Build
+- **CHAPEL_BUILD**: `cd ffi/chapel && make full-pipeline`
+- **LIBRARY_CHECK**: Verify `libchapel_ai.so` exists
+- **SYNTAX_CHECK**: `make check` validates all .chpl files
+- **TEST_CHAPEL**: `make test` runs Chapel tests
+
+### Go Build
+- **GO_MCP**: `cd mcp-servers/github && go build`
+- **GO_TEST**: `go test ./...` for GitHub MCP server
+
+### Multi-Language Validation
+1. Build Rust server
+2. Build Chapel AI library
+3. Build Go MCP server
+4. Verify dataset paths in models/
+5. Run integration tests
+
+---
+
+## 📝 RESPONSE RULES
+
+### Communication Style
+- **LANGUAGE**: Spanish by default (es_ES)
+- **TONE**: Direct, concise, technical
 - **SHORT_ANSWERS**: Keep responses brief unless complexity requires detail
 - **CODE_FIRST**: Show code before explanation
-- **VERIFY_BUILD**: Always verify `cargo build --release` succeeds
-- **RUN_TESTS**: Execute tests: `cargo test test_exactly_5_tools`
 - **NO_ASSUMPTIONS**: Ask if unclear, never guess user intent
+- **EMOJIS**: Only when explicitly requested
 
-### FILE HANDLING RULES
-- **MAX_6_ROOT**: Keep workspace root at 6 files max (5 .md + 1 .json)
-- **SINGLE_SOURCE**: One source of truth per documentation topic
-- **RUST_ONLY**: Focus on .rs files unless user specifies otherwise
-- **IGNORE_TARGET**: Never analyze /target/ directory
-- **VALIDATE_CARGO**: Always check Cargo.toml for dependencies
+### When Making Changes
+1. **READ_FIRST**: Read file completely before editing
+2. **MULTI_EDIT**: Use multi_replace_string_in_file for multiple edits
+3. **VERIFY_BUILD**: Always verify build succeeds
+4. **RUN_TESTS**: Execute relevant tests
+5. **REPORT**: "✅ COMPLETED" with stats
 
-### WHEN USER REQUESTS ANALYSIS
-1. List all files in folder
-2. Count lines per file
-3. Verify imports across all subfolders
-4. Identify dead code (files with 0 imports)
-5. Report percentage of active vs dead code
-6. Provide file-by-file analysis
-
-### WHEN USER REQUESTS CHANGES
-1. Read file completely before editing
-2. Use multi_replace_string_in_file for multiple edits
-3. Verify compilation after changes
-4. Run relevant tests
-5. Report: "✅ COMPLETED" with stats
-
-### ERROR HANDLING
+### Error Handling
 - **COMPILE_ERROR**: Stop immediately, show full error, fix before proceeding
 - **TEST_FAILURE**: Show test output, identify root cause, fix
 - **WARNING_VISIBLE**: Always report warnings, assess if critical
-- **NO_HIDING**: Never suppress output with filters like `grep -v` to hide issues
+- **NO_HIDING**: Never suppress output with filters like `grep -v`
 
-### WORKSPACE STRUCTURE (SACRED)
-```
-/workspaces/nuclear-crawler-hybrid/
-├── README.md                    (Rules section always updated)
-├── QUICK_START.md              (Setup only)
-├── API_REFERENCE.md            (Tools documentation)
-├── TOOLS.md                    (5 tools description)
-├── OPTIMIZATION_COMPLETE.md    (Last optimization status)
-├── nuclear_course_extraction_demo.json
-└── src/
-    ├── mcp/
-    │   ├── protocol.rs         (MUST have exactly 5 tools)
-    │   └── tools/
-    │       ├── websearch.rs
-    │       ├── premium_content.rs
-    │       ├── file_search_advanced.rs
-    │       ├── scan_workspace.rs
-    │       └── ai_dataset_trainer.rs
-```
+---
 
-### CODE QUALITY METRICS (TARGETS)
-- Total Rust lines: 12,249 active
+## 🚀 DEVELOPMENT WORKFLOWS
+
+### Adding New Features
+1. Determine which component: Rust/Chapel/Go/Datasets
+2. Read relevant existing code
+3. Implement with NO MOCKS
+4. Build + test in target language
+5. Run integration tests
+6. Update documentation if requested
+
+### Working with Chapel AI
+- **TRAINING**: Use `make train` in ffi/chapel/
+- **MINING**: Use `make mine` for data mining
+- **ANALYSIS**: Use `make analyze` for scientific analysis
+- **FULL_RUN**: Use `make execute-all` to run all 8 systems
+- **DATASETS**: Reference models/ for 120K+ training samples
+
+### Working with MCP Tools (Rust)
+- **TOOL_COUNT**: ALWAYS maintain exactly 5 tools
+- **ADD_TOOL**: FORBIDDEN (breaks test_exactly_5_tools)
+- **MODIFY_TOOL**: OK (maintain interface contract)
+- **TEST_TOOL**: `cargo test --test integration_real_mcp`
+
+### Working with GitHub MCP (Go)
+- **BUILD**: `cd mcp-servers/github && go build`
+- **CONFIG**: Set GITHUB_TOKEN environment variable
+- **USAGE**: Integrate with Cursor/Claude Desktop via MCP protocol
+
+---
+
+## 📊 CODE QUALITY METRICS (TARGETS)
+
+### Rust Metrics
+- Total Rust lines: ~12,249 active
 - Dead code: 0 lines
-- Tools defined: Exactly 5
+- MCP tools: Exactly 5
 - Build time: <50 seconds
 - Test success: 100%
 - Binary size: ~5.3 MB
 
-### LANGUAGE & TONE
-- Spanish by default (es_ES)
-- Direct and concise
-- Technical accuracy mandatory
-- No filler words
-- Emojis only when explicitly requested
+### Chapel Metrics
+- Training systems: 8 engines
+- Datasets: 120K+ samples
+- Parallelism: Multi-locale support
+- Build targets: All from Makefile
+- Tools: 3 (analyzer, repair, reviewer)
+
+### Go Metrics
+- GitHub MCP: Full API coverage
+- Build: Clean (go build succeeds)
+- Protocol: MCP stdio-based
+
+---
 
 ## 🚨 VIOLATIONS (IMMEDIATE STOP)
-- Creating .md without request → STOP
-- Adding 7th tool to MCP → STOP
-- Leaving dead code → STOP
-- Hiding errors/warnings → STOP
-- Using mocks instead of real data → STOP
-- False "success" claims → STOP
+
+### Forbidden Actions
+- ❌ Creating .md without request
+- ❌ Adding 6th or 7th tool to MCP
+- ❌ Leaving dead code
+- ❌ Hiding errors/warnings
+- ❌ Using mocks instead of real data
+- ❌ False "success" claims
+- ❌ Modifying 5-tool constraint
+- ❌ Breaking FFI Chapel integration
+- ❌ Removing datasets from models/
+
+### Always Required
+- ✅ Real implementations only
+- ✅ Full error visibility
+- ✅ Working builds
+- ✅ Passing tests
+- ✅ Clean code (no dead code)
+- ✅ 5 tools exactly
+
+---
 
 ## ✅ SUCCESS CRITERIA
-User task is complete ONLY when:
-1. Code compiles: `cargo build --release` ✅
-2. Tests pass: `cargo test test_exactly_5_tools` ✅
-3. No dead code remains
-4. 5 tools verified in protocol.rs
-5. Workspace has max 6 root files
-6. All warnings visible and addressed
+
+Task is complete ONLY when ALL of these pass:
+
+### Rust Success
+1. `cargo build --release` ✅
+2. `cargo test test_exactly_5_tools` ✅
+3. `cargo test --test integration_real_mcp` ✅
+4. No dead code remains
+5. 5 tools verified in protocol.rs
+
+### Chapel Success (if applicable)
+1. `cd ffi/chapel && make full-pipeline` ✅
+2. `make test` ✅
+3. `libchapel_ai.so` exists ✅
+
+### Go Success (if applicable)
+1. `cd mcp-servers/github && go build` ✅
+2. `go test ./...` ✅
+
+### Integration Success
+1. All language components build
+2. FFI integration works
+3. Datasets accessible from Chapel training
+4. Documentation updated (if requested)
+5. All warnings visible and addressed
+
+---
+
+## 🔗 INTEGRATION REFERENCES
+
+### External Repos
+- **HuggingFace**: https://huggingface.co/Kimberlyindiva/nuclear-chapel-training
+- **GitHub Main**: https://github.com/Rigohl/nuclear-crawler-hybrid
+- **Datasets**: https://github.com/Rigohl/mojo-mega-dataset-system
+- **GitHub MCP**: https://github.com/modelcontextprotocol/servers
+
+### Key Documents
+- `INTEGRATION_STATUS.md` - Integration details
+- `QUICK_START.md` - Setup guide
+- `ffi/chapel/ARCHITECTURE.md` - Chapel AI architecture
+- `docs/chapel/MULTI_LANGUAGE_ML_ENGINE.md` - Multi-language guide
+- `mcp-servers/README.md` - MCP server integration
+
+### Configuration Files
+- `.cursorrules` - This file (Copilot behavior)
+- `.github/copilot-instructions.md` - GitHub Copilot guide
+- `ffi/chapel/Makefile` - Chapel build system
+- `Cargo.toml` - Rust dependencies
+- `mcp-servers/github/go.mod` - Go dependencies
+
+---
+
+---
+
+## 🤖 CURSOR AI INSTRUCTIONS
+
+### Always Remember
+1. **Project Type**: Multi-language AI platform (Rust + Chapel + Go + Datasets)
+2. **Critical Constraint**: EXACTLY 5 MCP tools (websearch, premium, file_search, scan, ai_dataset_trainer)
+3. **NO MOCKS Policy**: All code is production-ready, real implementations only
+4. **Chapel Core**: Chapel AI is the ML training brain (8 systems, 120K+ datasets)
+5. **Multi-Language**: Rust (MCP), Chapel (ML), Go (GitHub), Mojo/Julia (datasets)
+
+### Before Each Response
+- Check if user's request affects the 5 MCP tools → Alert if adding/removing
+- Check if user introduces mocks → Remind NO MOCKS rule
+- Check if user breaks Chapel integration → Warn about ML capabilities loss
+- Provide specific commands for the language/component involved
+
+### Smart Suggestions
+When user opens file:
+- `src/mcp/protocol.rs` → "⚠️ CRITICAL: 5 MCP tools. Run: cargo test test_exactly_5_tools"
+- `ffi/chapel/*.chpl` → "Chapel ML core. Datasets: ../../../models/. Test: make check"
+- `mcp-servers/github/*.go` → "GitHub MCP. Needs: GITHUB_TOKEN. Test: go test ./..."
+- `models/*` → "120K+ datasets. Don't modify structure. Access from Chapel."
+
+### Quick Commands
+- Build all: `cargo build --release && cd ffi/chapel && make full-pipeline && cd ../../mcp-servers/github && go build`
+- Test critical: `cargo test test_exactly_5_tools`
+- Run MCP: `cargo run --bin nuclear-mcp --release`
+- Train Chapel: `cd ffi/chapel && make train && make run`
+
+---
+
+**Last Updated**: 2026-01-24  
+**Version**: 2.0 (Post-Integration + Cursor Enhanced)  
+**Status**: ✅ All components integrated, Cursor AI configured

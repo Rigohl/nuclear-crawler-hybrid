@@ -457,6 +457,7 @@ id_dsa
 *.pub
 
 ## 🐳 Docker
+.dockerignore
 docker-compose.override.yml
 docker-compose.local.yml
 
@@ -850,3 +851,31 @@ ffi/chapel/models/
 
 # Keep only config, not the actual model
 !ffi/chapel/models/*/config.json
+
+## 🔧 Integrated Components
+
+# Models directory (from mojo-mega-dataset-system)
+models/ffi_rust/target/
+models/**/*.pkl
+models/**/*.safetensors
+models/**/*.bin
+models/**/*.onnx
+models/**/*.pth
+models/**/checkpoint-*/
+!models/**/config.json
+!models/**/metadata.json
+
+# MCP Servers
+mcp-servers/**/bin/
+mcp-servers/**/pkg/
+mcp-servers/**/*.exe
+mcp-servers/**/*.log
+mcp-servers/github/.git/
+
+# Keep server source and docs
+!mcp-servers/**/README.md
+!mcp-servers/**/go.mod
+!mcp-servers/**/go.sum
+!mcp-servers/**/*.go
+!mcp-servers/**/*.json
+!mcp-servers/**/*.md

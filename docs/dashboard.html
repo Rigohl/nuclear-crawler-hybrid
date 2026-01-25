@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Nuclear Crawler Hybrid - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .card-content {
+            line-height: 1.8;
+        }
+
+        .shortcut {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-active {
+            background: #00ff00;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        .command-list {
+            list-style: none;
+        }
+
+        .command-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .command-list li:last-child {
+            border-bottom: none;
+        }
+
+        .command-list code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        .critical {
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .critical h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Nuclear Crawler Hybrid</h1>
+            <p>Professional Development Dashboard</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">
+                <span class="status-indicator status-active"></span> 
+                All Systems Operational
+            </p>
+        </header>
+
+        <div class="critical">
+            <h3>⚠️ CRITICAL CONSTRAINTS</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>5 MCP Tools</strong> - Cannot add/remove (test: <code>Ctrl+Shift+T</code>)</li>
+                <li><strong>NO MOCKS</strong> - All real implementations only</li>
+                <li><strong>Chapel Core</strong> - ML brain, cannot break</li>
+            </ul>
+        </div>
+
+        <div class="grid">
+            <!-- Keyboard Shortcuts -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⌨️</div>
+                    <div class="card-title">Keyboard Shortcuts</div>
+                </div>
+                <div class="card-content">
+                    <div><span class="shortcut">Ctrl+Shift+B</span> Build All</div>
+                    <div><span class="shortcut">Ctrl+Shift+T</span> Validate 5 Tools</div>
+                    <div><span class="shortcut">Ctrl+Shift+R</span> Run Server</div>
+                    <div><span class="shortcut">Ctrl+Shift+C</span> Clean All</div>
+                    <div><span class="shortcut">F5</span> Start Debugging</div>
+                    <div><span class="shortcut">Ctrl+K Ctrl+D</span> Debug MCP</div>
+                    <div><span class="shortcut">Ctrl+K Ctrl+T</span> Debug Test</div>
+                </div>
+            </div>
+
+            <!-- Visual Debugging -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🐛</div>
+                    <div class="card-title">Visual Debugging</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>Uso:</strong></p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>Abre archivo .rs</li>
+                        <li>Click en número de línea</li>
+                        <li>Presiona F5</li>
+                        <li>Código se detiene en breakpoint</li>
+                        <li>Inspecciona variables</li>
+                    </ol>
+                    <p style="margin-top: 15px;"><strong>Configs:</strong> 🚀 MCP Server, 🧪 Test, 🐹 Go, 🎯 Full Stack</p>
+                </div>
+            </div>
+
+            <!-- Task Runner -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">▶️</div>
+                    <div class="card-title">Task Runner</div>
+                </div>
+                <div class="card-content">
+                    <p><code>Ctrl+Shift+P → "Tasks: Run Task"</code></p>
+                    <ul class="command-list" style="margin-top: 15px;">
+                        <li>🔨 Build All (Rust+Chapel+Go)</li>
+                        <li>✅ Validate 5 MCP Tools</li>
+                        <li>🚀 Run MCP Server</li>
+                        <li>🧠 Train Chapel AI</li>
+                        <li>⚡ Run All Chapel Systems</li>
+                        <li>🔬 Data Mining</li>
+                        <li>📊 Scientific Analysis</li>
+                        <li>🧪 Integration Tests</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Code Snippets -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Code Snippets</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>En archivo .rs escribe:</strong></p>
+                    <ul class="command-list" style="margin-top: 15px;">
+                        <li><code>mcp-tool</code> + Tab → MCP tool template</li>
+                        <li><code>chapel-train</code> + Tab → Chapel function</li>
+                        <li><code>mcp-test</code> + Tab → Test template</li>
+                        <li><code>coforall</code> + Tab → Parallel loop</li>
+                        <li><code>error-handle</code> + Tab → Error handling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PowerShell Automation -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🤖</div>
+                    <div class="card-title">PowerShell Automation</div>
+                </div>
+                <div class="card-content">
+                    <p><code>.\scripts\dev-workflow.ps1</code></p>
+                    <ul class="command-list" style="margin-top: 15px;">
+                        <li><code>-Action validate</code> → Valida constraints</li>
+                        <li><code>-Action build</code> → Build completo</li>
+                        <li><code>-Action test</code> → Run tests</li>
+                        <li><code>-Action pre-commit</code> → Pre-commit checks</li>
+                        <li><code>-Action watch</code> → Auto-rebuild</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">Logs en: logs/dev-workflow-*.log</p>
+                </div>
+            </div>
+
+            <!-- Makefile Pro -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🔨</div>
+                    <div class="card-title">Makefile Pro</div>
+                </div>
+                <div class="card-content">
+                    <p><code>make -f Makefile.pro</code></p>
+                    <ul class="command-list" style="margin-top: 15px;">
+                        <li><code>help</code> → Ver comandos</li>
+                        <li><code>all</code> → Build + test todo</li>
+                        <li><code>validate</code> → Valida constraints</li>
+                        <li><code>pre-commit</code> → Pre-commit checks</li>
+                        <li><code>watch</code> → Auto-rebuild</li>
+                        <li><code>ci</code> → Simula CI localmente</li>
+                        <li><code>stats</code> → Project statistics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Documentation -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📚</div>
+                    <div class="card-title">Documentation</div>
+                </div>
+                <div class="card-content">
+                    <div class="links">
+                        <a href="../START_HERE.md" class="btn">START HERE</a>
+                        <a href="../PRO_FEATURES.md" class="btn">PRO Features</a>
+                        <a href="../PROMPTS.md" class="btn">AI Prompts</a>
+                        <a href="../COMMANDS_CHEATSHEET.md" class="btn">Commands</a>
+                        <a href="../QUICK_PRO_START.md" class="btn">Quick Start</a>
+                        <a href="../INTEGRATION_STATUS.md" class="btn">Status</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CI/CD Status -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🚦</div>
+                    <div class="card-title">CI/CD</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>GitHub Actions:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>✅ Valida 5 MCP tools</li>
+                        <li>🚫 Detecta mock code</li>
+                        <li>🔨 Build multi-OS</li>
+                        <li>🧪 Unit + Integration tests</li>
+                        <li>🔐 Security audit</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Pre-Commit Hook:</strong></p>
+                    <p style="margin-left: 20px;">Auto-valida antes de commit</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">🔗</div>
+                <div class="card-title">Quick Links</div>
+            </div>
+            <div class="card-content">
+                <div class="links">
+                    <a href="https://github.com/Rigohl/nuclear-crawler-hybrid" class="btn" target="_blank">GitHub Repo</a>
+                    <a href="https://github.com/Rigohl/nuclear-crawler-hybrid/actions" class="btn" target="_blank">CI Actions</a>
+                    <a href="https://huggingface.co/Kimberlyindiva/nuclear-chapel-training" class="btn" target="_blank">HuggingFace</a>
+                    <a href="https://chapel-lang.org/docs/" class="btn" target="_blank">Chapel Docs</a>
+                    <a href="https://doc.rust-lang.org/" class="btn" target="_blank">Rust Docs</a>
+                    <a href="https://go.dev/doc/" class="btn" target="_blank">Go Docs</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Nuclear Crawler Hybrid v1.0.0 | Professional Development Environment</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Made with ❤️ for high-performance multi-language AI development
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Auto-refresh status indicator every 5 seconds
+        setInterval(() => {
+            const indicator = document.querySelector('.status-indicator');
+            indicator.style.opacity = '0.3';
+            setTimeout(() => {
+                indicator.style.opacity = '1';
+            }, 300);
+        }, 5000);
+    </script>
+</body>
+</html>

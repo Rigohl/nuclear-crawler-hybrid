@@ -1,0 +1,78 @@
+{
+  "Rust MCP Tool Template": {
+    "prefix": "mcp-tool",
+    "scope": "rust",
+    "body": [
+      "/// ${1:Tool Name} - ${2:Description}",
+      "pub async fn ${3:tool_name}(",
+      "    args: &serde_json::Value,",
+      ") -> Result<serde_json::Value, Box<dyn std::error::Error>> {",
+      "    // ⚠️ NO MOCKS - Real implementation only",
+      "    ${4:// Implementation}",
+      "    ",
+      "    Ok(json!({",
+      "        \"success\": true,",
+      "        \"data\": ${5:result}",
+      "    }))",
+      "}"
+    ],
+    "description": "Template for MCP tool (NO MOCKS policy)"
+  },
+  "Chapel Training Function": {
+    "prefix": "chapel-train",
+    "scope": "chapel",
+    "body": [
+      "// ${1:Function Name} - ${2:Description}",
+      "proc ${3:functionName}(${4:args}) {",
+      "    // Access datasets: ../../../models/",
+      "    coforall locale in Locales {",
+      "        on locale {",
+      "            ${5:// Parallel implementation}",
+      "        }",
+      "    }",
+      "}"
+    ],
+    "description": "Chapel parallel training function template"
+  },
+  "MCP Test Template": {
+    "prefix": "mcp-test",
+    "scope": "rust",
+    "body": [
+      "#[tokio::test]",
+      "async fn test_${1:test_name}() {",
+      "    // ⚠️ Real test - no mocks",
+      "    ${2:// Test implementation}",
+      "    ",
+      "    // Verify 5 tools constraint still holds",
+      "    assert_eq!(list_tools().len(), 5);",
+      "}"
+    ],
+    "description": "MCP test template (enforces 5 tools check)"
+  },
+  "Chapel Parallel Loop": {
+    "prefix": "coforall",
+    "scope": "chapel",
+    "body": [
+      "coforall ${1:i} in ${2:range} {",
+      "    ${3:// Parallel code}",
+      "}"
+    ],
+    "description": "Chapel parallel coforall loop"
+  },
+  "Rust Error Handling": {
+    "prefix": "error-handle",
+    "scope": "rust",
+    "body": [
+      "match ${1:result} {",
+      "    Ok(${2:val}) => {",
+      "        ${3:// Success case}",
+      "    },",
+      "    Err(${4:e}) => {",
+      "        eprintln!(\"Error: {}\", ${4:e});",
+      "        return Err(${4:e}.into());",
+      "    }",
+      "}"
+    ],
+    "description": "Rust error handling pattern"
+  }
+}

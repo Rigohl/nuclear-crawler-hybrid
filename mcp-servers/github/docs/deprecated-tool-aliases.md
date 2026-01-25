@@ -1,0 +1,1 @@
+# Deprecated Tool Aliases\n\nThis content has moved to [Tool Renaming](./tool-renaming.md).\n\n_This file was generated automatically by Quick-Fix-Markdown._
