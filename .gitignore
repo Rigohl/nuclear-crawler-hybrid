@@ -457,7 +457,6 @@ id_dsa
 *.pub
 
 ## 🐳 Docker
-.dockerignore
 docker-compose.override.yml
 docker-compose.local.yml
 
