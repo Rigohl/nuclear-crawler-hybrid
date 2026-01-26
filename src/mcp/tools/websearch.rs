@@ -248,16 +248,16 @@ impl WebSearchTool {
             }
         }
 
-        // 6️⃣ USA Zig SIMD para procesar resultados (hashing + validación)
-        #[cfg(has_zig)]
+        // 6️⃣ USA Go para procesar resultados (hashing + validación)
+        #[cfg(has_go)]
         {
             eprintln!(
-                "🔥 Zig SIMD: Validating {} results with SIMD hashing",
+                "🔥 Go Engine: Validating {} results with concurrent processing",
                 results.len()
             );
-            if let Some(zig) = self.zig_processor.lock().await.as_ref() {
+            if let Some(go) = self.go_processor.lock().await.as_ref() {
                 for result in &mut results {
-                    if let Ok(hash_result) = zig.hash_data(result.url.as_bytes()) {
+                    if let Ok(hash_result) = go.hash_data(result.url.as_bytes()) {
                         eprintln!(
                             "   ✅ Result hashed: {} ({}ns)",
                             result.url, hash_result.processing_time_ns

@@ -10,6 +10,18 @@ pub mod neural_ops;
 #[cfg(target_arch = "wasm32")]
 pub mod data_search;
 
+#[cfg(target_arch = "wasm32")]
+pub mod marketing_extractor;
+
+#[cfg(target_arch = "wasm32")]
+pub mod dataset_extractor;
+
+#[cfg(target_arch = "wasm32")]
+pub mod ultra_scraper;
+
+#[cfg(target_arch = "wasm32")]
+pub mod real_human_scraper;
+
 /// WASM initialization (web target)
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
