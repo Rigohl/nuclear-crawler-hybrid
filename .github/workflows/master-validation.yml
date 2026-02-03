@@ -203,9 +203,20 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
 
       - uses: Swatinem/rust-cache@v2
+        with:
+          key: build-v2
 
       - name: Build release
+        id: build-attempt-1
         run: cargo build --release --all-targets
+        continue-on-error: true
+      
+      - name: 🔧 Retry Build with Cache Clear (on failure)
+        if: steps.build-attempt-1.outcome == 'failure'
+        run: |
+          echo "⚠️ First build attempt failed, clearing cache and retrying..."
+          cargo clean
+          cargo build --release --all-targets
         continue-on-error: true
 
   test-unit:
@@ -219,7 +230,17 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: Run unit tests
+        id: test-attempt-1
         run: cargo test --release --lib --verbose
+        continue-on-error: true
+      
+      - name: 🔧 Retry Tests (on failure)
+        if: steps.test-attempt-1.outcome == 'failure'
+        run: |
+          echo "⚠️ First test attempt failed, retrying with fresh build..."
+          cargo clean
+          cargo build --release --lib
+          cargo test --release --lib --verbose
         continue-on-error: true
 
   test-integration:

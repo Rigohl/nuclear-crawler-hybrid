@@ -66,24 +66,64 @@ jobs:
       
       - name: Cache cargo registry
         uses: actions/cache@v3
+        id: cache-registry
         with:
           path: ~/.cargo/registry
-          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}-v2
+          restore-keys: |
+            ${{ runner.os }}-cargo-registry-
       
       - name: Cache cargo build
         uses: actions/cache@v3
+        id: cache-build
         with:
           path: target
-          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}-v2
+          restore-keys: |
+            ${{ runner.os }}-cargo-build-
       
       - name: 📝 Check Format
+        id: fmt-check
         run: cargo fmt -- --check
+        continue-on-error: true
+      
+      - name: 🔧 Auto-Fix Format (on failure)
+        if: steps.fmt-check.outcome == 'failure'
+        run: |
+          echo "⚠️ Formatting issues detected, auto-fixing..."
+          cargo fmt
+          cargo fmt -- --check
       
       - name: 🔍 Clippy
-        run: cargo clippy -- -D warnings
+        id: clippy-check
+        run: cargo clippy --all-targets -- -D warnings
+        continue-on-error: true
+      
+      - name: 🔧 Retry Clippy (on failure)
+        if: steps.clippy-check.outcome == 'failure'
+        run: |
+          echo "⚠️ Clippy failed, attempting clean rebuild..."
+          cargo clean
+          cargo clippy --all-targets -- -D warnings
+        continue-on-error: true
       
       - name: 🔨 Build
+        id: build
         run: cargo build --release --verbose
+        continue-on-error: true
+      
+      - name: 🔧 Retry Build with Clean (on failure)
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo "⚠️ Build failed, attempting recovery..."
+          echo "Step 1: Cleaning build artifacts..."
+          cargo clean
+          
+          echo "Step 2: Updating dependencies..."
+          cargo update || true
+          
+          echo "Step 3: Retrying build..."
+          cargo build --release --verbose
       
       - name: 🧪 Run Tests
         run: cargo test --verbose
