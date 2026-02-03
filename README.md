@@ -9,10 +9,21 @@
 - **MCP Servers** - GitHub automation and extensible protocol support
 - **5 MCP Tools** - Web search, premium content, file ops, workspace scanning, dataset training
 - **OSINT Capabilities** - Advanced data mining and intelligence gathering
+- **🆕 CI/CD Resilience** - Self-healing pipelines with automatic failure recovery
 
 Built with [Chapel](https://chapel-lang.org/) for productive high-performance parallel computing, integrated with modern tooling ecosystems.
 
 ## 🌟 Key Features
+
+### 🔧 CI/CD Resilience & Self-Healing (NEW!)
+- ✅ **Automatic Retry** - Smart retry with `cargo clean && cargo build`
+- ✅ **Error Pattern Detection** - 7 common failure patterns with auto-repair
+- ✅ **Intelligent Monitoring** - Secondary workflow supervises main pipelines
+- ✅ **Checkpoint Management** - Automatic ML model backup & recovery
+- ✅ **Smart Notifications** - GitHub Issues for irreparable failures
+- ✅ **Docker Recovery** - Containerized recovery system
+- ✅ **Cache Resilience** - Automatic cache rebuild on corruption
+- 📚 See [Resilience Documentation](.github/workflows/RESILIENCE.md)
 
 ### Chapel AI Training Engine
 - ✅ **Massive Data Parallelism** - `coforall` for concurrent operations
@@ -155,6 +166,45 @@ Validates library symbols and structure.
 ```bash
 make clean
 ```
+
+## 🔧 CI/CD & Development
+
+### Resilience Features
+
+The project includes a comprehensive CI/CD resilience system:
+
+```bash
+# Run enhanced validation with auto-repair
+python3 scripts/validate_system.py --enhanced
+
+# Test checkpoint management
+python3 scripts/checkpoint_manager.py validate
+
+# Create model backup
+python3 scripts/checkpoint_manager.py backup
+
+# Test all resilience features
+python3 scripts/test_resilience.py
+```
+
+### Automatic Error Recovery
+
+The CI pipeline automatically handles:
+- **Bincode errors** - Dependency updates
+- **Format issues** - Auto-formatting
+- **Cache corruption** - Clean rebuild
+- **Memory errors** - Artifact cleanup
+- **Lock conflicts** - Lockfile regeneration
+
+### Monitoring & Notifications
+
+- **Self-Healing Workflow** - Runs every 30 minutes
+- **Failure Detection** - Analyzes logs for patterns
+- **Auto-Repair** - Applies fixes automatically
+- **GitHub Issues** - Created for unresolvable failures
+- **Checkpoint Backups** - Models backed up automatically
+
+See [.github/workflows/RESILIENCE.md](.github/workflows/RESILIENCE.md) for complete documentation.
 
 ## API Functions
 
