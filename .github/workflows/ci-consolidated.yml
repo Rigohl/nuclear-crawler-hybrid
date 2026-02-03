@@ -29,15 +29,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
-      
+
       - name: Cache cargo
         uses: actions/cache@v3
         with:
@@ -46,23 +46,23 @@ jobs:
             ~/.cargo/git
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      
+
       - name: 📝 Format Check
         run: cargo fmt -- --check
-      
+
       - name: 🔍 Clippy
         run: cargo clippy -- -D warnings
-      
+
       - name: 🔨 Build
         run: cargo build --release --verbose
-      
+
       - name: 🧪 Run Tests
         run: cargo test --verbose
-      
+
       - name: 🧪 Integration Tests
         run: cargo test --test integration_real_mcp --release -- --nocapture
         continue-on-error: true
-      
+
       - name: 📦 Upload Artifacts (Linux)
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v3
@@ -75,10 +75,10 @@ jobs:
     name: 🧠 Chapel AI CI
     needs: validate-constraints
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install Chapel
         run: |
           wget -q https://github.com/chapel-lang/chapel/releases/download/1.32.0/chapel-1.32.0.tar.gz
@@ -88,18 +88,18 @@ jobs:
           make -j$(nproc)
           sudo make install
           echo "/opt/chapel/bin" >> $GITHUB_PATH
-      
+
       - name: Set CHAPEL_HOME
         run: echo "CHAPEL_HOME=/opt/chapel" >> $GITHUB_ENV
-      
+
       - name: 🔍 Chapel Syntax Check
         working-directory: ffi/chapel
         run: make check
-      
+
       - name: 🔨 Build Chapel Systems
         working-directory: ffi/chapel
         run: make full-pipeline
-      
+
       - name: 🧪 Chapel Tests
         working-directory: ffi/chapel
         run: make test
@@ -110,37 +110,37 @@ jobs:
     name: 🐹 Go GitHub MCP CI
     needs: validate-constraints
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
           go-version: '1.21'
-      
+
       - name: Cache Go modules
         uses: actions/cache@v3
         with:
           path: ~/go/pkg/mod
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-      
+
       - name: 📥 Go Mod Download
         working-directory: mcp-servers/github
         run: go mod download
-      
+
       - name: 🔨 Build
         working-directory: mcp-servers/github
         run: go build -v ./...
-      
+
       - name: 🧪 Go Tests
         working-directory: mcp-servers/github
         run: go test -v ./...
-      
+
       - name: 🔍 Go Vet
         working-directory: mcp-servers/github
         run: go vet ./...
-      
+
       - name: 📝 Go Fmt Check
         working-directory: mcp-servers/github
         run: |
@@ -154,19 +154,19 @@ jobs:
     name: 🔐 Security Audit
     needs: validate-constraints
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
-      
+
       - name: 🔍 Cargo Audit
         run: |
           cargo install cargo-audit
           cargo audit
         continue-on-error: true
-      
+
       - name: 🔍 Dependency Check
         run: cargo tree --duplicates
 
@@ -176,7 +176,7 @@ jobs:
     needs: [validate-constraints, rust-ci, chapel-ci, go-ci, security-audit]
     runs-on: ubuntu-latest
     if: always()
-    
+
     steps:
       - name: Generate Summary
         run: |
