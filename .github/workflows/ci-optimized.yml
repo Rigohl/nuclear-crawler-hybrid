@@ -1,4 +1,6 @@
 name: CI-Optimized
+# ⚠️ DEPRECATION NOTICE: This workflow is being replaced by ci-consolidated.yml
+# This workflow will be removed in a future release. Please update your references.
 
 on:
   push:
