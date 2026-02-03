@@ -4,9 +4,9 @@
 //! the AI Dataset Trainer and upload it to HuggingFace Hub.
 
 use nuclear_crawler_hybrid::{
-    HuggingFaceClient, HuggingFaceConfig,
-    mcp::tools::{AIDatasetTrainerTool, DatasetTrainerConfig},
     huggingface_integration::{format_dataset_for_hf, HFDatasetMetadata},
+    mcp::tools::{AIDatasetTrainerTool, DatasetTrainerConfig},
+    HuggingFaceClient, HuggingFaceConfig,
 };
 use std::collections::HashMap;
 
@@ -32,28 +32,28 @@ async fn main() -> anyhow::Result<()> {
     let trainer_config = DatasetTrainerConfig {
         name: "nuclear-ai-demo".to_string(),
         description: "Demo dataset for Nuclear AI".to_string(),
-        target_size: 100,  // Small demo dataset
+        target_size: 100, // Small demo dataset
         min_quality_score: 0.5,
         ..Default::default()
     };
 
     println!("📚 Generating dataset...");
     let trainer = AIDatasetTrainerTool::new(trainer_config).await?;
-    
+
     // Generate with some example sources
     let sources = vec![
         "https://rust-lang.org".to_string(),
         "https://doc.rust-lang.org".to_string(),
     ];
-    
+
     let dataset = trainer.generate_dataset(sources).await?;
-    
+
     println!("✅ Generated {} datapoints\n", dataset.datapoints.len());
 
     // Export to HuggingFace format
     println!("📦 Exporting to HuggingFace format...");
     let jsonl = format_dataset_for_hf(&dataset.datapoints)?;
-    
+
     println!("✅ Exported {} bytes\n", jsonl.len());
 
     // Create metadata
@@ -72,17 +72,31 @@ async fn main() -> anyhow::Result<()> {
 
     // Upload to HuggingFace
     println!("🚀 Uploading to HuggingFace Hub...");
-    let repo_url = client.upload_dataset("nuclear-ai-demo", &jsonl, metadata).await?;
-    
+    let repo_url = client
+        .upload_dataset("nuclear-ai-demo", &jsonl, metadata)
+        .await?;
+
     println!("✅ Dataset uploaded!");
     println!("📍 URL: {}\n", repo_url);
 
     // Show statistics
     println!("📊 Dataset Statistics:");
-    println!("   Total datapoints: {}", dataset.statistics.total_datapoints);
-    println!("   Average quality: {:.2}", dataset.statistics.avg_quality_score);
-    println!("   Processing time: {:.2}s", dataset.statistics.processing_time_seconds);
-    println!("   Processors used: {:?}", dataset.statistics.processors_used);
+    println!(
+        "   Total datapoints: {}",
+        dataset.statistics.total_datapoints
+    );
+    println!(
+        "   Average quality: {:.2}",
+        dataset.statistics.avg_quality_score
+    );
+    println!(
+        "   Processing time: {:.2}s",
+        dataset.statistics.processing_time_seconds
+    );
+    println!(
+        "   Processors used: {:?}",
+        dataset.statistics.processors_used
+    );
 
     Ok(())
 }

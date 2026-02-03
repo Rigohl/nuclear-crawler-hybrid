@@ -117,7 +117,11 @@ pub fn relu(x: f64) -> f64 {
 }
 
 pub fn relu_derivative(x: f64) -> f64 {
-    if x > 0.0 { 1.0 } else { 0.0 }
+    if x > 0.0 {
+        1.0
+    } else {
+        0.0
+    }
 }
 
 pub fn sigmoid(x: f64) -> f64 {
@@ -220,7 +224,12 @@ impl OSINTNeuralNetwork {
     }
 
     /// Train on batch
-    pub fn train_batch(&mut self, x_batch: &[Vec<f64>], y_batch: &[Vec<f64>], epochs: usize) -> f64 {
+    pub fn train_batch(
+        &mut self,
+        x_batch: &[Vec<f64>],
+        y_batch: &[Vec<f64>],
+        epochs: usize,
+    ) -> f64 {
         let mut total_loss = 0.0;
 
         for _ in 0..epochs {
@@ -259,7 +268,11 @@ impl BotClassifierNN {
     /// Create bot classifier: 20D input → [hidden1:64, hidden2:32] → 2D output (human/bot)
     pub fn new() -> Self {
         let layer_sizes = vec![20, 64, 32, 2];
-        let activations = vec!["relu".to_string(), "relu".to_string(), "sigmoid".to_string()];
+        let activations = vec![
+            "relu".to_string(),
+            "relu".to_string(),
+            "sigmoid".to_string(),
+        ];
         let network = OSINTNeuralNetwork::new(&layer_sizes, activations, 0.01);
 
         BotClassifierNN { network }
@@ -326,9 +339,10 @@ mod tests {
     #[test]
     fn test_bot_classifier() {
         let mut classifier = BotClassifierNN::new();
-        let features = vec![
-            vec![100.0, 5000.0, 10.0, 0.2, 0.3, 180.0, 50.0, 5000.0, 100.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5, 2.0, 0.0, 0.1, 0.0],
-        ];
+        let features = vec![vec![
+            100.0, 5000.0, 10.0, 0.2, 0.3, 180.0, 50.0, 5000.0, 100.0, 5.0, 0.0, 0.0, 0.0, 0.0,
+            0.0, 1.5, 2.0, 0.0, 0.1, 0.0,
+        ]];
         let labels = vec![vec![1.0, 0.0]]; // Human
 
         let loss = classifier.train(&features, &labels);

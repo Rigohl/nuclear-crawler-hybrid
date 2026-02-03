@@ -16,13 +16,16 @@ fn test_chapel_ai_initialization() {
 
     // Create Chapel AI instance
     let chapel = ChapelAI::new();
-    
+
     // Try to get stats (this will work even without FFI initialized)
     match chapel.get_stats() {
         Ok(stats) => {
             eprintln!("✅ Chapel AI initialized successfully");
             eprintln!("   Total patterns: {}", stats.total_patterns);
-            eprintln!("   Average success rate: {:.2}%", stats.average_success_rate * 100.0);
+            eprintln!(
+                "   Average success rate: {:.2}%",
+                stats.average_success_rate * 100.0
+            );
         }
         Err(e) => {
             eprintln!("❌ Failed to get Chapel AI stats: {}", e);
@@ -35,14 +38,14 @@ fn test_chapel_ai_initialization() {
 #[test]
 fn test_chapel_ai_learning() {
     use nuclear_crawler_hybrid::ffi::chapel_integration::{ChapelAI, ChapelContext};
-    use std::time::{SystemTime, UNIX_EPOCH};
     use std::collections::HashMap;
+    use std::time::{SystemTime, UNIX_EPOCH};
 
     eprintln!("\n🧪 TEST: Chapel AI Learning");
     eprintln!("═════════════════════════════════════════════════════════");
 
     let chapel = ChapelAI::new();
-    
+
     // Test learning from a tool operation
     let context = ChapelContext {
         tool_name: "websearch".to_string(),
@@ -59,7 +62,7 @@ fn test_chapel_ai_learning() {
     match chapel.learn_from_operation(context) {
         Ok(()) => {
             eprintln!("✅ Chapel AI learned successfully");
-            
+
             // Check pattern count
             match chapel.get_pattern_count("websearch") {
                 Ok(count) => {
@@ -71,7 +74,10 @@ fn test_chapel_ai_learning() {
             }
         }
         Err(e) => {
-            eprintln!("⚠️  Chapel AI learning not available (using fallback): {}", e);
+            eprintln!(
+                "⚠️  Chapel AI learning not available (using fallback): {}",
+                e
+            );
         }
     }
 }
@@ -85,14 +91,17 @@ fn test_chapel_ai_optimization() {
     eprintln!("═════════════════════════════════════════════════════════");
 
     let chapel = ChapelAI::new();
-    
+
     match chapel.optimize() {
         Ok(patterns_optimized) => {
             eprintln!("✅ Chapel AI optimization completed");
             eprintln!("   Patterns optimized: {}", patterns_optimized);
         }
         Err(e) => {
-            eprintln!("⚠️  Chapel AI optimization not available (using fallback): {}", e);
+            eprintln!(
+                "⚠️  Chapel AI optimization not available (using fallback): {}",
+                e
+            );
         }
     }
 }

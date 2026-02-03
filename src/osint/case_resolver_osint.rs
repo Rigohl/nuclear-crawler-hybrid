@@ -30,7 +30,7 @@ pub struct OSINTCase {
     pub keywords: Vec<String>,
     pub created_at: u64,
     pub status: String, // "open", "in_progress", "closed"
-    pub priority: u8, // 1-10
+    pub priority: u8,   // 1-10
     pub context: HashMap<String, String>,
 }
 
@@ -114,12 +114,7 @@ pub struct AnalysisResult {
 }
 
 impl AnalysisResult {
-    pub fn new(
-        case_id: &str,
-        analysis_type: &str,
-        conclusion: &str,
-        confidence: f64,
-    ) -> Self {
+    pub fn new(case_id: &str, analysis_type: &str, conclusion: &str, confidence: f64) -> Self {
         AnalysisResult {
             case_id: case_id.to_string(),
             analysis_type: analysis_type.to_string(),
@@ -262,7 +257,10 @@ impl OSINTCaseResolver {
             self.all_evidence.push(evidence);
         }
 
-        eprintln!("✓ Phase 1 complete: {} evidence items collected", self.all_evidence.len());
+        eprintln!(
+            "✓ Phase 1 complete: {} evidence items collected",
+            self.all_evidence.len()
+        );
         Ok(())
     }
 
@@ -294,10 +292,9 @@ impl OSINTCaseResolver {
                 &format!("NN classifier output for {}", target),
                 bot_prob,
             );
-            evidence.supporting_data.insert(
-                "bot_probability".to_string(),
-                serde_json::json!(bot_prob),
-            );
+            evidence
+                .supporting_data
+                .insert("bot_probability".to_string(), serde_json::json!(bot_prob));
             result.add_evidence(evidence);
         }
 
@@ -405,41 +402,69 @@ impl OSINTCaseResolver {
         // Aggregate all analysis results
         for result in &self.analysis_results {
             report.add_analysis_result(result.clone());
-            eprintln!("  • {} (confidence: {:.1}%)", result.analysis_type, result.confidence * 100.0);
+            eprintln!(
+                "  • {} (confidence: {:.1}%)",
+                result.analysis_type,
+                result.confidence * 100.0
+            );
         }
 
         // Generate overall conclusion
         report.overall_conclusion = match report.overall_confidence {
-            c if c >= 0.9 => "CRITICAL: Highly coordinated malicious activity confirmed".to_string(),
-            c if c >= 0.7 => "HIGH: Strong indicators of coordinated operation detected".to_string(),
-            c if c >= 0.5 => "MEDIUM: Moderate indicators warrant further investigation".to_string(),
+            c if c >= 0.9 => {
+                "CRITICAL: Highly coordinated malicious activity confirmed".to_string()
+            }
+            c if c >= 0.7 => {
+                "HIGH: Strong indicators of coordinated operation detected".to_string()
+            }
+            c if c >= 0.5 => {
+                "MEDIUM: Moderate indicators warrant further investigation".to_string()
+            }
             _ => "LOW: Insufficient evidence at this time".to_string(),
         };
 
         // Add strategic actions
         match report.overall_confidence {
             c if c >= 0.9 => {
-                report.add_suggested_action("URGENT: Escalate to executive team immediately".to_string());
-                report.add_suggested_action("URGENT: Activate incident response protocol".to_string());
-                report.add_suggested_action("URGENT: Prepare public statement if needed".to_string());
+                report.add_suggested_action(
+                    "URGENT: Escalate to executive team immediately".to_string(),
+                );
+                report.add_suggested_action(
+                    "URGENT: Activate incident response protocol".to_string(),
+                );
+                report
+                    .add_suggested_action("URGENT: Prepare public statement if needed".to_string());
             }
             c if c >= 0.7 => {
-                report.add_suggested_action("HIGH: Intensive monitoring and logging activated".to_string());
-                report.add_suggested_action("HIGH: Prepare counter-intelligence response".to_string());
+                report.add_suggested_action(
+                    "HIGH: Intensive monitoring and logging activated".to_string(),
+                );
+                report.add_suggested_action(
+                    "HIGH: Prepare counter-intelligence response".to_string(),
+                );
                 report.add_suggested_action("HIGH: Brief leadership on findings".to_string());
             }
             c if c >= 0.5 => {
-                report.add_suggested_action("MEDIUM: Continue monitoring for escalation".to_string());
+                report
+                    .add_suggested_action("MEDIUM: Continue monitoring for escalation".to_string());
                 report.add_suggested_action("MEDIUM: Gather additional intelligence".to_string());
             }
             _ => {
-                report.add_suggested_action("LOW: Archive case and monitor for new activity".to_string());
+                report.add_suggested_action(
+                    "LOW: Archive case and monitor for new activity".to_string(),
+                );
             }
         }
 
         eprintln!("\n📊 CASE SUMMARY");
-        eprintln!("  Overall Confidence: {:.1}%", report.overall_confidence * 100.0);
-        eprintln!("  Risk Assessment: {}", report.risk_assessment.to_uppercase());
+        eprintln!(
+            "  Overall Confidence: {:.1}%",
+            report.overall_confidence * 100.0
+        );
+        eprintln!(
+            "  Risk Assessment: {}",
+            report.risk_assessment.to_uppercase()
+        );
         eprintln!("  Status: {}", report.status);
 
         eprintln!("\n📋 ANALYSIS COMPONENTS USED");
@@ -504,7 +529,10 @@ impl CaseManager {
         }
     }
 
-    pub fn submit_case(&mut self, mut case: OSINTCase) -> Result<CaseReport, Box<dyn std::error::Error>> {
+    pub fn submit_case(
+        &mut self,
+        mut case: OSINTCase,
+    ) -> Result<CaseReport, Box<dyn std::error::Error>> {
         let case_id = case.case_id.clone();
         let mut resolver = OSINTCaseResolver::new(case);
         let report = resolver.solve()?;

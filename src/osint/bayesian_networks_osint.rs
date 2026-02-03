@@ -201,8 +201,11 @@ impl BayesianNetwork {
                             .iter()
                             .position(|s| s == parent_value)
                             .unwrap_or(0);
-                        let parent_prob =
-                            if parent_idx < parent_node.cpt.len() { parent_node.cpt[parent_idx] } else { 0.5 };
+                        let parent_prob = if parent_idx < parent_node.cpt.len() {
+                            parent_node.cpt[parent_idx]
+                        } else {
+                            0.5
+                        };
                         adjustment *= parent_prob;
                     }
                 }
@@ -260,14 +263,18 @@ impl OSINTBayesianNetwork {
         entropy_anomaly.set_cpt(vec![0.2, 0.8]); // Prior: 20% anomalous
         network.add_node(entropy_anomaly);
 
-        let mut sentiment_anomaly =
-            BayesianNode::new("SentimentAnomaly", vec!["yes".to_string(), "no".to_string()]);
+        let mut sentiment_anomaly = BayesianNode::new(
+            "SentimentAnomaly",
+            vec!["yes".to_string(), "no".to_string()],
+        );
         sentiment_anomaly.set_cpt(vec![0.15, 0.85]); // Prior: 15% anomalous
         network.add_node(sentiment_anomaly);
 
         // Final judgment depends on all evidence
-        let mut final_judgment =
-            BayesianNode::new("FinalJudgment", vec!["bot".to_string(), "human".to_string()]);
+        let mut final_judgment = BayesianNode::new(
+            "FinalJudgment",
+            vec!["bot".to_string(), "human".to_string()],
+        );
         final_judgment.set_cpt(vec![0.5, 0.5]); // Initial
         network.add_node(final_judgment);
 
@@ -293,23 +300,40 @@ impl OSINTBayesianNetwork {
         // Set evidence
         evidence.insert(
             "IsBot".to_string(),
-            if bot_probability > 0.5 { "yes".to_string() } else { "no".to_string() },
+            if bot_probability > 0.5 {
+                "yes".to_string()
+            } else {
+                "no".to_string()
+            },
         );
 
-        evidence.insert("CoordinationScore".to_string(), coordination_level.to_string());
+        evidence.insert(
+            "CoordinationScore".to_string(),
+            coordination_level.to_string(),
+        );
 
         evidence.insert(
             "EntropyAnomaly".to_string(),
-            if has_entropy_anomaly { "yes".to_string() } else { "no".to_string() },
+            if has_entropy_anomaly {
+                "yes".to_string()
+            } else {
+                "no".to_string()
+            },
         );
 
         evidence.insert(
             "SentimentAnomaly".to_string(),
-            if has_sentiment_anomaly { "yes".to_string() } else { "no".to_string() },
+            if has_sentiment_anomaly {
+                "yes".to_string()
+            } else {
+                "no".to_string()
+            },
         );
 
         // Perform inference
-        let result = self.network.variable_elimination("FinalJudgment", &evidence);
+        let result = self
+            .network
+            .variable_elimination("FinalJudgment", &evidence);
 
         // Get maximum probability judgment
         let mut max_prob = 0.0;
@@ -364,7 +388,8 @@ impl OSINTNaiveBayes {
         // Compute class priors
         for class in &self.classes {
             let count = y.iter().filter(|c| *c == class).count();
-            self.class_priors.insert(class.clone(), count as f64 / n_samples as f64);
+            self.class_priors
+                .insert(class.clone(), count as f64 / n_samples as f64);
         }
 
         // Compute feature likelihoods (Gaussian assumption)
@@ -381,14 +406,13 @@ impl OSINTNaiveBayes {
 
                 if !class_values.is_empty() {
                     let mean = class_values.iter().sum::<f64>() / class_values.len() as f64;
-                    let variance = class_values
-                        .iter()
-                        .map(|v| (v - mean).powi(2))
-                        .sum::<f64>()
+                    let variance = class_values.iter().map(|v| (v - mean).powi(2)).sum::<f64>()
                         / class_values.len() as f64;
 
                     // Ensure entry exists
-                    self.feature_likelihoods.entry(feature_name.clone()).or_insert_with(HashMap::new);
+                    self.feature_likelihoods
+                        .entry(feature_name.clone())
+                        .or_insert_with(HashMap::new);
 
                     // Store mean and variance
                     if let Some(inner_map) = self.feature_likelihoods.get_mut(&feature_name) {
@@ -431,7 +455,10 @@ impl OSINTNaiveBayes {
         }
 
         // Convert log posteriors to probabilities
-        let max_posterior = posteriors.values().cloned().fold(f64::NEG_INFINITY, f64::max);
+        let max_posterior = posteriors
+            .values()
+            .cloned()
+            .fold(f64::NEG_INFINITY, f64::max);
         let exp_sum: f64 = posteriors
             .values()
             .map(|&p| (p - max_posterior).exp())
@@ -459,8 +486,7 @@ mod tests {
     #[test]
     fn test_bayesian_network() {
         let network = OSINTBayesianNetwork::new();
-        let (judgment, confidence) =
-            network.aggregate_evidence(0.8, "high", true, false);
+        let (judgment, confidence) = network.aggregate_evidence(0.8, "high", true, false);
         println!("Judgment: {} (confidence: {})", judgment, confidence);
         assert!(confidence >= 0.0 && confidence <= 1.0);
     }
@@ -476,10 +502,7 @@ mod tests {
     #[test]
     fn test_naive_bayes() {
         let mut nb = OSINTNaiveBayes::new();
-        let X = vec![
-            vec![0.1, 0.2, 0.3, 0.4, 0.5],
-            vec![0.2, 0.3, 0.4, 0.5, 0.6],
-        ];
+        let X = vec![vec![0.1, 0.2, 0.3, 0.4, 0.5], vec![0.2, 0.3, 0.4, 0.5, 0.6]];
         let y = vec!["bot".to_string(), "human".to_string()];
         nb.train(&X, &y);
 

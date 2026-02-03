@@ -76,11 +76,11 @@ pub mod infra;
 
 // ✅ FFI Modules - Re-export at crate level
 pub use ffi::chapel_integration;
+pub use ffi::chapel_integration::{get_chapel_ai, ChapelAI, ChapelContext};
 pub use ffi::go_integration;
 pub use ffi::jax_integration;
 pub use ffi::nim_integration;
 pub use ffi::zig_integration;
-pub use ffi::chapel_integration::{get_chapel_ai, ChapelAI, ChapelContext};
 
 // ✅ AI Modules - Re-export at crate level
 pub use ai::chatbot;
@@ -88,22 +88,21 @@ pub use ai::huggingface_integration;
 pub use ai::{Chatbot, ChatbotConfig, HuggingFaceClient, HuggingFaceConfig};
 
 // ✅ Infrastructure Modules - Re-export at crate level
-pub use infra::cache;
-pub use infra::rate_limit;
-pub use infra::intelligent_storage;
 pub use infra::advanced_bypass;
+pub use infra::cache;
 pub use infra::chromium_rendering;
 pub use infra::data_extraction;
 pub use infra::deepweb_tor;
+pub use infra::intelligent_storage;
 pub use infra::proxy_rotation;
+pub use infra::rate_limit;
 
 // ✅ OSINT Suite - Re-export at crate level
 pub use osint::{
-    OSINTNeuralNetwork, BotClassifierNN, AuthorshipNN,
-    OSINTBayesianNetwork, BayesianNetwork, OSINTNaiveBayes,
-    OSINTAdversarialGame, PayoffMatrix, NashSolver, MixedStrategy,
-    OSINTIntegrationPipeline, NuclearDataAggregator,
-    OSINTCaseResolver, CaseManager, OSINTCase, CaseType, CaseReport,
+    AuthorshipNN, BayesianNetwork, BotClassifierNN, CaseManager, CaseReport, CaseType,
+    MixedStrategy, NashSolver, NuclearDataAggregator, OSINTAdversarialGame, OSINTBayesianNetwork,
+    OSINTCase, OSINTCaseResolver, OSINTIntegrationPipeline, OSINTNaiveBayes, OSINTNeuralNetwork,
+    PayoffMatrix,
 };
 
 // ═══════════════════════════════════════════════════════════════════

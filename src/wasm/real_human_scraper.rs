@@ -1,7 +1,6 @@
-///! Real Human Scraper - Extrae conversaciones REALES de humanos, no inventa
-
-use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
+///! Real Human Scraper - Extrae conversaciones REALES de humanos, no inventa
+use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct RealHumanScraper {
@@ -18,24 +17,27 @@ impl RealHumanScraper {
             human_patterns: Vec::new(),
         }
     }
-    
+
     /// Scrapea HTML y extrae conversaciones REALES de humanos
     #[wasm_bindgen]
     pub fn scrape_real_humans(&mut self, html: &str, source_url: &str) -> String {
         // Extraer conversaciones REALES del HTML
         let conversations = self.extract_real_conversations(html, source_url);
-        
+
         self.real_conversations.extend(conversations.clone());
-        
-        format!("✅ Scraped {} REAL human conversations from {}", 
-                conversations.len(), source_url)
+
+        format!(
+            "✅ Scraped {} REAL human conversations from {}",
+            conversations.len(),
+            source_url
+        )
     }
-    
+
     /// Analiza patrones REALES de humanos (no inventados)
     #[wasm_bindgen]
     pub fn analyze_real_patterns(&mut self) -> String {
         self.human_patterns.clear();
-        
+
         // Analizar conversaciones REALES para encontrar patrones
         for conv in &self.real_conversations {
             // Patrones REALES que encontramos en los datos
@@ -48,7 +50,7 @@ impl RealHumanScraper {
                         example: msg.text.clone(),
                     });
                 }
-                
+
                 // Uso REAL de emojis (contar cuántos usan realmente)
                 let emoji_count = msg.text.matches(char::is_emoji).count();
                 if emoji_count > 0 {
@@ -58,7 +60,7 @@ impl RealHumanScraper {
                         example: msg.text.clone(),
                     });
                 }
-                
+
                 // Errores REALES (typos que hacen los humanos)
                 if self.has_human_typos(&msg.text) {
                     self.human_patterns.push(HumanPattern {
@@ -67,10 +69,11 @@ impl RealHumanScraper {
                         example: msg.text.clone(),
                     });
                 }
-                
+
                 // Tiempo entre mensajes REAL
                 if i > 0 {
-                    let time_diff = self.calculate_time_diff(&conv.messages[i-1].timestamp, &msg.timestamp);
+                    let time_diff =
+                        self.calculate_time_diff(&conv.messages[i - 1].timestamp, &msg.timestamp);
                     if time_diff > 0 {
                         self.human_patterns.push(HumanPattern {
                             pattern_type: "response_time".to_string(),
@@ -81,11 +84,14 @@ impl RealHumanScraper {
                 }
             }
         }
-        
-        format!("✅ Analyzed {} REAL human patterns from {} conversations",
-                self.human_patterns.len(), self.real_conversations.len())
+
+        format!(
+            "✅ Analyzed {} REAL human patterns from {} conversations",
+            self.human_patterns.len(),
+            self.real_conversations.len()
+        )
     }
-    
+
     /// Exporta dataset REAL para entrenar
     #[wasm_bindgen]
     pub fn export_real_dataset(&self) -> String {
@@ -94,32 +100,53 @@ impl RealHumanScraper {
             patterns: self.human_patterns.clone(),
             total_human_samples: self.real_conversations.len(),
         };
-        
+
         serde_json::to_string_pretty(&dataset).unwrap_or_default()
     }
-    
+
     /// Obtiene estadísticas REALES de humanos
     #[wasm_bindgen]
     pub fn get_real_human_stats(&self) -> String {
-        let avg_length: f32 = self.real_conversations.iter()
+        let avg_length: f32 = self
+            .real_conversations
+            .iter()
             .flat_map(|c| &c.messages)
             .map(|m| m.text.len() as f32)
-            .sum::<f32>() / self.real_conversations.iter()
+            .sum::<f32>()
+            / self
+                .real_conversations
+                .iter()
                 .map(|c| c.messages.len())
-                .sum::<usize>().max(1) as f32;
-        
-        let emoji_usage: f32 = self.real_conversations.iter()
+                .sum::<usize>()
+                .max(1) as f32;
+
+        let emoji_usage: f32 = self
+            .real_conversations
+            .iter()
             .flat_map(|c| &c.messages)
             .map(|m| m.text.matches(char::is_emoji).count() as f32)
-            .sum::<f32>() / self.real_conversations.len().max(1) as f32;
-        
-        let typo_rate: f32 = self.real_conversations.iter()
+            .sum::<f32>()
+            / self.real_conversations.len().max(1) as f32;
+
+        let typo_rate: f32 = self
+            .real_conversations
+            .iter()
             .flat_map(|c| &c.messages)
-            .map(|m| if self.has_human_typos(&m.text) { 1.0 } else { 0.0 })
-            .sum::<f32>() / self.real_conversations.iter()
+            .map(|m| {
+                if self.has_human_typos(&m.text) {
+                    1.0
+                } else {
+                    0.0
+                }
+            })
+            .sum::<f32>()
+            / self
+                .real_conversations
+                .iter()
                 .map(|c| c.messages.len())
-                .sum::<usize>().max(1) as f32;
-        
+                .sum::<usize>()
+                .max(1) as f32;
+
         serde_json::json!({
             "avg_message_length": avg_length,
             "avg_emoji_per_message": emoji_usage,
@@ -134,23 +161,24 @@ impl RealHumanScraper {
     /// Extrae conversaciones REALES del HTML
     fn extract_real_conversations(&self, html: &str, source: &str) -> Vec<RealHumanConversation> {
         let mut conversations = Vec::new();
-        
+
         // Buscar diferentes formatos de conversación REAL
         let lines: Vec<&str> = html.lines().collect();
         let mut current_conversation = Vec::new();
         let mut in_conversation = false;
-        
+
         for line in lines {
             let line = line.trim();
-            
+
             // Detectar inicio de conversación REAL
-            if line.contains("data-author") || 
-               line.contains("class=\"user-message\"") ||
-               line.contains("class=\"message-text\"") ||
-               line.contains("username") {
+            if line.contains("data-author")
+                || line.contains("class=\"user-message\"")
+                || line.contains("class=\"message-text\"")
+                || line.contains("username")
+            {
                 in_conversation = true;
             }
-            
+
             // Extraer mensaje REAL
             if in_conversation {
                 if let Some(text) = self.extract_real_text(line) {
@@ -164,7 +192,7 @@ impl RealHumanScraper {
                     }
                 }
             }
-            
+
             // Fin de conversación
             if line.contains("</div>") && in_conversation && !current_conversation.is_empty() {
                 if current_conversation.len() >= 2 {
@@ -178,10 +206,10 @@ impl RealHumanScraper {
                 in_conversation = false;
             }
         }
-        
+
         conversations
     }
-    
+
     fn extract_real_text(&self, html: &str) -> Option<String> {
         // Extraer texto REAL entre tags
         if let Some(start) = html.find('>') {
@@ -195,7 +223,7 @@ impl RealHumanScraper {
         }
         None
     }
-    
+
     fn extract_real_timestamp(&self, html: &str) -> String {
         // Buscar timestamp REAL en atributos
         if let Some(pos) = html.find("data-time") {
@@ -207,7 +235,7 @@ impl RealHumanScraper {
         }
         chrono::Utc::now().to_rfc3339()
     }
-    
+
     fn extract_real_author(&self, html: &str) -> String {
         // Buscar autor REAL
         if let Some(pos) = html.find("data-author") {
@@ -219,33 +247,31 @@ impl RealHumanScraper {
         }
         "unknown".to_string()
     }
-    
+
     fn has_human_typos(&self, text: &str) -> bool {
         // Errores REALES comunes de humanos
         let human_typos = [
-            "teh", "adn", "taht", "recieve", "seperate",
-            "lol", "haha", "omg", "tbh", "imo"
+            "teh", "adn", "taht", "recieve", "seperate", "lol", "haha", "omg", "tbh", "imo",
         ];
-        
+
         let text_lower = text.to_lowercase();
         human_typos.iter().any(|typo| text_lower.contains(typo))
     }
-    
+
     fn calculate_real_engagement(&self, messages: &[RealHumanMessage]) -> f32 {
         // Engagement REAL basado en longitud y participación
-        let avg_length: f32 = messages.iter()
-            .map(|m| m.text.len() as f32)
-            .sum::<f32>() / messages.len().max(1) as f32;
-        
+        let avg_length: f32 = messages.iter().map(|m| m.text.len() as f32).sum::<f32>()
+            / messages.len().max(1) as f32;
+
         // Conversaciones más largas = más engagement
         (avg_length / 100.0).min(10.0)
     }
-    
+
     fn calculate_time_diff(&self, time1: &str, time2: &str) -> f32 {
         // Calcular diferencia de tiempo REAL
         if let (Ok(t1), Ok(t2)) = (
             chrono::DateTime::parse_from_rfc3339(time1),
-            chrono::DateTime::parse_from_rfc3339(time2)
+            chrono::DateTime::parse_from_rfc3339(time2),
         ) {
             (t2 - t1).num_seconds() as f32
         } else {

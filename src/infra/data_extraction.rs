@@ -146,7 +146,7 @@ impl DataExtractionEngine {
                     .filter_map(|el| el.value().attr("href"))
                     .map(String::from)
                     .collect();
-                
+
                 fields.insert(
                     "links".to_string(),
                     ExtractedField {
@@ -168,7 +168,7 @@ impl DataExtractionEngine {
                     .filter_map(|el| el.value().attr("src"))
                     .map(String::from)
                     .collect();
-                
+
                 fields.insert(
                     "images".to_string(),
                     ExtractedField {
@@ -192,7 +192,7 @@ impl DataExtractionEngine {
                         .or_else(|| meta.value().attr("property"))
                         .unwrap_or("");
                     let content = meta.value().attr("content").unwrap_or("");
-                    
+
                     if !name.is_empty() && !content.is_empty() {
                         fields.insert(
                             format!("meta_{}", name),
@@ -211,12 +211,13 @@ impl DataExtractionEngine {
 
         // Extraer emails con regex
         if self.config.extract_emails {
-            let email_pattern = regex::Regex::new(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").unwrap();
+            let email_pattern =
+                regex::Regex::new(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").unwrap();
             let emails: Vec<String> = email_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
                 .collect();
-            
+
             if !emails.is_empty() {
                 fields.insert(
                     "emails".to_string(),
@@ -239,7 +240,7 @@ impl DataExtractionEngine {
                 .map(|m| m.as_str().to_string())
                 .filter(|p| p.len() >= 7)
                 .collect();
-            
+
             if !phones.is_empty() {
                 fields.insert(
                     "phones".to_string(),
@@ -261,7 +262,7 @@ impl DataExtractionEngine {
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
                 .collect();
-            
+
             if !prices.is_empty() {
                 fields.insert(
                     "prices".to_string(),
@@ -284,7 +285,8 @@ impl DataExtractionEngine {
         };
 
         let extraction_time_ms = start.elapsed().as_millis() as u64;
-        let confidence_score = fields.values().map(|f| f.confidence).sum::<f32>() / fields.len().max(1) as f32;
+        let confidence_score =
+            fields.values().map(|f| f.confidence).sum::<f32>() / fields.len().max(1) as f32;
 
         Ok(ExtractionResult {
             source_url: source_url.to_string(),
@@ -388,9 +390,9 @@ impl DataExtractionEngine {
             let first_line = trimmed.lines().next().unwrap_or("");
             let comma_count = first_line.matches(',').count();
             if comma_count > 0 {
-                let consistent = trimmed.lines().all(|line| {
-                    line.matches(',').count() == comma_count || line.is_empty()
-                });
+                let consistent = trimmed
+                    .lines()
+                    .all(|line| line.matches(',').count() == comma_count || line.is_empty());
                 if consistent {
                     return DataType::Csv;
                 }
@@ -432,16 +434,25 @@ mod tests {
     fn test_data_type_detection() {
         let engine = DataExtractionEngine::default();
 
-        assert_eq!(engine.detect_data_type(r#"{"key": "value"}"#), DataType::Json);
-        assert_eq!(engine.detect_data_type("<html><body>test</body></html>"), DataType::Html);
-        assert_eq!(engine.detect_data_type("a,b,c\n1,2,3\n4,5,6"), DataType::Csv);
+        assert_eq!(
+            engine.detect_data_type(r#"{"key": "value"}"#),
+            DataType::Json
+        );
+        assert_eq!(
+            engine.detect_data_type("<html><body>test</body></html>"),
+            DataType::Html
+        );
+        assert_eq!(
+            engine.detect_data_type("a,b,c\n1,2,3\n4,5,6"),
+            DataType::Csv
+        );
     }
 
     #[test]
     fn test_html_extraction() {
         let engine = DataExtractionEngine::default();
         let html = r#"<html><head><title>Test Page</title></head><body><a href="https://example.com">Link</a></body></html>"#;
-        
+
         let result = engine.extract_from_html(html, "https://test.com").unwrap();
         assert_eq!(result.data_type, DataType::Html);
         assert!(result.extracted_fields.contains_key("title"));
@@ -452,8 +463,10 @@ mod tests {
     fn test_json_extraction() {
         let engine = DataExtractionEngine::default();
         let json = r#"{"name": "John", "age": 30, "active": true}"#;
-        
-        let result = engine.extract_from_json(json, "https://api.test.com").unwrap();
+
+        let result = engine
+            .extract_from_json(json, "https://api.test.com")
+            .unwrap();
         assert_eq!(result.data_type, DataType::Json);
         assert!(result.extracted_fields.contains_key("name"));
         assert!(result.extracted_fields.contains_key("age"));

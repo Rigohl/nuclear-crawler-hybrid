@@ -54,26 +54,41 @@ impl TwitterDataSource {
             source_id: tweet["id"].as_str().unwrap_or("").to_string(),
             platform: "twitter".to_string(),
             user_id: tweet["author_id"].as_str().unwrap_or("").to_string(),
-            username: tweet["author"]["username"].as_str().unwrap_or("").to_string(),
+            username: tweet["author"]["username"]
+                .as_str()
+                .unwrap_or("")
+                .to_string(),
             content: tweet["text"].as_str().unwrap_or("").to_string(),
-            timestamp: tweet["created_at"].as_str().unwrap_or("0").parse().unwrap_or(0),
+            timestamp: tweet["created_at"]
+                .as_str()
+                .unwrap_or("0")
+                .parse()
+                .unwrap_or(0),
             engagement_metrics: {
                 let mut m = HashMap::new();
                 m.insert(
                     "retweets".to_string(),
-                    tweet["public_metrics"]["retweet_count"].as_f64().unwrap_or(0.0),
+                    tweet["public_metrics"]["retweet_count"]
+                        .as_f64()
+                        .unwrap_or(0.0),
                 );
                 m.insert(
                     "likes".to_string(),
-                    tweet["public_metrics"]["like_count"].as_f64().unwrap_or(0.0),
+                    tweet["public_metrics"]["like_count"]
+                        .as_f64()
+                        .unwrap_or(0.0),
                 );
                 m.insert(
                     "replies".to_string(),
-                    tweet["public_metrics"]["reply_count"].as_f64().unwrap_or(0.0),
+                    tweet["public_metrics"]["reply_count"]
+                        .as_f64()
+                        .unwrap_or(0.0),
                 );
                 m.insert(
                     "quotes".to_string(),
-                    tweet["public_metrics"]["quote_count"].as_f64().unwrap_or(0.0),
+                    tweet["public_metrics"]["quote_count"]
+                        .as_f64()
+                        .unwrap_or(0.0),
                 );
                 m
             },
@@ -128,7 +143,10 @@ pub struct DiscordDataSource {
 
 impl DiscordDataSource {
     pub fn new(webhook_url: String, channels: Vec<String>) -> Self {
-        DiscordDataSource { webhook_url, channels }
+        DiscordDataSource {
+            webhook_url,
+            channels,
+        }
     }
 
     fn parse_message(&self, msg: &serde_json::Value) -> Option<RawDataRecord> {
@@ -139,10 +157,17 @@ impl DiscordDataSource {
             user_id: msg["author"]["id"].as_str().unwrap_or("").to_string(),
             username: msg["author"]["username"].as_str().unwrap_or("").to_string(),
             content: msg["content"].as_str().unwrap_or("").to_string(),
-            timestamp: msg["timestamp"].as_str().unwrap_or("0").parse().unwrap_or(0),
+            timestamp: msg["timestamp"]
+                .as_str()
+                .unwrap_or("0")
+                .parse()
+                .unwrap_or(0),
             engagement_metrics: {
                 let mut m = HashMap::new();
-                m.insert("reactions".to_string(), msg["reactions"].as_f64().unwrap_or(0.0));
+                m.insert(
+                    "reactions".to_string(),
+                    msg["reactions"].as_f64().unwrap_or(0.0),
+                );
                 m
             },
             language: "en".to_string(),
@@ -186,7 +211,10 @@ pub struct TelegramDataSource {
 
 impl TelegramDataSource {
     pub fn new(bot_token: String, chat_ids: Vec<String>) -> Self {
-        TelegramDataSource { bot_token, chat_ids }
+        TelegramDataSource {
+            bot_token,
+            chat_ids,
+        }
     }
 
     fn parse_message(&self, msg: &serde_json::Value) -> Option<RawDataRecord> {
@@ -256,12 +284,20 @@ impl NuclearDataAggregator {
         for source in &self.sources {
             match source.fetch() {
                 Ok(records) => {
-                    eprintln!("[DataAggregator] {} fetched {} records", source.name(), records.len());
+                    eprintln!(
+                        "[DataAggregator] {} fetched {} records",
+                        source.name(),
+                        records.len()
+                    );
                     count += records.len();
                     self.all_records.extend(records);
                 }
                 Err(e) => {
-                    eprintln!("[DataAggregator] Error fetching from {}: {}", source.name(), e);
+                    eprintln!(
+                        "[DataAggregator] Error fetching from {}: {}",
+                        source.name(),
+                        e
+                    );
                 }
             }
         }
@@ -272,7 +308,8 @@ impl NuclearDataAggregator {
     /// Deduplicate records by source_id
     pub fn deduplicate(&mut self) {
         let mut seen = std::collections::HashSet::new();
-        self.all_records.retain(|record| seen.insert(record.source_id.clone()));
+        self.all_records
+            .retain(|record| seen.insert(record.source_id.clone()));
     }
 
     /// Filter by timestamp
@@ -373,7 +410,10 @@ impl DataEnrichmentPipeline {
         }
 
         stats.insert("total_engagement".to_string(), total_engagement);
-        stats.insert("avg_engagement".to_string(), total_engagement / self.records.len() as f64);
+        stats.insert(
+            "avg_engagement".to_string(),
+            total_engagement / self.records.len() as f64,
+        );
         stats.insert("max_engagement".to_string(), max_engagement);
         stats.insert("min_engagement".to_string(), min_engagement);
 
@@ -452,7 +492,10 @@ impl OSINTIntegrationPipeline {
 
         // Step 2: Deduplicate
         self.aggregator.deduplicate();
-        eprintln!("[Pipeline] Deduplicated to {} records", self.aggregator.len());
+        eprintln!(
+            "[Pipeline] Deduplicated to {} records",
+            self.aggregator.len()
+        );
 
         // Step 3: Enrich
         let records = self.aggregator.get_records().to_vec();
@@ -512,11 +555,8 @@ mod tests {
 
     #[test]
     fn test_twitter_source() {
-        let twitter = TwitterDataSource::new(
-            "test_key".to_string(),
-            vec!["osint".to_string()],
-            100,
-        );
+        let twitter =
+            TwitterDataSource::new("test_key".to_string(), vec!["osint".to_string()], 100);
 
         match twitter.fetch() {
             Ok(records) => {
@@ -530,11 +570,7 @@ mod tests {
     #[test]
     fn test_data_aggregator() {
         let mut aggregator = NuclearDataAggregator::new();
-        let twitter = Box::new(TwitterDataSource::new(
-            "test".to_string(),
-            vec![],
-            10,
-        ));
+        let twitter = Box::new(TwitterDataSource::new("test".to_string(), vec![], 10));
         aggregator.add_source(twitter);
 
         match aggregator.fetch_all() {
@@ -548,11 +584,7 @@ mod tests {
     #[test]
     fn test_pipeline() {
         let mut pipeline = OSINTIntegrationPipeline::new();
-        let twitter = Box::new(TwitterDataSource::new(
-            "test".to_string(),
-            vec![],
-            10,
-        ));
+        let twitter = Box::new(TwitterDataSource::new("test".to_string(), vec![], 10));
         pipeline.aggregator.add_source(twitter);
 
         match pipeline.execute() {

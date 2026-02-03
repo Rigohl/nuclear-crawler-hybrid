@@ -42,7 +42,10 @@ impl WasmNeuralOps {
     /// Sigmoid activation - vectorized
     pub fn sigmoid_batch(&self, input: &str) -> String {
         // WASM SIMD: compute sigmoid on 4-8 values in parallel
-        format!("{{\"status\": \"activated\", \"size\": {}}}", self.input_size)
+        format!(
+            "{{\"status\": \"activated\", \"size\": {}}}",
+            self.input_size
+        )
     }
 
     /// Forward pass through neural network (primary bottleneck)

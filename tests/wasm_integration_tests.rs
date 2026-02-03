@@ -10,7 +10,10 @@ mod wasm_tests {
             use nuclear_crawler_hybrid::wasm::file_search::WasmFileSearcher;
             let searcher = WasmFileSearcher::new("test");
             // searcher is created successfully
-            assert_eq!(searcher.search("test line"), "{\"matches\": 1, \"count\": 1}");
+            assert_eq!(
+                searcher.search("test line"),
+                "{\"matches\": 1, \"count\": 1}"
+            );
         }
     }
 

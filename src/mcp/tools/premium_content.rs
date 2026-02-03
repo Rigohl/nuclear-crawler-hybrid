@@ -57,9 +57,7 @@ pub struct PremiumContentTool {
 impl PremiumContentTool {
     /// Create new premium content tool - Integrado con TODO + Chapel AI
     pub fn new(config: PremiumConfig) -> Self {
-        eprintln!(
-            "🔥 Premium Content Tool initialized - REAL FFI (Go+Zig+Nim+Chapel+JAX)"
-        );
+        eprintln!("🔥 Premium Content Tool initialized - REAL FFI (Go+Zig+Nim+Chapel+JAX)");
         eprintln!("   ✅ NO MOCKS - 100% Real HTTP requests");
         eprintln!("   ✅ FFI: Go (parallel), Zig (SIMD), Nim (HTML), Chapel (AI)");
 

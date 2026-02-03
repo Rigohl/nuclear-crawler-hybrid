@@ -33,7 +33,11 @@ impl WasmFileSearcher {
             .filter(|line| line.contains(&self.pattern))
             .collect();
 
-        format!("{{\"matches\": {}, \"count\": {}}}", matches.len(), matches.len())
+        format!(
+            "{{\"matches\": {}, \"count\": {}}}",
+            matches.len(),
+            matches.len()
+        )
     }
 
     /// Batch search - optimized for multiple queries
@@ -70,6 +74,10 @@ impl FileSearcherFallback {
             .filter(|line| line.contains(&self.pattern))
             .collect();
 
-        format!("{{\"matches\": {}, \"count\": {}}}", matches.len(), matches.len())
+        format!(
+            "{{\"matches\": {}, \"count\": {}}}",
+            matches.len(),
+            matches.len()
+        )
     }
 }

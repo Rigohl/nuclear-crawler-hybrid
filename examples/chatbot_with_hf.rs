@@ -47,11 +47,11 @@ async fn main() -> anyhow::Result<()> {
 
     for (i, message) in messages.iter().enumerate() {
         println!("👤 User (Turn {}): {}", i + 1, message);
-        
+
         let response = chatbot.chat(message).await?;
-        
+
         println!("🤖 Bot: {}\n", response);
-        
+
         // Show which tools were detected
         let history = chatbot.get_history()?;
         if let Some(turn) = history.last() {
@@ -59,7 +59,7 @@ async fn main() -> anyhow::Result<()> {
                 println!("🔧 Tools detected: {:?}\n", turn.tools_used);
             }
         }
-        
+
         println!("---\n");
     }
 
@@ -70,8 +70,8 @@ async fn main() -> anyhow::Result<()> {
 
     // Show conversation quality
     let history = chatbot.get_history()?;
-    let avg_quality: f64 = history.iter().map(|t| t.quality_score).sum::<f64>() 
-        / history.len() as f64;
+    let avg_quality: f64 =
+        history.iter().map(|t| t.quality_score).sum::<f64>() / history.len() as f64;
     println!("📈 Average conversation quality: {:.2}", avg_quality);
 
     Ok(())

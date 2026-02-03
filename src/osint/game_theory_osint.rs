@@ -185,11 +185,7 @@ impl NashSolver {
     }
 
     /// Expected payoff for a mixed strategy profile
-    pub fn expected_payoff(
-        &self,
-        s1: &MixedStrategy,
-        s2: &MixedStrategy,
-    ) -> (f64, f64) {
+    pub fn expected_payoff(&self, s1: &MixedStrategy, s2: &MixedStrategy) -> (f64, f64) {
         let mut payoff1 = 0.0;
         let mut payoff2 = 0.0;
 
@@ -385,8 +381,7 @@ impl SignalingGame {
             // Likelihood of signal given type (simplified)
             let likelihood = if signal == "aggressive" { 0.8 } else { 0.2 };
             let posterior = prior * likelihood;
-            self.receiver_belief
-                .insert(type_label.clone(), posterior);
+            self.receiver_belief.insert(type_label.clone(), posterior);
             total_posterior += posterior;
         }
 
@@ -470,7 +465,10 @@ mod tests {
 
     #[test]
     fn test_nash_equilibrium() {
-        let mut game = PayoffMatrix::new("PrisonersDilemma", vec!["Cooperate".to_string(), "Defect".to_string()]);
+        let mut game = PayoffMatrix::new(
+            "PrisonersDilemma",
+            vec!["Cooperate".to_string(), "Defect".to_string()],
+        );
         game.set_payoff(0, 0, -1.0, -1.0); // Both cooperate
         game.set_payoff(0, 1, -3.0, 0.0); // Cooperate vs Defect
         game.set_payoff(1, 0, 0.0, -3.0); // Defect vs Cooperate

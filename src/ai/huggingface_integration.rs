@@ -126,7 +126,14 @@ impl HuggingFaceClient {
         eprintln!("🤗 HuggingFace Client Initialized");
         eprintln!("   ✅ API URL: {}", config.api_base_url);
         eprintln!("   ✅ Username: {}", config.username);
-        eprintln!("   ✅ Token: {}", if config.api_token.is_empty() { "NOT SET" } else { "SET" });
+        eprintln!(
+            "   ✅ Token: {}",
+            if config.api_token.is_empty() {
+                "NOT SET"
+            } else {
+                "SET"
+            }
+        );
 
         Ok(Self { config, client })
     }
@@ -139,7 +146,9 @@ impl HuggingFaceClient {
         metadata: HFDatasetMetadata,
     ) -> Result<String> {
         if self.config.api_token.is_empty() {
-            return Err(anyhow!("HuggingFace API token not set. Set HF_TOKEN environment variable."));
+            return Err(anyhow!(
+                "HuggingFace API token not set. Set HF_TOKEN environment variable."
+            ));
         }
 
         eprintln!("📤 Uploading dataset '{}' to HuggingFace...", dataset_name);
@@ -155,7 +164,7 @@ impl HuggingFaceClient {
         //
         // For actual upload, use: huggingface-cli upload command
         // Or: Python's huggingface_hub.HfApi().upload_file()
-        
+
         let repo_url = format!(
             "https://huggingface.co/datasets/{}/{}",
             self.config.username, dataset_name
@@ -178,7 +187,9 @@ impl HuggingFaceClient {
         training_config: TrainingConfig,
     ) -> Result<String> {
         if self.config.api_token.is_empty() {
-            return Err(anyhow!("HuggingFace API token not set. Set HF_TOKEN environment variable."));
+            return Err(anyhow!(
+                "HuggingFace API token not set. Set HF_TOKEN environment variable."
+            ));
         }
 
         eprintln!("🎓 Fine-tuning model on HuggingFace...");
@@ -223,7 +234,9 @@ impl HuggingFaceClient {
         max_tokens: usize,
     ) -> Result<ChatResponse> {
         if self.config.api_token.is_empty() {
-            return Err(anyhow!("HuggingFace API token not set. Set HF_TOKEN environment variable."));
+            return Err(anyhow!(
+                "HuggingFace API token not set. Set HF_TOKEN environment variable."
+            ));
         }
 
         eprintln!("💬 Chatting with model '{}'...", model_name);
@@ -235,21 +248,24 @@ impl HuggingFaceClient {
 
         // Prepare the payload
         let mut payload = serde_json::Map::new();
-        
+
         // Format messages for the model
         let conversation = messages
             .iter()
             .map(|m| format!("{}: {}", m.role, m.content))
             .collect::<Vec<_>>()
             .join("\n");
-        
+
         payload.insert("inputs".to_string(), serde_json::json!(conversation));
-        payload.insert("parameters".to_string(), serde_json::json!({
-            "max_new_tokens": max_tokens,
-            "temperature": 0.7,
-            "top_p": 0.9,
-            "do_sample": true
-        }));
+        payload.insert(
+            "parameters".to_string(),
+            serde_json::json!({
+                "max_new_tokens": max_tokens,
+                "temperature": 0.7,
+                "top_p": 0.9,
+                "do_sample": true
+            }),
+        );
 
         // Make the API request
         let response = self
@@ -269,11 +285,12 @@ impl HuggingFaceClient {
 
         // Parse response
         let response_json: serde_json::Value = response.json().await?;
-        
+
         // Extract generated text
         let generated_text = if let Some(array) = response_json.as_array() {
             if let Some(first) = array.first() {
-                first.get("generated_text")
+                first
+                    .get("generated_text")
                     .and_then(|v| v.as_str())
                     .unwrap_or("No response generated")
                     .to_string()
@@ -299,7 +316,7 @@ impl HuggingFaceClient {
     /// List available models
     pub async fn list_models(&self, filter: Option<&str>) -> Result<Vec<String>> {
         eprintln!("📋 Listing HuggingFace models...");
-        
+
         let mut url = format!("{}/models", self.config.api_base_url);
         if let Some(f) = filter {
             url.push_str(&format!("?search={}", urlencoding::encode(f)));
@@ -349,9 +366,11 @@ impl HuggingFaceClient {
 }
 
 /// Helper to create training dataset in HuggingFace format
-pub fn format_dataset_for_hf(datapoints: &[crate::mcp::tools::ai_dataset_trainer::TrainingDatapoint]) -> Result<String> {
+pub fn format_dataset_for_hf(
+    datapoints: &[crate::mcp::tools::ai_dataset_trainer::TrainingDatapoint],
+) -> Result<String> {
     let mut jsonl_lines = Vec::new();
-    
+
     for dp in datapoints {
         let entry = serde_json::json!({
             "text": dp.text,
@@ -362,7 +381,7 @@ pub fn format_dataset_for_hf(datapoints: &[crate::mcp::tools::ai_dataset_trainer
         });
         jsonl_lines.push(serde_json::to_string(&entry)?);
     }
-    
+
     Ok(jsonl_lines.join("\n"))
 }
 
