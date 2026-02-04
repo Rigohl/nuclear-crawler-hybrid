@@ -124,6 +124,28 @@ jobs:
           fi
         continue-on-error: true
       
+      - name: 🤖 Run Advanced Auto-Repair Agent
+        if: steps.validation.outputs.validation_passed == 'false'
+        id: advanced_repair
+        run: |
+          echo "🤖 Running advanced auto-repair agent..."
+          
+          # Run advanced agent with auto-repair
+          python3 scripts/advanced_auto_repair_agent.py \
+            --auto-repair \
+            --max-iterations 3 \
+            --output advanced_repair_report.json \
+            2>&1 | tee advanced_repair.log
+          
+          if [ ${PIPESTATUS[0]} -eq 0 ]; then
+            echo "advanced_repair_success=true" >> $GITHUB_OUTPUT
+            echo "✅ Advanced repair successful"
+          else
+            echo "advanced_repair_success=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Advanced repair encountered issues"
+          fi
+        continue-on-error: true
+      
       - name: 🏗️ Attempt Recovery Build
         if: steps.analyze.outputs.failure_detected == 'true'
         id: recovery_build
