@@ -1,7 +1,6 @@
-///! WASM Ultra-Fast Scraper - Scrapea y extrae info de web para entrenar bots
-
-use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
+///! WASM Ultra-Fast Scraper - Scrapea y extrae info de web para entrenar bots
+use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct WasmScraper {
@@ -18,36 +17,42 @@ impl WasmScraper {
             patterns: Vec::new(),
         }
     }
-    
+
     /// Scrapea HTML ultra-rápido y extrae conversaciones
     #[wasm_bindgen]
     pub fn scrape_html(&mut self, html: &str, source_url: &str) -> String {
         let conversations = self.extract_conversations_fast(html, source_url);
-        
+
         self.scraped_data.extend(conversations.clone());
-        
-        format!("✅ Scraped {} conversations from {}", conversations.len(), source_url)
+
+        format!(
+            "✅ Scraped {} conversations from {}",
+            conversations.len(),
+            source_url
+        )
     }
-    
+
     /// Detecta patrones de conversación para entrenar el bot
     #[wasm_bindgen]
     pub fn detect_patterns(&mut self) -> String {
         self.patterns.clear();
-        
+
         // Analizar todos los datos scrapeados
         for conversation in &self.scraped_data {
             // Detectar opening lines efectivos
             if conversation.engagement_score > 7.0 {
                 self.patterns.push(ConversationPattern {
                     pattern_type: "opening_line".to_string(),
-                    text: conversation.messages.first()
+                    text: conversation
+                        .messages
+                        .first()
                         .map(|m| m.text.clone())
                         .unwrap_or_default(),
                     effectiveness: conversation.engagement_score,
                     context: conversation.context.clone(),
                 });
             }
-            
+
             // Detectar respuestas que generan engagement
             for (i, msg) in conversation.messages.iter().enumerate() {
                 if msg.likes > 5 || msg.replies > 3 {
@@ -59,7 +64,7 @@ impl WasmScraper {
                     });
                 }
             }
-            
+
             // Detectar tone y estilo efectivo
             let tone = self.detect_tone(&conversation.messages);
             if !tone.is_empty() {
@@ -71,11 +76,14 @@ impl WasmScraper {
                 });
             }
         }
-        
-        format!("✅ Detected {} patterns from {} conversations", 
-                self.patterns.len(), self.scraped_data.len())
+
+        format!(
+            "✅ Detected {} patterns from {} conversations",
+            self.patterns.len(),
+            self.scraped_data.len()
+        )
     }
-    
+
     /// Exporta datos para entrenar el chatbot
     #[wasm_bindgen]
     pub fn export_training_data(&self) -> String {
@@ -85,16 +93,16 @@ impl WasmScraper {
             total_samples: self.scraped_data.len(),
             total_patterns: self.patterns.len(),
         };
-        
+
         serde_json::to_string_pretty(&training_data).unwrap_or_default()
     }
-    
+
     /// Obtiene top patterns para el bot
     #[wasm_bindgen]
     pub fn get_top_patterns(&self, limit: usize) -> String {
         let mut sorted = self.patterns.clone();
         sorted.sort_by(|a, b| b.effectiveness.partial_cmp(&a.effectiveness).unwrap());
-        
+
         let top = sorted.iter().take(limit).collect::<Vec<_>>();
         serde_json::to_string_pretty(&top).unwrap_or_default()
     }
@@ -104,23 +112,24 @@ impl WasmScraper {
     /// Extrae conversaciones del HTML (ultra-rápido en WASM)
     fn extract_conversations_fast(&self, html: &str, source: &str) -> Vec<ScrapedConversation> {
         let mut conversations = Vec::new();
-        
+
         // Detectar diferentes tipos de conversaciones
         let lines: Vec<&str> = html.lines().collect();
-        
+
         let mut current_conversation = Vec::new();
         let mut in_conversation = false;
-        
+
         for line in lines {
             let line = line.trim();
-            
+
             // Detectar inicio de conversación
-            if line.contains("class=\"message\"") || 
-               line.contains("class=\"comment\"") ||
-               line.contains("class=\"chat\"") {
+            if line.contains("class=\"message\"")
+                || line.contains("class=\"comment\"")
+                || line.contains("class=\"chat\"")
+            {
                 in_conversation = true;
             }
-            
+
             // Extraer mensaje
             if in_conversation && !line.is_empty() {
                 if let Some(text) = self.extract_text(line) {
@@ -132,7 +141,7 @@ impl WasmScraper {
                     });
                 }
             }
-            
+
             // Fin de conversación
             if line.contains("</div>") && in_conversation {
                 if !current_conversation.is_empty() {
@@ -147,10 +156,10 @@ impl WasmScraper {
                 in_conversation = false;
             }
         }
-        
+
         conversations
     }
-    
+
     fn extract_text(&self, html: &str) -> Option<String> {
         // Extrae texto entre > y <
         if let Some(start) = html.find('>') {
@@ -163,7 +172,7 @@ impl WasmScraper {
         }
         None
     }
-    
+
     fn extract_number(&self, html: &str, attribute: &str) -> u32 {
         if let Some(pos) = html.find(attribute) {
             let rest = &html[pos..];
@@ -176,7 +185,7 @@ impl WasmScraper {
         }
         0
     }
-    
+
     fn extract_timestamp(&self, html: &str) -> String {
         // Buscar timestamp común
         if let Some(pos) = html.find("data-time") {
@@ -188,21 +197,22 @@ impl WasmScraper {
         }
         chrono::Utc::now().to_rfc3339()
     }
-    
+
     fn calculate_engagement(&self, messages: &[Message]) -> f32 {
         let total_likes: u32 = messages.iter().map(|m| m.likes).sum();
         let total_replies: u32 = messages.iter().map(|m| m.replies).sum();
-        
+
         (total_likes as f32 * 0.5 + total_replies as f32 * 2.0) / messages.len().max(1) as f32
     }
-    
+
     fn extract_context(&self, messages: &[Message]) -> String {
         // Detectar tema de conversación
-        let combined_text = messages.iter()
+        let combined_text = messages
+            .iter()
             .map(|m| m.text.as_str())
             .collect::<Vec<_>>()
             .join(" ");
-        
+
         if combined_text.contains("hey") || combined_text.contains("hi") {
             "greeting".to_string()
         } else if combined_text.contains("how") || combined_text.contains("what") {
@@ -213,14 +223,15 @@ impl WasmScraper {
             "general".to_string()
         }
     }
-    
+
     fn detect_tone(&self, messages: &[Message]) -> String {
-        let text = messages.iter()
+        let text = messages
+            .iter()
             .map(|m| m.text.as_str())
             .collect::<Vec<_>>()
             .join(" ")
             .to_lowercase();
-        
+
         if text.contains("!") || text.contains("amazing") || text.contains("love") {
             "enthusiastic".to_string()
         } else if text.contains("?") {

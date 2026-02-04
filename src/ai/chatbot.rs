@@ -106,9 +106,26 @@ impl Chatbot {
         eprintln!("   ✅ Model: {}", config.model_name);
         eprintln!("   ✅ Max History: {} turns", config.max_history);
         eprintln!("   ✅ Max Tokens: {}", config.max_tokens);
-        eprintln!("   ✅ Chapel Learning: {}", if config.enable_chapel_learning { "ON" } else { "OFF" });
-        eprintln!("   ✅ Tool Integration: {}", if config.enable_tools { "ON" } else { "OFF" });
-        eprintln!("   ✅ HuggingFace: {}", if hf_client.is_some() { "Connected" } else { "Local Mode" });
+        eprintln!(
+            "   ✅ Chapel Learning: {}",
+            if config.enable_chapel_learning {
+                "ON"
+            } else {
+                "OFF"
+            }
+        );
+        eprintln!(
+            "   ✅ Tool Integration: {}",
+            if config.enable_tools { "ON" } else { "OFF" }
+        );
+        eprintln!(
+            "   ✅ HuggingFace: {}",
+            if hf_client.is_some() {
+                "Connected"
+            } else {
+                "Local Mode"
+            }
+        );
 
         Self {
             config,
@@ -147,22 +164,30 @@ impl Chatbot {
             let chapel = get_chapel_ai();
             if let Ok(advice) = chapel.get_advice("chatbot", "chat") {
                 if !advice.is_empty() {
-                    chapel_context = format!(" [Chapel AI guidance: {}]", 
-                        advice.iter().map(|a| &a.suggestion).cloned().collect::<Vec<_>>().join("; "));
+                    chapel_context = format!(
+                        " [Chapel AI guidance: {}]",
+                        advice
+                            .iter()
+                            .map(|a| &a.suggestion)
+                            .cloned()
+                            .collect::<Vec<_>>()
+                            .join("; ")
+                    );
                 }
             }
         }
 
         // Build conversation context
-        let mut messages = vec![
-            ChatMessage {
-                role: "system".to_string(),
-                content: self.config.system_prompt.clone() + &chapel_context,
-            }
-        ];
+        let mut messages = vec![ChatMessage {
+            role: "system".to_string(),
+            content: self.config.system_prompt.clone() + &chapel_context,
+        }];
 
         // Add conversation history
-        let state = self.state.read().map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+        let state = self
+            .state
+            .read()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
         for turn in state.conversation_history.iter() {
             messages.push(ChatMessage {
                 role: "user".to_string(),
@@ -197,15 +222,10 @@ impl Chatbot {
 
         // Assess quality and learn
         let quality_score = self.assess_response_quality(&response);
-        
+
         if self.config.enable_chapel_learning {
             let chapel = get_chapel_ai();
-            let context = create_context(
-                "chatbot",
-                "chat",
-                user_message,
-                quality_score,
-            );
+            let context = create_context("chatbot", "chat", user_message, quality_score);
             let _ = chapel.learn(context);
         }
 
@@ -221,7 +241,10 @@ impl Chatbot {
             quality_score,
         };
 
-        let mut state = self.state.write().map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+        let mut state = self
+            .state
+            .write()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
         state.add_turn(turn);
 
         Ok(response)
@@ -252,9 +275,9 @@ impl Chatbot {
                 🧠 Chapel AI - Continuous learning system\n\
                 \nTools currently available: {}\n\
                 \nHow can I help you today?",
-                if tools_used.is_empty() { 
-                    "All tools ready".to_string() 
-                } else { 
+                if tools_used.is_empty() {
+                    "All tools ready".to_string()
+                } else {
                     tools_used.join(", ")
                 }
             )
@@ -264,11 +287,11 @@ impl Chatbot {
     }
 
     // Quality score weights (configured for balanced assessment)
-    const QUALITY_LENGTH_LONG: f64 = 0.2;      // Bonus for detailed responses (>200 chars)
-    const QUALITY_LENGTH_MEDIUM: f64 = 0.1;    // Bonus for adequate responses (>100 chars)
-    const QUALITY_INFORMATIVE: f64 = 0.1;      // Bonus for using informative markers
-    const QUALITY_HELPFUL: f64 = 0.1;          // Bonus for offering help or questions
-    const QUALITY_STRUCTURED: f64 = 0.1;       // Bonus for structured formatting
+    const QUALITY_LENGTH_LONG: f64 = 0.2; // Bonus for detailed responses (>200 chars)
+    const QUALITY_LENGTH_MEDIUM: f64 = 0.1; // Bonus for adequate responses (>100 chars)
+    const QUALITY_INFORMATIVE: f64 = 0.1; // Bonus for using informative markers
+    const QUALITY_HELPFUL: f64 = 0.1; // Bonus for offering help or questions
+    const QUALITY_STRUCTURED: f64 = 0.1; // Bonus for structured formatting
 
     /// Assess the quality of a response
     fn assess_response_quality(&self, response: &str) -> f64 {
@@ -302,8 +325,11 @@ impl Chatbot {
 
     /// Get conversation statistics
     pub fn get_statistics(&self) -> Result<serde_json::Value> {
-        let state = self.state.read().map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
-        
+        let state = self
+            .state
+            .read()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+
         Ok(serde_json::json!({
             "total_turns": state.total_turns,
             "history_length": state.conversation_history.len(),
@@ -316,7 +342,10 @@ impl Chatbot {
 
     /// Clear conversation history
     pub fn clear_history(&self) -> Result<()> {
-        let mut state = self.state.write().map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+        let mut state = self
+            .state
+            .write()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
         state.conversation_history.clear();
         eprintln!("🗑️  Conversation history cleared");
         Ok(())
@@ -324,7 +353,10 @@ impl Chatbot {
 
     /// Get conversation history
     pub fn get_history(&self) -> Result<Vec<ConversationTurn>> {
-        let state = self.state.read().map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+        let state = self
+            .state
+            .read()
+            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
         Ok(state.conversation_history.iter().cloned().collect())
     }
 }
@@ -344,7 +376,7 @@ mod tests {
     async fn test_chatbot_local_mode() {
         let config = ChatbotConfig::default();
         let chatbot = Chatbot::new(config, None);
-        
+
         let response = chatbot.chat("Hello").await;
         assert!(response.is_ok());
         assert!(response.unwrap().contains("Nuclear AI"));
@@ -354,7 +386,7 @@ mod tests {
     async fn test_chatbot_help() {
         let config = ChatbotConfig::default();
         let chatbot = Chatbot::new(config, None);
-        
+
         let response = chatbot.chat("help").await.unwrap();
         assert!(response.contains("capabilities"));
     }
@@ -363,7 +395,7 @@ mod tests {
     fn test_chatbot_statistics() {
         let config = ChatbotConfig::default();
         let chatbot = Chatbot::new(config, None);
-        
+
         let stats = chatbot.get_statistics();
         assert!(stats.is_ok());
     }

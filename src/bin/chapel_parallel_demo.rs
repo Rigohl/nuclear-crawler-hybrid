@@ -1,7 +1,6 @@
 /// 🧠 Chapel AI Parallel Orchestrator Demo
 /// Ejecuta todos los MCP tools EN PARALELO
 /// Chapel AI aprende de todas las operaciones simultáneamente
-
 use nuclear_crawler_hybrid::chapel_parallel::ChapelAIOrchestrator;
 
 #[tokio::main]
@@ -22,7 +21,10 @@ async fn main() {
     let elapsed = start.elapsed();
 
     // 📊 Mostrar resultados
-    println!("📊 RESULTADOS (Ejecutados en paralelo {:.2}s):\n", elapsed.as_secs_f64());
+    println!(
+        "📊 RESULTADOS (Ejecutados en paralelo {:.2}s):\n",
+        elapsed.as_secs_f64()
+    );
     for result in &results {
         println!(
             "  ✓ {} - {}ms (Quality: {:.1}%) - {}",

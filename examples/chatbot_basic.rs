@@ -25,9 +25,9 @@ async fn main() -> anyhow::Result<()> {
 
     for (i, message) in messages.iter().enumerate() {
         println!("👤 User (Turn {}): {}", i + 1, message);
-        
+
         let response = chatbot.chat(message).await?;
-        
+
         println!("🤖 Bot: {}\n", response);
         println!("---\n");
     }

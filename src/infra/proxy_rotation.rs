@@ -8,7 +8,7 @@ use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, VecDeque};
 use std::sync::{Arc, Mutex};
-use std::time::{SystemTime, Duration};
+use std::time::{Duration, SystemTime};
 
 /// Proxy entry with health metrics
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -120,7 +120,10 @@ impl ProxyPool {
     pub fn new(config: ProxyPoolConfig) -> Self {
         eprintln!("🔥 Initializing Proxy Pool");
         eprintln!("  • Strategy: {:?}", config.rotation_strategy);
-        eprintln!("  • Health check interval: {}", config.health_check_interval);
+        eprintln!(
+            "  • Health check interval: {}",
+            config.health_check_interval
+        );
 
         Self {
             config,
@@ -161,24 +164,20 @@ impl ProxyPool {
                 *index = (*index + 1) % proxies.len();
                 Some(proxy)
             }
-            RotationStrategy::HealthBased => {
-                proxies
-                    .iter()
-                    .filter(|p| p.is_healthy && !p.banned)
-                    .max_by(|a, b| {
-                        a.health_score()
-                            .partial_cmp(&b.health_score())
-                            .unwrap_or(std::cmp::Ordering::Equal)
-                    })
-                    .cloned()
-            }
-            RotationStrategy::LeastUsed => {
-                proxies
-                    .iter()
-                    .filter(|p| p.is_healthy && !p.banned)
-                    .min_by_key(|p| p.success_count + p.failure_count)
-                    .cloned()
-            }
+            RotationStrategy::HealthBased => proxies
+                .iter()
+                .filter(|p| p.is_healthy && !p.banned)
+                .max_by(|a, b| {
+                    a.health_score()
+                        .partial_cmp(&b.health_score())
+                        .unwrap_or(std::cmp::Ordering::Equal)
+                })
+                .cloned(),
+            RotationStrategy::LeastUsed => proxies
+                .iter()
+                .filter(|p| p.is_healthy && !p.banned)
+                .min_by_key(|p| p.success_count + p.failure_count)
+                .cloned(),
             RotationStrategy::WeightedRandom => {
                 // Simple weighted random selection
                 let healthy_proxies: Vec<_> =
@@ -189,7 +188,8 @@ impl ProxyPool {
                     let idx = (SystemTime::now()
                         .duration_since(SystemTime::UNIX_EPOCH)
                         .unwrap_or(Duration::from_secs(0))
-                        .as_nanos() as usize) % healthy_proxies.len();
+                        .as_nanos() as usize)
+                        % healthy_proxies.len();
                     Some(healthy_proxies[idx].clone())
                 }
             }
@@ -254,7 +254,11 @@ impl ProxyPool {
         stats.insert("total_proxies".to_string(), proxies.len().to_string());
         stats.insert(
             "healthy_proxies".to_string(),
-            proxies.iter().filter(|p| p.is_healthy && !p.banned).count().to_string(),
+            proxies
+                .iter()
+                .filter(|p| p.is_healthy && !p.banned)
+                .count()
+                .to_string(),
         );
         stats.insert(
             "banned_proxies".to_string(),
@@ -319,11 +323,8 @@ mod tests {
     #[test]
     fn test_add_proxy() {
         let pool = ProxyPool::new(ProxyPoolConfig::default());
-        pool.add_proxy(
-            "socks5://127.0.0.1:9050".to_string(),
-            ProxyType::Socks5,
-        )
-        .unwrap();
+        pool.add_proxy("socks5://127.0.0.1:9050".to_string(), ProxyType::Socks5)
+            .unwrap();
         assert_eq!(pool.size(), 1);
     }
 

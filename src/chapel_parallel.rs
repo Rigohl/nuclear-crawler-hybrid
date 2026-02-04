@@ -1,9 +1,9 @@
 //! 🚀 Chapel AI Parallel Wrapper
 //! Interfaz Rust para invocar Chapel AI en FULL PARALLELISM
 
-use std::sync::Arc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 use rayon::prelude::*;
+use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::Arc;
 
 /// Contexto de tarea paralela para Chapel
 #[derive(Clone, Debug)]
@@ -33,20 +33,20 @@ impl ChapelParallelExecutor {
     pub fn new(max_parallelism: Option<usize>) -> Self {
         let cores = num_cpus::get();
         let parallelism = max_parallelism.unwrap_or(cores);
-        
+
         Self {
             max_parallelism: parallelism,
             task_counter: Arc::new(AtomicUsize::new(0)),
         }
     }
-    
+
     /// 🚀 Ejecutar tareas en FULL PARALLELISM
     pub fn execute_parallel(&self, tasks: Vec<ChapelParallelTask>) -> Vec<ChapelComputeResult> {
         let thread_pool = rayon::ThreadPoolBuilder::new()
             .num_threads(self.max_parallelism)
             .build()
             .unwrap();
-        
+
         thread_pool.install(|| {
             tasks
                 .into_par_iter()
@@ -54,15 +54,15 @@ impl ChapelParallelExecutor {
                 .collect()
         })
     }
-    
+
     /// Ejecutar tarea individual
     fn execute_task(&self, task: &ChapelParallelTask) -> ChapelComputeResult {
         let task_num = self.task_counter.fetch_add(1, Ordering::SeqCst);
         let thread_id = rayon::current_thread_index().unwrap_or(0);
-        
+
         // 🔥 AQUÍ IRÍA LLAMADA FFI A CHAPEL EN PARALELO
         // unsafe { chapel_ai_compute(task.data.as_ptr(), task.data.len()); }
-        
+
         ChapelComputeResult {
             task_id: task.id,
             thread_id,
@@ -70,23 +70,25 @@ impl ChapelParallelExecutor {
             output: format!("CHAPEL[{}]:{}", task_num, task.operation).into_bytes(),
         }
     }
-    
+
     /// Información del ejecutor
     pub fn info(&self) -> String {
-        format!("ChapelParallelExecutor {{ parallelism: {}, tasks: {} }}",
-                self.max_parallelism,
-                self.task_counter.load(Ordering::SeqCst))
+        format!(
+            "ChapelParallelExecutor {{ parallelism: {}, tasks: {} }}",
+            self.max_parallelism,
+            self.task_counter.load(Ordering::SeqCst)
+        )
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_parallel_execution() {
         let executor = ChapelParallelExecutor::new(Some(4));
-        
+
         let tasks = vec![
             ChapelParallelTask {
                 id: 1,
@@ -99,7 +101,7 @@ mod tests {
                 data: b"test2".to_vec(),
             },
         ];
-        
+
         let results = executor.execute_parallel(tasks);
         assert_eq!(results.len(), 2);
     }
@@ -146,7 +148,7 @@ impl ChapelAIOrchestrator {
     /// 🚀 Ejecuta los 5 MCP Tools EN PARALELO
     pub async fn run_tools_parallel(&self) -> Vec<ToolExecResult> {
         let orchestrator = self.clone();
-        
+
         let handle1 = {
             let orch = orchestrator.clone();
             tokio::spawn(async move {
@@ -217,7 +219,8 @@ impl ChapelAIOrchestrator {
                 let start = Instant::now();
                 let (quality, output) = Self::exec_tool_ai_dataset_trainer().await;
                 let duration = start.elapsed().as_millis() as u64;
-                orch.learn_tool("ai_dataset_trainer", duration, quality).await;
+                orch.learn_tool("ai_dataset_trainer", duration, quality)
+                    .await;
                 ToolExecResult {
                     tool: "ai_dataset_trainer".to_string(),
                     duration_ms: duration,
@@ -228,7 +231,7 @@ impl ChapelAIOrchestrator {
         };
 
         let mut results = Vec::new();
-        
+
         for handle in [handle1, handle2, handle3, handle4, handle5] {
             if let Ok(result) = handle.await {
                 results.push(result);
@@ -253,7 +256,8 @@ impl ChapelAIOrchestrator {
 
         metrics.calls += 1;
         metrics.total_duration_ms += duration_ms;
-        metrics.avg_quality = (metrics.avg_quality * (metrics.calls - 1) as f64 + quality) / metrics.calls as f64;
+        metrics.avg_quality =
+            (metrics.avg_quality * (metrics.calls - 1) as f64 + quality) / metrics.calls as f64;
 
         // Generar sugerencias
         if metrics.calls % 5 == 0 {

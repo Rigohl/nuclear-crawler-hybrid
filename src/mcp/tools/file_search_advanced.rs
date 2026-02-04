@@ -50,13 +50,11 @@ pub struct FileAnalysisResult {
 }
 
 pub struct AdvancedFileSearchTool {
-    #[allow(dead_code)]
-    config: FileSearchConfig,
     cache: Arc<Cache>,
 }
 
 impl AdvancedFileSearchTool {
-    pub fn new(config: FileSearchConfig) -> Self {
+    pub fn new(_config: FileSearchConfig) -> Self {
         eprintln!("🔥 Advanced File Search Tool - MÁXIMO PODER POTENCIADO + Chapel AI");
         eprintln!("   ✅ Busca EXACTA: errores compilación, warnings reales, derivados cargo");
         eprintln!("   ✅ LÍNEAS EXACTAS: archivo:línea:columna precision");
@@ -67,7 +65,6 @@ impl AdvancedFileSearchTool {
         eprintln!("   ✅ Chapel AI: pattern learning, intelligent suggestions");
         eprintln!("   ✅ Cache: 50000 items para análisis masivo");
         Self {
-            config,
             cache: Arc::new(Cache::new(50000)), // 🔥 Cache 100x: análisis masivo de codebase
         }
     }

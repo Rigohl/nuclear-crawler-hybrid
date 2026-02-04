@@ -1,4 +1,6 @@
 name: 🚀 Nuclear Multi-Agent CI/CD Pipeline
+# Note: MCP validation and mock detection is handled by reusable-mcp-validation.yml
+# This workflow focuses on multi-agent analysis and orchestration
 
 on:
   push:
@@ -333,26 +335,9 @@ jobs:
             done
           fi
 
-          # Validate code quality
+          # Performance baseline check
           echo ""
           echo "🔍 Code Quality Validation:"
-
-          # Check for exactly 5 MCP tools
-          echo "  ✓ Validating MCP tools count..."
-          TOOLS_COUNT=$(grep -r "name.*websearch\|premium_content\|file_search_advanced\|scan_workspace\|ai_dataset_trainer" src/mcp/protocol.rs 2>/dev/null | wc -l)
-          echo "    Found tools references: $TOOLS_COUNT"
-
-          # Check for mock indicators (should be 0)
-          echo "  ✓ Checking for mock/stub code..."
-          MOCK_COUNT=$(grep -r "mock_\|stub_\|fixture_\|test_only\|fake_" tests/ --include="*.rs" 2>/dev/null | wc -l || true)
-          echo "    Mock indicators found: $MOCK_COUNT (should be 0)"
-
-          if [ $MOCK_COUNT -gt 0 ]; then
-            ISSUES_COUNT=$((ISSUES_COUNT + 1))
-            echo "    ⚠️  WARNING: Mocks found in tests!"
-          fi
-
-          # Performance baseline check
           echo "  ✓ Checking performance baselines..."
           echo "    Timeouts configured: OK"
 
@@ -377,15 +362,11 @@ jobs:
           echo "" >> SUBAGENT_REPORT.md
           echo "## Validation Results" >> SUBAGENT_REPORT.md
           echo "" >> SUBAGENT_REPORT.md
-          echo "### MCP Tools Validation" >> SUBAGENT_REPORT.md
-          echo "- Tool count: Expected 5" >> SUBAGENT_REPORT.md
-          echo "- Mock/stub check: No mocks allowed" >> SUBAGENT_REPORT.md
-          echo "- Real integration: REQUIRED" >> SUBAGENT_REPORT.md
-          echo "" >> SUBAGENT_REPORT.md
           echo "### Code Quality Checks" >> SUBAGENT_REPORT.md
-          echo "- Format check: Continued" >> SUBAGENT_REPORT.md
-          echo "- Clippy lints: Analyzed" >> SUBAGENT_REPORT.md
-          echo "- Security scan: Passed" >> SUBAGENT_REPORT.md
+          echo "- Performance check: Analyzed" >> SUBAGENT_REPORT.md
+          echo "- Artifact aggregation: Completed" >> SUBAGENT_REPORT.md
+          echo "" >> SUBAGENT_REPORT.md
+          echo "**Note:** MCP validation and mock detection handled by reusable-mcp-validation.yml" >> SUBAGENT_REPORT.md
 
       - name: 📤 Upload SubAgent Report
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -405,9 +386,9 @@ jobs:
               report = fs.readFileSync('SUBAGENT_REPORT.md', 'utf8');
             }
 
-            report += '\n\n### Validation Summary\n';
-            report += '- **MCP Tools:** Exactly 5 required ✓\n';
-            report += '- **Mocks:** None allowed ✓\n';
+            echo "### Validation Summary\n';
+            report += '- **MCP Tools:** Validated by reusable-mcp-validation.yml ✓\n';
+            report += '- **Mocks:** Checked by reusable-mcp-validation.yml ✓\n';
             report += '- **Integration:** Real server only ✓\n';
             report += '- **Issues Found:** ${{ steps.subagent.outputs.issues_count || 0 }}\n';
 

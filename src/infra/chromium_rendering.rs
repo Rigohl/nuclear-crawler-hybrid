@@ -92,7 +92,10 @@ impl ChromiumRenderer {
     pub fn new(config: ChromiumConfig) -> Self {
         eprintln!("🔥 Initializing Chromium Renderer");
         eprintln!("  • Headless: {}", config.headless);
-        eprintln!("  • Viewport: {}x{}", config.viewport_width, config.viewport_height);
+        eprintln!(
+            "  • Viewport: {}x{}",
+            config.viewport_width, config.viewport_height
+        );
         eprintln!("  • Navigation timeout: {}s", config.navigation_timeout);
 
         // Check if Chrome/Chromium is available
@@ -134,7 +137,10 @@ impl ChromiumRenderer {
     ) -> Result<ChromiumResult> {
         let start = Instant::now();
         eprintln!("🔥 Rendering with JavaScript: {}", url);
-        eprintln!("  🔧 Executing: {}", javascript.lines().next().unwrap_or("..."));
+        eprintln!(
+            "  🔧 Executing: {}",
+            javascript.lines().next().unwrap_or("...")
+        );
 
         if !self.available {
             return self.render_page_fallback(url, &start);
@@ -208,13 +214,7 @@ impl ChromiumRenderer {
                     success: true,
                 })
             }
-            Err(e) => {
-                Err(anyhow::anyhow!(
-                    "Failed to render page {}: {}",
-                    url,
-                    e
-                ))
-            }
+            Err(e) => Err(anyhow::anyhow!("Failed to render page {}: {}", url, e)),
         }
     }
 

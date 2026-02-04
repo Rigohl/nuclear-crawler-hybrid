@@ -106,7 +106,7 @@ impl ChapelAI {
         #[cfg(feature = "chapel_ffi")]
         {
             eprintln!("🧠 Chapel AI Initializing...");
-            
+
             // Try to initialize Chapel FFI
             let use_ffi = unsafe {
                 match chapel_ai_init() {
@@ -155,7 +155,7 @@ impl ChapelAI {
     /// Learn from operation (called by tools after execution)
     pub fn learn_from_operation(&self, context: ChapelContext) -> Result<()> {
         if !self.use_ffi {
-            return Ok(());  // Fallback: no learning without Chapel FFI
+            return Ok(()); // Fallback: no learning without Chapel FFI
         }
 
         #[cfg(feature = "chapel_ffi")]
@@ -181,7 +181,8 @@ impl ChapelAI {
                     // Update stats
                     if let Ok(mut stats) = self.stats.lock() {
                         stats.total_patterns += 1;
-                        *stats.patterns_by_tool
+                        *stats
+                            .patterns_by_tool
                             .entry(context.tool_name.clone())
                             .or_insert(0) += 1;
                     }
@@ -213,13 +214,15 @@ impl ChapelAI {
         let mut suggestions = Vec::new();
 
         if stats.average_success_rate < 0.7 {
-            suggestions.push("Increase learning samples for better pattern recognition".to_string());
+            suggestions
+                .push("Increase learning samples for better pattern recognition".to_string());
         }
         if stats.total_patterns < 100 {
             suggestions.push("Run more operations to build knowledge base".to_string());
         }
         if stats.optimization_cycles < 5 {
-            suggestions.push("Run optimize() multiple times for incremental improvements".to_string());
+            suggestions
+                .push("Run optimize() multiple times for incremental improvements".to_string());
         }
 
         Ok(suggestions)
@@ -253,7 +256,12 @@ impl ChapelAI {
                     // Parse advice into structured format
                     let advice = ChapelAdvice {
                         category: "pattern".to_string(),
-                        priority: if advice_str.contains("HIGH") { "high" } else { "medium" }.to_string(),
+                        priority: if advice_str.contains("HIGH") {
+                            "high"
+                        } else {
+                            "medium"
+                        }
+                        .to_string(),
                         suggestion: advice_str.clone(),
                         reasoning: "Based on learned patterns".to_string(),
                         confidence: self.get_confidence(tool_name, operation),
@@ -283,9 +291,7 @@ impl ChapelAI {
             let tool_cstr = CString::new(tool_name).unwrap_or_default();
             let operation_cstr = CString::new(operation).unwrap_or_default();
 
-            unsafe {
-                chapel_ai_get_success_rate(tool_cstr.as_ptr(), operation_cstr.as_ptr())
-            }
+            unsafe { chapel_ai_get_success_rate(tool_cstr.as_ptr(), operation_cstr.as_ptr()) }
         }
 
         #[cfg(not(feature = "chapel_ffi"))]
@@ -343,7 +349,7 @@ impl ChapelAI {
         {
             unsafe {
                 let pruned = chapel_ai_optimize();
-                
+
                 if let Ok(mut stats) = self.stats.lock() {
                     stats.optimization_cycles += 1;
                 }
@@ -361,7 +367,9 @@ impl ChapelAI {
 
     /// Get statistics
     pub fn get_stats(&self) -> Result<ChapelStats> {
-        let stats = self.stats.lock()
+        let stats = self
+            .stats
+            .lock()
             .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
         Ok(stats.clone())
     }
