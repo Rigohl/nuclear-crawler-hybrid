@@ -2,7 +2,7 @@ name: 🚀 Master Validation Pipeline (FFI + Dependencies + CI/CD)
 
 on:
   push:
-    branches: [main, develop, dev]
+    branches: ['**']  # All branches - total automation
     paths:
       - 'src/**/*.rs'
       - 'build.rs'
@@ -11,7 +11,7 @@ on:
       - 'tests/**'
       - '.github/workflows/master-validation.yml'
   pull_request:
-    branches: [main, dev, develop]
+    branches: ['**']  # All branches - total automation
   schedule:
     - cron: '0 2 * * 1'  # Weekly Monday 2 AM
   workflow_dispatch:

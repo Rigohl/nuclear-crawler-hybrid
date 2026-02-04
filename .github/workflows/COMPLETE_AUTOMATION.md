@@ -2,17 +2,19 @@
 
 ## Overview
 
-This is a **comprehensive, self-managing CI/CD system** with complete automation for branches, PRs, merges, conflict resolution, error detection, and auto-repair.
+This is a **comprehensive, self-managing CI/CD system** with complete automation for **ALL BRANCHES** - every single branch in the repository receives the same automation treatment.
 
 ## 🎯 Features
 
-### 1. **Complete Branch Management** 🌿
-- **Auto-sync all branches** with main every 15 minutes
+### 1. **Universal Branch Management** 🌿 (ALL BRANCHES)
+- **Triggers on ALL branches** (`branches: ['**']`)
+- **Auto-sync ALL branches** with main every 15 minutes
 - **Detect branches behind main** and automatically merge
 - **Cleanup old branches** (90+ days inactive or already merged)
 - **Conflict detection** and auto-resolution strategies
+- **Per-branch health monitoring**
 
-### 2. **Intelligent PR Management** 🔀
+### 2. **Intelligent PR Management** 🔀 (ALL BRANCHES)
 - **Auto-merge ready PRs** when all criteria met:
   - ✅ All checks passing
   - ✅ No change requests
@@ -65,6 +67,34 @@ This is a **comprehensive, self-managing CI/CD system** with complete automation
 
 ## 🚀 Workflows
 
+### Universal Branch Analysis (`universal-branch-analysis.yml`) **NEW!**
+
+**Triggers:**
+- Push to **ANY** branch (`branches: ['**']`)
+- Schedule: Every 6 hours
+- Manual dispatch
+
+**Jobs:**
+1. **analyze-all-branches** - Comprehensive analysis of EVERY branch
+   - Health scoring (0-100)
+   - Age tracking
+   - Conflict detection
+   - File analysis
+   - Automation recommendations
+
+2. **per-branch-automation** - Applies automation to EACH branch
+   - Validation on each branch
+   - Auto-repair on each branch
+   - Testing on each branch
+
+**Analysis Includes:**
+- Last commit info and age
+- Commits behind main/master
+- Merge conflicts
+- File count and types
+- Health score calculation
+- Automated action recommendations
+
 ### Complete Automation (`complete-automation.yml`)
 
 **Triggers:**
@@ -96,6 +126,21 @@ This is a **comprehensive, self-managing CI/CD system** with complete automation
 - Suggests improvements
 
 ## 📖 Usage
+
+### Universal Branch Analysis (NEW!)
+
+#### Analyze ALL Branches
+```bash
+gh workflow run universal-branch-analysis.yml
+```
+
+#### Analyze Specific Branch
+```bash
+gh workflow run universal-branch-analysis.yml -f specific_branch=my-feature-branch
+```
+
+#### View Analysis Report
+Reports are uploaded as artifacts with 90-day retention.
 
 ### Manual Triggers
 

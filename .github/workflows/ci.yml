@@ -2,9 +2,9 @@ name: 🚀 CI - Nuclear Crawler Hybrid
 
 on:
   push:
-    branches: [main, develop]
+    branches: ['**']  # All branches - total automation
   pull_request:
-    branches: [main, develop]
+    branches: ['**']  # All branches - total automation
   workflow_dispatch:
 
 env:
