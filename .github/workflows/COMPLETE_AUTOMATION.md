@@ -2,19 +2,31 @@
 
 ## Overview
 
-This is a **comprehensive, self-managing CI/CD system** with complete automation for **ALL BRANCHES** - every single branch in the repository receives the same automation treatment.
+This is a **comprehensive, self-managing CI/CD system** with complete automation for **ALL BRANCHES**, **persistent retry state**, and **total error recovery** - every single branch in the repository receives the same automation treatment with comprehensive retry and persistence mechanisms.
 
 ## 🎯 Features
 
-### 1. **Universal Branch Management** 🌿 (ALL BRANCHES)
-- **Triggers on ALL branches** (`branches: ['**']`)
-- **Auto-sync ALL branches** with main every 15 minutes
-- **Detect branches behind main** and automatically merge
-- **Cleanup old branches** (90+ days inactive or already merged)
-- **Conflict detection** and auto-resolution strategies
-- **Per-branch health monitoring**
+### 1. **Universal Retry System with Persistence** 🔁 (NEW!)
+- **State persistence** across workflow runs
+- **Exponential backoff** (1s → 300s with jitter)
+- **Up to 10 attempts** per operation (configurable)
+- **Operation tracking** with success/failure history
+- **Automatic recovery** from transient failures
+- **Persistent state files** cached between runs
+- **Cleanup** of old operations (30+ days)
 
-### 2. **Intelligent PR Management** 🔀 (ALL BRANCHES)
+### 2. **Enhanced Retry & Persistence Layer** 🔄 (NEW!)
+- **Monitors ALL workflows** for failures
+- **Comprehensive retry sequence**:
+  1. Format check (5 attempts)
+  2. Clippy check (5 attempts)
+  3. Build (8 attempts total)
+  4. Test (8 attempts total)
+  5. Advanced auto-repair (3 iterations)
+  6. Enhanced validation
+- **Runs every 10 minutes** for aggressive persistence
+- **Auto-commits fixes** with [skip ci]
+- **Creates issues** for persistent failures
 - **Auto-merge ready PRs** when all criteria met:
   - ✅ All checks passing
   - ✅ No change requests
