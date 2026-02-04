@@ -55,7 +55,7 @@ uuid = { version = "1.0", features = ["v4", "serde"] }
 blake3 = "1.8"
 
 # Regular expressions - ESSENTIAL for pattern matching
-regex = "1.10"
+regex = "1.12"
 
 # Concurrent hashmap - USED extensively
 dashmap = "6.1"
