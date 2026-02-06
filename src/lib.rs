@@ -46,6 +46,9 @@ pub mod wasm;
 /// Chapel parallel execution framework
 pub mod chapel_parallel;
 
+/// Tantivy full-text search engine - REAL SEARCH
+pub mod tantivy_search;
+
 // ═══════════════════════════════════════════════════════════════════
 // FFI & AI
 // ═══════════════════════════════════════════════════════════════════

@@ -9,6 +9,7 @@ use crate::chapel_integration::{create_context, get_chapel_ai};
 use crate::deepweb_tor::DeepWebSearch;
 use crate::go_integration::GoParallelProcessor;
 use crate::rate_limit::RateLimiter;
+use crate::tantivy_search::{SearchDocument, TantivySearchEngine};
 use crate::web_search::WebSearch as CoreWebSearch;
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
@@ -42,7 +43,7 @@ impl Default for WebSearchConfig {
     }
 }
 
-/// 🔥 REAL WEBSEARCH TOOL - COMPLETAMENTE ALIMENTADO DE SRC
+/// 🔥 REAL WEBSEARCH TOOL - COMPLETAMENTE ALIMENTADO DE SRC + TANTIVY
 pub struct WebSearchTool {
     config: WebSearchConfig,
     // 🔥 ALIMENTADO DE MÓDULOS CORE
@@ -51,16 +52,19 @@ pub struct WebSearchTool {
     rate_limiter: Arc<RateLimiter>,
     cache: Arc<Cache>,
     deepweb: Arc<tokio::sync::Mutex<Option<DeepWebSearch>>>,
+    // 🔥 NEW: Tantivy search engine for fast local indexing
+    tantivy: Arc<tokio::sync::Mutex<Option<TantivySearchEngine>>>,
 }
 
 impl WebSearchTool {
-    /// Create new websearch tool with REAL HTTP - Integrado con TODO + Chapel AI
+    /// Create new websearch tool with REAL HTTP - Integrado con TODO + Chapel AI + Tantivy
     pub fn new(config: WebSearchConfig) -> Self {
-        eprintln!("🔥 WebSearch Tool initialized - MÁXIMO PODER + Chapel AI");
+        eprintln!("🔥 WebSearch Tool initialized - MÁXIMO PODER + Chapel AI + Tantivy");
         eprintln!("   ✅ Max Results: {}", config.max_results);
         eprintln!("   ✅ Timeout: {}s", config.timeout_seconds);
         eprintln!("   ✅ Bypass: {} (TODOS LOS 55+ MOTORES)", config.bypass);
         eprintln!("   ✅ Chapel AI: Result optimization, stealth suggestions");
+        eprintln!("   ✅ Tantivy: Real-time full-text search indexing");
 
         // Inicializar rate limiter (1000 req/sec para máximo poder)
         let rate_limiter = Arc::new(RateLimiter::new(1000, 2000));
@@ -75,6 +79,79 @@ impl WebSearchTool {
             rate_limiter,
             cache,
             deepweb: Arc::new(tokio::sync::Mutex::new(None)),
+            tantivy: Arc::new(tokio::sync::Mutex::new(None)),
+        }
+    }
+
+    /// Initialize Tantivy search engine (lazy initialization)
+    async fn ensure_tantivy_initialized(&self) -> Result<()> {
+        let mut tantivy_lock = self.tantivy.lock().await;
+        
+        if tantivy_lock.is_none() {
+            eprintln!("🔍 Initializing Tantivy search engine...");
+            let engine = TantivySearchEngine::new_in_memory()?;
+            *tantivy_lock = Some(engine);
+            eprintln!("✅ Tantivy search engine initialized");
+        }
+        
+        Ok(())
+    }
+
+    /// Index search results in Tantivy for fast local search
+    async fn index_results(&self, results: &[SearchResult]) -> Result<()> {
+        if results.is_empty() {
+            return Ok(());
+        }
+
+        if let Err(e) = self.ensure_tantivy_initialized().await {
+            eprintln!("⚠️  Failed to initialize Tantivy: {}", e);
+            return Ok(()); // Non-fatal, continue without indexing
+        }
+
+        let tantivy_lock = self.tantivy.lock().await;
+        if let Some(tantivy) = tantivy_lock.as_ref() {
+            let docs: Vec<SearchDocument> = results
+                .iter()
+                .map(|r| SearchDocument {
+                    url: r.url.clone(),
+                    title: r.title.clone(),
+                    content: r.snippet.clone(),
+                    timestamp: chrono::Utc::now().timestamp(),
+                })
+                .collect();
+
+            if let Err(e) = tantivy.add_documents(docs).await {
+                eprintln!("⚠️  Failed to index results in Tantivy: {}", e);
+            } else {
+                eprintln!("✅ Indexed {} results in Tantivy", results.len());
+            }
+        }
+
+        Ok(())
+    }
+
+    /// Search locally indexed results with Tantivy
+    pub async fn search_local(&self, query: &str, limit: usize) -> Result<Vec<SearchResult>> {
+        self.ensure_tantivy_initialized().await?;
+        
+        let tantivy_lock = self.tantivy.lock().await;
+        if let Some(tantivy) = tantivy_lock.as_ref() {
+            let tantivy_results = tantivy.search(query, limit).await?;
+
+            let results = tantivy_results
+                .into_iter()
+                .map(|r| SearchResult {
+                    url: r.url,
+                    title: r.title,
+                    snippet: r.snippet,
+                    source: "tantivy_cache".to_string(),
+                    relevance_score: r.score,
+                })
+                .collect();
+
+            Ok(results)
+        } else {
+            Err(anyhow::anyhow!("Tantivy not initialized"))
         }
     }
 
@@ -301,8 +378,13 @@ impl WebSearchTool {
         let context = create_context("websearch", "search", query, quality);
         let _ = chapel.learn(context);
 
+        // 🔥 Index results in Tantivy for fast local search
+        if let Err(e) = self.index_results(&results).await {
+            eprintln!("⚠️  Failed to index results in Tantivy: {}", e);
+        }
+
         eprintln!(
-            "✅ Found {} real results (optimized by Chapel AI)",
+            "✅ Found {} real results (optimized by Chapel AI + Tantivy indexed)",
             results.len()
         );
         Ok(results)
