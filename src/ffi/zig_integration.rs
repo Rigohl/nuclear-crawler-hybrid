@@ -2,8 +2,17 @@
 //!
 //! Uses Zig for ultra-fast SIMD-accelerated hashing and pattern matching
 //! Real FFI integration with Zig via libloading
-//! NEW: WASM compilation support for portable SIMD operations
+//! WASM compilation support via native Zig compiler (ffi/wasm/zig/main.zig)
 //! Specialized for cryptographic hashing and high-performance string operations
+//!
+//! Powers MCP Tools:
+//! - file_search       (SIMD pattern matching in files)
+//! - scan              (SIMD workspace hashing & dedup)
+//! - ai_dataset_trainer (batch hashing, data transform)
+//! - parallel_engine   (SIMD batch processing)
+//!
+//! WASM Source: ffi/wasm/zig/main.zig
+//! Build WASM: cd ffi/wasm && ./build_wasm.sh zig
 
 use anyhow::Result;
 use libloading::{Library, Symbol};

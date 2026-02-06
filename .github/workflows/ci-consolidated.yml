@@ -183,9 +183,10 @@ jobs:
           echo "# 🚀 CI Summary - Nuclear Crawler Hybrid" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## ✅ Critical Constraints" >> $GITHUB_STEP_SUMMARY
-          echo "- 5 MCP Tools: Verified" >> $GITHUB_STEP_SUMMARY
+          echo "- 7 MCP Tools: Verified" >> $GITHUB_STEP_SUMMARY
           echo "- NO MOCKS Policy: Enforced" >> $GITHUB_STEP_SUMMARY
           echo "- Chapel Core: Protected" >> $GITHUB_STEP_SUMMARY
+          echo "- 3 Binaries: nuclear-mcp(7), nuclear-pro(5), nuclear-lite(2)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 🔨 Build Status" >> $GITHUB_STEP_SUMMARY
           echo "- Rust MCP: ${{ needs.rust-ci.result }}" >> $GITHUB_STEP_SUMMARY

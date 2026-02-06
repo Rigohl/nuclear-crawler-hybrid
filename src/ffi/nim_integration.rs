@@ -2,8 +2,17 @@
 //!
 //! Uses Nim for ultra-fast HTML parsing and content extraction
 //! Real FFI integration with Nim via static linking
-//! NEW: WASM compilation support for portable HTML parsing
+//! WASM compilation support via Emscripten (ffi/wasm/nim/main.nim)
 //! Specialized for web scraping and content analysis
+//!
+//! Powers MCP Tools:
+//! - websearch         (HTML result parsing & extraction)
+//! - premium           (premium content HTML processing)
+//! - scan              (HTML file analysis)
+//! - osint_intelligence (OSINT page parsing & metadata)
+//!
+//! WASM Source: ffi/wasm/nim/main.nim
+//! Build WASM: cd ffi/wasm && ./build_wasm.sh nim
 
 use anyhow::Result;
 use libloading::Library;
