@@ -1,9 +1,9 @@
 //! 🔥 MCP HTTP SERVER - Axum-based JSON-RPC 2.0 Server
 //!
-//! Exposes EXACTLY 5 TOOLS via HTTP endpoints - NO MOCKS
+//! Exposes EXACTLY 7 TOOLS via HTTP endpoints - NO MOCKS (AMPLIFIED POWER)
 //! Compatible with Copilot CLI and Claude Desktop
 //!
-//! TOOLS: websearch, premium, file_search, scan, info
+//! TOOLS: websearch, premium, file_search, scan, ai_dataset_trainer, wasm_scraper, osint_intelligence
 
 use crate::mcp::protocol::{error_codes, get_tool_definitions, MCPRequest, MCPResponse};
 use crate::mcp::tools::{
@@ -20,13 +20,14 @@ use serde_json::{json, Value};
 use std::path::PathBuf;
 use std::sync::Arc;
 
-/// MCP Server state - PODER REAL
+/// MCP Server state - PODER REAL (7 TOOLS)
 pub struct MCPServer {
-    // 🔥 5 HERRAMIENTAS MCP - SIN MOCKS
+    // 🔥 7 HERRAMIENTAS MCP - SIN MOCKS
     pub websearch: Arc<WebSearchTool>,
     pub premium_content: Arc<PremiumContentTool>,
     pub file_search: Arc<AdvancedFileSearchTool>,
     pub scan: Arc<ScanWorkspaceTool>,
+    // Tools #6 and #7 are executed directly via functions
 
     // 🔥 INFRAESTRUCTURA COMPARTIDA
     pub cache: Arc<Cache>,
@@ -35,9 +36,9 @@ pub struct MCPServer {
 }
 
 impl MCPServer {
-    /// Create new MCP server with REAL implementations
+    /// Create new MCP server with REAL implementations (7 TOOLS)
     pub fn new() -> Self {
-        eprintln!("🔥 Initializing MCP Server with 5 REAL tools...");
+        eprintln!("🔥 Initializing MCP Server with 7 REAL tools...");
 
         // 🔥 Inicializar infraestructura
         let cache = Arc::new(Cache::new(5000));
@@ -45,7 +46,7 @@ impl MCPServer {
         let rate_limiter = Arc::new(RateLimiter::new(100, 200)); // 100 req/sec, burst 200
 
         eprintln!("📡 Infrastructure ready: Cache(5000), RateLimiter(100/s)");
-        eprintln!("🔧 Tools: websearch, premium, file_search, scan, info");
+        eprintln!("🔧 Tools: websearch, premium, file_search, scan, ai_dataset_trainer, wasm_scraper, osint_intelligence");
 
         Self {
             websearch: Arc::new(WebSearchTool::default()),
@@ -179,6 +180,8 @@ async fn handle_tool_call(
         Some("scan") => execute_scan(&server, id, arguments).await,
         Some("info") => execute_info(&server, id, arguments).await,
         Some("ai_dataset_trainer") => execute_ai_dataset_trainer(&server, id, arguments).await,
+        Some("wasm_scraper") => execute_wasm_scraper_dispatch(&server, id, arguments).await,
+        Some("osint_intelligence") => execute_osint_intelligence_dispatch(&server, id, arguments).await,
         Some(unknown) => Json(MCPResponse::method_not_found(id, unknown)),
         None => Json(MCPResponse::invalid_params(id, "tool name required")),
     }
@@ -209,6 +212,8 @@ async fn handle_rpc(server: Arc<MCPServer>, Json(req): Json<MCPRequest>) -> impl
                 Some("ai_dataset_trainer") => {
                     execute_ai_dataset_trainer(&server, id, arguments).await
                 }
+                Some("wasm_scraper") => execute_wasm_scraper_dispatch(&server, id, arguments).await,
+                Some("osint_intelligence") => execute_osint_intelligence_dispatch(&server, id, arguments).await,
                 Some(name) => Json(MCPResponse::method_not_found(id, name)),
                 None => Json(MCPResponse::invalid_params(id, "name required")),
             }
@@ -834,3 +839,54 @@ impl Default for MCPServer {
         Self::new()
     }
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// NEW TOOL HANDLERS (TOOLS #6 and #7)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/// Execute WASM_SCRAPER tool (Tool #6)
+async fn execute_wasm_scraper_dispatch(
+    _server: &Arc<MCPServer>,
+    id: String,
+    args: Value,
+) -> Json<MCPResponse> {
+    use crate::mcp::tools::execute_wasm_scraper;
+    
+    eprintln!("⚡ WASM Scraper: Initializing ultra-fast scraping...");
+    
+    match execute_wasm_scraper(args).await {
+        Ok(result) => Json(MCPResponse::success(id, result)),
+        Err(e) => {
+            eprintln!("❌ WASM Scraper error: {}", e);
+            Json(MCPResponse::error(
+                id,
+                error_codes::TOOL_EXECUTION_ERROR,
+                format!("WASM scraper failed: {}", e),
+            ))
+        }
+    }
+}
+
+/// Execute OSINT_INTELLIGENCE tool (Tool #7)
+async fn execute_osint_intelligence_dispatch(
+    _server: &Arc<MCPServer>,
+    id: String,
+    args: Value,
+) -> Json<MCPResponse> {
+    use crate::mcp::tools::execute_osint_intelligence;
+    
+    eprintln!("🔍 OSINT Intelligence: Initializing with Chapel AI...");
+    
+    match execute_osint_intelligence(args).await {
+        Ok(result) => Json(MCPResponse::success(id, result)),
+        Err(e) => {
+            eprintln!("❌ OSINT Intelligence error: {}", e);
+            Json(MCPResponse::error(
+                id,
+                error_codes::TOOL_EXECUTION_ERROR,
+                format!("OSINT intelligence failed: {}", e),
+            ))
+        }
+    }
+}
+

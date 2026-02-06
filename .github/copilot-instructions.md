@@ -5,7 +5,7 @@
 ## 🎯 TL;DR
 
 **Nuclear Crawler Hybrid** is a unified AI & Data Intelligence platform with:
-- **Rust MCP Server** exposing **exactly 5 tools** over JSON-RPC 2.0
+- **Rust MCP Server** exposing **exactly 7 tools** over JSON-RPC 2.0
 - **Chapel AI Training Engine** with 120K+ datasets, 8 parallel systems
 - **GitHub MCP Server** (Go) for automation
 - **Multi-language datasets** (Mojo, Julia, Python processors)
@@ -16,7 +16,7 @@
 ## 🔒 Critical Constraints (DO NOT CHANGE)
 
 ### MCP Protocol Rules
-- **EXACTLY 5 MCP TOOLS** — Enforced by `test_exactly_5_tools` in `src/mcp/protocol.rs`
+- **EXACTLY 5 MCP TOOLS** — Enforced by `test_exactly_7_tools` in `src/mcp/protocol.rs`
 - **Tool Names**: `websearch`, `premium`, `file_search`, `scan`, `ai_dataset_trainer`
 - **CI Validation**: `.github/workflows/mcp-validation.yml` and `scripts/validate_5_tools.sh`
 - **Adding/Removing Tools**: ❌ FORBIDDEN (breaks CI and tests)
@@ -81,7 +81,7 @@ nuclear-crawler-hybrid/
 │
 ├── src/                           # Rust MCP Server (MAIN)
 │   ├── mcp/
-│   │   ├── protocol.rs            # ⚠️ EXACTLY 5 TOOLS (SACRED)
+│   │   ├── protocol.rs            # ⚠️ EXACTLY 7 TOOLS (SACRED)
 │   │   ├── server.rs              # JSON-RPC dispatch
 │   │   └── tools/                 # Tool implementations
 │   │       ├── websearch.rs
@@ -112,7 +112,7 @@ nuclear-crawler-hybrid/
 ├── README.md                      # Main documentation
 ├── QUICK_START.md                 # Installation guide
 ├── INTEGRATION_STATUS.md          # Integration report
-├── TOOLS.md                       # 5 MCP tools description
+├── TOOLS.md                       # 7 MCP tools description
 ├── Cargo.toml                     # Rust dependencies
 └── .cursorrules                   # Cursor behavior rules
 ```
@@ -135,10 +135,10 @@ cargo run --bin nuclear-mcp --release
 
 # Run tests
 cargo test --lib
-cargo test test_exactly_5_tools
+cargo test test_exactly_7_tools
 cargo test --test integration_real_mcp --release -- --nocapture --test-threads=1
 
-# Validate 5 tools
+# Validate 7 tools
 ./scripts/validate_5_tools.sh
 ```
 
@@ -250,7 +250,7 @@ MCPRequest::call_tool("websearch", json!({"query": "..."}))
 
 **Rules:**
 - ⚠️ NEVER add a 6th tool
-- ⚠️ NEVER remove any of the 5 tools
+- ⚠️ NEVER remove any of the 7 tools
 - ✅ Can modify implementations
 - ✅ Can enhance features within tools
 
@@ -330,7 +330,7 @@ cargo test --lib
 cargo test --test integration_real_mcp --release -- --nocapture --test-threads=1
 
 # 5-tool validation (CRITICAL)
-cargo test test_exactly_5_tools
+cargo test test_exactly_7_tools
 
 # Script validation
 ./scripts/validate_5_tools.sh
@@ -362,7 +362,7 @@ go test -v ./pkg/github/
 2. Run Rust integration tests
 3. Verify Chapel FFI works
 4. Test GitHub MCP server
-5. Validate 5 tools constraint
+5. Validate 7 tools constraint
 
 ---
 
@@ -403,11 +403,11 @@ go test -v ./pkg/github/
 - Build incrementally: `make train`, `make mining`, etc.
 
 ### Issue 5: 5-Tool Test Fails
-**Problem**: `test_exactly_5_tools` fails
+**Problem**: `test_exactly_7_tools` fails
 
 **Solution**:
-- Check `src/mcp/protocol.rs` - should have exactly 5 tools
-- Tool names must match: websearch, premium, file_search, scan, ai_dataset_trainer
+- Check `src/mcp/protocol.rs` - should have exactly 7 tools
+- Tool names must match: websearch, premium, file_search, scan, ai_dataset_trainer, wasm_scraper, osint_intelligence
 - Never add or remove tools
 - Run `./scripts/validate_5_tools.sh` for details
 
@@ -457,7 +457,7 @@ A change is complete ONLY when ALL pass:
 
 ### Rust Success
 - [x] `cargo build --release` succeeds (or documents bincode issue)
-- [x] `cargo test test_exactly_5_tools` passes
+- [x] `cargo test test_exactly_7_tools` passes
 - [x] `cargo test --lib` passes
 - [x] `cargo test --test integration_real_mcp` passes
 - [x] No dead code remains
@@ -495,7 +495,7 @@ A change is complete ONLY when ALL pass:
 - `README.md` - Main project documentation
 - `QUICK_START.md` - Installation and quick start
 - `INTEGRATION_STATUS.md` - Integration details and statistics
-- `TOOLS.md` - 5 MCP tools detailed description
+- `TOOLS.md` - 7 MCP tools detailed description
 - `ffi/chapel/ARCHITECTURE.md` - Chapel AI architecture
 - `docs/chapel/MULTI_LANGUAGE_ML_ENGINE.md` - Multi-language guide
 - `mcp-servers/README.md` - MCP server integration guide
