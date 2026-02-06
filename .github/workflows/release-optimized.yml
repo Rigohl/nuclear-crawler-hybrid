@@ -164,26 +164,26 @@ jobs:
         run: |
           VERSION="${{ needs.pre-release-checks.outputs.version }}"
           CHANGELOG_SECTION=$(sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | head -n -1 || echo "See git log for changes")
-          
+
           cat > /tmp/release_notes.md << EOF
           # $VERSION
-          
+
           ## 📦 Binaries
           - Linux (x86_64): \`nuclear-mcp-linux-x86_64\`
           - macOS (Intel): \`nuclear-mcp-darwin-x86_64\`
           - macOS (ARM): \`nuclear-mcp-darwin-aarch64\`
           - Windows: \`nuclear-mcp-windows-x86_64.exe\`
-          
+
           ## 🐳 Docker
           \`\`\`bash
           docker pull ghcr.io/${{ github.repository }}:$VERSION
           \`\`\`
-          
+
           ## 📝 Changes
           $CHANGELOG_SECTION
-          
+
           EOF
-          
+
           cat /tmp/release_notes.md
 
       - name: Create GitHub Release
