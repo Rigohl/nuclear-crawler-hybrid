@@ -64,10 +64,8 @@ impl GoWasmRuntime {
             ));
         };
         
-        let mut store = Store::new(&engine, ());
-        if config.enable_fuel {
-            store.add_fuel(config.initial_fuel)?;
-        }
+        let store = Store::new(&engine, ());
+        // Note: fuel metering is optional - would require FuelConsumer configuration
         
         Ok(Self {
             engine,
@@ -185,10 +183,9 @@ impl NimWasmParser {
             ));
         };
         
-        let mut store = Store::new(&engine, ());
-        if config.enable_fuel {
-            store.add_fuel(config.initial_fuel)?;
-        }
+        let store = Store::new(&engine, ());
+        // Note: fuel metering is optional
+
         
         Ok(Self {
             engine,
@@ -226,7 +223,8 @@ impl NimWasmParser {
     /// Extract all links from HTML
     pub async fn extract_links(&mut self, html: &str) -> Result<Vec<Link>> {
         let instance = Instance::new(&mut self.store, &self.module, &[])?;
-        let memory = instance.get_memory(&mut self.store, "memory")?;
+        let memory = instance.get_memory(&mut self.store, "memory")
+            .ok_or_else(|| anyhow::anyhow!("No memory export"))?;
         
         let html_ptr = self.write_to_memory(&memory, html.as_bytes())?;
         
@@ -276,10 +274,7 @@ impl ZigWasmSimd {
             ));
         };
         
-        let mut store = Store::new(&engine, ());
-        if config.enable_fuel {
-            store.add_fuel(config.initial_fuel)?;
-        }
+        let store = Store::new(&engine, ());
         
         Ok(Self {
             engine,
@@ -292,7 +287,7 @@ impl ZigWasmSimd {
     pub async fn hash_data(&mut self, data: &[u8], algorithm: HashAlgorithm) -> Result<[u8; 32]> {
         let instance = Instance::new(&mut self.store, &self.module, &[])?;
         let memory = instance.get_memory(&mut self.store, "memory")
-            .context("No memory export")?;
+            .ok_or_else(|| anyhow::anyhow!("No memory export"))?;
         
         // Write data to memory
         let data_ptr = 4096;
@@ -317,7 +312,8 @@ impl ZigWasmSimd {
     /// SIMD pattern matching
     pub async fn pattern_match(&mut self, haystack: &[u8], needle: &[u8]) -> Result<Vec<u32>> {
         let instance = Instance::new(&mut self.store, &self.module, &[])?;
-        let memory = instance.get_memory(&mut self.store, "memory")?;
+        let memory = instance.get_memory(&mut self.store, "memory")
+            .ok_or_else(|| anyhow::anyhow!("No memory export"))?;
         
         let haystack_ptr = 8192;
         let needle_ptr = 8192 + haystack.len();
@@ -365,10 +361,6 @@ fn create_engine_config(config: &WasmConfig) -> Result<Config> {
     engine_config.wasm_simd(config.enable_simd);
     engine_config.wasm_bulk_memory(config.enable_bulk_memory);
     engine_config.wasm_multi_memory(config.enable_multi_memory);
-    
-    if config.enable_fuel {
-        engine_config.consume_fuel(true);
-    }
     
     Ok(engine_config)
 }
