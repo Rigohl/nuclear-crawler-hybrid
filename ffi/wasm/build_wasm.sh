@@ -80,9 +80,9 @@ build_zig() {
     fi
     
     cd "${WASM_DIR}/zig"
-    zig build-lib -target wasm32-wasi -O ReleaseFast -dynamic main.zig -femit-bin=zig_simd.wasm 2>/dev/null || \
-    zig build-lib -target wasm32-freestanding -O ReleaseFast main.zig -femit-bin=zig_simd.wasm 2>/dev/null || \
-    echo -e "${YELLOW}⚠️  Zig WASM build needs manual configuration for this Zig version${NC}"
+    zig build-lib -target wasm32-wasi -O ReleaseFast -dynamic main.zig -femit-bin=zig_simd.wasm 2>&1 || \
+    zig build-lib -target wasm32-freestanding -O ReleaseFast main.zig -femit-bin=zig_simd.wasm 2>&1 || \
+    echo -e "${YELLOW}⚠️  Zig WASM build failed - check Zig version compatibility${NC}"
     
     if [ -f zig_simd.wasm ]; then
         SIZE=$(du -h zig_simd.wasm | cut -f1)

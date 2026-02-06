@@ -427,28 +427,26 @@ mod tests {
 
     #[test]
     fn test_wasm_source_files_exist() {
-        // Verify real WASM source code files exist in the repository
-        let go_source = std::path::Path::new("ffi/wasm/go/main.go");
-        let zig_source = std::path::Path::new("ffi/wasm/zig/main.zig");
-        let nim_source = std::path::Path::new("ffi/wasm/nim/main.nim");
-        let build_script = std::path::Path::new("ffi/wasm/build_wasm.sh");
+        // Verify real WASM source code files exist and are non-empty
+        let sources = [
+            ("ffi/wasm/go/main.go", "Go"),
+            ("ffi/wasm/zig/main.zig", "Zig"),
+            ("ffi/wasm/nim/main.nim", "Nim"),
+            ("ffi/wasm/build_wasm.sh", "Build script"),
+        ];
 
-        assert!(
-            go_source.exists(),
-            "Go WASM source not found at ffi/wasm/go/main.go"
-        );
-        assert!(
-            zig_source.exists(),
-            "Zig WASM source not found at ffi/wasm/zig/main.zig"
-        );
-        assert!(
-            nim_source.exists(),
-            "Nim WASM source not found at ffi/wasm/nim/main.nim"
-        );
-        assert!(
-            build_script.exists(),
-            "WASM build script not found at ffi/wasm/build_wasm.sh"
-        );
+        for (path, name) in &sources {
+            let p = std::path::Path::new(path);
+            assert!(p.exists(), "{} WASM source not found at {}", name, path);
+            let metadata = std::fs::metadata(p).unwrap();
+            assert!(
+                metadata.len() > 100,
+                "{} WASM source at {} is too small ({}B)",
+                name,
+                path,
+                metadata.len()
+            );
+        }
     }
 
     #[test]
