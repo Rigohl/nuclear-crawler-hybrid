@@ -2,12 +2,16 @@
 //!
 //! Uses Nim for ultra-fast HTML parsing and content extraction
 //! Real FFI integration with Nim via static linking
+//! NEW: WASM compilation support for portable HTML parsing
 //! Specialized for web scraping and content analysis
 
 use anyhow::Result;
 use libloading::Library;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+
+// Import WASM bridge for Nim WASM runtime
+use crate::ffi::wasm_ffi_bridge::{NimWasmParser, WasmConfig, Element as WasmElement, Link as WasmLink};
 
 // 🔥 REAL FFI DECLARATIONS - ACTIVATED FOR MAXIMUM POWER
 #[cfg(has_nim)]
@@ -63,28 +67,39 @@ pub struct NimParsedContent {
     pub has_javascript: bool,
 }
 
-/// 🔥 Nim HTML Parser - REAL HIGH-PERFORMANCE PARSING
+/// 🔥 Nim HTML Parser - REAL HIGH-PERFORMANCE PARSING + WASM RUNTIME
 pub struct NimHtmlParser {
     config: NimParserConfig,
     library: Option<Library>,
+    wasm_runtime: Option<NimWasmParser>,
 }
 
 impl NimHtmlParser {
-    /// Initialize REAL Nim HTML parser
+    /// Initialize REAL Nim HTML parser with optional WASM runtime
     pub fn new(config: NimParserConfig) -> Result<Self> {
         eprintln!("🔥 Initializing Nim HTML Parser with MAXIMUM POWER...");
 
         let library = Self::load_nim_library();
 
         if library.is_some() {
-            eprintln!(
-                "✅ Nim library available via FFI - using REAL high-performance HTML parsing!"
-            );
+            eprintln!("✅ Nim library available via FFI - using REAL parsing!");
         } else {
-            eprintln!("🔥 Nim FFI not available, using Rust HTML parser with MAXIMUM POWER");
+            eprintln!("⚠️ Nim library not available, using fallback parser");
         }
+        
+        // Try to initialize WASM runtime
+        let wasm_runtime = match NimWasmParser::new(WasmConfig::default()) {
+            Ok(runtime) => {
+                eprintln!("✅ Nim WASM runtime initialized for portable parsing!");
+                Some(runtime)
+            }
+            Err(e) => {
+                eprintln!("⚠️ Nim WASM runtime not available: {}", e);
+                None
+            }
+        };
 
-        Ok(Self { config, library })
+        Ok(Self { config, library, wasm_runtime })
     }
 
     /// 🔥 REAL NIM HTML PARSING + RUST FALLBACK - Parse HTML with MAXIMUM power
@@ -323,6 +338,7 @@ impl Default for NimHtmlParser {
             Self {
                 config: NimParserConfig::default(),
                 library: None,
+                wasm_runtime: None,
             }
         })
     }
