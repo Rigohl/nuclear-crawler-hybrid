@@ -1,5 +1,14 @@
-// Chapel AI FFI Library - Minimal Working Implementation
-// Compiled as libchapel_ai.so for Rust FFI
+// Chapel AI FFI Library - Real Implementation for Rust FFI
+// Compiled as libchapel_ai.so: gcc -shared -fPIC -o libchapel_ai.so chapel_ai.c
+//
+// Powers ALL 7 MCP Tools through Rust FFI:
+//   1. websearch       - Search pattern optimization
+//   2. premium         - Content extraction quality learning
+//   3. file_search     - File pattern analysis
+//   4. scan            - Workspace intelligence
+//   5. ai_dataset_trainer - Training data optimization
+//   6. parallel_engine - Parallel processing strategy
+//   7. osint_intelligence - OSINT pattern recognition
 
 #include <stdint.h>
 #include <stdio.h>

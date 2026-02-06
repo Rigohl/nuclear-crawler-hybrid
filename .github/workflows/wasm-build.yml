@@ -5,7 +5,12 @@ on:
     branches: [ main, master ]
     paths:
       - 'src/wasm/**'
+      - 'ffi/wasm/**'
       - 'Cargo.toml'
+  pull_request:
+    paths:
+      - 'src/wasm/**'
+      - 'ffi/wasm/**'
   workflow_dispatch:
 
 env:
@@ -27,6 +32,17 @@ jobs:
       - uses: Swatinem/rust-cache@779680da715d629ac1d338a641029a2f4372abb5
         with:
           cache-on-failure: true
+
+      - name: Validate FFI WASM source files exist
+        run: |
+          echo "🔍 Validating WASM source files..."
+          test -f ffi/wasm/go/main.go && echo "✅ Go WASM source: ffi/wasm/go/main.go"
+          test -f ffi/wasm/zig/main.zig && echo "✅ Zig WASM source: ffi/wasm/zig/main.zig"
+          test -f ffi/wasm/nim/main.nim && echo "✅ Nim WASM source: ffi/wasm/nim/main.nim"
+          test -f ffi/wasm/build_wasm.sh && echo "✅ Build script: ffi/wasm/build_wasm.sh"
+          echo ""
+          echo "📊 WASM Source Summary:"
+          wc -l ffi/wasm/go/main.go ffi/wasm/zig/main.zig ffi/wasm/nim/main.nim
 
       - name: Build file_search WASM (100x speedup)
         run: cargo build --release --target wasm32-unknown-unknown --features wasm-file-search

@@ -842,6 +842,18 @@ analysis_temp/
 go/
 zig/
 nim/
+
+# Keep FFI WASM source files (real Go, Zig, Nim source code for WASM compilation)
+!ffi/wasm/go/
+!ffi/wasm/go/*.go
+!ffi/wasm/zig/
+!ffi/wasm/zig/*.zig
+!ffi/wasm/nim/
+!ffi/wasm/nim/*.nim
+!ffi/wasm/build_wasm.sh
+
+# Exclude compiled WASM binaries (build artifacts)
+ffi/wasm/**/*.wasm
 libs/
 ffi/chapel/datasets/massive_training_120k.json
 

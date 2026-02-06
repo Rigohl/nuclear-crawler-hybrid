@@ -6,18 +6,20 @@
 //!
 //! Primary Engine: Chapel AI with GPU + Multi-locale + BLAS/LAPACK
 //! Secondary: JAX (GPU/TPU), Julia (BLAS), Mojo (SIMD)
-//! Windows-only: Go (goroutines), Zig (SIMD), Nim (parsing)
+//! WASM Portable: Go (goroutines), Zig (SIMD), Nim (parsing)
+//! Windows-only: Go/Zig/Nim native FFI via libloading
 //!
 //! Philosophy: Extract maximum power from each language
 //! - Chapel: BlockDist, CyclicDist, GPU kernels, multi-locale parallelism
 //! - JAX: XLA compilation, GPU/TPU acceleration
 //! - Julia: Native BLAS, multi-threading, distributed arrays
 //! - Mojo: SIMD, compile-time execution, 66x faster
-//! - Go: Goroutines + CGO/MSVC (Windows)
-//! - Zig: SIMD intrinsics + comptime (Windows)
-//! - Nim: Macros + C++ interop (Windows)
+//! - Go WASM: Goroutines via TinyGo -> wasmtime (ffi/wasm/go/main.go)
+//! - Zig WASM: SIMD via native Zig -> wasmtime (ffi/wasm/zig/main.zig)
+//! - Nim WASM: Parsing via Emscripten -> wasmtime (ffi/wasm/nim/main.nim)
 //!
 //! Build Chapel: cd ffi/chapel && ./build_chapel_real.sh
+//! Build WASM:   cd ffi/wasm && ./build_wasm.sh
 //! With GPU: GPU_ARCH=sm_86 ./build_chapel_real.sh
 //! Distributed: NUM_LOCALES=4 ./build_chapel_real.sh
 //!

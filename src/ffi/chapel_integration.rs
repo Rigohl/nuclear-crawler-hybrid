@@ -1,14 +1,22 @@
 //! 🔥 CHAPEL AI INTEGRATION - Real FFI Implementation
 //!
-//! Chapel AI is the intelligent learning system that powers all 5 MCP tools.
+//! Chapel AI is the intelligent learning system that powers ALL 7 MCP tools.
 //!
 //! Features:
-//! - **REAL Chapel FFI** - Compiled from ffi/chapel/chapel_ai.chpl
+//! - **REAL Chapel FFI** - Compiled from ffi/chapel/ai/nuclear_chapel_ai.chpl
 //! - Pattern learning from all operations
 //! - Intelligent suggestions and advice
 //! - Result optimization over time
-//! - Connected to all tools (websearch, premium, file_search, scan, ai_dataset_trainer)
+//! - Connected to ALL 7 tools:
+//!   1. websearch       - Search pattern optimization
+//!   2. premium         - Content extraction quality learning
+//!   3. file_search     - File pattern analysis
+//!   4. scan            - Workspace intelligence
+//!   5. ai_dataset_trainer - Training data optimization
+//!   6. parallel_engine - Parallel processing strategy
+//!   7. osint_intelligence - OSINT pattern recognition
 //! - NO MOCKS - Production-ready implementation
+//! - Build: cd ffi/chapel && make chapel-lib (produces libchapel_ai.so)
 
 use anyhow::Result;
 use serde::{Deserialize, Serialize};

@@ -1,11 +1,14 @@
 //! 🔥 WASM FFI BRIDGE - Unified WebAssembly Integration
 //!
 //! This module provides a unified interface for all WASM-based FFI integrations:
-//! - Go WASM (goroutines for parallel processing)
-//! - Nim WASM (HTML parsing and content extraction)
-//! - Zig WASM (SIMD-accelerated operations)
+//! - Go WASM (goroutines for parallel processing) - Source: ffi/wasm/go/main.go
+//! - Nim WASM (HTML parsing and content extraction) - Source: ffi/wasm/nim/main.nim
+//! - Zig WASM (SIMD-accelerated operations) - Source: ffi/wasm/zig/main.zig
 //!
 //! Uses wasmtime runtime for maximum performance and security.
+//!
+//! Build all WASM modules: ffi/wasm/build_wasm.sh
+//! Powers ALL 7 MCP tools through portable multi-language acceleration.
 
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
@@ -413,5 +416,94 @@ mod tests {
         let config = WasmConfig::default();
         assert!(config.enable_simd);
         assert!(config.enable_bulk_memory);
+    }
+
+    #[test]
+    fn test_wasm_engine_creation() {
+        let config = WasmConfig::default();
+        let engine_config = create_engine_config(&config);
+        assert!(engine_config.is_ok());
+    }
+
+    #[test]
+    fn test_wasm_source_files_exist() {
+        // Verify real WASM source code files exist and are non-empty
+        let sources = [
+            ("ffi/wasm/go/main.go", "Go"),
+            ("ffi/wasm/zig/main.zig", "Zig"),
+            ("ffi/wasm/nim/main.nim", "Nim"),
+            ("ffi/wasm/build_wasm.sh", "Build script"),
+        ];
+
+        for (path, name) in &sources {
+            let p = std::path::Path::new(path);
+            assert!(p.exists(), "{} WASM source not found at {}", name, path);
+            let metadata = std::fs::metadata(p).unwrap();
+            assert!(
+                metadata.len() > 100,
+                "{} WASM source at {} is too small ({}B)",
+                name,
+                path,
+                metadata.len()
+            );
+        }
+    }
+
+    #[test]
+    fn test_wasm_source_contains_exports() {
+        // Verify the WASM source files contain the expected exported functions
+        let go_src = std::fs::read_to_string("ffi/wasm/go/main.go").unwrap();
+        assert!(
+            go_src.contains("//export parallel_fetch_urls"),
+            "Go missing parallel_fetch_urls export"
+        );
+        assert!(
+            go_src.contains("//export process_data_parallel"),
+            "Go missing process_data_parallel export"
+        );
+        assert!(
+            go_src.contains("//export hash_batch"),
+            "Go missing hash_batch export"
+        );
+        assert!(go_src.contains("//export alloc"), "Go missing alloc export");
+
+        let zig_src = std::fs::read_to_string("ffi/wasm/zig/main.zig").unwrap();
+        assert!(
+            zig_src.contains("export fn hash_data_simd"),
+            "Zig missing hash_data_simd export"
+        );
+        assert!(
+            zig_src.contains("export fn pattern_match_simd"),
+            "Zig missing pattern_match_simd export"
+        );
+        assert!(
+            zig_src.contains("export fn batch_transform"),
+            "Zig missing batch_transform export"
+        );
+        assert!(
+            zig_src.contains("export fn alloc"),
+            "Zig missing alloc export"
+        );
+
+        let nim_src = std::fs::read_to_string("ffi/wasm/nim/main.nim").unwrap();
+        assert!(
+            nim_src.contains("exportc: \"parse_html\""),
+            "Nim missing parse_html export"
+        );
+        assert!(
+            nim_src.contains("exportc: \"extract_links\""),
+            "Nim missing extract_links export"
+        );
+        assert!(
+            nim_src.contains("exportc: \"extract_metadata\""),
+            "Nim missing extract_metadata export"
+        );
+    }
+
+    #[test]
+    fn test_hash_algorithm_values() {
+        assert_eq!(HashAlgorithm::Blake3 as u8, 0);
+        assert_eq!(HashAlgorithm::Sha256 as u8, 1);
+        assert_eq!(HashAlgorithm::XxHash as u8, 2);
     }
 }

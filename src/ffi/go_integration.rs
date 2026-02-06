@@ -2,8 +2,18 @@
 //!
 //! Uses Go goroutines for massive parallel web requests and processing
 //! Real FFI integration with Go via libloading
-//! NEW: WASM runtime support for Go compiled to WebAssembly
+//! WASM runtime support via TinyGo compilation (ffi/wasm/go/main.go)
 //! Specialized for concurrent HTTP requests and data processing
+//!
+//! Powers MCP Tools:
+//! - websearch       (parallel URL fetching, 1000+ concurrent)
+//! - premium         (parallel premium content retrieval)
+//! - scan            (parallel workspace scanning)
+//! - parallel_engine (goroutine worker pools)
+//! - osint_intelligence (parallel OSINT source fetching)
+//!
+//! WASM Source: ffi/wasm/go/main.go
+//! Build WASM: cd ffi/wasm && ./build_wasm.sh go
 
 use anyhow::Result;
 use libloading::{Library, Symbol};
