@@ -124,7 +124,6 @@ pub struct ChapelAIOrchestrator {
 struct LearningMemory {
     tool_metrics: HashMap<String, ToolMetrics>,
     patterns: Vec<String>,
-    #[allow(dead_code)]
     optimization_suggestions: Vec<String>,
 }
 
@@ -260,15 +259,34 @@ impl ChapelAIOrchestrator {
         metrics.avg_quality =
             (metrics.avg_quality * (metrics.calls - 1) as f64 + quality) / metrics.calls as f64;
 
+        // Store values to avoid multiple borrows
+        let calls = metrics.calls;
+        let total_duration = metrics.total_duration_ms;
+        let avg_quality = metrics.avg_quality;
+
         // Generar sugerencias
-        if metrics.calls % 5 == 0 {
+        if calls % 5 == 0 {
             let suggestion = format!(
                 "{} | Avg: {}ms | Quality: {:.1}%",
                 tool,
-                metrics.total_duration_ms / metrics.calls as u64,
-                metrics.avg_quality * 100.0
+                total_duration / calls as u64,
+                avg_quality * 100.0
             );
             memory.patterns.push(suggestion);
+            
+            // 🔥 GENERAR OPTIMIZATION_SUGGESTIONS - USANDO EL CAMPO
+            if avg_quality < 0.80 {
+                memory.optimization_suggestions.push(format!(
+                    "⚡ {} needs optimization: Quality {:.1}% is below 80% threshold",
+                    tool, avg_quality * 100.0
+                ));
+            }
+            if total_duration / calls as u64 > 200 {
+                memory.optimization_suggestions.push(format!(
+                    "⚡ {} is slow: Avg {}ms exceeds 200ms target",
+                    tool, total_duration / calls as u64
+                ));
+            }
         }
     }
 
@@ -321,6 +339,14 @@ impl ChapelAIOrchestrator {
         report.push_str("\n🧠 LEARNED PATTERNS:\n");
         for pattern in memory.patterns.iter().take(3) {
             report.push_str(&format!("  ✓ {}\n", pattern));
+        }
+
+        // 🔥 OPTIMIZATION SUGGESTIONS - USANDO EL CAMPO
+        if !memory.optimization_suggestions.is_empty() {
+            report.push_str("\n⚡ OPTIMIZATION SUGGESTIONS:\n");
+            for suggestion in memory.optimization_suggestions.iter().take(5) {
+                report.push_str(&format!("  {}\n", suggestion));
+            }
         }
 
         report

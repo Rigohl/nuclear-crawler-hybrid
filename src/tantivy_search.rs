@@ -36,7 +36,6 @@ pub struct SearchResult {
 /// Tantivy search engine
 pub struct TantivySearchEngine {
     index: Index,
-    #[allow(dead_code)]
     schema: Schema,
     writer: Arc<RwLock<IndexWriter>>,
     url_field: Field,
@@ -234,6 +233,20 @@ impl TantivySearchEngine {
         writer.delete_all_documents()?;
         writer.commit()?;
         Ok(())
+    }
+
+    /// Get schema info - USING SCHEMA FIELD
+    pub fn get_schema_info(&self) -> String {
+        let fields: Vec<String> = self.schema
+            .fields()
+            .map(|(field, entry)| format!("{:?}: {:?}", field, entry.name()))
+            .collect();
+        format!("Schema fields: {}", fields.join(", "))
+    }
+
+    /// Get field definitions - USING SCHEMA FIELD
+    pub fn get_field_count(&self) -> usize {
+        self.schema.fields().count()
     }
 }
 

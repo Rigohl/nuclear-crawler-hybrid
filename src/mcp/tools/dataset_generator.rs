@@ -59,7 +59,6 @@ pub struct DatasetGeneratorTool {
     // 🔥 ALIMENTADO DE MÓDULOS CORE
     storage: Arc<tokio::sync::Mutex<IntelligentStorage>>,
     jax_processor: Arc<tokio::sync::Mutex<Option<JaxProcessor>>>,
-    #[allow(dead_code)]
     zig_processor: Arc<tokio::sync::Mutex<Option<ZigSimdProcessor>>>,
 }
 
@@ -117,24 +116,23 @@ impl DatasetGeneratorTool {
 
         eprintln!("✅ Dataset exported to: {}", result_path);
 
-        // 2️⃣ USA Zig SIMD para hash de integridad (si disponible)
-        #[cfg(has_zig)]
-        {
-            if let Some(zig) = self.zig_processor.lock().await.as_ref() {
-                let dataset_bytes = serde_json::to_vec(dataset)?;
-                match zig.hash_data(&dataset_bytes) {
-                    Ok(hash_result) => {
-                        eprintln!(
-                            "   ✅ Integrity hash: {} ({}ns)",
-                            &hash_result.hash[..16],
-                            hash_result.processing_time_ns
-                        );
-                    }
-                    Err(e) => {
-                        eprintln!("   ⚠️ Zig hashing failed: {}", e);
-                    }
+        // 2️⃣ USA Zig SIMD para hash de integridad (si disponible) - USANDO ZIG_PROCESSOR
+        if let Some(zig) = self.zig_processor.lock().await.as_ref() {
+            let dataset_bytes = serde_json::to_vec(dataset)?;
+            match zig.hash_data(&dataset_bytes) {
+                Ok(hash_result) => {
+                    eprintln!(
+                        "   ✅ Zig SIMD integrity hash: {} ({}ns)",
+                        &hash_result.hash[..16],
+                        hash_result.processing_time_ns
+                    );
+                }
+                Err(e) => {
+                    eprintln!("   ⚠️ Zig hashing failed (falling back): {}", e);
                 }
             }
+        } else {
+            eprintln!("   ℹ️ Zig SIMD processor not available, skipping hash");
         }
 
         // 3️⃣ USA JAX para vectorizar datos (si disponible y apropiado)

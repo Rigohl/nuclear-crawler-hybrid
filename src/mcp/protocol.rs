@@ -1,6 +1,6 @@
 //! 🔥 MCP PROTOCOL - JSON-RPC 2.0 Implementation
 //!
-//! Follows Model Context Protocol 2025 specification
+//! Follows Model Context Protocol 2026 specification
 //! EXPONE EXACTAMENTE 7 TOOLS CON MÁXIMO PODER REAL
 //!
 //! 1. WEBSEARCH - Búsqueda internet con scraping integrado (55+ motores + WASM)
@@ -213,7 +213,7 @@ impl MCPResponse {
 }
 
 /// 🔥 GET EXACTLY 7 TOOL DEFINITIONS - MÁXIMO PODER AMPLIFICADO
-/// Siguiendo MCP 2025 protocol: 7 tools profesionales con WASM + Chapel AI
+/// Siguiendo MCP 2026 protocol: 7 tools profesionales con WASM + Chapel AI
 pub fn get_tool_definitions() -> Vec<ToolDefinition> {
     vec![
         // ═══════════════════════════════════════════════════════════════════════
