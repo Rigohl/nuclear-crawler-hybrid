@@ -1,13 +1,15 @@
 # NUCLEAR CRAWLER HYBRID - COPILOT BEHAVIOR RULES
 
-## 🔥 PROJECT CONTEXT (Updated 2026-01-24)
+## 🔥 PROJECT CONTEXT (Updated 2026-02-06 - 7 TOOLS AMPLIFIED)
 
 **Nuclear Crawler Hybrid** is a unified AI & Data Intelligence platform combining:
 - **Chapel AI Training Engine** (ffi/chapel/) - 120K+ datasets, 8 systems
-- **Rust MCP Server** (src/) - 5 tools exactly, JSON-RPC 2.0
+- **Rust MCP Server** (src/) - 7 tools exactly (AMPLIFIED), JSON-RPC 2.0
 - **MCP Servers** (mcp-servers/) - GitHub automation (Go)
 - **Multi-Language Datasets** (models/) - Mojo, Julia, Python processors
 - **OSINT & Intelligence** - Data mining, pattern recognition
+- **WASM Components** - Ultra-fast scraping (100x speedup)
+- **FFI Power Libraries** - BeautifulSoup, Playwright, Scrapy
 
 **Key Integration Points:**
 - HuggingFace: `Kimberlyindiva/nuclear-chapel-training`
@@ -25,10 +27,10 @@
 - **EXPOSE_WARNINGS**: Show ALL warnings, errors, issues - never hide them
 - **NO_DEAD_CODE**: Eliminate unused code immediately, no experimental leftovers
 
-### MCP Protocol (SACRED)
-- **STRICT_MCP**: Maintain exactly 5 tools in MCP Protocol, no exceptions
-- **TOOLS**: websearch, premium, file_search, scan, ai_dataset_trainer
-- **TEST_ENFORCEMENT**: `cargo test test_exactly_5_tools` must pass
+### MCP Protocol (SACRED - UPDATED TO 7 TOOLS)
+- **STRICT_MCP**: Maintain exactly 7 tools in MCP Protocol (EXPANDED FROM 5)
+- **TOOLS**: websearch, premium, file_search, scan, ai_dataset_trainer, wasm_scraper, osint_intelligence
+- **TEST_ENFORCEMENT**: `cargo test test_exactly_7_tools` must pass
 
 ### Multi-Language Integration
 - **CHAPEL_PRIMARY**: Chapel code in ffi/chapel/ is the ML training core
@@ -197,8 +199,8 @@ nuclear-crawler-hybrid/
 
 ### Rust Metrics
 - Total Rust lines: ~12,249 active
-- Dead code: 0 lines
-- MCP tools: Exactly 5
+- Dead code: 0 lines (cleaned up)
+- MCP tools: Exactly 7 (EXPANDED)
 - Build time: <50 seconds
 - Test success: 100%
 - Binary size: ~5.3 MB
@@ -221,12 +223,12 @@ nuclear-crawler-hybrid/
 
 ### Forbidden Actions
 - ❌ Creating .md without request
-- ❌ Adding 6th or 7th tool to MCP
+- ❌ Adding 8th or removing tools from MCP (must stay at 7)
 - ❌ Leaving dead code
 - ❌ Hiding errors/warnings
 - ❌ Using mocks instead of real data
 - ❌ False "success" claims
-- ❌ Modifying 5-tool constraint
+- ❌ Modifying 7-tool constraint
 - ❌ Breaking FFI Chapel integration
 - ❌ Removing datasets from models/
 
@@ -236,7 +238,7 @@ nuclear-crawler-hybrid/
 - ✅ Working builds
 - ✅ Passing tests
 - ✅ Clean code (no dead code)
-- ✅ 5 tools exactly
+- ✅ 7 tools exactly (EXPANDED)
 
 ---
 
@@ -246,10 +248,10 @@ Task is complete ONLY when ALL of these pass:
 
 ### Rust Success
 1. `cargo build --release` ✅
-2. `cargo test test_exactly_5_tools` ✅
+2. `cargo test test_exactly_7_tools` ✅
 3. `cargo test --test integration_real_mcp` ✅
 4. No dead code remains
-5. 5 tools verified in protocol.rs
+5. 7 tools verified in protocol.rs
 
 ### Chapel Success (if applicable)
 1. `cd ffi/chapel && make full-pipeline` ✅
@@ -312,14 +314,14 @@ Task is complete ONLY when ALL of these pass:
 
 ### Smart Suggestions
 When user opens file:
-- `src/mcp/protocol.rs` → "⚠️ CRITICAL: 5 MCP tools. Run: cargo test test_exactly_5_tools"
+- `src/mcp/protocol.rs` → "⚠️ CRITICAL: 7 MCP tools. Run: cargo test test_exactly_7_tools"
 - `ffi/chapel/*.chpl` → "Chapel ML core. Datasets: ../../../models/. Test: make check"
 - `mcp-servers/github/*.go` → "GitHub MCP. Needs: GITHUB_TOKEN. Test: go test ./..."
 - `models/*` → "120K+ datasets. Don't modify structure. Access from Chapel."
 
 ### Quick Commands
 - Build all: `cargo build --release && cd ffi/chapel && make full-pipeline && cd ../../mcp-servers/github && go build`
-- Test critical: `cargo test test_exactly_5_tools`
+- Test critical: `cargo test test_exactly_7_tools`
 - Run MCP: `cargo run --bin nuclear-mcp --release`
 - Train Chapel: `cd ffi/chapel && make train && make run`
 
