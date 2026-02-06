@@ -879,3 +879,7 @@ mcp-servers/github/.git/
 !mcp-servers/**/*.go
 !mcp-servers/**/*.json
 !mcp-servers/**/*.md
+
+# Compiled binaries
+nuclear-mcp
+nuclear-data
