@@ -3,8 +3,8 @@ name: Reusable MCP Validation
 on:
   workflow_call:
     inputs:
-      validate-5-tools:
-        description: 'Validate exactly 5 MCP tools'
+      validate-7-tools:
+        description: 'Validate exactly 7 MCP tools'
         required: false
         type: boolean
         default: true
@@ -37,9 +37,9 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: 🔍 Validate exactly 5 MCP tools
-        if: inputs.validate-5-tools
-        run: cargo test test_exactly_5_tools --lib
+      - name: 🔍 Validate exactly 7 MCP tools
+        if: inputs.validate-7-tools
+        run: cargo test test_exactly_7_tools --lib
 
       - name: 🚫 Check for Mock Code
         if: inputs.check-mocks
