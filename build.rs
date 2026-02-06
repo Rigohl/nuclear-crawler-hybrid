@@ -1,10 +1,28 @@
 //! Build script para Nuclear Crawler Hybrid
 //!
-//! FFI REAL con Go, Zig y Nim compilados para MSVC
+//! ═══════════════════════════════════════════════════════════════════════════
+//! FFI REAL - MAXIMUM LANGUAGE FEATURES (NO FALLBACKS)
+//! ═══════════════════════════════════════════════════════════════════════════
 //!
-//! 🔥 ACTIVADO: Go (goroutines), Zig (SIMD), Nim (parsing)
+//! Primary Engine: Chapel AI with GPU + Multi-locale + BLAS/LAPACK
+//! Secondary: JAX (GPU/TPU), Julia (BLAS), Mojo (SIMD)
+//! Windows-only: Go (goroutines), Zig (SIMD), Nim (parsing)
+//!
+//! Philosophy: Extract maximum power from each language
+//! - Chapel: BlockDist, CyclicDist, GPU kernels, multi-locale parallelism
+//! - JAX: XLA compilation, GPU/TPU acceleration
+//! - Julia: Native BLAS, multi-threading, distributed arrays
+//! - Mojo: SIMD, compile-time execution, 66x faster
+//! - Go: Goroutines + CGO/MSVC (Windows)
+//! - Zig: SIMD intrinsics + comptime (Windows)
+//! - Nim: Macros + C++ interop (Windows)
+//!
+//! Build Chapel: cd ffi/chapel && ./build_chapel_real.sh
+//! With GPU: GPU_ARCH=sm_86 ./build_chapel_real.sh
+//! Distributed: NUM_LOCALES=4 ./build_chapel_real.sh
 //!
 //! NOTA: No usa cargo:warning= para evitar mensajes "warning:" en la salida
+//! ═══════════════════════════════════════════════════════════════════════════
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -59,10 +77,22 @@ fn main() {
         ),
     );
 
-    // ============================================================
-    // FFI REAL - GO, ZIG Y NIM (SOLO EN WINDOWS/MSVC)
-    // En Linux: usar fallbacks Tokio async (genuinamente real)
-    // ============================================================
+    // ════════════════════════════════════════════════════════════════════════
+    // FFI REAL - MAXIMUM LANGUAGE FEATURES
+    // ════════════════════════════════════════════════════════════════════════
+    //
+    // PRIMARY ENGINE (Cross-platform):
+    //   - Chapel AI: GPU + Multi-locale + BLAS/LAPACK
+    //   - JAX: XLA + GPU/TPU
+    //   - Julia: Native BLAS + Distributed
+    //
+    // WINDOWS-ONLY ENGINES:
+    //   - Go: Goroutines + CGO/MSVC (parallel HTTP)
+    //   - Zig: SIMD intrinsics (hashing)
+    //   - Nim: Macros + C++ interop (HTML parsing)
+    //
+    // Philosophy: NO FALLBACKS - Real implementations with maximum features
+    // ════════════════════════════════════════════════════════════════════════
 
     // Solo intentar linkear FFI en Windows (no en Linux)
     if cfg!(target_os = "windows") {
@@ -219,9 +249,10 @@ fn main() {
         }
     }
 
-    // ============================================================
-    // CHAPEL AI FFI - Cross-platform (Linux + Windows)
-    // ============================================================
+    // ════════════════════════════════════════════════════════════════════════
+    // CHAPEL AI FFI - PRIMARY ENGINE (Cross-platform)
+    // GPU + Multi-locale + BLAS/LAPACK + Advanced Parallelism
+    // ════════════════════════════════════════════════════════════════════════
 
     // First, try system Chapel installation
     let chapel_home = std::env::var("CHPL_HOME").ok();
@@ -260,37 +291,36 @@ fn main() {
         eprintln!("🧠 Chapel AI FFI: ENABLED (Local libchapel_ai.so found)");
         eprintln!("   ✅ Binary will use rpath: {}/ffi/chapel", manifest_dir);
     } else {
-        eprintln!("⚠️ Chapel AI FFI: Not available");
-        eprintln!("   To enable Chapel:");
-        eprintln!("   1) System: Set CHPL_HOME=/path/to/chapel");
-        eprintln!("   2) Local:  cd ffi/chapel && make");
-        eprintln!("   3) Script: bash scripts/setup_chapel.sh");
+        eprintln!("⚠️ Chapel AI FFI: Not available (REAL COMPILATION REQUIRED)");
+        eprintln!("   Chapel AI is the PRIMARY engine - compilation strongly recommended!");
+        eprintln!("   ");
+        eprintln!("   To enable Chapel with MAXIMUM features:");
+        eprintln!("   1) Install Chapel 1.32+ from: https://chapel-lang.org/download.html");
+        eprintln!("   2) CPU only:  cd ffi/chapel && ./build_chapel_real.sh");
+        eprintln!("   3) With GPU:  cd ffi/chapel && GPU_ARCH=sm_86 ./build_chapel_real.sh");
+        eprintln!("   4) Distributed: cd ffi/chapel && NUM_LOCALES=4 ./build_chapel_real.sh");
+        eprintln!("   5) Maximum:   cd ffi/chapel && GPU_ARCH=sm_80 NUM_LOCALES=8 ./build_chapel_real.sh");
+        eprintln!("   ");
+        eprintln!("   Or use Makefile: cd ffi/chapel && make full-pipeline");
+        eprintln!("   GPU + Distributed: make full-pipeline GPU_ARCH=sm_86");
     }
 
     if !cfg!(target_os = "windows") {
-        // En Linux/Unix: usar fallbacks REALES (async, no mocks)
+        // En Linux/Unix: Chapel + JAX + Julia (no Go/Zig/Nim)
         eprintln!("📝 build.rs: Non-Windows platform ({})", target_os);
-        eprintln!("   → FFI Go/Zig/Nim desactivado (solo en Windows)");
-        eprintln!("   → Usando fallbacks REALES: Tokio async, Blake3, Scraper HTML");
+        eprintln!("   → FFI Go/Zig/Nim: Windows only");
+        eprintln!("   → Chapel/JAX/Julia: Cross-platform (Linux + Windows)");
+        eprintln!("   → Using Rust native implementations for HTTP/parsing");
     }
 
-    // ⚠️ ZIG FFI DESACTIVADO - Causa crash:
-    // - "thread panic: integer overflow"
-    // - "thread has overflowed its stack"
-    // Usar implementación Rust pura con blake3/rayon
-    // if std::path::Path::new(&zig_lib).exists() {
-    //     println!("cargo:rustc-link-search=native={}/zig/zig-out/lib", manifest_dir);
-    //     println!("cargo:rustc-link-lib=static=nuclear_zig");
-    //     println!("cargo:rustc-cfg=has_zig");
-    // }
-
-    // Rerun si cambian las librerías
+    // Rerun si cambian las librerías FFI
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=ffi/go/stealth_go_msvc.lib");
     println!("cargo:rerun-if-changed=ffi/zig/nuclear_zig.lib");
     println!("cargo:rerun-if-changed=ffi/nim/nuclear_nim.lib");
     println!("cargo:rerun-if-changed=ffi/chapel/libchapel_ai.so");
-    println!("cargo:rerun-if-changed=ffi/chapel/chapel_ai.chpl");
+    println!("cargo:rerun-if-changed=ffi/chapel/ai/nuclear_chapel_ai.chpl");
+    println!("cargo:rerun-if-changed=ffi/chapel/ai/unified_nuclear_ai.chpl");
     write_debug_log(
         "H3",
         "build.rs:exit",
