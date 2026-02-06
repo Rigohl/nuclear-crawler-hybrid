@@ -93,7 +93,6 @@ pub struct ChapelStats {
 
 /// 🔥 CHAPEL AI - Real FFI Implementation
 pub struct ChapelAI {
-    #[allow(dead_code)]
     initialized: Arc<Mutex<bool>>,
     use_ffi: bool,
     stats: Arc<Mutex<ChapelStats>>,
@@ -296,6 +295,23 @@ impl ChapelAI {
         #[cfg(not(feature = "chapel_ffi"))]
         {
             0.0
+        }
+    }
+
+    /// Check if Chapel AI is initialized and ready - USING INITIALIZED FIELD
+    pub fn is_initialized(&self) -> bool {
+        self.initialized.lock().map(|guard| *guard).unwrap_or(false)
+    }
+
+    /// Verify FFI status - USING INITIALIZED FIELD
+    pub fn ffi_status(&self) -> String {
+        let init_status = self.initialized.lock().map(|guard| *guard).unwrap_or(false);
+        if init_status && self.use_ffi {
+            "✅ Chapel AI FFI: ACTIVE (Real implementation)".to_string()
+        } else if self.use_ffi {
+            "⚠️ Chapel AI FFI: Enabled but not fully initialized".to_string()
+        } else {
+            "❌ Chapel AI FFI: Disabled".to_string()
         }
     }
 
