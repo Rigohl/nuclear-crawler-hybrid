@@ -48,13 +48,11 @@ pub fn get_capabilities() -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn test_wasm_version() {
         #[cfg(target_arch = "wasm32")]
         {
-            let v = wasm_version();
+            let v = super::wasm_version();
             assert!(v.contains("nuclear-crawler-wasm"));
         }
     }

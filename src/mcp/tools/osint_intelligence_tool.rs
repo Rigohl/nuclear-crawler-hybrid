@@ -10,7 +10,6 @@
 //! - Real-time threat intelligence
 
 use anyhow::{Context, Result};
-use reqwest::Client;
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::time::Instant;
@@ -116,7 +115,7 @@ async fn gather_basic_info(config: &OsintConfig) -> Result<Value> {
 }
 
 /// Gather social media presence
-async fn gather_social_media(config: &OsintConfig) -> Result<Value> {
+async fn gather_social_media(_config: &OsintConfig) -> Result<Value> {
     // In production, this would search:
     // - Twitter/X
     // - LinkedIn
@@ -145,7 +144,7 @@ async fn gather_social_media(config: &OsintConfig) -> Result<Value> {
 }
 
 /// Gather network information (domain, IP, etc.)
-async fn gather_network_info(config: &OsintConfig) -> Result<Value> {
+async fn gather_network_info(_config: &OsintConfig) -> Result<Value> {
     // In production, this would query:
     // - WHOIS databases
     // - DNS records
@@ -164,7 +163,7 @@ async fn gather_network_info(config: &OsintConfig) -> Result<Value> {
 }
 
 /// Gather public records
-async fn gather_public_records(config: &OsintConfig) -> Result<Value> {
+async fn gather_public_records(_config: &OsintConfig) -> Result<Value> {
     // In production, this would search:
     // - Court records
     // - Property records
@@ -181,7 +180,7 @@ async fn gather_public_records(config: &OsintConfig) -> Result<Value> {
 }
 
 /// Gather dark web information (TOR network)
-async fn gather_darkweb_info(config: &OsintConfig) -> Result<Value> {
+async fn gather_darkweb_info(_config: &OsintConfig) -> Result<Value> {
     // In production, this would use TOR to search:
     // - Dark web marketplaces
     // - Paste sites
@@ -198,7 +197,7 @@ async fn gather_darkweb_info(config: &OsintConfig) -> Result<Value> {
 }
 
 /// Analyze gathered data with Chapel AI
-fn analyze_with_chapel_ai(results: &HashMap<&str, Value>, config: &OsintConfig) -> Result<Value> {
+fn analyze_with_chapel_ai(_results: &HashMap<&str, Value>, _config: &OsintConfig) -> Result<Value> {
     // In production, this would:
     // 1. Load gathered data into Chapel AI
     // 2. Perform pattern analysis
@@ -232,10 +231,14 @@ fn analyze_with_chapel_ai(results: &HashMap<&str, Value>, config: &OsintConfig) 
 fn detect_target_type(target: &str) -> String {
     if target.contains('@') {
         "email".to_string()
-    } else if target.contains('.') && target.split('.').count() > 1 {
-        "domain".to_string()
-    } else if target.split('.').all(|s| s.parse::<u8>().is_ok()) {
+    } else if target.split('.').filter(|s| !s.is_empty()).count() == 4
+        && target.split('.').all(|s| s.parse::<u8>().is_ok())
+    {
+        // IP address: must have exactly 4 parts all parseable as u8
         "ip".to_string()
+    } else if target.contains('.') && target.split('.').count() > 1 {
+        // Domain: has dots but not all numeric
+        "domain".to_string()
     } else if target.starts_with('+') || target.chars().all(|c| c.is_numeric()) {
         "phone".to_string()
     } else {

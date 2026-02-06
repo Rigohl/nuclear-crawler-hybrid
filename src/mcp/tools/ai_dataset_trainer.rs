@@ -22,7 +22,6 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 
 use crate::cache::Cache;
-use crate::chapel_integration::get_chapel_ai;
 use crate::go_integration::{GoParallelConfig, GoParallelProcessor};
 use crate::jax_integration::JaxProcessor;
 use crate::nim_integration::{NimHtmlParser, NimParserConfig};
