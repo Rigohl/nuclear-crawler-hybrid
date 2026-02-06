@@ -12,7 +12,7 @@ use std::collections::HashMap;
 use std::ffi::CString;
 
 // Import WASM bridge for Go WASM runtime
-use crate::ffi::wasm_ffi_bridge::{GoWasmRuntime, WasmConfig, HttpResult as WasmHttpResult};
+use crate::ffi::wasm_ffi_bridge::{GoWasmRuntime, WasmConfig};
 
 // 🔥 REAL FFI DECLARATIONS - ACTIVATED FOR MAXIMUM POWER
 #[cfg(has_go)]
@@ -83,7 +83,7 @@ impl GoParallelProcessor {
         {
             eprintln!("⚠️ Go FFI not compiled, using async fallback");
         }
-        
+
         // Try to initialize WASM runtime
         let wasm_runtime = match GoWasmRuntime::new(WasmConfig::default()) {
             Ok(runtime) => {
@@ -96,43 +96,66 @@ impl GoParallelProcessor {
             }
         };
 
-        Ok(Self { config, library, wasm_runtime })
+        Ok(Self {
+            config,
+            library,
+            wasm_runtime,
+        })
     }
-    
+
     /// 🔥 WASM-POWERED parallel fetch - Uses Go WASM for maximum goroutine power
-    pub async fn fetch_urls_wasm(&mut self, urls: Vec<String>, timeout_ms: u32) -> Result<Vec<GoHttpResult>> {
+    pub async fn fetch_urls_wasm(
+        &mut self,
+        urls: Vec<String>,
+        timeout_ms: u32,
+    ) -> Result<Vec<GoHttpResult>> {
         if let Some(ref mut wasm_runtime) = self.wasm_runtime {
-            eprintln!("🔥 Using Go WASM runtime with goroutines for {} URLs", urls.len());
-            
+            eprintln!(
+                "🔥 Using Go WASM runtime with goroutines for {} URLs",
+                urls.len()
+            );
+
             // Use WASM runtime
-            let wasm_results = wasm_runtime.parallel_fetch_urls(urls.clone(), timeout_ms).await?;
-            
+            let wasm_results = wasm_runtime
+                .parallel_fetch_urls(urls.clone(), timeout_ms)
+                .await?;
+
             // Convert WasmHttpResult to GoHttpResult
-            let results = wasm_results.into_iter().map(|wr| GoHttpResult {
-                url: wr.url,
-                status_code: wr.status_code,
-                content_length: wr.content_length,
-                response_time_ms: wr.response_time_ms,
-                headers: wr.headers,
-                content: wr.content,
-                error: wr.error,
-                retry_count: wr.retry_count,
-            }).collect();
-            
+            let results = wasm_results
+                .into_iter()
+                .map(|wr| GoHttpResult {
+                    url: wr.url,
+                    status_code: wr.status_code,
+                    content_length: wr.content_length,
+                    response_time_ms: wr.response_time_ms,
+                    headers: wr.headers,
+                    content: wr.content,
+                    error: wr.error,
+                    retry_count: wr.retry_count,
+                })
+                .collect();
+
             return Ok(results);
         }
-        
+
         // Fall back to native Go FFI or async
         self.fetch_urls_parallel(urls).await
     }
-    
+
     /// 🔥 WASM-POWERED data processing - Uses Go WASM worker pools
-    pub async fn process_data_wasm(&mut self, data: serde_json::Value, workers: u32) -> Result<serde_json::Value> {
+    pub async fn process_data_wasm(
+        &mut self,
+        data: serde_json::Value,
+        workers: u32,
+    ) -> Result<serde_json::Value> {
         if let Some(ref mut wasm_runtime) = self.wasm_runtime {
-            eprintln!("🔥 Using Go WASM runtime with {} worker goroutines", workers);
+            eprintln!(
+                "🔥 Using Go WASM runtime with {} worker goroutines",
+                workers
+            );
             return wasm_runtime.process_data_parallel(data, workers).await;
         }
-        
+
         // Fall back to native processing
         eprintln!("⚠️ WASM not available, using native processing");
         Ok(data)

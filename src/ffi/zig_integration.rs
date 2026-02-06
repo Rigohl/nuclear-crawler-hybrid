@@ -10,7 +10,7 @@ use libloading::{Library, Symbol};
 use serde::{Deserialize, Serialize};
 
 // Import WASM bridge for Zig WASM runtime
-use crate::ffi::wasm_ffi_bridge::{ZigWasmSimd, WasmConfig, HashAlgorithm};
+use crate::ffi::wasm_ffi_bridge::{HashAlgorithm, WasmConfig, ZigWasmSimd};
 
 /// 🔥 Zig SIMD Config
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -75,7 +75,7 @@ impl ZigSimdProcessor {
         {
             eprintln!("⚠️ Zig FFI not compiled, using CPU fallback");
         }
-        
+
         // Try to initialize WASM runtime
         let wasm_runtime = match ZigWasmSimd::new(WasmConfig::default()) {
             Ok(runtime) => {
@@ -88,7 +88,11 @@ impl ZigSimdProcessor {
             }
         };
 
-        Ok(Self { library, config, wasm_runtime })
+        Ok(Self {
+            library,
+            config,
+            wasm_runtime,
+        })
     }
 
     /// 🔥 REAL SIMD HASHING + CPU FALLBACK - Maximum power potentiation
@@ -119,14 +123,17 @@ impl ZigSimdProcessor {
         eprintln!("🔥 Using CPU SIMD fallback for maximum power");
         self.cpu_fallback_hash(data)
     }
-    
+
     /// 🔥 WASM-POWERED SIMD hashing - Uses Zig WASM for portable SIMD
     pub async fn hash_data_wasm(&mut self, data: &[u8]) -> Result<ZigHashResult> {
         if let Some(ref mut wasm_runtime) = self.wasm_runtime {
-            eprintln!("🔥 Using Zig WASM runtime with SIMD for {} bytes", data.len());
-            
+            eprintln!(
+                "🔥 Using Zig WASM runtime with SIMD for {} bytes",
+                data.len()
+            );
+
             let start = std::time::Instant::now();
-            
+
             // Map algorithm name to enum
             let algorithm = match self.config.hash_algorithm.as_str() {
                 "blake3" => HashAlgorithm::Blake3,
@@ -134,17 +141,18 @@ impl ZigSimdProcessor {
                 "xxhash" => HashAlgorithm::XxHash,
                 _ => HashAlgorithm::Blake3,
             };
-            
+
             // Use WASM runtime
             let hash_bytes = wasm_runtime.hash_data(data, algorithm).await?;
-            
+
             let elapsed = start.elapsed();
-            
+
             // Convert hash bytes to hex string
-            let hash_hex = hash_bytes.iter()
+            let hash_hex = hash_bytes
+                .iter()
                 .map(|b| format!("{:02x}", b))
                 .collect::<String>();
-            
+
             return Ok(ZigHashResult {
                 hash: hash_hex,
                 algorithm: self.config.hash_algorithm.clone(),
@@ -152,24 +160,30 @@ impl ZigSimdProcessor {
                 processing_time_ns: elapsed.as_nanos() as u64,
             });
         }
-        
+
         // Fall back to native Zig FFI or CPU
         self.hash_data(data)
     }
-    
+
     /// 🔥 WASM-POWERED SIMD pattern matching - Uses Zig WASM
-    pub async fn find_patterns_wasm(&mut self, text: &str, patterns: &[String]) -> Result<Vec<ZigPatternResult>> {
+    pub async fn find_patterns_wasm(
+        &mut self,
+        text: &str,
+        patterns: &[String],
+    ) -> Result<Vec<ZigPatternResult>> {
         if let Some(ref mut wasm_runtime) = self.wasm_runtime {
             eprintln!("🔥 Using Zig WASM runtime with SIMD for pattern matching");
-            
+
             let mut results = Vec::new();
-            
+
             for pattern in patterns {
                 let start = std::time::Instant::now();
-                let matches: Vec<u32> = wasm_runtime.pattern_match(text.as_bytes(), pattern.as_bytes()).await?;
+                let matches: Vec<u32> = wasm_runtime
+                    .pattern_match(text.as_bytes(), pattern.as_bytes())
+                    .await?;
                 let elapsed = start.elapsed();
                 let match_count = matches.len();
-                
+
                 results.push(ZigPatternResult {
                     pattern: pattern.clone(),
                     matches: matches.into_iter().map(|pos| pos as usize).collect(),
@@ -177,10 +191,10 @@ impl ZigSimdProcessor {
                     processing_time_ns: elapsed.as_nanos() as u64,
                 });
             }
-            
+
             return Ok(results);
         }
-        
+
         // Fall back to native Zig FFI or CPU
         self.find_patterns(text, patterns)
     }

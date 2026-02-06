@@ -273,18 +273,20 @@ impl ChapelAIOrchestrator {
                 avg_quality * 100.0
             );
             memory.patterns.push(suggestion);
-            
+
             // 🔥 GENERAR OPTIMIZATION_SUGGESTIONS - USANDO EL CAMPO
             if avg_quality < 0.80 {
                 memory.optimization_suggestions.push(format!(
                     "⚡ {} needs optimization: Quality {:.1}% is below 80% threshold",
-                    tool, avg_quality * 100.0
+                    tool,
+                    avg_quality * 100.0
                 ));
             }
             if total_duration / calls as u64 > 200 {
                 memory.optimization_suggestions.push(format!(
                     "⚡ {} is slow: Avg {}ms exceeds 200ms target",
-                    tool, total_duration / calls as u64
+                    tool,
+                    total_duration / calls as u64
                 ));
             }
         }

@@ -5,7 +5,10 @@
 //!
 //! TOOLS: websearch, premium, file_search, scan, ai_dataset_trainer, parallel_engine, osint_intelligence
 
-use crate::mcp::protocol::{error_codes, get_tool_definitions, MCPRequest, MCPResponse};
+use crate::mcp::protocol::{
+    error_codes, get_tool_definitions_for_profile, tool_exists_for_profile, MCPRequest,
+    MCPResponse, ToolProfile,
+};
 use crate::mcp::tools::{
     AdvancedFileSearchTool, PremiumContentTool, ScanConfig, ScanWorkspaceTool, WebSearchTool,
 };
@@ -17,7 +20,6 @@ use axum::{
     Router,
 };
 use serde_json::{json, Value};
-use std::path::PathBuf;
 use std::sync::Arc;
 
 /// MCP Server state - PODER REAL (7 TOOLS)
@@ -33,12 +35,25 @@ pub struct MCPServer {
     pub cache: Arc<Cache>,
     pub storage: Arc<tokio::sync::Mutex<IntelligentStorage>>,
     pub rate_limiter: Arc<RateLimiter>,
+
+    /// Tool profile: Full (7), Pro (5), or Lite (2)
+    pub profile: ToolProfile,
 }
 
 impl MCPServer {
-    /// Create new MCP server with REAL implementations (7 TOOLS)
+    /// Create new MCP server with REAL implementations (7 TOOLS - Full profile)
     pub fn new() -> Self {
-        eprintln!("🔥 Initializing MCP Server with 7 REAL tools...");
+        Self::with_profile(ToolProfile::Full)
+    }
+
+    /// Create MCP server with a specific tool profile
+    pub fn with_profile(profile: ToolProfile) -> Self {
+        let tool_names = crate::mcp::protocol::get_profile_tool_names(profile);
+        eprintln!(
+            "🔥 Initializing MCP Server ({:?} profile, {} tools)...",
+            profile,
+            tool_names.len()
+        );
 
         // 🔥 Inicializar infraestructura
         let cache = Arc::new(Cache::new(5000));
@@ -46,7 +61,7 @@ impl MCPServer {
         let rate_limiter = Arc::new(RateLimiter::new(100, 200)); // 100 req/sec, burst 200
 
         eprintln!("📡 Infrastructure ready: Cache(5000), RateLimiter(100/s)");
-        eprintln!("🔧 Tools: websearch, premium, file_search, scan, ai_dataset_trainer, parallel_engine, osint_intelligence");
+        eprintln!("🔧 Tools: {}", tool_names.join(", "));
 
         Self {
             websearch: Arc::new(WebSearchTool::default()),
@@ -56,26 +71,38 @@ impl MCPServer {
             cache,
             storage,
             rate_limiter,
+            profile,
         }
     }
 
     /// Create Axum router for MCP endpoints
     pub fn create_router(self) -> Router {
         let server = Arc::new(self);
+        let tool_names: Vec<&str> = crate::mcp::protocol::get_profile_tool_names(server.profile);
 
         Router::new()
             .route(
                 "/",
-                get(|| async {
-                    Json(json!({
-                        "service": "nuclear-mcp",
-                        "version": "2025.01.11",
-                        "tools": ["websearch", "premium", "file_search", "scan", "info"],
-                        "status": "ready"
-                    }))
+                get({
+                    let names = tool_names.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+                    move || async move {
+                        Json(json!({
+                            "service": "nuclear-mcp",
+                            "version": "2026.02.06",
+                            "tools": names,
+                            "status": "ready"
+                        }))
+                    }
                 }),
             )
-            .route("/health", get(health_check))
+            .route(
+                "/health",
+                get({
+                    let profile = server.profile;
+                    let names = tool_names.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+                    move || async move { health_check_with_profile(profile, names).await }
+                }),
+            )
             .route(
                 "/mcp/tools/list",
                 post({
@@ -126,24 +153,21 @@ impl MCPServer {
                     move |body| direct_scan(server.clone(), body)
                 }),
             )
-            .route(
-                "/tools/info",
-                post({
-                    let server = server.clone();
-                    move |body| direct_info(server.clone(), body)
-                }),
-            )
     }
 }
 
-/// Health check endpoint
-async fn health_check() -> impl IntoResponse {
+/// Health check endpoint with profile info
+async fn health_check_with_profile(
+    profile: ToolProfile,
+    tool_names: Vec<String>,
+) -> impl IntoResponse {
     Json(json!({
         "status": "healthy",
         "service": "nuclear-mcp",
-        "version": "2025.01.11",
-        "tools_count": 5,
-        "tools": ["websearch", "premium", "file_search", "scan", "info"],
+        "version": "2026.02.06",
+        "profile": format!("{:?}", profile),
+        "tools_count": tool_names.len(),
+        "tools": tool_names,
         "mocks": false,
         "real_data": true
     }))
@@ -151,12 +175,12 @@ async fn health_check() -> impl IntoResponse {
 
 /// Handle tools/list RPC call
 async fn handle_tools_list(
-    _server: Arc<MCPServer>,
+    server: Arc<MCPServer>,
     Json(req): Json<MCPRequest>,
 ) -> impl IntoResponse {
-    eprintln!("📋 tools/list requested");
+    eprintln!("📋 tools/list requested ({:?} profile)", server.profile);
 
-    let tools = get_tool_definitions();
+    let tools = get_tool_definitions_for_profile(server.profile);
     let response = MCPResponse::success(req.id, json!({"tools": tools}));
 
     Json(response)
@@ -173,12 +197,27 @@ async fn handle_tool_call(
     let tool_name = req.get_tool_name().map(|s| s.to_string());
     let arguments = req.get_arguments();
 
+    // Check if tool is available in current profile
+    if let Some(ref name) = tool_name {
+        if !tool_exists_for_profile(name, server.profile) {
+            return Json(MCPResponse::error(
+                id,
+                error_codes::METHOD_NOT_FOUND,
+                format!(
+                    "Tool '{}' not available in {:?} profile. Available: {:?}",
+                    name,
+                    server.profile,
+                    crate::mcp::protocol::get_profile_tool_names(server.profile)
+                ),
+            ));
+        }
+    }
+
     match tool_name.as_deref() {
         Some("websearch") => execute_websearch(&server, id, arguments).await,
         Some("premium") => execute_premium(&server, id, arguments).await,
         Some("file_search") => execute_file_search(&server, id, arguments).await,
         Some("scan") => execute_scan(&server, id, arguments).await,
-        Some("info") => execute_info(&server, id, arguments).await,
         Some("ai_dataset_trainer") => execute_ai_dataset_trainer(&server, id, arguments).await,
         Some("parallel_engine") => execute_parallel_engine_dispatch(&server, id, arguments).await,
         Some("osint_intelligence") => {
@@ -197,7 +236,7 @@ async fn handle_rpc(server: Arc<MCPServer>, Json(req): Json<MCPRequest>) -> impl
 
     match req.method.as_str() {
         "tools/list" => {
-            let tools = get_tool_definitions();
+            let tools = get_tool_definitions_for_profile(server.profile);
             Json(MCPResponse::success(id, json!({"tools": tools})))
         }
         "tools/call" => {
@@ -205,16 +244,24 @@ async fn handle_rpc(server: Arc<MCPServer>, Json(req): Json<MCPRequest>) -> impl
             let tool_name = req.get_tool_name().map(|s| s.to_string());
             let arguments = req.get_arguments();
 
+            // Check profile
+            if let Some(ref name) = tool_name {
+                if !tool_exists_for_profile(name, server.profile) {
+                    return Json(MCPResponse::method_not_found(id, name));
+                }
+            }
+
             match tool_name.as_deref() {
                 Some("websearch") => execute_websearch(&server, id, arguments).await,
                 Some("premium") => execute_premium(&server, id, arguments).await,
                 Some("file_search") => execute_file_search(&server, id, arguments).await,
                 Some("scan") => execute_scan(&server, id, arguments).await,
-                Some("info") => execute_info(&server, id, arguments).await,
                 Some("ai_dataset_trainer") => {
                     execute_ai_dataset_trainer(&server, id, arguments).await
                 }
-                Some("parallel_engine") => execute_parallel_engine_dispatch(&server, id, arguments).await,
+                Some("parallel_engine") => {
+                    execute_parallel_engine_dispatch(&server, id, arguments).await
+                }
                 Some("osint_intelligence") => {
                     execute_osint_intelligence_dispatch(&server, id, arguments).await
                 }
@@ -224,16 +271,19 @@ async fn handle_rpc(server: Arc<MCPServer>, Json(req): Json<MCPRequest>) -> impl
         }
         "initialize" => {
             // MCP initialization handshake
+            let tool_names = crate::mcp::protocol::get_profile_tool_names(server.profile);
             Json(MCPResponse::success(
                 id,
                 json!({
-                    "protocolVersion": "2024-11-05",
+                    "protocolVersion": "2026-02-06",
                     "capabilities": {
                         "tools": {}
                     },
                     "serverInfo": {
                         "name": "nuclear-mcp",
-                        "version": "2025.01.11"
+                        "version": "2026.02.06",
+                        "profile": format!("{:?}", server.profile),
+                        "tools": tool_names
                     }
                 }),
             ))
@@ -554,132 +604,6 @@ async fn execute_scan(server: &Arc<MCPServer>, id: String, args: Value) -> Json<
     Json(MCPResponse::success(id, response))
 }
 
-/// Execute INFO for project analysis and advice
-async fn execute_info(server: &Arc<MCPServer>, id: String, args: Value) -> Json<MCPResponse> {
-    let target = args
-        .get("target")
-        .and_then(|v| v.as_str())
-        .unwrap_or("project");
-    let path = args.get("path").and_then(|v| v.as_str());
-    let include_stats = args
-        .get("include_stats")
-        .and_then(|v| v.as_bool())
-        .unwrap_or(true);
-    let include_health = args
-        .get("include_health")
-        .and_then(|v| v.as_bool())
-        .unwrap_or(true);
-    let include_advice = args
-        .get("include_advice")
-        .and_then(|v| v.as_bool())
-        .unwrap_or(true);
-
-    eprintln!(
-        "ℹ️ Info: target='{}' (stats: {}, health: {}, advice: {})",
-        target, include_stats, include_health, include_advice
-    );
-
-    // Apply rate limiting
-    server.rate_limiter.wait().await;
-
-    let mut info = json!({
-        "target": target,
-        "timestamp": chrono::Utc::now().to_rfc3339()
-    });
-
-    // Analyze based on target
-    match target {
-        "project" => {
-            // Get project-level info
-            let scan_config = ScanConfig {
-                path: ".".to_string(),
-                recursive: true,
-            };
-
-            let scan_result = server.scan.scan(scan_config).await;
-
-            if include_stats {
-                info["stats"] = json!({
-                    "files": scan_result.files_scanned,
-                    "lines": scan_result.total_lines,
-                    "issues": scan_result.total_issues,
-                    "by_category": scan_result.issues_by_category
-                });
-            }
-
-            if include_health {
-                info["health"] = json!({
-                    "score": scan_result.health_score,
-                    "status": if scan_result.health_score >= 80.0 { "healthy" }
-                             else if scan_result.health_score >= 60.0 { "needs_attention" }
-                             else { "critical" }
-                });
-            }
-
-            if include_advice {
-                info["advice"] = json!(scan_result.advice);
-            }
-        }
-        "file" | "module" => {
-            if let Some(p) = path {
-                let scan_config = ScanConfig {
-                    path: p.to_string(),
-                    recursive: target == "module",
-                };
-
-                let scan_result = server.scan.scan(scan_config).await;
-
-                if include_stats {
-                    info["stats"] = json!({
-                        "path": p,
-                        "files": scan_result.files_scanned,
-                        "lines": scan_result.total_lines,
-                        "issues": scan_result.total_issues
-                    });
-                }
-
-                if include_health {
-                    info["health"] = json!({
-                        "score": scan_result.health_score,
-                        "issues": scan_result.top_issues.iter().take(5).collect::<Vec<_>>()
-                    });
-                }
-
-                if include_advice {
-                    info["advice"] = json!(scan_result.advice);
-                }
-            } else {
-                return Json(MCPResponse::invalid_params(
-                    id,
-                    "path required for file/module target",
-                ));
-            }
-        }
-        "dependencies" => {
-            // Analyze Cargo.toml
-            let cargo_path = PathBuf::from("Cargo.toml");
-            if cargo_path.exists() {
-                if let Ok(content) = std::fs::read_to_string(&cargo_path) {
-                    info["dependencies"] = json!({
-                        "file": "Cargo.toml",
-                        "content_length": content.len(),
-                        "has_workspace": content.contains("[workspace]"),
-                        "has_features": content.contains("[features]")
-                    });
-                }
-            }
-        }
-        _ => {
-            return Json(MCPResponse::invalid_params(
-                id,
-                "invalid target (use: project, file, module, dependencies)",
-            ));
-        }
-    }
-
-    Json(MCPResponse::success(id, info))
-}
-
 // ═══════════════════════════════════════════════════════════════════════════
 // 🔥 DIRECT TOOL ENDPOINTS (for convenience)
 // ═══════════════════════════════════════════════════════════════════════════
@@ -702,11 +626,6 @@ async fn direct_file_search(server: Arc<MCPServer>, Json(args): Json<Value>) -> 
 async fn direct_scan(server: Arc<MCPServer>, Json(args): Json<Value>) -> impl IntoResponse {
     let id = uuid::Uuid::new_v4().to_string();
     execute_scan(&server, id, args).await
-}
-
-async fn direct_info(server: Arc<MCPServer>, Json(args): Json<Value>) -> impl IntoResponse {
-    let id = uuid::Uuid::new_v4().to_string();
-    execute_info(&server, id, args).await
 }
 
 /// Execute AI_DATASET_TRAINER with FFI integrations (Go + Zig + Nim + JAX)

@@ -14,6 +14,17 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
+/// Tool profile determines which subset of tools a binary exposes.
+/// Combining all 3 profiles covers all 7 tools (MAX POWER).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ToolProfile {
+    /// Full power: all 7 MCP tools
+    Full,
+    /// Pro: 5 tools (websearch, premium, file_search, scan, ai_dataset_trainer)
+    Pro,
+    /// Lite: 2 tools (websearch, scan)
+    Lite,
+}
 /// MCP Request (JSON-RPC 2.0)
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MCPRequest {
@@ -413,6 +424,43 @@ pub fn get_tool_names() -> Vec<String> {
         .collect()
 }
 
+/// Get tool names that belong to a specific profile
+pub fn get_profile_tool_names(profile: ToolProfile) -> Vec<&'static str> {
+    match profile {
+        ToolProfile::Full => vec![
+            "websearch",
+            "premium",
+            "file_search",
+            "scan",
+            "ai_dataset_trainer",
+            "parallel_engine",
+            "osint_intelligence",
+        ],
+        ToolProfile::Pro => vec![
+            "websearch",
+            "premium",
+            "file_search",
+            "scan",
+            "ai_dataset_trainer",
+        ],
+        ToolProfile::Lite => vec!["websearch", "scan"],
+    }
+}
+
+/// Get tool definitions filtered by profile
+pub fn get_tool_definitions_for_profile(profile: ToolProfile) -> Vec<ToolDefinition> {
+    let allowed = get_profile_tool_names(profile);
+    get_tool_definitions()
+        .into_iter()
+        .filter(|t| allowed.contains(&t.name.as_str()))
+        .collect()
+}
+
+/// Validate tool exists for a specific profile
+pub fn tool_exists_for_profile(name: &str, profile: ToolProfile) -> bool {
+    get_profile_tool_names(profile).contains(&name)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -473,5 +521,48 @@ mod tests {
         assert!(json_str.contains("\"jsonrpc\":\"2.0\""));
         assert!(json_str.contains("\"id\":\"123\""));
         assert!(!json_str.contains("\"error\""));
+    }
+
+    #[test]
+    fn test_profile_full_has_7_tools() {
+        let tools = get_tool_definitions_for_profile(ToolProfile::Full);
+        assert_eq!(tools.len(), 7, "Full profile must have 7 tools");
+    }
+
+    #[test]
+    fn test_profile_pro_has_5_tools() {
+        let tools = get_tool_definitions_for_profile(ToolProfile::Pro);
+        assert_eq!(tools.len(), 5, "Pro profile must have 5 tools");
+        let names: Vec<&str> = tools.iter().map(|t| t.name.as_str()).collect();
+        assert!(names.contains(&"websearch"));
+        assert!(names.contains(&"premium"));
+        assert!(names.contains(&"file_search"));
+        assert!(names.contains(&"scan"));
+        assert!(names.contains(&"ai_dataset_trainer"));
+    }
+
+    #[test]
+    fn test_profile_lite_has_2_tools() {
+        let tools = get_tool_definitions_for_profile(ToolProfile::Lite);
+        assert_eq!(tools.len(), 2, "Lite profile must have 2 tools");
+        let names: Vec<&str> = tools.iter().map(|t| t.name.as_str()).collect();
+        assert!(names.contains(&"websearch"));
+        assert!(names.contains(&"scan"));
+    }
+
+    #[test]
+    fn test_three_profiles_cover_all_7_tools() {
+        use std::collections::HashSet;
+        let mut all: HashSet<String> = HashSet::new();
+        for profile in [ToolProfile::Full, ToolProfile::Pro, ToolProfile::Lite] {
+            for name in get_profile_tool_names(profile) {
+                all.insert(name.to_string());
+            }
+        }
+        assert_eq!(
+            all.len(),
+            7,
+            "Union of all 3 profiles = MAX POWER (7 tools)"
+        );
     }
 }
