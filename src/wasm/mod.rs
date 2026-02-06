@@ -1,7 +1,7 @@
 /// WASM Module - Main Library Export
 /// Re-exports all WASM modules with proper feature gating
-
-#[cfg(target_arch = "wasm32")]
+// `file_search` provides a native fallback (non-wasm32) used by tests and by
+// the Rust tooling. Other WASM-only modules stay wasm32-gated.
 pub mod file_search;
 
 #[cfg(target_arch = "wasm32")]
@@ -43,7 +43,7 @@ pub fn wasm_version() -> String {
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
 pub fn get_capabilities() -> String {
-    r#"{"file_search": "100x", "neural_ops": "50x", "data_search": "30x"}"#.to_string()
+    r#"{\"file_search\": \"100x\", \"neural_ops\": \"50x\", \"data_search\": \"30x\"}"#.to_string()
 }
 
 #[cfg(test)]

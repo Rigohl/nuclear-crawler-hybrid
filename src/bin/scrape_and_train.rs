@@ -1,8 +1,31 @@
 use anyhow::Result;
 use clap::{Parser, Subcommand};
-use nuclear_crawler_hybrid::ai::onlyfans_chatbot::{ChatbotPersonality, OnlyFansChatbot};
 ///! Scrape and Train - Scrapea web y entrena bots automáticamente
-use nuclear_crawler_hybrid::ai::training_pipeline::{TrainingPipeline, TrainingReport};
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct TrainingReport {
+    bot_name: String,
+    conversations: usize,
+    patterns: usize,
+    top_openers: usize,
+    top_keywords: usize,
+    created_at: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct TrainedBot {
+    name: String,
+    top_openers: Vec<String>,
+    top_keywords: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct TrainedBotFile {
+    bot: TrainedBot,
+    report: TrainingReport,
+}
 
 #[derive(Parser)]
 #[command(name = "scrape-and-train")]
@@ -220,19 +243,96 @@ fn train_bot(input: &str, name: &str, output: &str) -> Result<()> {
     // Leer training data
     let json_data = std::fs::read_to_string(input)?;
 
-    // Crear pipeline
-    let mut pipeline = TrainingPipeline::new(name);
+    let parsed: serde_json::Value = serde_json::from_str(&json_data)?;
+    let conversations_len = parsed["conversations"]
+        .as_array()
+        .map(|a| a.len())
+        .unwrap_or(0);
+    let patterns = parsed["patterns"].as_array().cloned().unwrap_or_default();
 
-    // Cargar datos
-    pipeline
-        .load_scraped_data(&json_data)
-        .map_err(|e| anyhow::anyhow!(e))?;
+    // Extract openers from extracted patterns (real data produced by `scrape_urls`)
+    let mut opener_freq: HashMap<String, usize> = HashMap::new();
+    for p in &patterns {
+        let is_opener = p["pattern_type"].as_str() == Some("opening_line");
+        if !is_opener {
+            continue;
+        }
+        if let Some(text) = p["text"].as_str() {
+            let cleaned = text.trim();
+            if cleaned.is_empty() {
+                continue;
+            }
+            *opener_freq.entry(cleaned.to_string()).or_insert(0) += 1;
+        }
+    }
 
-    // Entrenar
-    let report = pipeline.train();
+    let mut top_openers: Vec<(String, usize)> = opener_freq.into_iter().collect();
+    top_openers.sort_by(|a, b| b.1.cmp(&a.1).then_with(|| a.0.cmp(&b.0)));
+    let top_openers: Vec<String> = top_openers
+        .into_iter()
+        .take(20)
+        .map(|(s, _)| s)
+        .collect();
 
-    // Guardar bot
-    pipeline.save_bot(output)?;
+    // Extract basic keywords from messages (real, deterministic frequency analysis)
+    let stopwords = [
+        "the", "and", "for", "with", "that", "this", "you", "your", "are", "was", "were",
+        "have", "has", "had", "not", "but", "from", "they", "them", "what", "when",
+        "where", "who", "why", "how", "que", "para", "con", "una", "uno", "las", "los",
+        "por", "del", "como", "esta", "esto", "hola",
+    ];
+    let stop: std::collections::HashSet<&'static str> = stopwords.into_iter().collect();
+
+    let mut keyword_freq: HashMap<String, usize> = HashMap::new();
+    if let Some(convs) = parsed["conversations"].as_array() {
+        for conv in convs {
+            if let Some(msgs) = conv["messages"].as_array() {
+                for msg in msgs {
+                    if let Some(text) = msg["text"].as_str() {
+                        for raw in text.split_whitespace() {
+                            let token = raw
+                                .trim_matches(|c: char| !c.is_alphanumeric())
+                                .to_lowercase();
+                            if token.len() < 4 {
+                                continue;
+                            }
+                            if stop.contains(token.as_str()) {
+                                continue;
+                            }
+                            *keyword_freq.entry(token).or_insert(0) += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    let mut top_keywords: Vec<(String, usize)> = keyword_freq.into_iter().collect();
+    top_keywords.sort_by(|a, b| b.1.cmp(&a.1).then_with(|| a.0.cmp(&b.0)));
+    let top_keywords: Vec<String> = top_keywords
+        .into_iter()
+        .take(30)
+        .map(|(s, _)| s)
+        .collect();
+
+    let bot = TrainedBot {
+        name: name.to_string(),
+        top_openers,
+        top_keywords,
+    };
+
+    let report = TrainingReport {
+        bot_name: name.to_string(),
+        conversations: conversations_len,
+        patterns: patterns.len(),
+        top_openers: bot.top_openers.len(),
+        top_keywords: bot.top_keywords.len(),
+        created_at: chrono::Utc::now().to_rfc3339(),
+    };
+
+    let out = TrainedBotFile { bot, report };
+
+    std::fs::write(output, serde_json::to_string_pretty(&out)?)?;
 
     println!();
     println!("🎉 Bot trained successfully!");
@@ -246,22 +346,71 @@ fn test_bot(bot_file: &str, messages: Vec<String>) -> Result<()> {
     println!("================================");
     println!();
 
-    // Cargar bot (simplificado)
     let bot_data = std::fs::read_to_string(bot_file)?;
+    let trained: TrainedBotFile = serde_json::from_str(&bot_data)?;
 
-    println!("Bot loaded from: {}", bot_file);
+    println!("Bot loaded from: {} (name: {})", bot_file, trained.bot.name);
+    println!(
+        "Training report: conversations={}, patterns={}",
+        trained.report.conversations, trained.report.patterns
+    );
     println!();
-
-    // Crear bot para testing
-    let mut bot = OnlyFansChatbot::new("Test".to_string());
 
     // Test responses
     for msg in messages {
-        let response = bot.generate_response(&msg);
+        let response = generate_response(&trained.bot, &msg);
         println!("💬 User: {}", msg);
         println!("🤖 Bot:  {}", response);
         println!();
     }
 
     Ok(())
+}
+
+fn generate_response(bot: &TrainedBot, message: &str) -> String {
+    let msg_lower = message.to_lowercase();
+
+    // Deterministic selection based on message hash (stable across runs)
+    let pick = |items: &[String]| -> Option<String> {
+        if items.is_empty() {
+            return None;
+        }
+        let h = blake3::hash(message.as_bytes());
+        let idx = (u64::from_le_bytes(h.as_bytes()[0..8].try_into().unwrap_or([0; 8])) as usize)
+            % items.len();
+        items.get(idx).cloned()
+    };
+
+    let is_greeting = msg_lower.contains("hello")
+        || msg_lower.contains("hi")
+        || msg_lower.contains("hola")
+        || msg_lower.contains("buenas");
+
+    if is_greeting {
+        if let Some(opener) = pick(&bot.top_openers) {
+            return opener;
+        }
+        return format!("Hola. Soy {}. ¿En qué te ayudo?", bot.name);
+    }
+
+    let is_question = msg_lower.contains('?')
+        || msg_lower.contains("what")
+        || msg_lower.contains("how")
+        || msg_lower.contains("why")
+        || msg_lower.contains("que")
+        || msg_lower.contains("como")
+        || msg_lower.contains("por que");
+
+    if is_question {
+        if let Some(kw) = pick(&bot.top_keywords) {
+            return format!("Interesante. ¿Quieres profundizar en '{kw}'?");
+        }
+        return "Interesante. Cuéntame más para darte una mejor respuesta.".to_string();
+    }
+
+    if let Some(kw) = pick(&bot.top_keywords) {
+        format!("Entendido. Estoy viendo el tema '{kw}'. ¿Qué objetivo tienes?")
+    } else {
+        "Entendido. ¿Qué objetivo tienes?".to_string()
+    }
 }

@@ -74,7 +74,7 @@ mod wasm_integration {
     fn test_wasm_library_exports() {
         // Verify WASM modules are properly exported
         assert!(std::any::type_name::<
-            nuclear_crawler_hybrid::wasm::file_search_module::FileSearcherFallback,
+            nuclear_crawler_hybrid::wasm::file_search::FileSearcherFallback,
         >()
         .contains("FileSearcher"));
     }
