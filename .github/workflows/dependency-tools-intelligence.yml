@@ -45,7 +45,7 @@ jobs:
           echo "4️⃣ BUILD CHECK (Chapel AI Ready)"
           cargo check 2>&1 | tail -5 || true
           echo "✓ Build check complete - Chapel AI ready for integration"
-          
+
       - name: 🧠 Chapel AI Integration Report
         run: |
           echo "🧠 CHAPEL AI LEARNING REPORT"

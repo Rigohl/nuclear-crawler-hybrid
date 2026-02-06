@@ -27,19 +27,19 @@ jobs:
       - name: Check for dead code (private functions)
         run: |
           echo "🔍 Scanning for potentially dead Rust code..."
-          
+
           # Find all pub fn definitions
           echo "=== Public Functions ==="
           grep -rn "pub fn\|pub struct\|pub enum\|pub const" src/ --include="*.rs" | wc -l
-          
+
           # Find unused imports
           echo "=== Unused Imports ==="
           cargo clippy --all-targets -- -D warnings 2>&1 | grep "unused" | head -20
-          
+
           # Find unused variables
           echo "=== Unused Variables ==="
           cargo check 2>&1 | grep "warning: unused" | head -20
-          
+
           # Find commented-out code (potential dead code)
           echo "=== Commented Code Blocks ==="
           grep -rn "^\s*//\s*pub fn\|^\s*//" src/ --include="*.rs" | grep -E "(fn|struct|impl)" | head -20
@@ -47,49 +47,49 @@ jobs:
       - name: Verify FFI Integration
         run: |
           echo "🔍 Checking FFI backend usage..."
-          
+
           # Check if FFI functions are actually called
           echo "=== Go Integration Usage ==="
           grep -r "go_integration::" src/mcp/ || echo "❌ go_integration NOT called in MCP"
-          
+
           echo "=== JAX Integration Usage ==="
           grep -r "jax_integration::" src/mcp/ || echo "❌ jax_integration NOT called in MCP"
-          
+
           echo "=== Nim Integration Usage ==="
           grep -r "nim_integration::" src/mcp/ || echo "❌ nim_integration NOT called in MCP"
-          
+
           echo "=== Zig Integration Usage ==="
           grep -r "zig_integration::" src/mcp/ || echo "❌ zig_integration NOT called in MCP"
-          
+
           echo "=== Chapel Integration Usage ==="
           grep -r "chapel_integration::" src/mcp/ || echo "❌ chapel_integration NOT called in MCP"
 
       - name: Verify OSINT Module Usage
         run: |
           echo "🔍 Checking OSINT module integration..."
-          
+
           echo "=== Module A (Neural Networks) ==="
           grep -r "neural_networks_osint" src/mcp/ && echo "✅ Module A used" || echo "⚠️ Check Module A usage"
-          
+
           echo "=== Module B (Bayesian) ==="
           grep -r "bayesian_networks_osint" src/mcp/ && echo "✅ Module B used" || echo "⚠️ Module B may be unused"
-          
+
           echo "=== Module C (Game Theory) ==="
           grep -r "game_theory_osint" src/mcp/ && echo "✅ Module C used" || echo "⚠️ Module C may be unused"
-          
+
           echo "=== Module D (Nuclear Integration) ==="
           grep -r "nuclear_integration_osint" src/mcp/ && echo "✅ Module D used" || echo "⚠️ Module D may be unused"
-          
+
           echo "=== Module E (Case Resolver) ==="
           grep -r "case_resolver_osint" src/mcp/ && echo "✅ Module E used" || echo "⚠️ Module E may be unused"
 
       - name: Find unused modules
         run: |
           echo "🔍 Finding unused Rust modules..."
-          
+
           # Modules declared but possibly not used
           MODULES=$(grep -r "pub mod" src/lib.rs | cut -d';' -f1 | awk '{print $NF}')
-          
+
           for module in $MODULES; do
             COUNT=$(grep -r "use.*$module\|$module::" src/mcp/ --include="*.rs" | wc -l)
             if [ $COUNT -eq 0 ]; then
@@ -106,13 +106,13 @@ jobs:
       - name: Check Chapel module registration
         run: |
           echo "🔍 Scanning Chapel modules..."
-          
+
           cd ffi/chapel/src
-          
+
           # Count Chapel files
           echo "=== Chapel Modules Found ==="
           find . -name "*.chpl" | wc -l
-          
+
           # Check if each module is registered in ai_core
           echo "=== Verifying Registration in ai_core.chpl ==="
           for f in *.chpl; do
@@ -134,15 +134,15 @@ jobs:
       - name: Find duplicate code patterns
         run: |
           echo "🔍 Scanning for code duplication..."
-          
+
           # Find duplicate struct definitions
           echo "=== Duplicate Struct Names ==="
           grep -rh "pub struct\|struct" src/ --include="*.rs" | sort | uniq -d | head -10
-          
+
           # Find duplicate function signatures
           echo "=== Duplicate Function Signatures ==="
           grep -rh "pub fn\|fn" src/ --include="*.rs" | sed 's/{.*//;s/(.*//;s/pub fn/fn/' | sort | uniq -d | head -10
-          
+
           # Find similar implementations (rough check)
           echo "=== Potential Code Duplication (200+ char duplicates) ==="
           find src -name "*.rs" -type f -exec sh -c 'wc -c < "$1"' _ {} \; | awk '{print $1, FILENAME}' | sort -rn | head -20
@@ -151,16 +151,16 @@ jobs:
         run: |
           echo "📊 Duplication Report"
           echo "===================="
-          
+
           # Count function names
           PUB_FNS=$(grep -rh "pub fn" src/ --include="*.rs" | wc -l)
           UNIQUE_FNS=$(grep -rh "pub fn" src/ --include="*.rs" | sort -u | wc -l)
           DUPS=$((PUB_FNS - UNIQUE_FNS))
-          
+
           echo "Total public functions: $PUB_FNS"
           echo "Unique public functions: $UNIQUE_FNS"
           echo "Potential duplicates: $DUPS"
-          
+
           if [ $DUPS -gt 5 ]; then
             echo "⚠️  WARNING: Found $DUPS potential duplicate functions"
           else
@@ -181,7 +181,7 @@ jobs:
           🔴 DEAD CODE DETECTION REPORT
           =============================
           Generated: $(date)
-          
+
           CHECKLIST:
           [ ] Verify FFI backend usage (go, jax, nim, zig, chapel)
           [ ] Check OSINT module invocation (especially Module B, C)
@@ -189,7 +189,7 @@ jobs:
           [ ] Verify Chapel module registration
           [ ] Remove code duplication
           [ ] Update lib.rs mod declarations
-          
+
           NEXT STEPS:
           1. Review issues marked ⚠️ above
           2. Run: cargo clippy --fix --allow-dirty
@@ -197,7 +197,7 @@ jobs:
           4. Commit cleanup changes
           5. Add to CI: cargo dead_code check
           EOF
-          
+
           cat dead_code_report.txt
 
       - name: Upload report

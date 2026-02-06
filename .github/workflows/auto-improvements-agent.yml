@@ -34,16 +34,16 @@ jobs:
         id: detect
         run: |
           echo "🔍 Analyzing system for improvements..."
-          
+
           if grep -q "\\[profile.release\\]" Cargo.toml; then
             echo "release_profile=exists" >> $GITHUB_OUTPUT
           else
             echo "release_profile=missing" >> $GITHUB_OUTPUT
           fi
-          
+
           DEPS=$(grep "^[a-z]" Cargo.toml 2>/dev/null | grep "=" | wc -l)
           echo "dependencies=$DEPS" >> $GITHUB_OUTPUT
-          
+
           if grep -q "opt-level" Cargo.toml; then
             echo "optimizations=present" >> $GITHUB_OUTPUT
           else
@@ -73,7 +73,7 @@ jobs:
         run: |
           BRANCH="improvements/build-optimizations-$(date +%s)"
           git checkout -b "$BRANCH"
-          
+
           echo "" >> Cargo.toml
           echo "[profile.release]" >> Cargo.toml
           echo "lto = \"fat\"" >> Cargo.toml
@@ -81,7 +81,7 @@ jobs:
           echo "opt-level = 3" >> Cargo.toml
           echo "strip = true" >> Cargo.toml
           echo "panic = \"abort\"" >> Cargo.toml
-          
+
           git add Cargo.toml
           git commit -m "🤖 Auto: Add release profile optimizations - LTO fat, codegen-units 1, opt-level 3
 
@@ -96,7 +96,7 @@ Expected impact:
 - 10-15% smaller binary size
 - 5-10% faster execution
 - Better Chapel AI integration and learning efficiency"
-          
+
           git push -u origin "$BRANCH"
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
 

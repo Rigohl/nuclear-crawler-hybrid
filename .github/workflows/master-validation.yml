@@ -210,7 +210,7 @@ jobs:
         id: build-attempt-1
         run: cargo build --release --all-targets
         continue-on-error: true
-      
+
       - name: 🔧 Retry Build with Cache Clear (on failure)
         if: steps.build-attempt-1.outcome == 'failure'
         run: |
@@ -233,7 +233,7 @@ jobs:
         id: test-attempt-1
         run: cargo test --release --lib --verbose
         continue-on-error: true
-      
+
       - name: 🔧 Retry Tests (on failure)
         if: steps.test-attempt-1.outcome == 'failure'
         run: |

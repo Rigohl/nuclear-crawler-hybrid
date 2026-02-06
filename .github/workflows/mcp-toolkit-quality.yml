@@ -344,8 +344,8 @@ jobs:
           - Fully optimized
           - Quality assured
 
-          **Deployed by**: GitHub Actions  
-          **Date**: $(date)  
+          **Deployed by**: GitHub Actions
+          **Date**: $(date)
           **Version**: Stable
           EOF
 

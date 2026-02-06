@@ -23,31 +23,31 @@ jobs:
     name: 🏥 Monitor CI Health & Auto-Heal
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
-    
+
     permissions:
       issues: write
       contents: write
       actions: read
-    
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      
+
       - name: Install Dependencies
         run: |
           pip install pyyaml requests
-      
+
       # Cache with automatic rebuild on failure
       - name: 🗄️ Restore Cargo Cache (with auto-rebuild)
         id: cargo-cache
@@ -61,7 +61,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-
             ${{ runner.os }}-cargo-
-      
+
       - name: 🔍 Analyze Previous Workflow Failures
         id: analyze
         if: github.event.workflow_run.conclusion == 'failure'
@@ -69,52 +69,52 @@ jobs:
           echo "🔍 Analyzing failed workflow: ${{ github.event.workflow_run.name }}"
           echo "Run ID: ${{ github.event.workflow_run.id }}"
           echo "Conclusion: ${{ github.event.workflow_run.conclusion }}"
-          
+
           # Download logs would go here in a real implementation
           # For now, we'll detect common issues
-          
+
           echo "failure_detected=true" >> $GITHUB_OUTPUT
           echo "failure_type=build_error" >> $GITHUB_OUTPUT
-      
+
       - name: 🔧 Attempt Auto-Repair - Cache Rebuild
         if: steps.analyze.outputs.failure_detected == 'true'
         run: |
           echo "🔧 Attempting cache rebuild..."
           cargo clean
           echo "✅ Cache cleared, will rebuild on next run"
-      
+
       - name: 🔧 Attempt Auto-Repair - Dependency Update
         if: steps.analyze.outputs.failure_detected == 'true'
         run: |
           echo "🔧 Updating dependencies..."
           cargo update 2>&1 | tee dependency_update.log || true
-          
+
           if grep -q "Updated" dependency_update.log; then
             echo "✅ Dependencies updated"
             echo "dependency_updated=true" >> $GITHUB_ENV
           else
             echo "ℹ️ No dependency updates needed"
           fi
-      
+
       - name: 🔧 Attempt Auto-Repair - Format Fix
         if: steps.analyze.outputs.failure_detected == 'true'
         run: |
           echo "🔧 Applying code formatting..."
           cargo fmt --all
-          
+
           if git diff --quiet; then
             echo "ℹ️ No formatting changes needed"
           else
             echo "✅ Formatting applied"
             echo "formatting_applied=true" >> $GITHUB_ENV
           fi
-      
+
       - name: 🧪 Run Enhanced Validation & Auto-Repair
         id: validation
         run: |
           echo "🧪 Running enhanced validation with auto-repair..."
           python3 scripts/validate_system.py --enhanced 2>&1 | tee validation.log
-          
+
           if [ ${PIPESTATUS[0]} -eq 0 ]; then
             echo "validation_passed=true" >> $GITHUB_OUTPUT
             echo "✅ Validation passed"
@@ -123,20 +123,20 @@ jobs:
             echo "⚠️ Validation needs attention"
           fi
         continue-on-error: true
-      
+
       - name: 🤖 Run Advanced Auto-Repair Agent
         if: steps.validation.outputs.validation_passed == 'false'
         id: advanced_repair
         run: |
           echo "🤖 Running advanced auto-repair agent..."
-          
+
           # Run advanced agent with auto-repair
           python3 scripts/advanced_auto_repair_agent.py \
             --auto-repair \
             --max-iterations 3 \
             --output advanced_repair_report.json \
             2>&1 | tee advanced_repair.log
-          
+
           if [ ${PIPESTATUS[0]} -eq 0 ]; then
             echo "advanced_repair_success=true" >> $GITHUB_OUTPUT
             echo "✅ Advanced repair successful"
@@ -145,23 +145,23 @@ jobs:
             echo "⚠️ Advanced repair encountered issues"
           fi
         continue-on-error: true
-      
+
       - name: 🏗️ Attempt Recovery Build
         if: steps.analyze.outputs.failure_detected == 'true'
         id: recovery_build
         run: |
           echo "🏗️ Attempting recovery build..."
-          
+
           # Try incremental fixes
           cargo check --all-targets 2>&1 | tee build.log || true
-          
+
           if [ ${PIPESTATUS[0]} -eq 0 ]; then
             echo "✅ Recovery build successful!"
             echo "recovery_successful=true" >> $GITHUB_OUTPUT
           else
             echo "⚠️ Recovery build failed, analyzing errors..."
             echo "recovery_successful=false" >> $GITHUB_OUTPUT
-            
+
             # Analyze build errors
             if grep -q "bincode" build.log; then
               echo "detected_issue=bincode_error" >> $GITHUB_OUTPUT
@@ -174,57 +174,57 @@ jobs:
             fi
           fi
         continue-on-error: true
-      
+
       - name: 📊 Generate Health Report
         id: health_report
         run: |
           cat << 'EOF' > health_report.md
           ## 🏥 CI/CD Health Report
-          
+
           **Workflow:** ${{ github.event.workflow_run.name || 'Scheduled Check' }}
           **Status:** ${{ github.event.workflow_run.conclusion || 'N/A' }}
           **Timestamp:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          
+
           ### 🔧 Auto-Repair Actions Taken
-          
+
           EOF
-          
+
           if [ "${{ env.dependency_updated }}" == "true" ]; then
             echo "- ✅ Dependencies updated" >> health_report.md
           fi
-          
+
           if [ "${{ env.formatting_applied }}" == "true" ]; then
             echo "- ✅ Code formatting applied" >> health_report.md
           fi
-          
+
           if [ "${{ steps.recovery_build.outputs.recovery_successful }}" == "true" ]; then
             echo "- ✅ Recovery build successful" >> health_report.md
           elif [ "${{ steps.recovery_build.outputs.recovery_successful }}" == "false" ]; then
             echo "- ⚠️ Recovery build failed" >> health_report.md
             echo "- 🔍 Detected issue: ${{ steps.recovery_build.outputs.detected_issue }}" >> health_report.md
           fi
-          
+
           echo "" >> health_report.md
           echo "### 📋 Validation Results" >> health_report.md
           echo "" >> health_report.md
-          
+
           if [ "${{ steps.validation.outputs.validation_passed }}" == "true" ]; then
             echo "- ✅ System validation passed" >> health_report.md
           else
             echo "- ⚠️ System validation needs attention" >> health_report.md
           fi
-          
+
           cat health_report.md
           cat health_report.md >> $GITHUB_STEP_SUMMARY
-      
+
       - name: 💾 Commit Auto-Repairs
         if: env.formatting_applied == 'true' || env.dependency_updated == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           git add -A
-          
+
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
@@ -233,55 +233,55 @@ jobs:
             - Automatic code formatting
             - Dependency updates
             - Triggered by CI failure recovery
-            
+
             [skip ci]"
-            
+
             git push || echo "⚠️ Could not push changes (may need manual intervention)"
           fi
         continue-on-error: true
-      
+
       - name: 🚨 Create Issue for Irreparable Failures
         if: steps.recovery_build.outputs.recovery_successful == 'false' && steps.recovery_build.outputs.detected_issue != ''
         uses: actions/github-script@v7
         with:
           script: |
             const issue_body = `## 🚨 CI/CD Failure - Manual Intervention Required
-            
+
             **Failed Workflow:** ${{ github.event.workflow_run.name }}
             **Run ID:** ${{ github.event.workflow_run.id }}
             **Detected Issue:** ${{ steps.recovery_build.outputs.detected_issue }}
             **Timestamp:** ${new Date().toISOString()}
-            
+
             ### 🔍 Problem Analysis
-            
+
             The self-healing system attempted automatic repairs but was unable to resolve the issue.
-            
+
             **Detected Issue Type:** \`${{ steps.recovery_build.outputs.detected_issue }}\`
-            
+
             ### 🔧 Auto-Repair Attempts
-            
+
             - ✅ Cache rebuild attempted
             - ✅ Dependency update attempted
             - ✅ Code formatting attempted
             - ❌ Recovery build failed
-            
+
             ### 📝 Recommended Actions
-            
+
             ${getRecommendedActions('${{ steps.recovery_build.outputs.detected_issue }}')}
-            
+
             ### 📊 Build Logs
-            
+
             See the [failed workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}) for detailed logs.
-            
+
             ### 🔗 Related Resources
-            
+
             - [CI Documentation](${{ github.server_url }}/${{ github.repository }}/blob/main/.github/workflows/README.md)
             - [Troubleshooting Guide](${{ github.server_url }}/${{ github.repository }}/blob/main/QUICK_START.md)
-            
+
             ---
             *This issue was automatically created by the CI Self-Healing system*
             `;
-            
+
             function getRecommendedActions(issueType) {
               const actions = {
                 'bincode_error': `
@@ -310,7 +310,7 @@ jobs:
               };
               return actions[issueType] || actions['unknown'];
             }
-            
+
             // Check if issue already exists
             const issues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
@@ -318,12 +318,12 @@ jobs:
               state: 'open',
               labels: 'ci-failure,auto-created'
             });
-            
-            const existingIssue = issues.data.find(issue => 
-              issue.title.includes('CI/CD Failure') && 
+
+            const existingIssue = issues.data.find(issue =>
+              issue.title.includes('CI/CD Failure') &&
               issue.body.includes('${{ steps.recovery_build.outputs.detected_issue }}')
             );
-            
+
             if (existingIssue) {
               // Add comment to existing issue
               await github.rest.issues.createComment({
@@ -344,7 +344,7 @@ jobs:
               });
               console.log('Created new issue for irreparable failure');
             }
-      
+
       - name: 📊 Upload Validation Artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -355,52 +355,52 @@ jobs:
             validation.log
             build.log
           retention-days: 30
-  
+
   # Backup and model checkpoint management
   backup-checkpoints:
     name: 💾 Backup Model Checkpoints
     runs-on: ubuntu-latest
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: 📦 Identify Chapel AI Checkpoints
         id: find_checkpoints
         run: |
           echo "🔍 Scanning for Chapel AI model checkpoints..."
-          
+
           # Find checkpoint files
           find ffi/chapel -name "*.checkpoint" -o -name "*.model" -o -name "*.weights" 2>/dev/null | tee checkpoints.txt || true
-          
+
           checkpoint_count=$(wc -l < checkpoints.txt || echo "0")
           echo "checkpoint_count=$checkpoint_count" >> $GITHUB_OUTPUT
-          
+
           if [ "$checkpoint_count" -gt 0 ]; then
             echo "✅ Found $checkpoint_count checkpoint files"
           else
             echo "ℹ️ No checkpoint files found"
           fi
-      
+
       - name: 💾 Create Checkpoint Backup
         if: steps.find_checkpoints.outputs.checkpoint_count > 0
         run: |
           echo "💾 Creating checkpoint backup..."
-          
+
           backup_dir="checkpoint_backup_$(date +%Y%m%d_%H%M%S)"
           mkdir -p "$backup_dir"
-          
+
           while IFS= read -r file; do
             if [ -f "$file" ]; then
               cp "$file" "$backup_dir/" || true
             fi
           done < checkpoints.txt
-          
+
           tar -czf "$backup_dir.tar.gz" "$backup_dir"
-          
+
           echo "✅ Backup created: $backup_dir.tar.gz"
           ls -lh "$backup_dir.tar.gz"
-      
+
       - name: 📤 Upload Checkpoint Backup
         if: steps.find_checkpoints.outputs.checkpoint_count > 0
         uses: actions/upload-artifact@v4
@@ -408,7 +408,7 @@ jobs:
           name: chapel-checkpoints-backup-${{ github.run_id }}
           path: checkpoint_backup_*.tar.gz
           retention-days: 90
-      
+
       - name: 🧹 Cleanup Old Backups
         run: |
           echo "🧹 Cleanup would remove backups older than 90 days"
@@ -419,20 +419,20 @@ jobs:
     name: 🐳 Docker Health Check & Recovery
     runs-on: ubuntu-latest
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      
+
       - name: 🏥 Test Docker Build Health
         id: docker_test
         run: |
           echo "🐳 Testing Docker build health..."
-          
+
           docker build -t nuclear-mcp-test:health-check . 2>&1 | tee docker_build.log || true
-          
+
           if [ ${PIPESTATUS[0]} -eq 0 ]; then
             echo "✅ Docker build healthy"
             echo "docker_healthy=true" >> $GITHUB_OUTPUT
@@ -441,21 +441,21 @@ jobs:
             echo "docker_healthy=false" >> $GITHUB_OUTPUT
           fi
         continue-on-error: true
-      
+
       - name: 🔧 Docker Recovery - Cache Clear
         if: steps.docker_test.outputs.docker_healthy == 'false'
         run: |
           echo "🔧 Clearing Docker build cache..."
           docker builder prune -af
-          
+
           echo "🔧 Retrying Docker build..."
           docker build -t nuclear-mcp-test:health-check-retry . || echo "Recovery build failed"
-      
+
       - name: 📊 Docker Health Report
         run: |
           echo "## 🐳 Docker Health Check" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "${{ steps.docker_test.outputs.docker_healthy }}" == "true" ]; then
             echo "✅ Docker build is healthy" >> $GITHUB_STEP_SUMMARY
           else
@@ -473,7 +473,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [monitor-and-heal, backup-checkpoints, docker-health-check]
     if: always()
-    
+
     steps:
       - name: 📋 Generate Summary
         run: |
@@ -489,13 +489,13 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 🎯 System Status" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "${{ needs.monitor-and-heal.result }}" == "success" ]; then
             echo "✅ **CI pipeline is healthy and self-healing capabilities are active**" >> $GITHUB_STEP_SUMMARY
           else
             echo "⚠️ **CI pipeline may need manual attention**" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "---" >> $GITHUB_STEP_SUMMARY
           echo "*This summary was automatically generated by the CI Self-Healing system*" >> $GITHUB_STEP_SUMMARY

@@ -22,23 +22,23 @@ jobs:
   sync-github-to-hf:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    
+
     steps:
       - name: Checkout GitHub repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      
+
       - name: Install HF dependencies
         run: |
           pip install -q huggingface-hub[cli]
           pip install -q gitpython
-      
+
       - name: Sync files to HF Hub
         run: |
           python3 << 'PYTHON'
@@ -46,14 +46,14 @@ jobs:
           from huggingface_hub import HfApi
           from pathlib import Path
           from datetime import datetime
-          
+
           api = HfApi()
           repo_id = os.getenv('HF_REPO')
           token = os.getenv('HF_TOKEN')
           github_repo = os.getenv('GITHUB_REPO')
-          
+
           print(f"🔄 Syncing {github_repo} → {repo_id}")
-          
+
           files_to_sync = [
               ('ffi/chapel/training_pipeline.chpl', 'training_pipeline.chpl'),
               ('ffi/chapel/chapel_ai.chpl', 'chapel_ai.chpl'),
@@ -68,7 +68,7 @@ jobs:
               ('README.md', 'README_GitHub.md'),
               ('TOOLS.md', 'TOOLS_GitHub.md'),
           ]
-          
+
           synced = 0
           for local_path, remote_path in files_to_sync:
               path = Path(local_path)
@@ -85,19 +85,19 @@ jobs:
                       synced += 1
                   except Exception as e:
                       print(f"  ⚠️  {remote_path}: {str(e)[:80]}")
-          
+
           # Create commit info file
           commit_info = f"""# Sync Log
-          
+
           **GitHub Repo**: {github_repo}
           **HF Repo**: {repo_id}
           **Sync Time**: {datetime.now().isoformat()}
           **Files Synced**: {synced}
           **GitHub Commit**: {os.getenv('GITHUB_SHA', 'N/A')[:8]}
-          
+
           Status: ✅ Success
           """
-          
+
           api.upload_file(
               path_or_fileobj=commit_info.encode(),
               path_in_repo="sync_log.md",
@@ -105,19 +105,19 @@ jobs:
               repo_type="model",
               token=token,
           )
-          
+
           print(f"\n✅ Sync complete: {synced} files → HF Hub")
           PYTHON
-      
+
       - name: Update HF README
         run: |
           python3 << 'PYTHON'
           import os
           from huggingface_hub import HfApi
           from datetime import datetime
-          
+
           api = HfApi()
-          
+
           readme = """---
           tags:
             - chapel
@@ -129,47 +129,47 @@ jobs:
             - distributed-computing
           license: mit
           ---
-          
+
           # Nuclear Chapel Scientific AI
-          
+
           **Production-grade AI for web scraping, data mining, and scientific analysis** - Auto-synced from GitHub every 6 hours.
-          
+
           > Last sync: """ + datetime.now().isoformat() + """
-          
+
           ## 🎯 Powered by Chapel
-          
+
           - **Language**: Chapel 2.0+ (compiled, multi-locale)
           - **Performance**: 50K patterns in 45s, 31K validation in 30s
           - **Deployment**: GitHub Actions (auto) + HF Spaces (24/7)
           - **Sync**: Auto-sync every 6h from [GitHub](https://github.com/Rigohl/nuclear-crawler-hybrid)
-          
+
           ## 🚀 4 Core Engines
-          
+
           1. **Web Scraping Engine** - 50K stealth patterns (7 techniques)
           2. **Data Mining Engine** - Pattern extraction, clustering, anomaly detection
           3. **Scientific Analysis** - Statistics, correlation analysis, hypothesis testing
           4. **Neural Training** - Adam optimizer, K-fold validation, multi-layer network
-          
+
           ## Quick Start
-          
+
           ```bash
           git clone https://huggingface.co/Kimberlyindiva/nuclear-chapel-training
           cd nuclear-chapel-training
-          
+
           # Single-locale training
           make train
-          
+
           # Distributed (4 locales)
           NUMLOCALES=4 make train-dist
           ```
-          
+
           ## Repo Link
-          
+
           🔗 **GitHub**: https://github.com/Rigohl/nuclear-crawler-hybrid
-          
+
           Auto-synced • Open source • MIT License
           """
-          
+
           api.upload_file(
               path_or_fileobj=readme.encode(),
               path_in_repo="README.md",
@@ -184,16 +184,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: sync-github-to-hf
     if: always()
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup Chapel
         uses: chapel-lang/setup-chapel@v1
         with:
           chapel-version: 'latest'
-      
+
       - name: Validate Chapel syntax
         run: |
           cd ffi/chapel
@@ -201,49 +201,49 @@ jobs:
           chpl --parse-only chapel_ai.chpl 2>&1 | head -20 || true
           chpl --parse-only data_mining_engine.chpl 2>&1 | head -20 || true
           chpl --parse-only scientific_analysis.chpl 2>&1 | head -20 || true
-      
+
       - name: Report status
         run: echo "✅ Chapel sync pipeline validated"
 
   pull-hf-updates:
     runs-on: ubuntu-latest
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    
+
     steps:
       - name: Checkout GitHub repo
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      
+
       - name: Pull updates from HF
         run: |
           pip install -q huggingface-hub gitpython
-          
+
           python3 << 'PYTHON'
           import os
           from huggingface_hub import HfApi, snapshot_download
           from pathlib import Path
           import shutil
-          
+
           api = HfApi()
           repo_id = os.getenv('HF_REPO')
           hf_token = os.getenv('HF_TOKEN')
-          
+
           print(f"📥 Checking for updates from {repo_id}")
-          
+
           # Download model info
           repo_info = api.model_info(repo_id, token=hf_token)
           last_modified = repo_info.last_modified
-          
+
           print(f"  Last modified: {last_modified}")
           print(f"  URL: https://huggingface.co/{repo_id}")
-          
+
           # Could add advanced sync logic here
           print("✅ HF update check complete")
           PYTHON
@@ -252,17 +252,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: [sync-github-to-hf, validate-chapel]
     if: success()
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Generate sync report
         run: |
           python3 << 'PYTHON'
           import json
           from datetime import datetime
-          
+
           report = {
               "timestamp": datetime.now().isoformat(),
               "sync_status": "✅ Success",
@@ -283,7 +283,7 @@ jobs:
                   "Layer3_Training": "20 epochs in 60s"
               }
           }
-          
+
           print(json.dumps(report, indent=2))
           PYTHON
 
@@ -291,7 +291,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: generate-science-report
     if: always()
-    
+
     steps:
       - name: Sync complete
         run: |
