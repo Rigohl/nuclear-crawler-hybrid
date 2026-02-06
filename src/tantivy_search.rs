@@ -36,6 +36,7 @@ pub struct SearchResult {
 /// Tantivy search engine
 pub struct TantivySearchEngine {
     index: Index,
+    #[allow(dead_code)]
     schema: Schema,
     writer: Arc<RwLock<IndexWriter>>,
     url_field: Field,
@@ -107,7 +108,7 @@ impl TantivySearchEngine {
 
     /// Add a document to the index
     pub async fn add_document(&self, doc: SearchDocument) -> Result<()> {
-        let mut writer = self.writer.write().await;
+        let writer = self.writer.write().await;
 
         let tantivy_doc = doc!(
             self.url_field => doc.url,
@@ -122,7 +123,7 @@ impl TantivySearchEngine {
 
     /// Add multiple documents to the index
     pub async fn add_documents(&self, docs: Vec<SearchDocument>) -> Result<()> {
-        let mut writer = self.writer.write().await;
+        let writer = self.writer.write().await;
 
         for doc in docs {
             let tantivy_doc = doc!(

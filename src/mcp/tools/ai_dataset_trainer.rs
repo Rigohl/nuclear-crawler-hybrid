@@ -177,6 +177,7 @@ pub struct AIDatasetTrainerTool {
 
     // FFI Processors
     go_processor: Arc<Mutex<GoParallelProcessor>>,
+    #[allow(dead_code)]
     zig_processor: Arc<Mutex<ZigSimdProcessor>>,
     nim_parser: Arc<Mutex<NimHtmlParser>>,
     jax_processor: Arc<Mutex<JaxProcessor>>,

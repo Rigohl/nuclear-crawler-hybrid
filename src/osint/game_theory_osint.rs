@@ -149,9 +149,9 @@ impl NashSolver {
         }
 
         // For 2x2 game: A B vs C D
-        let (a, b) = self.game.get_payoff(0, 0)?;
+        let (a, _b) = self.game.get_payoff(0, 0)?;
         let (c, d) = self.game.get_payoff(0, 1)?;
-        let (e, f) = self.game.get_payoff(1, 0)?;
+        let (_e, f) = self.game.get_payoff(1, 0)?;
         let (g, h) = self.game.get_payoff(1, 1)?;
 
         // Player 2's indifference condition
@@ -374,7 +374,7 @@ impl SignalingGame {
     }
 
     /// Update beliefs using Bayes rule
-    pub fn update_beliefs(&mut self, signal: &str, evidence: f64) {
+    pub fn update_beliefs(&mut self, signal: &str, _evidence: f64) {
         let mut total_posterior = 0.0;
 
         for (type_label, prior) in &self.type_probs {

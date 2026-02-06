@@ -59,6 +59,7 @@ pub struct DatasetGeneratorTool {
     // 🔥 ALIMENTADO DE MÓDULOS CORE
     storage: Arc<tokio::sync::Mutex<IntelligentStorage>>,
     jax_processor: Arc<tokio::sync::Mutex<Option<JaxProcessor>>>,
+    #[allow(dead_code)]
     zig_processor: Arc<tokio::sync::Mutex<Option<ZigSimdProcessor>>>,
 }
 

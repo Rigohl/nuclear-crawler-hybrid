@@ -240,7 +240,7 @@ impl OSINTNeuralNetwork {
                 let output = self.forward(x);
 
                 // Compute loss gradient (MSE)
-                let mut grad: Vec<f64> = output
+                let grad: Vec<f64> = output
                     .iter()
                     .zip(y.iter())
                     .map(|(&o, &t)| 2.0 * (o - t))

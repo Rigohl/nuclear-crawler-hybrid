@@ -531,7 +531,7 @@ impl CaseManager {
 
     pub fn submit_case(
         &mut self,
-        mut case: OSINTCase,
+        case: OSINTCase,
     ) -> Result<CaseReport, Box<dyn std::error::Error>> {
         let case_id = case.case_id.clone();
         let mut resolver = OSINTCaseResolver::new(case.clone());
