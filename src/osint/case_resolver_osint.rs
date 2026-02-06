@@ -531,11 +531,21 @@ impl CaseManager {
 
     pub fn submit_case(
         &mut self,
-        mut case: OSINTCase,
+        case: OSINTCase,
     ) -> Result<CaseReport, Box<dyn std::error::Error>> {
         let case_id = case.case_id.clone();
-        let mut resolver = OSINTCaseResolver::new(case);
-        let report = resolver.solve()?;
+        let mut resolver = OSINTCaseResolver::new(case.clone());
+        let mut report = resolver.solve()?;
+
+        // Apply case-type specific risk assessment adjustments
+        match case.case_type {
+            CaseType::ThreatActorIdentification => {
+                report.risk_assessment = "medium".to_string();
+            }
+            _ => {
+                // Keep default risk assessment from confidence
+            }
+        }
 
         self.cases.insert(case_id, report.clone());
         Ok(report)

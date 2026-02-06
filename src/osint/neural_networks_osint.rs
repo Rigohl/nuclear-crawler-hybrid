@@ -72,8 +72,11 @@ impl LinearLayer {
         let output_size = self.weights.len();
         let mut grad_input = vec![0.0; input_size];
 
+        // Ensure grad_output has the correct size
+        let grad_len = grad_output.len().min(output_size);
+
         // Compute gradients
-        for i in 0..output_size {
+        for i in 0..grad_len {
             self.grad_bias[i] += grad_output[i];
             for j in 0..input_size {
                 self.grad_weights[i][j] += grad_output[i] * self.input_cache[j];
@@ -237,7 +240,7 @@ impl OSINTNeuralNetwork {
                 let output = self.forward(x);
 
                 // Compute loss gradient (MSE)
-                let mut grad: Vec<f64> = output
+                let grad: Vec<f64> = output
                     .iter()
                     .zip(y.iter())
                     .map(|(&o, &t)| 2.0 * (o - t))

@@ -124,6 +124,7 @@ pub struct ChapelAIOrchestrator {
 struct LearningMemory {
     tool_metrics: HashMap<String, ToolMetrics>,
     patterns: Vec<String>,
+    #[allow(dead_code)]
     optimization_suggestions: Vec<String>,
 }
 

@@ -4,7 +4,6 @@
 // ============================================================================
 
 use std::collections::HashMap;
-use std::sync::Arc;
 
 /// ============================================================================
 /// DATA SOURCE TRAIT - Common interface for all data sources
@@ -34,8 +33,11 @@ pub trait DataSource {
 /// ============================================================================
 
 pub struct TwitterDataSource {
+    #[allow(dead_code)]
     api_key: String,
+    #[allow(dead_code)]
     filter_keywords: Vec<String>,
+    #[allow(dead_code)]
     max_results: usize,
 }
 
@@ -137,7 +139,9 @@ impl DataSource for TwitterDataSource {
 /// ============================================================================
 
 pub struct DiscordDataSource {
+    #[allow(dead_code)]
     webhook_url: String,
+    #[allow(dead_code)]
     channels: Vec<String>,
 }
 
@@ -205,7 +209,9 @@ impl DataSource for DiscordDataSource {
 /// ============================================================================
 
 pub struct TelegramDataSource {
+    #[allow(dead_code)]
     bot_token: String,
+    #[allow(dead_code)]
     chat_ids: Vec<String>,
 }
 

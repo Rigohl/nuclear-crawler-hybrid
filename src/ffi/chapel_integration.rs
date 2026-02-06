@@ -13,8 +13,6 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::ffi::{CStr, CString};
-use std::os::raw::{c_char, c_int};
 use std::sync::{Arc, Mutex};
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -95,6 +93,7 @@ pub struct ChapelStats {
 
 /// 🔥 CHAPEL AI - Real FFI Implementation
 pub struct ChapelAI {
+    #[allow(dead_code)]
     initialized: Arc<Mutex<bool>>,
     use_ffi: bool,
     stats: Arc<Mutex<ChapelStats>>,
@@ -153,7 +152,7 @@ impl ChapelAI {
     }
 
     /// Learn from operation (called by tools after execution)
-    pub fn learn_from_operation(&self, context: ChapelContext) -> Result<()> {
+    pub fn learn_from_operation(&self, _context: ChapelContext) -> Result<()> {
         if !self.use_ffi {
             return Ok(()); // Fallback: no learning without Chapel FFI
         }
@@ -229,7 +228,7 @@ impl ChapelAI {
     }
 
     /// Get advice for a specific tool operation
-    pub fn get_advice(&self, tool_name: &str, operation: &str) -> Result<Vec<ChapelAdvice>> {
+    pub fn get_advice(&self, _tool_name: &str, _operation: &str) -> Result<Vec<ChapelAdvice>> {
         if !self.use_ffi {
             return Ok(Vec::new());
         }
@@ -281,7 +280,7 @@ impl ChapelAI {
     }
 
     /// Get success rate for pattern
-    fn get_confidence(&self, tool_name: &str, operation: &str) -> f64 {
+    fn get_confidence(&self, _tool_name: &str, _operation: &str) -> f64 {
         if !self.use_ffi {
             return 0.0;
         }
@@ -301,7 +300,7 @@ impl ChapelAI {
     }
 
     /// Get pattern count for a tool
-    pub fn get_pattern_count(&self, tool_name: &str) -> Result<usize> {
+    pub fn get_pattern_count(&self, _tool_name: &str) -> Result<usize> {
         if !self.use_ffi {
             return Ok(0);
         }

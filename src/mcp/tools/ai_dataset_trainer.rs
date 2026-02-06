@@ -22,7 +22,6 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 
 use crate::cache::Cache;
-use crate::chapel_integration::get_chapel_ai;
 use crate::go_integration::{GoParallelConfig, GoParallelProcessor};
 use crate::jax_integration::JaxProcessor;
 use crate::nim_integration::{NimHtmlParser, NimParserConfig};
@@ -178,6 +177,7 @@ pub struct AIDatasetTrainerTool {
 
     // FFI Processors
     go_processor: Arc<Mutex<GoParallelProcessor>>,
+    #[allow(dead_code)]
     zig_processor: Arc<Mutex<ZigSimdProcessor>>,
     nim_parser: Arc<Mutex<NimHtmlParser>>,
     jax_processor: Arc<Mutex<JaxProcessor>>,

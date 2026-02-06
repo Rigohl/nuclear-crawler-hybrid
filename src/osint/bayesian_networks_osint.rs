@@ -381,9 +381,9 @@ impl OSINTNaiveBayes {
         }
     }
 
-    pub fn train(&mut self, X: &[Vec<f64>], y: &[String]) {
-        let n_samples = X.len();
-        let n_features = if n_samples > 0 { X[0].len() } else { 0 };
+    pub fn train(&mut self, x: &[Vec<f64>], y: &[String]) {
+        let n_samples = x.len();
+        let n_features = if n_samples > 0 { x[0].len() } else { 0 };
 
         // Compute class priors
         for class in &self.classes {
@@ -397,11 +397,11 @@ impl OSINTNaiveBayes {
             let feature_name = format!("feature_{}", feature_idx);
 
             for class in &self.classes {
-                let class_values: Vec<f64> = X
+                let class_values: Vec<f64> = x
                     .iter()
                     .zip(y.iter())
                     .filter(|(_, c)| *c == class)
-                    .map(|(x, _)| x[feature_idx])
+                    .map(|(x_val, _)| x_val[feature_idx])
                     .collect();
 
                 if !class_values.is_empty() {

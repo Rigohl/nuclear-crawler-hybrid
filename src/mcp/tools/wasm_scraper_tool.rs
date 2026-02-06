@@ -17,41 +17,41 @@ use std::time::Instant;
 /// Execute WASM-powered web scraping
 pub async fn execute_wasm_scraper(arguments: Value) -> Result<Value> {
     let start = Instant::now();
-    
+
     // Extract arguments
     let url = arguments
         .get("url")
         .and_then(|v| v.as_str())
         .context("Missing 'url' parameter")?;
-    
+
     let selector_str = arguments
         .get("selector")
         .and_then(|v| v.as_str())
         .context("Missing 'selector' parameter")?;
-    
+
     let format = arguments
         .get("format")
         .and_then(|v| v.as_str())
         .unwrap_or("json");
-    
+
     let stealth = arguments
         .get("stealth")
         .and_then(|v| v.as_bool())
         .unwrap_or(true);
-    
+
     // Build HTTP client with stealth features
     let client = build_stealth_client(stealth)?;
-    
+
     // Fetch the page
     let html_content = fetch_page(&client, url).await?;
-    
+
     // Parse HTML with scraper (SIMD-optimized on supported platforms)
     let document = Html::parse_document(&html_content);
-    
+
     // Parse CSS selector
     let selector = Selector::parse(selector_str)
         .map_err(|e| anyhow::anyhow!("Invalid selector '{}': {:?}", selector_str, e))?;
-    
+
     // Extract elements
     let elements: Vec<String> = document
         .select(&selector)
@@ -59,7 +59,7 @@ pub async fn execute_wasm_scraper(arguments: Value) -> Result<Value> {
             // Extract text and attributes
             let text = element.text().collect::<Vec<_>>().join(" ");
             let html = element.html();
-            
+
             // Return text by default, can be enhanced to return structured data
             if text.trim().is_empty() {
                 html.trim().to_string()
@@ -69,9 +69,9 @@ pub async fn execute_wasm_scraper(arguments: Value) -> Result<Value> {
         })
         .filter(|s| !s.is_empty())
         .collect();
-    
+
     let elapsed = start.elapsed();
-    
+
     // Format output based on requested format
     let output = match format {
         "json" => json!({
@@ -106,7 +106,7 @@ pub async fn execute_wasm_scraper(arguments: Value) -> Result<Value> {
             "count": elements.len(),
         }),
     };
-    
+
     Ok(output)
 }
 
@@ -115,7 +115,7 @@ fn build_stealth_client(stealth: bool) -> Result<Client> {
     let mut builder = Client::builder()
         .timeout(std::time::Duration::from_secs(30))
         .gzip(true);
-    
+
     if stealth {
         // Add realistic headers for stealth mode
         let mut headers = reqwest::header::HeaderMap::new();
@@ -140,14 +140,11 @@ fn build_stealth_client(stealth: bool) -> Result<Client> {
             "gzip, br".parse().unwrap(),
         );
         headers.insert("DNT", "1".parse().unwrap());
-        headers.insert(
-            "Upgrade-Insecure-Requests",
-            "1".parse().unwrap(),
-        );
-        
+        headers.insert("Upgrade-Insecure-Requests", "1".parse().unwrap());
+
         builder = builder.default_headers(headers);
     }
-    
+
     builder.build().context("Failed to build HTTP client")
 }
 
@@ -158,23 +155,23 @@ async fn fetch_page(client: &Client, url: &str) -> Result<String> {
         .send()
         .await
         .context("Failed to fetch URL")?;
-    
+
     if !response.status().is_success() {
         anyhow::bail!("HTTP error: {}", response.status());
     }
-    
+
     let content = response
         .text()
         .await
         .context("Failed to read response body")?;
-    
+
     Ok(content)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[tokio::test]
     async fn test_wasm_scraper_basic() {
         let args = json!({
@@ -183,7 +180,7 @@ mod tests {
             "format": "json",
             "stealth": true
         });
-        
+
         // This will fail without network, but tests the API structure
         let result = execute_wasm_scraper(args).await;
         assert!(result.is_ok() || result.is_err()); // Basic smoke test

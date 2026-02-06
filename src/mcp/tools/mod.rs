@@ -2,12 +2,12 @@
 //!
 //! Siguiendo MCP 2025 Protocol - 7 tools profesionales con WASM + Chapel AI
 //!
-//! 1. WEBSEARCH           - Búsqueda web real en 55+ motores, HTTP real, stealth
+//! 1. WEBSEARCH           - Búsqueda web real en 55+ motores, HTTP real, stealth + scraping integrado
 //! 2. PREMIUM             - Extrae paywalls (Medium, ArXiv, O'Reilly), bypass 100%
 //! 3. FILE_SEARCH         - Análisis avanzado (Zig SIMD, Nim parsing, detecta errores)
 //! 4. SCAN                - Escaneo paralelo workspace (Go 1000 goroutines)
 //! 5. AI_DATASET_TRAINER  - Entrena IA (Go + Zig + Nim + JAX pipeline)
-//! 6. WASM_SCRAPER        - Scraping ultra-rápido con WASM (100x speedup)
+//! 6. PARALLEL_ENGINE     - Motor paralelo que potencia TODAS las tools (Go+SIMD+GPU+Chapel)
 //! 7. OSINT_INTELLIGENCE  - Inteligencia OSINT con Chapel AI (mining real)
 //!
 //! BONUS: CHATBOT - Interactive AI assistant with tool integration
@@ -17,9 +17,9 @@ pub mod chatbot_tool;
 pub mod dataset_generator;
 pub mod file_search_advanced;
 pub mod osint_intelligence_tool;
+pub mod parallel_engine_tool;
 pub mod premium_content;
 pub mod scan_workspace;
-pub mod wasm_scraper_tool;
 pub mod websearch;
 
 // ✅ 7 TOOLS PRINCIPALES + BONUS
@@ -32,9 +32,9 @@ pub use file_search_advanced::{
     FileSearchConfig as FileSearchAdvancedConfig, FileSearchResult,
 };
 pub use osint_intelligence_tool::execute_osint_intelligence;
+pub use parallel_engine_tool::execute_parallel_engine;
 pub use premium_content::{PremiumConfig, PremiumContent, PremiumContentTool};
 pub use scan_workspace::{FileAnalysis, ScanConfig, ScanIssue, ScanResult, ScanWorkspaceTool};
-pub use wasm_scraper_tool::execute_wasm_scraper;
 pub use websearch::{SearchResult, WebSearchConfig, WebSearchTool};
 
 // ⚠️ BONUS (No en los 7 principales, pero útil)

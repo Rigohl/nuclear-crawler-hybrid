@@ -3,12 +3,12 @@
 //! Follows Model Context Protocol 2025 specification
 //! EXPONE EXACTAMENTE 7 TOOLS CON MÁXIMO PODER REAL
 //!
-//! 1. WEBSEARCH - Búsqueda internet con todo poder (55+ motores)
+//! 1. WEBSEARCH - Búsqueda internet con scraping integrado (55+ motores + WASM)
 //! 2. PREMIUM - Libros, cursos, Medium, ArXiv (link o frase)
 //! 3. FILE_SEARCH - Líneas exactas, palabras, errores, warnings (SIMD)
 //! 4. SCAN - Escanea todo: archivo, doc, carpeta, workspace (Go paralelo)
 //! 5. AI_DATASET_TRAINER - Entrenar IA con datasets (FFI multi-language)
-//! 6. WASM_SCRAPER - Scraping ultra-rápido con WASM (100x speedup)
+//! 6. PARALLEL_ENGINE - Motor paralelo que potencia TODAS las tools (Go+SIMD+GPU+Chapel)
 //! 7. OSINT_INTELLIGENCE - Inteligencia OSINT con Chapel AI (mining real)
 
 use serde::{Deserialize, Serialize};
@@ -323,34 +323,38 @@ pub fn get_tool_definitions() -> Vec<ToolDefinition> {
         },
 
         // ═══════════════════════════════════════════════════════════════════════
-        // 6️⃣ WASM_SCRAPER - Scraping ultra-rápido con WASM (100x speedup)
+        // 6️⃣ PARALLEL_ENGINE - Motor paralelo que potencia TODAS las herramientas
         // ═══════════════════════════════════════════════════════════════════════
         ToolDefinition {
-            name: "wasm_scraper".to_string(),
-            description: "⚡ WASM SCRAPER - Scraping ultra-rápido compilado a WebAssembly. 100x más rápido que scraping normal. SIMD para parsing HTML, zero-copy para procesamiento. Soporta: HTML, JSON, XML, CSV. Stealth mode, user-agent rotation, proxy support. Entrada: URL + selector.".to_string(),
+            name: "parallel_engine".to_string(),
+            description: "🚀 PARALLEL ENGINE - Motor de procesamiento paralelo ultra-rápido que potencia TODAS las tools. Rayon multi-thread, Go goroutines, SIMD (Zig), GPU/TPU (JAX), distributed (Chapel multi-locale), WASM compilation. Usa este motor para: batch processing, parallel map/reduce, GPU acceleration, distributed computing. 100x más rápido que procesamiento serial.".to_string(),
             input_schema: json!({
                 "type": "object",
                 "properties": {
-                    "url": {
+                    "operation": {
                         "type": "string",
-                        "description": "URL a scrapear (https://...)"
+                        "description": "Operación a ejecutar: 'batch_process', 'parallel_map', 'parallel_reduce', 'gpu_accelerate', 'distribute'"
                     },
-                    "selector": {
-                        "type": "string",
-                        "description": "CSS selector o XPath para extraer datos (ej: 'div.content', '//h1', 'table.data')"
+                    "data": {
+                        "description": "Datos a procesar (array, object, o string)"
                     },
-                    "format": {
-                        "type": "string",
-                        "description": "Formato de salida: 'json', 'csv', 'text'. Default: 'json'",
-                        "default": "json"
+                    "workers": {
+                        "type": "integer",
+                        "description": "Número de workers paralelos (default: num_cpus)",
+                        "default": num_cpus::get()
                     },
-                    "stealth": {
+                    "use_gpu": {
                         "type": "boolean",
-                        "description": "Activar modo stealth (rotate user-agent, headers, delays). Default: true",
+                        "description": "Usar aceleración GPU via JAX (default: false)",
+                        "default": false
+                    },
+                    "use_simd": {
+                        "type": "boolean",
+                        "description": "Usar SIMD via Zig para operaciones vectoriales (default: true)",
                         "default": true
                     }
                 },
-                "required": ["url", "selector"],
+                "required": ["operation", "data"],
                 "additionalProperties": false
             }),
         },
@@ -432,10 +436,11 @@ mod tests {
         assert!(names.contains(&"file_search".to_string()));
         assert!(names.contains(&"scan".to_string()));
         assert!(names.contains(&"ai_dataset_trainer".to_string()));
-        assert!(names.contains(&"wasm_scraper".to_string()));
+        assert!(names.contains(&"parallel_engine".to_string()));
         assert!(names.contains(&"osint_intelligence".to_string()));
 
         // MUST NOT contain old/experimental tools
+        assert!(!names.contains(&"wasm_scraper".to_string()));
         assert!(!names.contains(&"full_stack_integration".to_string()));
         assert!(!names.contains(&"info".to_string()));
         assert!(!names.contains(&"nuclear_mega_tool".to_string()));

@@ -257,7 +257,7 @@ impl DataExtractionEngine {
 
         // Extraer precios
         if self.config.extract_prices {
-            let price_pattern = regex::Regex::new(r"[\$\€\£]\s*[0-9]+[,\.]?[0-9]*").unwrap();
+            let price_pattern = regex::Regex::new(r"[\$€£]\s*[0-9]+[,\.]?[0-9]*").unwrap();
             let prices: Vec<String> = price_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
