@@ -7,7 +7,7 @@
 //! - GPU acceleration (JAX + Chapel AI)
 //! - Distributed computing (Chapel multi-locale)
 //! - WASM compilation for ultra-fast execution
-//! 
+//!
 //! Unlike wasm_scraper which was tool-specific, parallel_engine can be used by
 //! websearch, premium, file_search, scan, ai_dataset_trainer, and osint_intelligence
 //! to dramatically accelerate their operations.
@@ -26,9 +26,7 @@ pub async fn execute_parallel_engine(arguments: Value) -> Result<Value> {
         .and_then(|v| v.as_str())
         .context("Missing 'operation' parameter")?;
 
-    let data = arguments
-        .get("data")
-        .context("Missing 'data' parameter")?;
+    let data = arguments.get("data").context("Missing 'data' parameter")?;
 
     let workers = arguments
         .get("workers")

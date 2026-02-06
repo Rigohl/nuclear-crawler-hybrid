@@ -1,18 +1,22 @@
-//! 🔥 Nuclear MCP Server - FULL POWER Binary (ALL 7 TOOLS)
+//! ⚡ Nuclear MCP Lite - Lightweight Binary (2 TOOLS)
 //!
-//! Maximum power: websearch, premium, file_search, scan,
-//! ai_dataset_trainer, parallel_engine, osint_intelligence
+//! Fast and minimal: websearch + scan
+//! Combine with nuclear-pro and nuclear-mcp for MAX POWER
 
 use clap::Parser;
 use nuclear_crawler_hybrid::mcp::protocol::ToolProfile;
 use nuclear_crawler_hybrid::mcp::server::MCPServer;
 
-/// Nuclear MCP Server - Full Power (7 Tools)
+/// Nuclear MCP Lite - Lightweight Server (2 Tools)
 #[derive(Parser, Debug)]
-#[command(author, version, about = "Nuclear MCP Server - FULL POWER (7 Tools)")]
+#[command(
+    author,
+    version,
+    about = "Nuclear MCP Lite - Lightweight (2 Tools: websearch + scan)"
+)]
 struct Args {
     /// Port to bind the HTTP server
-    #[arg(short, long, default_value_t = 8079)]
+    #[arg(short, long, default_value_t = 8077)]
     port: u16,
 
     /// Host to bind the HTTP server
@@ -27,15 +31,14 @@ struct Args {
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
-    let profile = ToolProfile::Full;
+    let profile = ToolProfile::Lite;
     let tool_names = nuclear_crawler_hybrid::mcp::protocol::get_profile_tool_names(profile);
 
     if args.verbose {
-        eprintln!("🔥 Nuclear MCP Server - FULL POWER Starting...");
+        eprintln!("⚡ Nuclear MCP Lite Starting...");
         eprintln!("   Host: {}", args.host);
         eprintln!("   Port: {}", args.port);
-        eprintln!("   Profile: Full (7 tools)");
-        eprintln!("   Protocol: HTTP + JSON-RPC 2.0");
+        eprintln!("   Profile: Lite (2 tools)");
         eprintln!("   Tools: {}", tool_names.join(", "));
         eprintln!();
     }
@@ -46,17 +49,8 @@ async fn main() -> anyhow::Result<()> {
     let addr = format!("{}:{}", args.host, args.port);
     let listener = tokio::net::TcpListener::bind(&addr).await?;
 
-    println!(
-        "✅ Nuclear MCP Server (FULL POWER) running on http://{}",
-        addr
-    );
-    println!("📡 Endpoints:");
-    println!("   GET  /health           - Health check");
-    println!("   POST /mcp/tools/list   - List available tools");
-    println!("   POST /mcp/tools/call   - Execute a tool");
-    println!("   POST /mcp/rpc          - Generic JSON-RPC 2.0");
-    println!();
-    println!("🔧 All 7 tools active:");
+    println!("⚡ Nuclear MCP Lite running on http://{}", addr);
+    println!("🔧 Tools ({}):", tool_names.len());
     for name in &tool_names {
         println!("   • {}", name);
     }

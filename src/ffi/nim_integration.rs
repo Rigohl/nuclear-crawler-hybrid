@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 // Import WASM bridge for Nim WASM runtime
-use crate::ffi::wasm_ffi_bridge::{NimWasmParser, WasmConfig, Element as WasmElement, Link as WasmLink};
+use crate::ffi::wasm_ffi_bridge::{NimWasmParser, WasmConfig};
 
 // 🔥 REAL FFI DECLARATIONS - ACTIVATED FOR MAXIMUM POWER
 #[cfg(has_nim)]
@@ -71,7 +71,7 @@ pub struct NimParsedContent {
 pub struct NimHtmlParser {
     config: NimParserConfig,
     library: Option<Library>,
-    wasm_runtime: Option<NimWasmParser>,
+    _wasm_runtime: Option<NimWasmParser>,
 }
 
 impl NimHtmlParser {
@@ -86,7 +86,7 @@ impl NimHtmlParser {
         } else {
             eprintln!("⚠️ Nim library not available, using fallback parser");
         }
-        
+
         // Try to initialize WASM runtime
         let wasm_runtime = match NimWasmParser::new(WasmConfig::default()) {
             Ok(runtime) => {
@@ -99,7 +99,11 @@ impl NimHtmlParser {
             }
         };
 
-        Ok(Self { config, library, wasm_runtime })
+        Ok(Self {
+            config,
+            library,
+            _wasm_runtime: wasm_runtime,
+        })
     }
 
     /// 🔥 REAL NIM HTML PARSING + RUST FALLBACK - Parse HTML with MAXIMUM power
@@ -338,7 +342,7 @@ impl Default for NimHtmlParser {
             Self {
                 config: NimParserConfig::default(),
                 library: None,
-                wasm_runtime: None,
+                _wasm_runtime: None,
             }
         })
     }

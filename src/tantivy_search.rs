@@ -237,7 +237,8 @@ impl TantivySearchEngine {
 
     /// Get schema info - USING SCHEMA FIELD
     pub fn get_schema_info(&self) -> String {
-        let fields: Vec<String> = self.schema
+        let fields: Vec<String> = self
+            .schema
             .fields()
             .map(|(field, entry)| format!("{:?}: {:?}", field, entry.name()))
             .collect();

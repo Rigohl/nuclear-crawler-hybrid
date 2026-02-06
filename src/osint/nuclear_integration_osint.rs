@@ -100,10 +100,16 @@ impl TwitterDataSource {
 impl DataSource for TwitterDataSource {
     fn fetch(&self) -> Result<Vec<RawDataRecord>, Box<dyn std::error::Error>> {
         // 🔥 USING REAL FIELDS - api_key, filter_keywords, max_results
-        eprintln!("[TwitterDataSource] Using API key: {}...", &self.api_key[..8.min(self.api_key.len())]);
-        eprintln!("[TwitterDataSource] Filter keywords: {:?}", self.filter_keywords);
+        eprintln!(
+            "[TwitterDataSource] Using API key: {}...",
+            &self.api_key[..8.min(self.api_key.len())]
+        );
+        eprintln!(
+            "[TwitterDataSource] Filter keywords: {:?}",
+            self.filter_keywords
+        );
         eprintln!("[TwitterDataSource] Max results: {}", self.max_results);
-        
+
         // Simulate Twitter API fetch with REAL configuration
         let mut records = Vec::new();
 
@@ -113,7 +119,7 @@ impl DataSource for TwitterDataSource {
         } else {
             "Example tweet content".to_string()
         };
-        
+
         let tweet = serde_json::json!({
             "id": "1234567890",
             "author_id": "user123",
@@ -191,9 +197,12 @@ impl DiscordDataSource {
 impl DataSource for DiscordDataSource {
     fn fetch(&self) -> Result<Vec<RawDataRecord>, Box<dyn std::error::Error>> {
         // 🔥 USING REAL FIELDS - webhook_url, channels
-        eprintln!("[DiscordDataSource] Webhook URL: {}...", &self.webhook_url[..30.min(self.webhook_url.len())]);
+        eprintln!(
+            "[DiscordDataSource] Webhook URL: {}...",
+            &self.webhook_url[..30.min(self.webhook_url.len())]
+        );
         eprintln!("[DiscordDataSource] Channels: {:?}", self.channels);
-        
+
         let mut records = Vec::new();
 
         // Mock message with channel context
@@ -202,7 +211,7 @@ impl DataSource for DiscordDataSource {
         } else {
             "from unknown channel".to_string()
         };
-        
+
         let msg = serde_json::json!({
             "id": "msg123",
             "author": {"id": "user456", "username": "discord_user"},
@@ -259,9 +268,12 @@ impl TelegramDataSource {
 impl DataSource for TelegramDataSource {
     fn fetch(&self) -> Result<Vec<RawDataRecord>, Box<dyn std::error::Error>> {
         // 🔥 USING REAL FIELDS - bot_token, chat_ids
-        eprintln!("[TelegramDataSource] Bot token: {}...", &self.bot_token[..10.min(self.bot_token.len())]);
+        eprintln!(
+            "[TelegramDataSource] Bot token: {}...",
+            &self.bot_token[..10.min(self.bot_token.len())]
+        );
         eprintln!("[TelegramDataSource] Chat IDs: {:?}", self.chat_ids);
-        
+
         let mut records = Vec::new();
 
         // Mock message with chat context
@@ -270,7 +282,7 @@ impl DataSource for TelegramDataSource {
         } else {
             "from unknown chat".to_string()
         };
-        
+
         let msg = serde_json::json!({
             "message_id": "tg123",
             "from": {"id": "user789", "username": "telegram_user"},

@@ -24,10 +24,10 @@ advanced_tor = []
 advanced = ["chromium_rendering", "advanced_tor"]
 
 [package.metadata.mcp]
-protocol-version = "2025-01-01"
+protocol-version = "2026-02-06"
 server-mode = ["http"]
 default-port = 8079
-tools = ["websearch", "file_search", "get_vscode_api"]
+tools = ["websearch", "premium", "file_search", "scan", "ai_dataset_trainer", "parallel_engine", "osint_intelligence"]
 
 [dependencies]
 # HTTP server - ESSENTIAL (with SSE support for MCP 2025)
@@ -139,9 +139,13 @@ wasmtime = "27.0"
 name = "nuclear-mcp"
 path = "src/bin/nuclear_mcp.rs"
 
-# [[bin]]
-# name = "nuclear-data"
-# path = "src/bin/nuclear_data.rs"
+[[bin]]
+name = "nuclear-pro"
+path = "src/bin/nuclear_pro.rs"
+
+[[bin]]
+name = "nuclear-lite"
+path = "src/bin/nuclear_lite.rs"
 
 [profile.release]
 opt-level = 3

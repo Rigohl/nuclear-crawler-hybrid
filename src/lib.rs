@@ -1,7 +1,7 @@
 //! Nuclear Crawler Hybrid - Real MCP Server with Chapel AI
 //!
-//! 🔥 MCP PROTOCOL 2025: EXACTLY 5 PRODUCTION TOOLS
-//! 🚀 CHAPEL AI: Continuous learning system (96% accuracy)
+//! 🔥 MCP PROTOCOL 2026: EXACTLY 7 PRODUCTION TOOLS
+//! 🚀 3 BINARIES: nuclear-mcp (7 tools), nuclear-pro (5), nuclear-lite (2) = MAX POWER
 //! 🤖 WASM OPTIMIZATION: 50-100x speedup modules
 //! ⚡ FFI ACCELERATORS: Go/JAX/Nim/Zig/Chapel backends
 
@@ -12,7 +12,7 @@
 // CORE MODULES (ALWAYS ACTIVE)
 // ═══════════════════════════════════════════════════════════════════
 
-/// MCP Protocol Server - EXACTLY 5 production tools
+/// MCP Protocol Server - EXACTLY 7 production tools, 3 binary profiles
 pub mod mcp;
 
 /// Core crawler functionality
