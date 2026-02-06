@@ -27,69 +27,69 @@ pub struct OsintConfig {
 /// Execute OSINT intelligence gathering
 pub async fn execute_osint_intelligence(arguments: Value) -> Result<Value> {
     let start = Instant::now();
-    
+
     // Extract arguments
     let target = arguments
         .get("target")
         .and_then(|v| v.as_str())
         .context("Missing 'target' parameter")?
         .to_string();
-    
+
     let search_type = arguments
         .get("search_type")
         .and_then(|v| v.as_str())
         .unwrap_or("all")
         .to_string();
-    
+
     let depth = arguments
         .get("depth")
         .and_then(|v| v.as_str())
         .unwrap_or("deep")
         .to_string();
-    
+
     let include_darkweb = arguments
         .get("include_darkweb")
         .and_then(|v| v.as_bool())
         .unwrap_or(false);
-    
+
     let config = OsintConfig {
         target: target.clone(),
         search_type: search_type.clone(),
         depth: depth.clone(),
         include_darkweb,
     };
-    
+
     // Gather intelligence from multiple sources
     let mut results = HashMap::new();
-    
+
     // Phase 1: Basic information gathering
     results.insert("basic_info", gather_basic_info(&config).await?);
-    
+
     // Phase 2: Social media presence
     if search_type == "all" || search_type == "person" || search_type == "username" {
         results.insert("social_media", gather_social_media(&config).await?);
     }
-    
+
     // Phase 3: Domain/IP information
     if search_type == "all" || search_type == "domain" || search_type == "ip" {
         results.insert("network_info", gather_network_info(&config).await?);
     }
-    
+
     // Phase 4: Public records
     if search_type == "all" || search_type == "person" || search_type == "company" {
         results.insert("public_records", gather_public_records(&config).await?);
     }
-    
+
     // Phase 5: Dark web search (if enabled)
     if include_darkweb {
         results.insert("darkweb", gather_darkweb_info(&config).await?);
     }
-    
+
     // Phase 6: Chapel AI analysis
     let chapel_analysis = analyze_with_chapel_ai(&results, &config)?;
-    
+
     let elapsed = start.elapsed();
-    
+
     Ok(json!({
         "success": true,
         "target": target,
@@ -125,19 +125,22 @@ async fn gather_social_media(config: &OsintConfig) -> Result<Value> {
     // - GitHub
     // - Reddit
     // etc.
-    
+
     let platforms = vec!["twitter", "linkedin", "github", "reddit", "facebook"];
     let mut results = HashMap::new();
-    
+
     for platform in platforms {
-        results.insert(platform, json!({
-            "platform": platform,
-            "search_performed": true,
-            "results_found": 0,
-            "note": "Production would perform real API queries"
-        }));
+        results.insert(
+            platform,
+            json!({
+                "platform": platform,
+                "search_performed": true,
+                "results_found": 0,
+                "note": "Production would perform real API queries"
+            }),
+        );
     }
-    
+
     Ok(json!(results))
 }
 
@@ -150,7 +153,7 @@ async fn gather_network_info(config: &OsintConfig) -> Result<Value> {
     // - Certificate transparency logs
     // - Shodan
     // - Censys
-    
+
     Ok(json!({
         "whois": "Available in production",
         "dns_records": "Available in production",
@@ -168,7 +171,7 @@ async fn gather_public_records(config: &OsintConfig) -> Result<Value> {
     // - Business registrations
     // - Professional licenses
     // - News articles
-    
+
     Ok(json!({
         "court_records": "Available in production",
         "property_records": "Available in production",
@@ -184,7 +187,7 @@ async fn gather_darkweb_info(config: &OsintConfig) -> Result<Value> {
     // - Paste sites
     // - Breach databases
     // - Forums
-    
+
     Ok(json!({
         "warning": "Dark web search enabled",
         "markets_searched": 0,
@@ -203,7 +206,7 @@ fn analyze_with_chapel_ai(results: &HashMap<&str, Value>, config: &OsintConfig) 
     // 4. Correlate data from multiple sources
     // 5. Generate threat intelligence
     // 6. Use GPU acceleration for large datasets
-    
+
     Ok(json!({
         "pattern_analysis": {
             "patterns_detected": 0,
@@ -258,7 +261,7 @@ fn calculate_sources_count(depth: &str) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[tokio::test]
     async fn test_osint_intelligence_basic() {
         let args = json!({
@@ -267,15 +270,15 @@ mod tests {
             "depth": "basic",
             "include_darkweb": false
         });
-        
+
         let result = execute_osint_intelligence(args).await;
         assert!(result.is_ok());
-        
+
         let value = result.unwrap();
         assert_eq!(value["success"], true);
         assert_eq!(value["target"], "example@example.com");
     }
-    
+
     #[test]
     fn test_detect_target_type() {
         assert_eq!(detect_target_type("user@example.com"), "email");

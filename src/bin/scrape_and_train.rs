@@ -268,18 +268,14 @@ fn train_bot(input: &str, name: &str, output: &str) -> Result<()> {
 
     let mut top_openers: Vec<(String, usize)> = opener_freq.into_iter().collect();
     top_openers.sort_by(|a, b| b.1.cmp(&a.1).then_with(|| a.0.cmp(&b.0)));
-    let top_openers: Vec<String> = top_openers
-        .into_iter()
-        .take(20)
-        .map(|(s, _)| s)
-        .collect();
+    let top_openers: Vec<String> = top_openers.into_iter().take(20).map(|(s, _)| s).collect();
 
     // Extract basic keywords from messages (real, deterministic frequency analysis)
     let stopwords = [
-        "the", "and", "for", "with", "that", "this", "you", "your", "are", "was", "were",
-        "have", "has", "had", "not", "but", "from", "they", "them", "what", "when",
-        "where", "who", "why", "how", "que", "para", "con", "una", "uno", "las", "los",
-        "por", "del", "como", "esta", "esto", "hola",
+        "the", "and", "for", "with", "that", "this", "you", "your", "are", "was", "were", "have",
+        "has", "had", "not", "but", "from", "they", "them", "what", "when", "where", "who", "why",
+        "how", "que", "para", "con", "una", "uno", "las", "los", "por", "del", "como", "esta",
+        "esto", "hola",
     ];
     let stop: std::collections::HashSet<&'static str> = stopwords.into_iter().collect();
 
@@ -309,11 +305,7 @@ fn train_bot(input: &str, name: &str, output: &str) -> Result<()> {
 
     let mut top_keywords: Vec<(String, usize)> = keyword_freq.into_iter().collect();
     top_keywords.sort_by(|a, b| b.1.cmp(&a.1).then_with(|| a.0.cmp(&b.0)));
-    let top_keywords: Vec<String> = top_keywords
-        .into_iter()
-        .take(30)
-        .map(|(s, _)| s)
-        .collect();
+    let top_keywords: Vec<String> = top_keywords.into_iter().take(30).map(|(s, _)| s).collect();
 
     let bot = TrainedBot {
         name: name.to_string(),

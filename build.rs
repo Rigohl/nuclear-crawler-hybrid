@@ -299,7 +299,9 @@ fn main() {
         eprintln!("   2) CPU only:  cd ffi/chapel && ./build_chapel_real.sh");
         eprintln!("   3) With GPU:  cd ffi/chapel && GPU_ARCH=sm_86 ./build_chapel_real.sh");
         eprintln!("   4) Distributed: cd ffi/chapel && NUM_LOCALES=4 ./build_chapel_real.sh");
-        eprintln!("   5) Maximum:   cd ffi/chapel && GPU_ARCH=sm_80 NUM_LOCALES=8 ./build_chapel_real.sh");
+        eprintln!(
+            "   5) Maximum:   cd ffi/chapel && GPU_ARCH=sm_80 NUM_LOCALES=8 ./build_chapel_real.sh"
+        );
         eprintln!("   ");
         eprintln!("   Or use Makefile: cd ffi/chapel && make full-pipeline");
         eprintln!("   GPU + Distributed: make full-pipeline GPU_ARCH=sm_86");

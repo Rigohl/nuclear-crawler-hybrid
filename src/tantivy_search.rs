@@ -1,8 +1,8 @@
 //! Tantivy Search Engine Integration
-//! 
+//!
 //! REAL full-text search implementation using Tantivy
 //! NO MOCKS, NO FALLBACKS - Pure Rust search engine
-//! 
+//!
 //! Provides high-performance indexing and searching for web content
 
 use anyhow::{Context, Result};
@@ -160,10 +160,8 @@ impl TantivySearchEngine {
         let searcher = reader.searcher();
 
         // Parse query
-        let query_parser = QueryParser::for_index(
-            &self.index,
-            vec![self.title_field, self.content_field],
-        );
+        let query_parser =
+            QueryParser::for_index(&self.index, vec![self.title_field, self.content_field]);
 
         let query = query_parser
             .parse_query(query)

@@ -86,14 +86,14 @@ impl WebSearchTool {
     /// Initialize Tantivy search engine (lazy initialization)
     async fn ensure_tantivy_initialized(&self) -> Result<()> {
         let mut tantivy_lock = self.tantivy.lock().await;
-        
+
         if tantivy_lock.is_none() {
             eprintln!("🔍 Initializing Tantivy search engine...");
             let engine = TantivySearchEngine::new_in_memory()?;
             *tantivy_lock = Some(engine);
             eprintln!("✅ Tantivy search engine initialized");
         }
-        
+
         Ok(())
     }
 
@@ -133,7 +133,7 @@ impl WebSearchTool {
     /// Search locally indexed results with Tantivy
     pub async fn search_local(&self, query: &str, limit: usize) -> Result<Vec<SearchResult>> {
         self.ensure_tantivy_initialized().await?;
-        
+
         let tantivy_lock = self.tantivy.lock().await;
         if let Some(tantivy) = tantivy_lock.as_ref() {
             let tantivy_results = tantivy.search(query, limit).await?;

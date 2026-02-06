@@ -181,7 +181,9 @@ async fn handle_tool_call(
         Some("info") => execute_info(&server, id, arguments).await,
         Some("ai_dataset_trainer") => execute_ai_dataset_trainer(&server, id, arguments).await,
         Some("wasm_scraper") => execute_wasm_scraper_dispatch(&server, id, arguments).await,
-        Some("osint_intelligence") => execute_osint_intelligence_dispatch(&server, id, arguments).await,
+        Some("osint_intelligence") => {
+            execute_osint_intelligence_dispatch(&server, id, arguments).await
+        }
         Some(unknown) => Json(MCPResponse::method_not_found(id, unknown)),
         None => Json(MCPResponse::invalid_params(id, "tool name required")),
     }
@@ -213,7 +215,9 @@ async fn handle_rpc(server: Arc<MCPServer>, Json(req): Json<MCPRequest>) -> impl
                     execute_ai_dataset_trainer(&server, id, arguments).await
                 }
                 Some("wasm_scraper") => execute_wasm_scraper_dispatch(&server, id, arguments).await,
-                Some("osint_intelligence") => execute_osint_intelligence_dispatch(&server, id, arguments).await,
+                Some("osint_intelligence") => {
+                    execute_osint_intelligence_dispatch(&server, id, arguments).await
+                }
                 Some(name) => Json(MCPResponse::method_not_found(id, name)),
                 None => Json(MCPResponse::invalid_params(id, "name required")),
             }
@@ -851,9 +855,9 @@ async fn execute_wasm_scraper_dispatch(
     args: Value,
 ) -> Json<MCPResponse> {
     use crate::mcp::tools::execute_wasm_scraper;
-    
+
     eprintln!("⚡ WASM Scraper: Initializing ultra-fast scraping...");
-    
+
     match execute_wasm_scraper(args).await {
         Ok(result) => Json(MCPResponse::success(id, result)),
         Err(e) => {
@@ -874,9 +878,9 @@ async fn execute_osint_intelligence_dispatch(
     args: Value,
 ) -> Json<MCPResponse> {
     use crate::mcp::tools::execute_osint_intelligence;
-    
+
     eprintln!("🔍 OSINT Intelligence: Initializing with Chapel AI...");
-    
+
     match execute_osint_intelligence(args).await {
         Ok(result) => Json(MCPResponse::success(id, result)),
         Err(e) => {
@@ -889,4 +893,3 @@ async fn execute_osint_intelligence_dispatch(
         }
     }
 }
-
