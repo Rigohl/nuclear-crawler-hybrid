@@ -8,7 +8,6 @@ use std::collections::HashMap;
 /// ============================================================================
 /// BAYESIAN NODE - Represents a variable in the network
 /// ============================================================================
-
 #[derive(Clone, Debug)]
 pub struct BayesianNode {
     pub name: String,
@@ -41,7 +40,6 @@ impl BayesianNode {
 /// ============================================================================
 /// BAYESIAN NETWORK - Directed acyclic graph of probabilistic variables
 /// ============================================================================
-
 pub struct BayesianNetwork {
     nodes: HashMap<String, BayesianNode>,
     edges: Vec<(String, String)>, // (parent, child)
@@ -235,7 +233,6 @@ fn sample_from_distribution(states: &[String], probabilities: &[f64]) -> String 
 /// ============================================================================
 /// SPECIALIZED: OSINT EVIDENCE AGGREGATION NETWORK
 /// ============================================================================
-
 pub struct OSINTBayesianNetwork {
     network: BayesianNetwork,
 }
@@ -365,7 +362,6 @@ impl OSINTBayesianNetwork {
 /// ============================================================================
 /// NAIVE BAYES CLASSIFIER FOR QUICK DECISIONS
 /// ============================================================================
-
 pub struct OSINTNaiveBayes {
     class_priors: HashMap<String, f64>,
     feature_likelihoods: HashMap<String, HashMap<String, f64>>,

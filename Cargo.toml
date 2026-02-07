@@ -22,12 +22,21 @@ chromium_rendering = ["chromiumoxide"]
 advanced_tor = []
 # Advanced feature bundle: enables all advanced capabilities for the multi-agent pipeline
 advanced = ["chromium_rendering", "advanced_tor"]
+wasm_ffi = ["wasmtime"]
 
 [package.metadata.mcp]
 protocol-version = "2026-02-06"
 server-mode = ["http"]
 default-port = 8079
-tools = ["websearch", "premium", "file_search", "scan", "ai_dataset_trainer", "parallel_engine", "osint_intelligence"]
+tools = [
+    "websearch",
+    "premium",
+    "file_search",
+    "scan",
+    "ai_dataset_trainer",
+    "parallel_engine",
+    "osint_intelligence",
+]
 
 [dependencies]
 # HTTP server - ESSENTIAL (with SSE support for MCP 2025)
@@ -90,8 +99,7 @@ walkdir = "2.4"
 # Random number generation for stealth
 oorandom = "11.1"
 
-# 🔥 NEW: Random number generation for ML algorithms  
-rand = "0.9"
+# 🔥 NEW: Random number generation for ML algorithms rand = "0.9"
 
 # 🔥 NEW: CPU count for parallelization
 num_cpus = "1.16"
@@ -100,7 +108,8 @@ num_cpus = "1.16"
 urlencoding = "2.1"
 
 # 🔥 NEW: Chrome DevTools Protocol for JavaScript rendering
-chromiumoxide = { version = "0.8", optional = true, features = ["fetcher"] }
+# Pin a known-compatible chromiumoxide version and use the correct feature name expected by the crate
+chromiumoxide = { version = "0.5", optional = true, features = ["fetch"] }
 
 # 🔥 NEW: HTTP/2 multiplexing support (system-level)
 http2 = "0.5"
@@ -133,7 +142,8 @@ tempfile = "3.8"
 
 # 🔥 NEW: WebAssembly runtime for WASM FFI integrations
 # wasmtime provides SIMD, bulk-memory, and multi-memory support
-wasmtime = "27.0"
+# Optional by default; enable with `--features wasm_ffi`
+wasmtime = { version = "27.0", optional = true }
 
 [[bin]]
 name = "nuclear-mcp"
@@ -147,9 +157,18 @@ path = "src/bin/nuclear_pro.rs"
 name = "nuclear-lite"
 path = "src/bin/nuclear_lite.rs"
 
+[[bin]]
+name = "nuclear-worker"
+path = "src/bin/nuclear_worker.rs"
+
+[[bin]]
+name = "nuclear-agent"
+path = "src/bin/nuclear_agent.rs"
+
 [profile.release]
 opt-level = 3
 lto = "fat"
 codegen-units = 1
 strip = true
+panic = "abort"
 panic = "abort"

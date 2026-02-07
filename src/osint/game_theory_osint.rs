@@ -8,7 +8,6 @@ use std::collections::HashMap;
 /// ============================================================================
 /// GAME THEORY BASICS
 /// ============================================================================
-
 #[derive(Clone, Debug)]
 pub struct PayoffMatrix {
     pub name: String,
@@ -44,7 +43,6 @@ impl PayoffMatrix {
 /// ============================================================================
 /// MIXED STRATEGY - Probability distribution over pure strategies
 /// ============================================================================
-
 #[derive(Clone, Debug)]
 pub struct MixedStrategy {
     pub strategy_name: String,
@@ -86,7 +84,6 @@ impl MixedStrategy {
 /// ============================================================================
 /// NASH EQUILIBRIUM SOLVER - Lemke-Howson Algorithm
 /// ============================================================================
-
 pub struct NashSolver {
     game: PayoffMatrix,
 }
@@ -205,7 +202,6 @@ impl NashSolver {
 /// ============================================================================
 /// OSINT-SPECIFIC GAME THEORY MODELS
 /// ============================================================================
-
 pub struct OSINTAdversarialGame {
     defender_strategies: Vec<String>,
     attacker_strategies: Vec<String>,
@@ -348,7 +344,6 @@ impl OSINTAdversarialGame {
 /// ============================================================================
 /// SIGNALING AND SCREENING GAMES
 /// ============================================================================
-
 pub struct SignalingGame {
     // Sender (threat actor) type probabilities
     pub type_probs: HashMap<String, f64>,
@@ -395,7 +390,6 @@ impl SignalingGame {
 /// ============================================================================
 /// COALITION FORMATION IN NETWORKS
 /// ============================================================================
-
 pub struct CoalitionGame {
     pub players: Vec<String>,
     pub coalitions: Vec<Vec<usize>>,

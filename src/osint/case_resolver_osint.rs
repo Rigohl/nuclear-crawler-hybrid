@@ -9,7 +9,6 @@ use std::collections::HashMap;
 /// ============================================================================
 /// CASE DEFINITION
 /// ============================================================================
-
 #[derive(Clone, Debug)]
 pub enum CaseType {
     BotNetworkDetection,
@@ -66,7 +65,6 @@ impl OSINTCase {
 /// ============================================================================
 /// CASE EVIDENCE
 /// ============================================================================
-
 #[derive(Clone, Debug)]
 pub struct Evidence {
     pub id: String,
@@ -101,7 +99,6 @@ impl Evidence {
 /// ============================================================================
 /// ANALYSIS RESULT
 /// ============================================================================
-
 #[derive(Clone, Debug)]
 pub struct AnalysisResult {
     pub case_id: String,
@@ -138,7 +135,6 @@ impl AnalysisResult {
 /// ============================================================================
 /// FINAL CASE REPORT
 /// ============================================================================
-
 #[derive(Clone, Debug)]
 pub struct CaseReport {
     pub case_id: String,
@@ -217,7 +213,6 @@ impl CaseReport {
 /// ============================================================================
 /// OSINT CASE RESOLVER - MAIN ORCHESTRATOR
 /// ============================================================================
-
 pub struct OSINTCaseResolver {
     case: OSINTCase,
     all_evidence: Vec<Evidence>,
@@ -517,7 +512,6 @@ impl OSINTCaseResolver {
 /// ============================================================================
 /// CASE MANAGER - Handle multiple cases
 /// ============================================================================
-
 pub struct CaseManager {
     cases: HashMap<String, CaseReport>,
 }

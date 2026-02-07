@@ -8,7 +8,6 @@ use std::f64;
 /// ============================================================================
 /// LAYER TRAIT - Generic neural layer
 /// ============================================================================
-
 pub trait NeuralLayer {
     fn forward(&mut self, input: &[f64]) -> Vec<f64>;
     fn backward(&mut self, grad_output: &[f64]) -> Vec<f64>;
@@ -18,7 +17,6 @@ pub trait NeuralLayer {
 /// ============================================================================
 /// LINEAR LAYER
 /// ============================================================================
-
 #[derive(Clone)]
 pub struct LinearLayer {
     pub weights: Vec<Vec<f64>>,
@@ -114,7 +112,6 @@ impl NeuralLayer for LinearLayer {
 /// ============================================================================
 /// ACTIVATION FUNCTIONS
 /// ============================================================================
-
 pub fn relu(x: f64) -> f64 {
     x.max(0.0)
 }
@@ -149,7 +146,6 @@ pub fn tanh_activation(x: f64) -> f64 {
 /// ============================================================================
 /// NEURAL NETWORK FOR OSINT
 /// ============================================================================
-
 pub struct OSINTNeuralNetwork {
     layers: Vec<LinearLayer>,
     activations: Vec<String>, // "relu", "sigmoid", "tanh"
@@ -262,7 +258,6 @@ impl OSINTNeuralNetwork {
 /// ============================================================================
 /// SPECIALIZED: BOT CLASSIFIER NEURAL NETWORK
 /// ============================================================================
-
 pub struct BotClassifierNN {
     network: OSINTNeuralNetwork,
 }
@@ -294,7 +289,6 @@ impl BotClassifierNN {
 /// ============================================================================
 /// SPECIALIZED: AUTHORSHIP ATTRIBUTION NETWORK
 /// ============================================================================
-
 pub struct AuthorshipNN {
     network: OSINTNeuralNetwork,
 }
