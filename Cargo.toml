@@ -99,7 +99,8 @@ walkdir = "2.4"
 # Random number generation for stealth
 oorandom = "11.1"
 
-# 🔥 NEW: Random number generation for ML algorithms rand = "0.9"
+# 🔥 NEW: Random number generation for ML algorithms
+rand = "0.9"
 
 # 🔥 NEW: CPU count for parallelization
 num_cpus = "1.16"
@@ -170,5 +171,4 @@ opt-level = 3
 lto = "fat"
 codegen-units = 1
 strip = true
-panic = "abort"
 panic = "abort"
