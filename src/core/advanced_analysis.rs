@@ -10,7 +10,7 @@
 //! ✅ NO MOCKS - all real implementations
 
 use rayon::prelude::*;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 use serde::{Deserialize, Serialize};
@@ -352,8 +352,8 @@ impl AdvancedAnalysisEngine {
             overall_score,
             total_files,
             total_size_gb,
-            duplicate_issues: 0, // Set by caller if duplicates detected
-            anomalies_detected: 0, // Set by caller after anomaly detection
+            duplicate_issues: 0,
+            anomalies_detected: 0,
             warnings,
             recommendations,
         }
