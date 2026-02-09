@@ -1,5 +1,52 @@
 # 🔥 Chapel AI - Advanced Machine Learning with Parallel Computing
 
+## ✅ CONFIGURADO PARA CHAPEL 2.8 EN DISCO D
+
+---
+
+## 🚀 INICIO RÁPIDO
+
+### 1. Compilar Chapel AI (Auto-detecta Chapel 2.8)
+```cmd
+build_chapel_jni.bat
+```
+
+### 2. Explorar Ejemplos de Chapel 2.8
+```cmd
+explore_chapel_examples.bat
+```
+
+### 3. Copiar Ejemplos Útiles
+```cmd
+copy_chapel_examples.bat
+```
+
+---
+
+## 📚 NUEVA DOCUMENTACIÓN - CHAPEL 2.8
+
+- **[CHAPEL_2.8_SETUP_COMPLETE.md](CHAPEL_2.8_SETUP_COMPLETE.md)** ⭐⭐⭐ Resumen completo
+- **[QUICK_START_CHAPEL_2.8.md](QUICK_START_CHAPEL_2.8.md)** ⭐⭐⭐ Inicio rápido
+- **[USANDO_CHAPEL_2.8.md](USANDO_CHAPEL_2.8.md)** ⭐⭐ Guía detallada
+- **[../../CHAPEL_AI_CONNECTION.md](../../CHAPEL_AI_CONNECTION.md)** ⭐ Conexión Spark
+
+---
+
+## 🔍 Tu Compilador Chapel 2.8
+
+**Ubicación:** `D:\BACK_CHAPEL_2.8` (o similar)
+
+Los scripts detectan automáticamente Chapel 2.8 en:
+- ✅ D:\BACK_CHAPEL_2.8
+- ✅ D:\chapel-2.8  
+- ✅ D:\chapel-2.8.0
+
+**Ejemplos disponibles en:**
+- `D:\BACK_CHAPEL_2.8\examples\` - Ejemplos oficiales
+- `D:\BACK_CHAPEL_2.8\test\` - Tests (muchos ejemplos útiles)
+
+---
+
 ## Overview
 
 **Chapel AI** is the intelligent learning system that powers all 5 MCP tools in Nuclear Crawler Hybrid. Built with [Chapel](https://chapel-lang.org/) - a modern parallel programming language designed for productive high-performance computing.
