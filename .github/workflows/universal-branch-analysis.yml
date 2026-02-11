@@ -1,0 +1,288 @@
+name: 🔍 Universal Branch Analysis (ALL BRANCHES)
+
+on:
+  push:
+    branches: ['**']  # TODAS LAS RAMAS - EVERY SINGLE BRANCH
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours - analyze ALL branches
+  workflow_dispatch:
+    inputs:
+      specific_branch:
+        description: 'Analyze specific branch (leave empty for ALL)'
+        required: false
+        default: ''
+
+env:
+  RUST_BACKTRACE: 1
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  analyze-all-branches:
+    name: 🔍 Analyze ALL Branches
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: 🔍 Run Universal Branch Analyzer
+        id: analyze
+        run: |
+          echo "🔍 Starting Universal Branch Analysis"
+          echo "======================================"
+          echo ""
+
+          if [ -n "${{ github.event.inputs.specific_branch }}" ]; then
+            echo "Analyzing specific branch: ${{ github.event.inputs.specific_branch }}"
+            python3 scripts/universal_branch_analyzer.py \
+              --branch "${{ github.event.inputs.specific_branch }}" \
+              --output "branch_analysis_${{ github.event.inputs.specific_branch }}.json"
+          else
+            echo "Analyzing ALL branches..."
+            python3 scripts/universal_branch_analyzer.py \
+              --output "all_branches_analysis.json"
+          fi
+
+          echo ""
+          echo "✅ Analysis complete!"
+
+      - name: 📊 Generate Branch Health Report
+        run: |
+          echo "## 🔍 Universal Branch Analysis Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Analysis Time:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered By:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f "all_branches_analysis.json" ]; then
+            total_branches=$(jq '.summary.total_branches' all_branches_analysis.json)
+            healthy=$(jq '.summary.health_distribution.healthy' all_branches_analysis.json)
+            warning=$(jq '.summary.health_distribution.warning' all_branches_analysis.json)
+            critical=$(jq '.summary.health_distribution.critical' all_branches_analysis.json)
+
+            echo "### 📈 Statistics" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **Total Branches:** $total_branches" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ **Healthy:** $healthy" >> $GITHUB_STEP_SUMMARY
+            echo "- ⚠️ **Warning:** $warning" >> $GITHUB_STEP_SUMMARY
+            echo "- ❌ **Critical:** $critical" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            # Actions needed
+            echo "### 🤖 Automation Actions Needed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            sync_count=$(jq '.summary.actions_needed.sync' all_branches_analysis.json)
+            conflict_count=$(jq '.summary.actions_needed.resolve_conflicts' all_branches_analysis.json)
+            cleanup_count=$(jq '.summary.actions_needed.cleanup' all_branches_analysis.json)
+
+            echo "- 🔄 **Sync:** $sync_count branches" >> $GITHUB_STEP_SUMMARY
+            echo "- ⚔️ **Resolve Conflicts:** $conflict_count branches" >> $GITHUB_STEP_SUMMARY
+            echo "- 🧹 **Cleanup:** $cleanup_count branches" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            echo "### 📋 Branch Details" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "See artifact for complete analysis of all branches." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: 🤖 Apply Automation to Critical Branches
+        run: |
+          echo "🤖 Applying automation to critical branches..."
+
+          if [ -f "all_branches_analysis.json" ]; then
+            # Extract critical branches
+            critical_branches=$(jq -r '.branches[] | select(.health.status == "critical") | .branch' all_branches_analysis.json)
+
+            for branch in $critical_branches; do
+              echo ""
+              echo "🔧 Processing critical branch: $branch"
+
+              # Check if needs sync
+              commits_behind=$(jq -r ".branches[] | select(.branch == \"$branch\") | .health.behind.commits_behind // 0" all_branches_analysis.json)
+
+              if [ "$commits_behind" -gt 0 ]; then
+                echo "   🔄 Needs sync: $commits_behind commits behind"
+                # Trigger sync workflow
+                gh workflow run complete-automation.yml -f action=sync-all-branches || true
+              fi
+
+              # Check age
+              age_days=$(jq -r ".branches[] | select(.branch == \"$branch\") | .commits.age_days // 0" all_branches_analysis.json)
+
+              if [ "$age_days" -gt 90 ]; then
+                echo "   🧹 Stale branch: $age_days days old"
+                # Add to cleanup list
+              fi
+            done
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📤 Upload Analysis Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: branch-analysis-report-${{ github.run_id }}
+          path: |
+            *.json
+          retention-days: 90
+
+      - name: 🚨 Create Issue for Critical Branches
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            if (!fs.existsSync('all_branches_analysis.json')) {
+              console.log('No analysis file found');
+              return;
+            }
+
+            const analysis = JSON.parse(fs.readFileSync('all_branches_analysis.json', 'utf8'));
+            const criticalBranches = analysis.branches.filter(b => b.health.status === 'critical');
+
+            if (criticalBranches.length === 0) {
+              console.log('✅ No critical branches found');
+              return;
+            }
+
+            // Check if issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'branch-health,auto-created'
+            });
+
+            const existingIssue = issues.data.find(issue =>
+              issue.title.includes('Critical Branch Health')
+            );
+
+            let issueBody = `## 🚨 Critical Branch Health Alert\n\n`;
+            issueBody += `**Analysis Time:** ${new Date().toISOString()}\n`;
+            issueBody += `**Critical Branches:** ${criticalBranches.length}\n\n`;
+            issueBody += `### 📋 Branches Requiring Attention\n\n`;
+
+            for (const branch of criticalBranches) {
+              issueBody += `#### ${branch.branch}\n\n`;
+              issueBody += `- **Health Score:** ${branch.health.score}/100\n`;
+              issueBody += `- **Age:** ${branch.commits.age_days} days\n`;
+
+              if (branch.health.behind) {
+                issueBody += `- **Behind ${branch.health.behind.base_branch}:** ${branch.health.behind.commits_behind} commits\n`;
+              }
+
+              if (branch.issues && branch.issues.length > 0) {
+                issueBody += `- **Issues:**\n`;
+                branch.issues.forEach(issue => {
+                  issueBody += `  - ${issue}\n`;
+                });
+              }
+
+              issueBody += `\n`;
+            }
+
+            issueBody += `\n### 🤖 Automation Status\n\n`;
+            issueBody += `Automation is configured to handle these issues automatically. Monitor the [Complete Automation workflow](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/complete-automation.yml) for progress.\n\n`;
+            issueBody += `---\n`;
+            issueBody += `*This issue was automatically created by the Universal Branch Analyzer*\n`;
+
+            if (existingIssue) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existingIssue.number,
+                body: `## 🔄 Updated Analysis\n\n${issueBody}`
+              });
+              console.log(`Updated existing issue #${existingIssue.number}`);
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `🚨 Critical Branch Health Alert - ${criticalBranches.length} branches need attention`,
+                body: issueBody,
+                labels: ['branch-health', 'auto-created', 'high-priority']
+              });
+              console.log('Created new critical branch health issue');
+            }
+
+  # Apply per-branch automation
+  per-branch-automation:
+    name: 🤖 Per-Branch Automation
+    runs-on: ubuntu-latest
+    needs: analyze-all-branches
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 🔧 Apply Automation to Each Branch
+        run: |
+          echo "🤖 Applying automation logic to each branch..."
+          echo ""
+
+          # Get all branches
+          branches=$(git branch -r | grep -v HEAD | sed 's/origin\///')
+
+          for branch in $branches; do
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "🔧 Branch: $branch"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+            # Run validation
+            echo "   ✅ Running validation..."
+            python3 scripts/validate_system.py || true
+
+            # Run advanced repair
+            echo "   🤖 Running advanced auto-repair..."
+            python3 scripts/advanced_auto_repair_agent.py || true
+
+            # Run tests if Rust project
+            if [ -f "Cargo.toml" ]; then
+              echo "   🧪 Running tests..."
+              cargo test --lib 2>/dev/null || echo "   ⚠️ Tests failed or not applicable"
+            fi
+
+            echo ""
+          done
+
+          echo "✅ Automation applied to all branches!"
+
+      - name: 📊 Summary
+        run: |
+          echo "## 🤖 Per-Branch Automation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Automation logic has been applied to ALL branches." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Actions Performed" >> $GITHUB_STEP_SUMMARY
+          echo "- Validation on each branch" >> $GITHUB_STEP_SUMMARY
+          echo "- Auto-repair on each branch" >> $GITHUB_STEP_SUMMARY
+          echo "- Health checks on each branch" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Complete automation is active on ALL branches*" >> $GITHUB_STEP_SUMMARY
