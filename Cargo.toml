@@ -110,7 +110,7 @@ urlencoding = "2.1"
 
 # 🔥 NEW: Chrome DevTools Protocol for JavaScript rendering
 # Pin a known-compatible chromiumoxide version and use the correct feature name expected by the crate
-chromiumoxide = { version = "0.5", optional = true, features = ["fetch"] }
+chromiumoxide = { version = "0.5.7", optional = true, features = ["fetcher"] }
 
 # 🔥 NEW: HTTP/2 multiplexing support (system-level)
 http2 = "0.5"
