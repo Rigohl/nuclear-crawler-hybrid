@@ -22,11 +22,15 @@ use std::process::{Command, Stdio};
 use std::thread;
 use std::time::{Duration, Instant};
 
+#[allow(dead_code)]
 const MCP_HOST: &str = "127.0.0.1";
+#[allow(dead_code)]
 const MCP_PORT: u16 = 8079;
 const MCP_URL: &str = "http://127.0.0.1:8079/call";
 const HEALTH_CHECK_URL: &str = "http://127.0.0.1:8079/";
+#[allow(dead_code)]
 const STARTUP_TIMEOUT: u64 = 30; // seconds for server startup
+#[allow(dead_code)]
 const MAX_STARTUP_RETRIES: usize = 10;
 
 // ===== VALIDATIONS =====
@@ -103,6 +107,7 @@ fn validate_timeout(execution_ms: u64, timeout_seconds: u64) -> Result<(), Strin
 // ===== SETUP & TEARDOWN =====
 
 /// Compilar el MCP server
+#[allow(dead_code)]
 fn compile_mcp() -> Result<(), String> {
     println!("\n📦 Compilando MCP server...");
     let output = Command::new("cargo")
@@ -121,6 +126,7 @@ fn compile_mcp() -> Result<(), String> {
 }
 
 /// Iniciar el MCP server en background
+#[allow(dead_code)]
 fn start_mcp_server() -> Result<std::process::Child, String> {
     println!("\n🚀 Iniciando MCP server en background...");
 
@@ -137,6 +143,7 @@ fn start_mcp_server() -> Result<std::process::Child, String> {
 }
 
 /// Esperar a que el servidor esté listo (health check)
+#[allow(dead_code)]
 async fn wait_for_server_ready(retries: usize) -> Result<(), String> {
     let client = Client::new();
     let mut attempts = 0;
@@ -217,6 +224,8 @@ async fn send_jsonrpc_request(method: &str, params: Value, id: i32) -> Result<Va
 // ===== TEST CASES =====
 
 /// Validar que el servidor inicia y responde
+#[tokio::test]
+#[ignore]
 async fn test_health_check() -> Result<(), String> {
     println!("\n🧪 TEST 1: Health Check");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -244,6 +253,8 @@ async fn test_health_check() -> Result<(), String> {
 }
 
 /// Test: initialize (JSON-RPC 2.0)
+#[tokio::test]
+#[ignore]
 async fn test_initialize() -> Result<(), String> {
     println!("\n🧪 TEST 2: Initialize (JSON-RPC 2.0)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -282,6 +293,8 @@ async fn test_initialize() -> Result<(), String> {
 }
 
 /// Test: tools/list (JSON-RPC 2.0)
+#[tokio::test]
+#[ignore]
 async fn test_tools_list() -> Result<(), String> {
     println!("\n🧪 TEST 3: Tools List (JSON-RPC 2.0)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -332,6 +345,8 @@ async fn test_tools_list() -> Result<(), String> {
 }
 
 /// Test: websearch tool REAL (sin mocks)
+#[tokio::test]
+#[ignore]
 async fn test_websearch_real() -> Result<(), String> {
     println!("\n🧪 TEST 4: Websearch REAL (sin mocks)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -380,6 +395,8 @@ async fn test_websearch_real() -> Result<(), String> {
 }
 
 /// Test: file_search tool REAL (sin mocks)
+#[tokio::test]
+#[ignore]
 async fn test_file_search_real() -> Result<(), String> {
     println!("\n🧪 TEST 5: File Search REAL (sin mocks)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -427,6 +444,8 @@ async fn test_file_search_real() -> Result<(), String> {
 }
 
 /// Test: deepweb_search tool REAL (sin mocks)
+#[tokio::test]
+#[ignore]
 async fn test_deepweb_search_real() -> Result<(), String> {
     println!("\n🧪 TEST 6: Deepweb Search REAL (sin mocks)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -471,6 +490,8 @@ async fn test_deepweb_search_real() -> Result<(), String> {
 }
 
 /// Test: premium_content_scraper tool REAL (sin mocks)
+#[tokio::test]
+#[ignore]
 async fn test_premium_content_scraper_real() -> Result<(), String> {
     println!("\n🧪 TEST 7: Premium Content Scraper REAL (sin mocks)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -515,6 +536,8 @@ async fn test_premium_content_scraper_real() -> Result<(), String> {
 }
 
 /// Test: Rate limiting
+#[tokio::test]
+#[ignore]
 async fn test_rate_limiting() -> Result<(), String> {
     println!("\n🧪 TEST 8: Rate Limiting Validation");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");

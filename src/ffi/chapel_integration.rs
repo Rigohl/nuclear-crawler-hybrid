@@ -494,7 +494,7 @@ mod tests {
 
     #[test]
     fn test_chapel_ai_initialization() {
-        let chapel = ChapelAI::new();
+        let _chapel = ChapelAI::new();
         // Should not panic
         assert!(true);
     }
