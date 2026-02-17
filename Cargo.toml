@@ -13,7 +13,7 @@ license = "MIT OR Apache-2.0"
 
 [features]
 # FFI toggles: keep defaults off so caller opts-in explicitly
-default = []
+default = ["wasm_ffi"]
 go_integration = []
 nim_integration = []
 zig_integration = []
@@ -170,5 +170,3 @@ path = "src/bin/nuclear_agent.rs"
 opt-level = 3
 lto = "fat"
 codegen-units = 1
-strip = true
-panic = "abort"

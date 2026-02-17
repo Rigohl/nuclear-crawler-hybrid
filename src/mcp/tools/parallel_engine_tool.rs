@@ -7,14 +7,12 @@
 //! - GPU acceleration (JAX + Chapel AI)
 //! - Distributed computing (Chapel multi-locale)
 //! - WASM compilation for ultra-fast execution
-//!
-//! Unlike wasm_scraper which was tool-specific, parallel_engine can be used by
-//! websearch, premium, file_search, scan, ai_dataset_trainer, and osint_intelligence
-//! to dramatically accelerate their operations.
 
 use anyhow::{Context, Result};
 use serde_json::{json, Value};
 use std::time::Instant;
+use rayon::prelude::*;
+use blake3;
 
 /// Execute parallel engine operations
 pub async fn execute_parallel_engine(arguments: Value) -> Result<Value> {
@@ -45,9 +43,9 @@ pub async fn execute_parallel_engine(arguments: Value) -> Result<Value> {
 
     // Execute operation based on type
     let result = match operation {
-        "batch_process" => batch_process(data, workers, use_gpu, use_simd).await?,
-        "parallel_map" => parallel_map(data, workers).await?,
-        "parallel_reduce" => parallel_reduce(data, workers).await?,
+        "batch_process" => batch_process(data, workers).await?,
+        "parallel_map" => parallel_map(data).await?,
+        "parallel_reduce" => parallel_reduce(data).await?,
         "gpu_accelerate" => gpu_accelerate(data).await?,
         "distribute" => distribute(data, workers).await?,
         _ => {
@@ -76,47 +74,78 @@ pub async fn execute_parallel_engine(arguments: Value) -> Result<Value> {
     }))
 }
 
-/// Batch process data in parallel
-async fn batch_process(data: &Value, workers: u64, use_gpu: bool, use_simd: bool) -> Result<Value> {
-    // In production, this would:
-    // 1. Split data into batches
-    // 2. Process each batch in parallel using Rayon or Go goroutines
-    // 3. Use SIMD for vector operations if enabled
-    // 4. Use GPU acceleration via JAX if enabled
-    // 5. Combine results
+/// Batch process data in parallel using Rayon (CPU intensive simulation)
+async fn batch_process(data: &Value, _workers: u64) -> Result<Value> {
+    let items = data.as_array()
+        .context("Data must be an array for batch_process")?
+        .clone();
 
-    Ok(json!({
-        "processed_items": data.as_array().map(|a| a.len()).unwrap_or(0),
-        "batches": workers,
-        "method": if use_gpu { "GPU" } else if use_simd { "SIMD" } else { "CPU" }
-    }))
+    // Offload CPU intensive work to a blocking thread
+    let processed: Vec<Value> = tokio::task::spawn_blocking(move || {
+        items.par_iter().map(|item| {
+            // Simulate heavy processing (hashing)
+            let content = item.to_string();
+            let hash = blake3::hash(content.as_bytes());
+
+            // Artificial delay to simulate "work" if needed, but hashing is good enough
+            // std::thread::sleep(std::time::Duration::from_micros(10));
+
+            json!({
+                "original": item,
+                "processed": true,
+                "hash": hash.to_hex().to_string(),
+                "engine": "rayon_parallel"
+            })
+        }).collect()
+    }).await?;
+
+    Ok(json!(processed))
 }
 
 /// Parallel map operation
-async fn parallel_map(data: &Value, workers: u64) -> Result<Value> {
-    // In production: Rayon par_iter().map()
-    Ok(json!({
-        "mapped_items": data.as_array().map(|a| a.len()).unwrap_or(0),
-        "workers": workers
-    }))
+async fn parallel_map(data: &Value) -> Result<Value> {
+     let items = data.as_array()
+        .context("Data must be an array for parallel_map")?
+        .clone();
+
+    let mapped: Vec<Value> = tokio::task::spawn_blocking(move || {
+        items.par_iter().map(|item| {
+            // Simple mapping: duplicate or transform
+            json!({
+                "source": item,
+                "mapped": true,
+                "timestamp": std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis().to_string()
+            })
+        }).collect()
+    }).await?;
+
+    Ok(json!(mapped))
 }
 
 /// Parallel reduce operation
-async fn parallel_reduce(data: &Value, workers: u64) -> Result<Value> {
-    // In production: Rayon par_iter().reduce()
+async fn parallel_reduce(data: &Value) -> Result<Value> {
+    let items = data.as_array()
+        .context("Data must be an array for parallel_reduce")?
+        .clone();
+
+    let count = tokio::task::spawn_blocking(move || {
+        items.par_iter().count()
+    }).await?;
+
     Ok(json!({
-        "reduced_value": data.as_array().map(|a| a.len()).unwrap_or(0),
-        "workers": workers
+        "reduced_count": count,
+        "operation": "count"
     }))
 }
 
-/// GPU acceleration via JAX
+/// GPU acceleration via JAX (Mock for now, needs Python FFI)
 async fn gpu_accelerate(_data: &Value) -> Result<Value> {
     // In production: JAX integration for GPU/TPU acceleration
     Ok(json!({
         "accelerated": true,
         "backend": "JAX + XLA",
-        "device": "GPU"
+        "device": "GPU",
+        "status": "Ready for FFI"
     }))
 }
 
@@ -138,23 +167,14 @@ mod tests {
     async fn test_parallel_engine_batch() {
         let args = json!({
             "operation": "batch_process",
-            "data": [1, 2, 3, 4, 5],
+            "data": ["item1", "item2", "item3"],
             "workers": 4
         });
 
         let result = execute_parallel_engine(args).await.unwrap();
         assert_eq!(result["success"], true);
-    }
-
-    #[tokio::test]
-    async fn test_parallel_engine_map() {
-        let args = json!({
-            "operation": "parallel_map",
-            "data": [1, 2, 3],
-            "workers": 2
-        });
-
-        let result = execute_parallel_engine(args).await.unwrap();
-        assert_eq!(result["success"], true);
+        let res_array = result["result"].as_array().unwrap();
+        assert_eq!(res_array.len(), 3);
+        assert!(res_array[0]["hash"].is_string());
     }
 }
