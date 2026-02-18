@@ -354,9 +354,7 @@ class ChapelMCPEngine {
     // Helper: Escapar SQL
     proc escape_sql(text: string): string {
         // Reemplazar ' con ''
-        var escaped = text;
-        // TODO: Implementar replace en Chapel
-        return escaped;
+        return text.replace("'", "''");
     }
 }
 

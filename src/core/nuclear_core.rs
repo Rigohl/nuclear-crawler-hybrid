@@ -241,7 +241,7 @@ impl AdvancedExtractor {
         let link_selector = Selector::parse("a[href]").unwrap();
         let img_selector = Selector::parse("img[src]").unwrap();
 
-        let main_text = document.root_element().text().collect::<Vec<_>>().join(" ");
+        let let main_text = document.root_element().text().collect::<Vec<_>>().join(" ");
 
         let links = document
             .select(&link_selector)
