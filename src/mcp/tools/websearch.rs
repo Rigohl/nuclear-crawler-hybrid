@@ -12,8 +12,9 @@ use crate::rate_limit::RateLimiter;
 use crate::tantivy_search::{SearchDocument, TantivySearchEngine};
 use crate::web_search::WebSearch as CoreWebSearch;
 use anyhow::Result;
-use serde::{Deserialize, Serialize};
+use crate::core::nuclear_core::NuclearCore;
 use std::sync::Arc;
+use serde::{Deserialize, Serialize};
 
 /// Web search result
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -54,11 +55,13 @@ pub struct WebSearchTool {
     deepweb: Arc<tokio::sync::Mutex<Option<DeepWebSearch>>>,
     // 🔥 NEW: Tantivy search engine for fast local indexing
     tantivy: Arc<tokio::sync::Mutex<Option<TantivySearchEngine>>>,
+    core: Arc<NuclearCore>,
 }
 
 impl WebSearchTool {
     /// Create new websearch tool with REAL HTTP - Integrado con TODO + Chapel AI + Tantivy
     pub fn new(config: WebSearchConfig) -> Self {
+        let core = Arc::new(NuclearCore::default());
         eprintln!("🔥 WebSearch Tool initialized - MÁXIMO PODER + Chapel AI + Tantivy");
         eprintln!("   ✅ Max Results: {}", config.max_results);
         eprintln!("   ✅ Timeout: {}s", config.timeout_seconds);
@@ -80,6 +83,7 @@ impl WebSearchTool {
             cache,
             deepweb: Arc::new(tokio::sync::Mutex::new(None)),
             tantivy: Arc::new(tokio::sync::Mutex::new(None)),
+            core,
         }
     }
 
@@ -423,12 +427,22 @@ impl WebSearchTool {
     async fn fetch_results_real(&self, engine_url: &str) -> Result<Vec<SearchResult>> {
         use reqwest::Client;
 
+        // 🔥 Use Nuclear Core Stealth Headers
+        let headers = self.core.concealment.get_headers(Some(engine_url)).await;
+
+        use reqwest::header::HeaderMap;
+        let mut header_map = HeaderMap::new();
+        for (k, v) in &headers {
+            if let Ok(hname) = reqwest::header::HeaderName::from_bytes(k.as_bytes()) {
+                if let Ok(hval) = reqwest::header::HeaderValue::from_str(&v) {
+                    header_map.insert(hname, hval);
+                }
+            }
+        }
+
         let client = Client::new()
             .get(engine_url)
-            .header(
-                "User-Agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            )
+            .headers(header_map)
             .timeout(std::time::Duration::from_secs(self.config.timeout_seconds));
 
         match client.send().await {
