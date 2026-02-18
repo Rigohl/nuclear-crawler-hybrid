@@ -6,6 +6,7 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::sync::OnceLock;
 
 /// Resultado de extracción de datos
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -211,8 +212,10 @@ impl DataExtractionEngine {
 
         // Extraer emails con regex
         if self.config.extract_emails {
-            let email_pattern =
-                regex::Regex::new(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").unwrap();
+            static EMAIL_REGEX: OnceLock<regex::Regex> = OnceLock::new();
+            let email_pattern = EMAIL_REGEX.get_or_init(|| {
+                regex::Regex::new(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").unwrap()
+            });
             let emails: Vec<String> = email_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
@@ -234,7 +237,10 @@ impl DataExtractionEngine {
 
         // Extraer teléfonos
         if self.config.extract_phones {
-            let phone_pattern = regex::Regex::new(r"[\+]?[(]?[0-9]{1,3}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}").unwrap();
+            static PHONE_REGEX: OnceLock<regex::Regex> = OnceLock::new();
+            let phone_pattern = PHONE_REGEX.get_or_init(|| {
+                regex::Regex::new(r"[\+]?[(]?[0-9]{1,3}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}").unwrap()
+            });
             let phones: Vec<String> = phone_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
@@ -257,7 +263,10 @@ impl DataExtractionEngine {
 
         // Extraer precios
         if self.config.extract_prices {
-            let price_pattern = regex::Regex::new(r"[\$€£]\s*[0-9]+[,\.]?[0-9]*").unwrap();
+            static PRICE_REGEX: OnceLock<regex::Regex> = OnceLock::new();
+            let price_pattern = PRICE_REGEX.get_or_init(|| {
+                regex::Regex::new(r"[\$€£]\s*[0-9]+[,\.]?[0-9]*").unwrap()
+            });
             let prices: Vec<String> = price_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
