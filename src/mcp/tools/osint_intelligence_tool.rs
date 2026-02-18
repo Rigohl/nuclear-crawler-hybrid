@@ -6,6 +6,7 @@
 //! - WASM-based scraping integration (simulated or bridged)
 
 use anyhow::{Context, Result};
+use crate::core::nuclear_core::NuclearCore;
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use crate::chapel_parallel::ChapelAIOrchestrator;
@@ -91,6 +92,20 @@ pub async fn execute_osint_intelligence(arguments: Value) -> Result<Value> {
 }
 
 async fn gather_intelligence(config: &OsintConfig) -> Result<Value> {
+    let mut results = HashMap::new();
+    let core = NuclearCore::default();
+
+    // 1. Target Reconnaissance (Stealth)
+    if config.search_type == "all" || config.search_type == "recon" {
+        // Use spider to crawl target if it looks like a URL, or search related info
+        if config.target.starts_with("http") {
+             if let Ok(crawl_results) = core.spider_crawl_maximum_power(&config.target, 5).await {
+                 let urls: Vec<String> = crawl_results.iter().map(|r| r.url.clone()).collect();
+                 results.insert("crawl_data", json!({ "pages_scanned": crawl_results.len(), "urls": urls }));
+             }
+        }
+    }
+
     let mut results = HashMap::new();
 
     // In a real implementation, this would use the parallel_engine to fetch data
