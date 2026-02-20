@@ -6,6 +6,7 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::sync::OnceLock;
 
 /// Resultado de extracción de datos
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -211,8 +212,10 @@ impl DataExtractionEngine {
 
         // Extraer emails con regex
         if self.config.extract_emails {
-            let email_pattern =
-                regex::Regex::new(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").unwrap();
+            static EMAIL_REGEX: OnceLock<regex::Regex> = OnceLock::new();
+            let email_pattern = EMAIL_REGEX.get_or_init(|| {
+                regex::Regex::new(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").unwrap()
+            });
             let emails: Vec<String> = email_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
@@ -234,7 +237,10 @@ impl DataExtractionEngine {
 
         // Extraer teléfonos
         if self.config.extract_phones {
-            let phone_pattern = regex::Regex::new(r"[\+]?[(]?[0-9]{1,3}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}").unwrap();
+            static PHONE_REGEX: OnceLock<regex::Regex> = OnceLock::new();
+            let phone_pattern = PHONE_REGEX.get_or_init(|| {
+                regex::Regex::new(r"[\+]?[(]?[0-9]{1,3}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}").unwrap()
+            });
             let phones: Vec<String> = phone_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
@@ -257,7 +263,10 @@ impl DataExtractionEngine {
 
         // Extraer precios
         if self.config.extract_prices {
-            let price_pattern = regex::Regex::new(r"[\$€£]\s*[0-9]+[,\.]?[0-9]*").unwrap();
+            static PRICE_REGEX: OnceLock<regex::Regex> = OnceLock::new();
+            let price_pattern = PRICE_REGEX.get_or_init(|| {
+                regex::Regex::new(r"[\$€£]\s*[0-9]+[,\.]?[0-9]*").unwrap()
+            });
             let prices: Vec<String> = price_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())
@@ -470,5 +479,74 @@ mod tests {
         assert_eq!(result.data_type, DataType::Json);
         assert!(result.extracted_fields.contains_key("name"));
         assert!(result.extracted_fields.contains_key("age"));
+    }
+
+    #[test]
+    fn test_json_ld_extraction() {
+        let engine = DataExtractionEngine::default();
+
+        // 1. Valid JSON-LD
+        let html_valid = r#"
+            <html>
+            <head>
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Person",
+                    "name": "John Doe"
+                }
+                </script>
+            </head>
+            </html>
+        "#;
+        let result = engine
+            .extract_from_html(html_valid, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_some());
+        assert_eq!(result.structured_data.unwrap()["name"], "John Doe");
+
+        // 2. Malformed JSON-LD (invalid JSON)
+        let html_malformed = r#"
+            <script type="application/ld+json">
+            {
+                "name": "John Doe",
+                "invalid": [1, 2, 3, ]
+            }
+            </script>
+        "#;
+        let result = engine
+            .extract_from_html(html_malformed, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_none());
+
+        // 3. Incomplete tags (missing </script>)
+        let html_incomplete = r#"
+            <script type="application/ld+json">
+            {
+                "name": "John Doe"
+            }
+        "#;
+        let result = engine
+            .extract_from_html(html_incomplete, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_none());
+
+        // 4. Missing tags
+        let html_no_json_ld = "<html><body>No JSON-LD here</body></html>";
+        let result = engine
+            .extract_from_html(html_no_json_ld, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_none());
+
+        // 5. Multiple blocks (picks the first one)
+        let html_multiple = r#"
+            <script type="application/ld+json">{"id": 1}</script>
+            <script type="application/ld+json">{"id": 2}</script>
+        "#;
+        let result = engine
+            .extract_from_html(html_multiple, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_some());
+        assert_eq!(result.structured_data.unwrap()["id"], 1);
     }
 }
