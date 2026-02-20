@@ -348,6 +348,9 @@ impl ZigWasmSimd {
             ),
         )? as usize;
 
+        // Securely clamp match_count to prevent unbounded memory allocation
+        let match_count = match_count.min(10000);
+
         // Read match positions
         let mut matches = vec![0u32; match_count];
         let matches_bytes = unsafe {
