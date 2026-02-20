@@ -480,4 +480,73 @@ mod tests {
         assert!(result.extracted_fields.contains_key("name"));
         assert!(result.extracted_fields.contains_key("age"));
     }
+
+    #[test]
+    fn test_json_ld_extraction() {
+        let engine = DataExtractionEngine::default();
+
+        // 1. Valid JSON-LD
+        let html_valid = r#"
+            <html>
+            <head>
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Person",
+                    "name": "John Doe"
+                }
+                </script>
+            </head>
+            </html>
+        "#;
+        let result = engine
+            .extract_from_html(html_valid, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_some());
+        assert_eq!(result.structured_data.unwrap()["name"], "John Doe");
+
+        // 2. Malformed JSON-LD (invalid JSON)
+        let html_malformed = r#"
+            <script type="application/ld+json">
+            {
+                "name": "John Doe",
+                "invalid": [1, 2, 3, ]
+            }
+            </script>
+        "#;
+        let result = engine
+            .extract_from_html(html_malformed, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_none());
+
+        // 3. Incomplete tags (missing </script>)
+        let html_incomplete = r#"
+            <script type="application/ld+json">
+            {
+                "name": "John Doe"
+            }
+        "#;
+        let result = engine
+            .extract_from_html(html_incomplete, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_none());
+
+        // 4. Missing tags
+        let html_no_json_ld = "<html><body>No JSON-LD here</body></html>";
+        let result = engine
+            .extract_from_html(html_no_json_ld, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_none());
+
+        // 5. Multiple blocks (picks the first one)
+        let html_multiple = r#"
+            <script type="application/ld+json">{"id": 1}</script>
+            <script type="application/ld+json">{"id": 2}</script>
+        "#;
+        let result = engine
+            .extract_from_html(html_multiple, "https://test.com")
+            .unwrap();
+        assert!(result.structured_data.is_some());
+        assert_eq!(result.structured_data.unwrap()["id"], 1);
+    }
 }
