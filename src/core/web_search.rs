@@ -687,7 +687,9 @@ impl WebSearch {
                     if let Some(ext) = extracted {
                         (
                             ext.main_text.chars().take(2000).collect(),
-                            ext.metadata.get("summary").cloned().unwrap_or_default(),
+                            ext.metadata.get("summary").cloned().unwrap_or_else(|| {
+                                self.generate_summary(&config.query, &ext.main_text)
+                            }),
                             ext.word_count,
                             Vec::new(), // No headings in ExtractedData
                             Vec::new(), // No code snippets in ExtractedData
@@ -1977,7 +1979,7 @@ impl WebSearch {
                         title: "No title".to_string(), // extracted.title is not an Option
                         description: "".to_string(),   // extracted.description is not an Option
                         main_text: extracted.main_text.clone(),
-                        summary: "".to_string(), // TODO: Generate summary
+                        summary: self.generate_summary(&query, &extracted.main_text),
                         word_count: extracted.main_text.split_whitespace().count(),
                         headings: Vec::new(), // extracted.headings doesn't exist
                         code_snippets: Vec::new(), // TODO: Extract code snippets
@@ -2005,7 +2007,7 @@ impl WebSearch {
                             title: premium_data.title.clone(),
                             description: premium_data.abstract_text.unwrap_or_default(),
                             main_text: premium_data.content.clone(),
-                            summary: "".to_string(),
+                            summary: self.generate_summary(&query, &premium_data.content),
                             word_count: premium_data.content.split_whitespace().count(),
                             headings: Vec::new(),
                             code_snippets: Vec::new(),
@@ -2053,6 +2055,90 @@ impl WebSearch {
         );
 
         Ok(all_results)
+    }
+
+    /// 🔥 NUCLEAR: Genera un resumen inteligente del contenido
+    fn generate_summary(&self, query: &str, content: &str) -> String {
+        if content.is_empty() {
+            return String::new();
+        }
+
+        // Dividir en frases (heurística simple)
+        let sentences: Vec<&str> = content
+            .split_terminator(|c| c == '.' || c == '!' || c == '?')
+            .map(|s| s.trim())
+            .filter(|s| s.len() > 20) // Ignorar fragmentos muy cortos
+            .collect();
+
+        if sentences.is_empty() {
+            return content.chars().take(250).collect::<String>() + "...";
+        }
+
+        let query_words: Vec<String> = query
+            .to_lowercase()
+            .split_whitespace()
+            .map(|s| s.to_string())
+            .collect();
+
+        // Puntuar frases
+        let mut scored: Vec<(usize, f32, &str)> = sentences
+            .into_iter()
+            .enumerate()
+            .map(|(i, s)| {
+                let mut score = 0.0;
+                let s_lower = s.to_lowercase();
+
+                // 1. Relevancia de palabras clave
+                for word in &query_words {
+                    if s_lower.contains(word) {
+                        score += 2.0;
+                    }
+                }
+
+                // 2. Relevancia de posición (las primeras frases suelen ser mejores)
+                if i < 3 {
+                    score += 1.0 - (i as f32 * 0.3);
+                }
+
+                // 3. Balance de longitud (preferir longitud media)
+                let word_count = s.split_whitespace().count();
+                if word_count > 10 && word_count < 30 {
+                    score += 0.5;
+                }
+
+                (i, score, s)
+            })
+            .collect();
+
+        // Ordenar por puntuación descendente
+        scored.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Equal));
+
+        // Tomar las 3 mejores frases y volver a ordenarlas por su posición original
+        let mut top: Vec<(usize, &str)> = scored
+            .into_iter()
+            .take(3)
+            .filter(|(_, score, _)| *score > 0.0)
+            .map(|(i, _, s)| (i, s))
+            .collect();
+
+        if top.is_empty() {
+            // Fallback si ninguna frase puntuó bien
+            return sentences[0].to_string() + ".";
+        }
+
+        top.sort_by_key(|a| a.0);
+
+        let summary = top
+            .into_iter()
+            .map(|(_, s)| s)
+            .collect::<Vec<_>>()
+            .join(". ");
+
+        if summary.len() > 500 {
+            summary.chars().take(497).collect::<String>() + "..."
+        } else {
+            summary + "."
+        }
     }
 
     /// Helper method to deduplicate results using Zig SIMD
@@ -2152,5 +2238,19 @@ mod tests {
         assert!(urls
             .iter()
             .any(|u| u.contains("gitee.com") || u.contains("geeksforgeeks")));
+    }
+
+    #[test]
+    fn test_generate_summary() {
+        let web_search = WebSearch::new().unwrap();
+        let query = "Rust programming";
+        let content = "Rust is a multi-paradigm, general-purpose programming language. It is designed for performance and safety, especially safe concurrency. Rust is syntactically similar to C++, but it can guarantee memory safety by using a borrow checker to validate references. This is a sentence that does not contain keywords. Another irrelevant sentence here to fill space. The Rust programming language was originally designed by Graydon Hoare.";
+
+        let summary = web_search.generate_summary(query, content);
+
+        assert!(summary.contains("Rust"));
+        assert!(summary.contains("programming"));
+        assert!(summary.len() > 20);
+        assert!(summary.len() < 505);
     }
 }
