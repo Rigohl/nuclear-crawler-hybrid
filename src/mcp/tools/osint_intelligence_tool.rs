@@ -5,11 +5,11 @@
 //! - Multi-source data gathering (Surface, Deep, and Dark Web simulation)
 //! - WASM-based scraping integration (simulated or bridged)
 
-use anyhow::{Context, Result};
+use crate::chapel_parallel::ChapelAIOrchestrator;
 use crate::core::nuclear_core::NuclearCore;
+use anyhow::{Context, Result};
 use serde_json::{json, Value};
 use std::collections::HashMap;
-use crate::chapel_parallel::ChapelAIOrchestrator;
 
 #[derive(Debug)]
 pub struct OsintConfig {
@@ -48,7 +48,10 @@ pub async fn execute_osint_intelligence(arguments: Value) -> Result<Value> {
         include_darkweb,
     };
 
-    eprintln!("🔍 OSINT: Analyzing '{}' (Depth: {}, Type: {})", target, depth, search_type);
+    eprintln!(
+        "🔍 OSINT: Analyzing '{}' (Depth: {}, Type: {})",
+        target, depth, search_type
+    );
 
     // 1. Gather Data (Simulated parallel gathering)
     let gathered_data = gather_intelligence(&config).await?;
@@ -64,7 +67,9 @@ pub async fn execute_osint_intelligence(arguments: Value) -> Result<Value> {
         _ => 3,
     };
 
-    let analysis_duration = orchestrator.analyze_target_ffi(target.to_string(), depth_int).await;
+    let analysis_duration = orchestrator
+        .analyze_target_ffi(target.to_string(), depth_int)
+        .await;
 
     // 3. Train model on new data (Real FFI Call)
     let training_score = orchestrator.train_model_ffi(depth_int * 2).await;
@@ -99,10 +104,13 @@ async fn gather_intelligence(config: &OsintConfig) -> Result<Value> {
     if config.search_type == "all" || config.search_type == "recon" {
         // Use spider to crawl target if it looks like a URL, or search related info
         if config.target.starts_with("http") {
-             if let Ok(crawl_results) = core.spider_crawl_maximum_power(&config.target, 5).await {
-                 let urls: Vec<String> = crawl_results.iter().map(|r| r.url.clone()).collect();
-                 results.insert("crawl_data", json!({ "pages_scanned": crawl_results.len(), "urls": urls }));
-             }
+            if let Ok(crawl_results) = core.spider_crawl_maximum_power(&config.target, 5).await {
+                let urls: Vec<String> = crawl_results.iter().map(|r| r.url.clone()).collect();
+                results.insert(
+                    "crawl_data",
+                    json!({ "pages_scanned": crawl_results.len(), "urls": urls }),
+                );
+            }
         }
     }
 
@@ -117,12 +125,21 @@ async fn gather_intelligence(config: &OsintConfig) -> Result<Value> {
     }
 
     if config.search_type == "domain" || config.search_type == "all" {
-        results.insert("dns_records", json!({ "a_record": "1.2.3.4", "mx_record": "mail.example.com" }));
-        results.insert("subdomains", json!({ "count": 5, "list": ["www", "api", "mail"] }));
+        results.insert(
+            "dns_records",
+            json!({ "a_record": "1.2.3.4", "mx_record": "mail.example.com" }),
+        );
+        results.insert(
+            "subdomains",
+            json!({ "count": 5, "list": ["www", "api", "mail"] }),
+        );
     }
 
     if config.include_darkweb {
-        results.insert("darkweb_mentions", json!({ "tor_sites": 0, "marketplaces": 0 }));
+        results.insert(
+            "darkweb_mentions",
+            json!({ "tor_sites": 0, "marketplaces": 0 }),
+        );
     }
 
     Ok(json!(results))
