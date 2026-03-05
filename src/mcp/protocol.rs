@@ -496,6 +496,39 @@ mod tests {
     }
 
     #[test]
+    fn test_tool_exists() {
+        assert!(tool_exists("websearch"));
+        assert!(tool_exists("osint_intelligence"));
+        assert!(!tool_exists("non_existent_tool"));
+        assert!(!tool_exists(""));
+    }
+
+    #[test]
+    fn test_get_tool_definition() {
+        let def = get_tool_definition("websearch");
+        assert!(def.is_some());
+        assert_eq!(def.unwrap().name, "websearch");
+
+        let missing = get_tool_definition("fake_tool_123");
+        assert!(missing.is_none());
+    }
+
+    #[test]
+    fn test_get_profile_tool_names() {
+        let full_tools = get_profile_tool_names(ToolProfile::Full);
+        assert_eq!(full_tools.len(), 7);
+        assert!(full_tools.contains(&"websearch"));
+
+        let pro_tools = get_profile_tool_names(ToolProfile::Pro);
+        assert_eq!(pro_tools.len(), 5);
+        assert!(pro_tools.contains(&"ai_dataset_trainer"));
+
+        let lite_tools = get_profile_tool_names(ToolProfile::Lite);
+        assert_eq!(lite_tools.len(), 2);
+        assert!(lite_tools.contains(&"scan"));
+    }
+
+    #[test]
     fn test_request_validation() {
         let valid = MCPRequest {
             jsonrpc: "2.0".to_string(),
