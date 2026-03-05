@@ -145,6 +145,7 @@ tempfile = "3.8"
 # wasmtime provides SIMD, bulk-memory, and multi-memory support
 # Optional by default; enable with `--features wasm_ffi`
 wasmtime = { version = "27.0", optional = true }
+lopdf = "0.39.0"
 
 [[bin]]
 name = "nuclear-mcp"
