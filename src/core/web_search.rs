@@ -690,7 +690,7 @@ impl WebSearch {
                             ext.metadata.get("summary").cloned().unwrap_or_default(),
                             ext.word_count,
                             Vec::new(), // No headings in ExtractedData
-                            Vec::new(), // No code snippets in ExtractedData
+                            ext.code_snippets.clone(),
                         )
                     } else {
                         (String::new(), String::new(), 0, Vec::new(), Vec::new())
@@ -1980,7 +1980,7 @@ impl WebSearch {
                         summary: "".to_string(), // TODO: Generate summary
                         word_count: extracted.main_text.split_whitespace().count(),
                         headings: Vec::new(), // extracted.headings doesn't exist
-                        code_snippets: Vec::new(), // TODO: Extract code snippets
+                        code_snippets: extracted.code_snippets.clone(),
                         relevance: self.calculate_relevance(&query, &extracted.main_text),
                         quality_score: 0.8, // TODO: Calculate quality score
                         source: "nuclear_core".to_string(),
