@@ -521,7 +521,11 @@ impl NuclearPremiumScraper {
 
         Ok(PremiumContentResult {
             content_type: PremiumContentType::PDFDocument,
-            title: "PDF Document".to_string(), // TODO: extract title from PDF
+            title: content
+                .lines()
+                .find(|l| !l.trim().is_empty())
+                .map(|l| l.trim().chars().take(100).collect::<String>())
+                .unwrap_or_else(|| "PDF Document".to_string()),
             author: "Unknown".to_string(),
             content,
             abstract_text: None,

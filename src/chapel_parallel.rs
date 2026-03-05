@@ -1,10 +1,10 @@
 // use std::sync::atomic::{AtomicUsize, Ordering};
-use std::sync::Arc;
-use tokio::sync::RwLock;
 use std::collections::HashMap;
-use std::time::Instant;
-use std::ffi::{CString};
+use std::ffi::CString;
 use std::os::raw::{c_char, c_int};
+use std::sync::Arc;
+use std::time::Instant;
+use tokio::sync::RwLock;
 
 // ═════════════════════════════════════════════════════════════════════
 // CHAPEL FFI BINDINGS
@@ -21,7 +21,7 @@ impl ChapelLib {
                 "libchapel_osint.so",
                 "./libchapel_osint.so",
                 "ffi/chapel/libchapel_osint.so",
-                "target/release/libchapel_osint.so"
+                "target/release/libchapel_osint.so",
             ];
 
             for path in &paths {
@@ -107,7 +107,9 @@ impl ChapelAIOrchestrator {
                 std::thread::sleep(std::time::Duration::from_millis(100));
                 depth * 50
             }
-        }).await.unwrap_or(-1)
+        })
+        .await
+        .unwrap_or(-1)
     }
 
     pub async fn train_model_ffi(&self, epochs: i32) -> i32 {
@@ -118,7 +120,9 @@ impl ChapelAIOrchestrator {
                 std::thread::sleep(std::time::Duration::from_millis(200));
                 85
             }
-        }).await.unwrap_or(0)
+        })
+        .await
+        .unwrap_or(0)
     }
 
     pub async fn run_tools_parallel(&self) -> Vec<ToolExecResult> {
@@ -150,13 +154,19 @@ impl ChapelAIOrchestrator {
 
     async fn learn_tool(&self, tool: &str, duration_ms: u64, quality: f64) {
         let mut memory = self.learning_memory.write().await;
-        let metrics = memory.tool_metrics.entry(tool.to_string()).or_insert(ToolMetrics {
-            calls: 0, total_duration_ms: 0, avg_quality: 0.0
-        });
+        let metrics = memory
+            .tool_metrics
+            .entry(tool.to_string())
+            .or_insert(ToolMetrics {
+                calls: 0,
+                total_duration_ms: 0,
+                avg_quality: 0.0,
+            });
 
         metrics.calls += 1;
         metrics.total_duration_ms += duration_ms;
-        metrics.avg_quality = (metrics.avg_quality * (metrics.calls - 1) as f64 + quality) / metrics.calls as f64;
+        metrics.avg_quality =
+            (metrics.avg_quality * (metrics.calls - 1) as f64 + quality) / metrics.calls as f64;
     }
 
     async fn exec_tool_websearch() -> (f64, String) {
