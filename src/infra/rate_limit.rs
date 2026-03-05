@@ -44,7 +44,10 @@ impl RateLimiter {
 
     /// Refill tokens based on elapsed time
     fn refill_tokens(&self) {
-        let mut last_refill = self.last_refill.lock().unwrap();
+        let mut last_refill = match self.last_refill.lock() {
+            Ok(guard) => guard,
+            Err(_) => return, // If poisoned, we skip refill this time
+        };
         let now = Instant::now();
         let elapsed = now.duration_since(*last_refill);
 
