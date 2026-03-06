@@ -325,6 +325,28 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_sigmoid_derivative() {
+        let epsilon = 1e-6;
+
+        let sd_0 = sigmoid_derivative(0.0);
+        assert!((sd_0 - 0.25).abs() < epsilon);
+
+        let s_1 = sigmoid(1.0);
+        let sd_1 = sigmoid_derivative(1.0);
+        assert!((sd_1 - (s_1 * (1.0 - s_1))).abs() < epsilon);
+
+        let s_m1 = sigmoid(-1.0);
+        let sd_m1 = sigmoid_derivative(-1.0);
+        assert!((sd_m1 - (s_m1 * (1.0 - s_m1))).abs() < epsilon);
+
+        let sd_10 = sigmoid_derivative(10.0);
+        assert!(sd_10 < 1e-4);
+
+        let sd_m10 = sigmoid_derivative(-10.0);
+        assert!(sd_m10 < 1e-4);
+    }
+
+    #[test]
     fn test_linear_layer() {
         let mut layer = LinearLayer::new(3, 2);
         let input = vec![1.0, 2.0, 3.0];
@@ -344,5 +366,51 @@ mod tests {
 
         let loss = classifier.train(&features, &labels);
         println!("Training loss: {}", loss);
+    }
+
+    #[test]
+    fn test_softmax() {
+        let input = vec![1.0, 2.0, 3.0];
+        let output = softmax(&input);
+
+        // Check length
+        assert_eq!(output.len(), 3);
+
+        // Check range [0, 1]
+        for &val in &output {
+            assert!(val >= 0.0 && val <= 1.0);
+        }
+
+        // Check sum is 1.0
+        let sum: f64 = output.iter().sum();
+        assert!((sum - 1.0).abs() < 1e-10);
+
+        // Check relative values (higher input -> higher output)
+        assert!(output[2] > output[1]);
+        assert!(output[1] > output[0]);
+
+        // Numerical stability test (max trick)
+        let input_large = vec![1000.0, 1001.0, 1002.0];
+        let output_large = softmax(&input_large);
+        let sum_large: f64 = output_large.iter().sum();
+        assert!((sum_large - 1.0).abs() < 1e-10);
+        assert!(!output_large[0].is_nan());
+    }
+
+    #[test]
+    fn test_activations() {
+        // Sigmoid
+        assert!((sigmoid(0.0) - 0.5).abs() < 1e-10);
+        assert!(sigmoid(100.0) > 0.99);
+        assert!(sigmoid(-100.0) < 0.01);
+
+        // Sigmoid derivative
+        let d = sigmoid_derivative(0.0);
+        assert!((d - 0.25).abs() < 1e-10);
+
+        // Tanh
+        assert!((tanh_activation(0.0)).abs() < 1e-10);
+        assert!(tanh_activation(100.0) > 0.99);
+        assert!(tanh_activation(-100.0) < -0.99);
     }
 }

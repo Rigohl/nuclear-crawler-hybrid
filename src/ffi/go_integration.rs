@@ -434,7 +434,7 @@ mod tests {
     fn test_go_initialization() {
         let processor = GoParallelProcessor::new(GoParallelConfig::default());
         // Test passes even if Go library is not available (fallback mode)
-        assert!(processor.is_ok() || true);
+        let _ = processor.is_ok(); // fallback always acceptable
     }
 
     #[test]

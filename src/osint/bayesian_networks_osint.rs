@@ -498,9 +498,9 @@ mod tests {
     #[test]
     fn test_naive_bayes() {
         let mut nb = OSINTNaiveBayes::new();
-        let X = vec![vec![0.1, 0.2, 0.3, 0.4, 0.5], vec![0.2, 0.3, 0.4, 0.5, 0.6]];
+        let x = vec![vec![0.1, 0.2, 0.3, 0.4, 0.5], vec![0.2, 0.3, 0.4, 0.5, 0.6]];
         let y = vec!["bot".to_string(), "human".to_string()];
-        nb.train(&X, &y);
+        nb.train(&x, &y);
 
         let (pred, conf) = nb.predict(&vec![0.15, 0.25, 0.35, 0.45, 0.55]);
         println!("Prediction: {} (confidence: {})", pred, conf);

@@ -372,7 +372,7 @@ mod tests {
     fn test_nim_initialization() {
         let parser = NimHtmlParser::new(NimParserConfig::default());
         // Test passes even if Nim library is not available (fallback mode)
-        assert!(parser.is_ok() || true);
+        let _ = parser.is_ok(); // fallback always acceptable
     }
 
     #[test]

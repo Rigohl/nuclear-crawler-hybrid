@@ -35,6 +35,7 @@ use crate::nuclear_core;
 use crate::premium_content_scraper;
 use crate::rate_limit::RateLimiter;
 use crate::zig_integration;
+use crate::ffi::chapel_integration::{get_chapel_ai, create_context};
 
 /// Configuración de búsqueda web
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -505,7 +506,7 @@ impl WebSearch {
         {
             Ok(Ok(results)) => {
                 eprintln!("   ✅ Nuclear Spider: {} páginas procesadas", results.len());
-                results.into_iter().map(|r| r.url).collect()
+                results
             }
             Ok(Err(e)) => {
                 eprintln!("   ⚠️ Nuclear Spider error: {}", e);
@@ -556,7 +557,7 @@ impl WebSearch {
 
         let mut search_urls = self.prepare_search_urls(&config.query, &all_sources);
         search_urls.extend(self.prepare_alternative_sources(&config.query));
-        search_urls.extend(massive_results); // Add spider crawl results
+        search_urls.extend(massive_results.iter().map(|r| r.url.clone())); // Add spider crawl results
 
         eprintln!("🔥 URLs generadas: {}", search_urls.len());
 
@@ -687,10 +688,12 @@ impl WebSearch {
                     if let Some(ext) = extracted {
                         (
                             ext.main_text.chars().take(2000).collect(),
-                            ext.metadata.get("summary").cloned().unwrap_or_default(),
+                            ext.metadata.get("summary").cloned().unwrap_or_else(|| {
+                                self.generate_summary(&config.query, &ext.main_text)
+                            }),
                             ext.word_count,
                             Vec::new(), // No headings in ExtractedData
-                            Vec::new(), // No code snippets in ExtractedData
+                            ext.code_snippets.clone(),
                         )
                     } else {
                         (String::new(), String::new(), 0, Vec::new(), Vec::new())
@@ -746,34 +749,31 @@ impl WebSearch {
         // 🔥 FASE 5: COMBINAR RESULTADOS DE MASSIVE SEARCH
         // ═══════════════════════════════════════════════════════════════
 
-        // TODO: Fix massive_results processing - currently Vec<String> but code expects struct
         // Convertir resultados de MassiveParallelSearch a WebSearchResult
-        /*
         for massive_result in &massive_results {
-            if massive_result.success && massive_result.is_real_data {
-                for url in &massive_result.urls_found {
+            if massive_result.status_code >= 200 && massive_result.status_code < 300 {
+                for url in &massive_result.links_found {
                     if !processed_results.iter().any(|r| &r.url == url) {
                         processed_results.push(WebSearchResult {
                             url: url.clone(),
-                            title: format!("Resultado de {}", massive_result.source),
+                            title: format!("Resultado de Spider en {}", massive_result.url),
                             description: format!(
-                                "Encontrado via búsqueda masiva paralela en {}",
-                                massive_result.source
+                                "Encontrado via búsqueda masiva paralela en profundidad {}",
+                                massive_result.depth
                             ),
                             main_text: String::new(), // Se llenará después si se crawlea
                             summary: String::new(),
                             word_count: 0,
                             headings: Vec::new(),
                             code_snippets: Vec::new(),
-                            relevance: massive_result.data_quality,
-                            quality_score: massive_result.data_quality,
-                            source: massive_result.source.clone(),
+                            relevance: 0.6, // Relevancia para links encontrados
+                            quality_score: 0.5,
+                            source: "nuclear_spider".to_string(),
                         });
                     }
                 }
             }
         }
-        */
 
         eprintln!(
             "   ✅ Total resultados combinados: {}",
@@ -798,7 +798,7 @@ impl WebSearch {
                     result.quality_score *= 0.9;
                 }
             }
-            // .recommend_massive_parallel_search(all_sources.clone()); // TODO: Fix this call
+            self.recommend_massive_parallel_search(all_sources.clone());
             eprintln!("   🧠 AI Smart: ranking inteligente aplicado");
         }
 
@@ -836,7 +836,9 @@ impl WebSearch {
         let mut links = Vec::new();
 
         // Extraer todos los hrefs
-        let href_re = Regex::new(r#"href=["']([^"']+)["']"#).unwrap();
+        use std::sync::OnceLock;
+        static HREF_RE: OnceLock<Regex> = OnceLock::new();
+        let href_re = HREF_RE.get_or_init(|| Regex::new(r#"href=["']([^"']+)["']"#).expect("Valid regex"));
         let query_lower = query.to_lowercase();
         let query_words: Vec<String> = query_lower
             .split_whitespace()
@@ -1771,8 +1773,9 @@ impl WebSearch {
     /// Extrae título del HTML
     fn extract_title(&self, html: &str) -> String {
         use regex::Regex;
-        let re = Regex::new(r"(?i)<title[^>]*>(.*?)</title>")
-            .unwrap_or_else(|_| Regex::new("").unwrap());
+        use std::sync::OnceLock;
+        static TITLE_RE: OnceLock<Regex> = OnceLock::new();
+        let re = TITLE_RE.get_or_init(|| Regex::new(r"(?i)<title[^>]*>(.*?)</title>").expect("Valid regex"));
         if let Some(cap) = re.captures(html) {
             let title = cap.get(1).map(|m| m.as_str()).unwrap_or("");
             // Decodificar entidades HTML básicas
@@ -1791,19 +1794,23 @@ impl WebSearch {
     /// Extrae descripción del HTML
     fn extract_description(&self, html: &str) -> String {
         use regex::Regex;
-        let re =
+        use std::sync::OnceLock;
+        static DESC_RE: OnceLock<Regex> = OnceLock::new();
+        let re = DESC_RE.get_or_init(|| {
             Regex::new(r#"(?i)<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']"#)
-                .unwrap_or_else(|_| Regex::new("").unwrap());
+                .expect("Valid regex")
+        });
         if let Some(cap) = re.captures(html) {
             cap.get(1).map(|m| m.as_str()).unwrap_or("").to_string()
         } else {
             // Intentar extraer del body
-            let body_re = Regex::new(r"(?i)<body[^>]*>(.*?)</body>")
-                .unwrap_or_else(|_| Regex::new("").unwrap());
+            static BODY_RE: OnceLock<Regex> = OnceLock::new();
+            let body_re = BODY_RE.get_or_init(|| Regex::new(r"(?i)<body[^>]*>(.*?)</body>").expect("Valid regex"));
             if let Some(cap) = body_re.captures(html) {
                 let body = cap.get(1).map(|m| m.as_str()).unwrap_or("");
-                let text = regex::Regex::new(r"<[^>]+>")
-                    .unwrap_or_else(|_| Regex::new("").unwrap())
+                static TAG_RE: OnceLock<Regex> = OnceLock::new();
+                let text = TAG_RE
+                    .get_or_init(|| Regex::new(r"<[^>]+>").expect("Valid regex"))
                     .replace_all(body, " ");
                 text.trim().chars().take(200).collect()
             } else {
@@ -1977,10 +1984,10 @@ impl WebSearch {
                         title: "No title".to_string(), // extracted.title is not an Option
                         description: "".to_string(),   // extracted.description is not an Option
                         main_text: extracted.main_text.clone(),
-                        summary: "".to_string(), // TODO: Generate summary
+                        summary: self.generate_summary(&extracted.main_text, &query),
                         word_count: extracted.main_text.split_whitespace().count(),
                         headings: Vec::new(), // extracted.headings doesn't exist
-                        code_snippets: Vec::new(), // TODO: Extract code snippets
+                        code_snippets: extracted.code_snippets.clone(),
                         relevance: self.calculate_relevance(&query, &extracted.main_text),
                         quality_score: 0.8, // TODO: Calculate quality score
                         source: "nuclear_core".to_string(),
@@ -2005,7 +2012,7 @@ impl WebSearch {
                             title: premium_data.title.clone(),
                             description: premium_data.abstract_text.unwrap_or_default(),
                             main_text: premium_data.content.clone(),
-                            summary: "".to_string(),
+                            summary: self.generate_summary(&query, &premium_data.content),
                             word_count: premium_data.content.split_whitespace().count(),
                             headings: Vec::new(),
                             code_snippets: Vec::new(),
@@ -2021,7 +2028,18 @@ impl WebSearch {
             // 🔥 STEP 4: Use FFI modules for additional processing if available
             if self.go_integration.is_available() {
                 eprintln!("🚀 Using Go FFI for additional processing");
-                // TODO: Implement Go FFI processing
+                let contents: Vec<String> = fetched_results.iter().map(|r| r.main_text.clone()).collect();
+                match self.go_integration.process_content_parallel(contents).await {
+                    Ok(processed) => {
+                        for (i, content) in processed.into_iter().enumerate() {
+                            if i < fetched_results.len() {
+                                fetched_results[i].main_text = content;
+                            }
+                        }
+                        eprintln!("   ✅ Successfully processed {} results with Go FFI", fetched_results.len());
+                    }
+                    Err(e) => eprintln!("   ⚠️ Go FFI processing failed: {}", e),
+                }
             }
 
             if self.zig_integration.is_available() {
@@ -2031,7 +2049,24 @@ impl WebSearch {
 
             if self.nim_integration.is_available() {
                 eprintln!("🐉 Using Nim FFI for HTML parsing");
-                // TODO: Implement Nim FFI processing
+                // Apply Nim FFI HTML parsing to enhance results
+                for result in &mut fetched_results {
+                    if let Ok(nim_parsed) = self.nim_integration.parse_html(&result.main_text, Some(&result.url)) {
+                        if !nim_parsed.title.is_empty() && result.title == "No title" {
+                            result.title = nim_parsed.title;
+                        }
+
+                        // Extract better code snippets if possible, or update word count
+                        if result.word_count == 0 {
+                            result.word_count = nim_parsed.word_count;
+                        }
+
+                        // Nim parsing might give better text
+                        if nim_parsed.text_content.len() > result.main_text.len() {
+                            result.main_text = nim_parsed.text_content;
+                        }
+                    }
+                }
             }
 
             if self.jax_integration.is_available() {
@@ -2055,8 +2090,119 @@ impl WebSearch {
         Ok(all_results)
     }
 
+
+
     /// Helper method to deduplicate results using Zig SIMD
+
+    /// Uses Chapel AI to recommend search strategies based on provided sources
+    fn recommend_massive_parallel_search(&self, sources: Vec<String>) {
+        let chapel_ai = get_chapel_ai();
+        if !chapel_ai.is_ffi_available() {
+            return;
+        }
+
+        let context = create_context(
+            "websearch",
+            "massive_parallel_search",
+            sources.join(","),
+            1.0,
+        );
+
+        if let Ok(_) = chapel_ai.learn(context) {
+            if let Ok(advice) = chapel_ai.get_advice("websearch", "massive_parallel_search") {
+                for a in advice {
+                    eprintln!("   🧠 Chapel AI Suggestion ({}): {}", a.priority, a.suggestion);
+                }
+            }
+        }
+    }
     /// Calculate relevance score for a query against content
+
+    pub fn generate_summary(&self, text: &str, query: &str) -> String {
+        // Scoring sentences based on query keyword frequency, position, and length
+        let query_terms: Vec<String> = query
+            .to_lowercase()
+            .split_whitespace()
+            .map(|s| s.to_string())
+            .collect();
+
+        let sentences: Vec<&str> = text
+            .split(|c| c == '.' || c == '!' || c == '?')
+            .map(|s| s.trim())
+            .filter(|s| !s.is_empty())
+            .collect();
+
+        if sentences.is_empty() {
+            // Fallback: simple truncation
+            let words: Vec<&str> = text.split_whitespace().collect();
+            if words.len() > 50 {
+                return format!("{}...", words[..50].join(" "));
+            }
+            return text.to_string();
+        }
+
+        let mut scored_sentences: Vec<(usize, &str, f32)> = Vec::new();
+
+        for (i, sentence) in sentences.iter().enumerate() {
+            let mut score = 0.0;
+            let sentence_lower = sentence.to_lowercase();
+            let words: Vec<&str> = sentence_lower.split_whitespace().collect();
+            let length = words.len();
+
+            // 1. Length score (prefer sentences between 10 and 30 words)
+            if length >= 10 && length <= 30 {
+                score += 1.0;
+            } else if length > 30 {
+                score += 0.5;
+            }
+
+            // 2. Position score (early sentences often contain better summaries)
+            if i < 3 {
+                score += 2.0;
+            } else if i < 10 {
+                score += 1.0;
+            }
+
+            // 3. Keyword frequency score
+            for term in &query_terms {
+                if sentence_lower.contains(term) {
+                    score += 3.0; // High weight for query terms
+                }
+            }
+
+            scored_sentences.push((i, sentence, score));
+        }
+
+        // Sort by score descending
+        scored_sentences.sort_by(|a, b| b.2.partial_cmp(&a.2).unwrap_or(std::cmp::Ordering::Equal));
+
+        // Take top 3 sentences
+        let mut top_sentences: Vec<(usize, &str)> = scored_sentences
+            .into_iter()
+            .take(3)
+            .map(|(i, s, _)| (i, s))
+            .collect();
+
+        // Sort by original position to maintain flow
+        top_sentences.sort_by(|a, b| a.0.cmp(&b.0));
+
+        let summary = top_sentences
+            .into_iter()
+            .map(|(_, s)| format!("{}.", s))
+            .collect::<Vec<String>>()
+            .join(" ");
+
+        if summary.is_empty() {
+            let words: Vec<&str> = text.split_whitespace().collect();
+            if words.len() > 50 {
+                return format!("{}...", words[..50].join(" "));
+            }
+            return text.to_string();
+        }
+
+        summary
+    }
+
     fn calculate_relevance(&self, query: &str, content: &str) -> f32 {
         let query_words: Vec<&str> = query.split_whitespace().collect();
         let content_lower = content.to_lowercase();
@@ -2152,5 +2298,19 @@ mod tests {
         assert!(urls
             .iter()
             .any(|u| u.contains("gitee.com") || u.contains("geeksforgeeks")));
+    }
+
+    #[test]
+    fn test_generate_summary() {
+        let web_search = WebSearch::new().unwrap();
+        let query = "Rust programming";
+        let content = "Rust is a multi-paradigm, general-purpose programming language. It is designed for performance and safety, especially safe concurrency. Rust is syntactically similar to C++, but it can guarantee memory safety by using a borrow checker to validate references. This is a sentence that does not contain keywords. Another irrelevant sentence here to fill space. The Rust programming language was originally designed by Graydon Hoare.";
+
+        let summary = web_search.generate_summary(query, content);
+
+        assert!(summary.contains("Rust"));
+        assert!(summary.contains("programming"));
+        assert!(summary.len() > 20);
+        assert!(summary.len() < 505);
     }
 }

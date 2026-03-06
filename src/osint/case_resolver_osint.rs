@@ -395,13 +395,13 @@ impl OSINTCaseResolver {
         let mut report = CaseReport::new(&self.case);
 
         // Aggregate all analysis results
-        for result in &self.analysis_results {
-            report.add_analysis_result(result.clone());
+        for result in std::mem::take(&mut self.analysis_results) {
             eprintln!(
                 "  • {} (confidence: {:.1}%)",
                 result.analysis_type,
                 result.confidence * 100.0
             );
+            report.add_analysis_result(result);
         }
 
         // Generate overall conclusion

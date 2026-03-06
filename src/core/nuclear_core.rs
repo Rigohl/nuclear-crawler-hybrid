@@ -164,6 +164,7 @@ pub struct ExtractedData {
     pub language: String,
     pub links: Vec<String>,
     pub images: Vec<String>,
+    pub code_snippets: Vec<String>,
     pub metadata: HashMap<String, String>,
     pub structured_data: serde_json::Value,
 }
@@ -207,6 +208,7 @@ impl AdvancedExtractor {
                 all_data.main_text = data.main_text;
                 all_data.links.extend(data.links);
                 all_data.images.extend(data.images);
+                all_data.code_snippets.extend(data.code_snippets);
                 all_data.metadata.extend(data.metadata);
                 all_data.structured_data = data.structured_data;
             }
@@ -234,14 +236,15 @@ impl AdvancedExtractor {
         }
     }
 
-    fn scrape_html(html: &str, _url: &str) -> Result<ExtractedData> {
+        fn scrape_html(html: &str, _url: &str) -> Result<ExtractedData> {
         use scraper::{Html, Selector};
 
         let document = Html::parse_document(html);
         let link_selector = Selector::parse("a[href]").unwrap();
         let img_selector = Selector::parse("img[src]").unwrap();
+        let code_selector = Selector::parse("pre, code").unwrap();
 
-        let let main_text = document.root_element().text().collect::<Vec<_>>().join(" ");
+        let main_text = document.root_element().text().collect::<Vec<_>>().join(" ");
 
         let links = document
             .select(&link_selector)
@@ -255,12 +258,21 @@ impl AdvancedExtractor {
             .map(String::from)
             .collect();
 
+        let mut unique_snippets = Vec::new();
+        for el in document.select(&code_selector) {
+            let snippet = el.text().collect::<Vec<_>>().join("").trim().to_string();
+            if !snippet.is_empty() && !unique_snippets.contains(&snippet) {
+                unique_snippets.push(snippet);
+            }
+        }
+
         Ok(ExtractedData {
             main_text,
             word_count: 0, // Will be calculated later
             language: "unknown".to_string(),
             links,
             images,
+            code_snippets: unique_snippets,
             metadata: HashMap::new(),
             structured_data: serde_json::Value::Null,
         })
@@ -277,6 +289,7 @@ impl AdvancedExtractor {
                 language: "json".to_string(),
                 links: Vec::new(),
                 images: Vec::new(),
+                code_snippets: Vec::new(),
                 metadata: HashMap::new(),
                 structured_data: json,
             })
@@ -294,6 +307,7 @@ impl AdvancedExtractor {
                 language: "api".to_string(),
                 links: Vec::new(),
                 images: Vec::new(),
+                code_snippets: Vec::new(),
                 metadata: HashMap::new(),
                 structured_data: serde_json::json!({"type": "api_endpoint", "url": url}),
             })
