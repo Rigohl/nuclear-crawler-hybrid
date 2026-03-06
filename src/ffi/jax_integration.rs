@@ -489,7 +489,7 @@ mod tests {
     fn test_jax_initialization() {
         let jax = JaxProcessor::new();
         // Test passes even if JAX library is not available (fallback mode)
-        assert!(jax.is_ok() || true); // Always passes - fallback is acceptable
+        let _ = jax.is_ok(); // fallback always acceptable // Always passes - fallback is acceptable
     }
 
     #[test]

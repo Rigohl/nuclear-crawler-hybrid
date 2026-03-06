@@ -453,7 +453,7 @@ mod tests {
     fn test_zig_initialization() {
         let processor = ZigSimdProcessor::new(ZigSimdConfig::default());
         // Test passes even if Zig library is not available (fallback mode)
-        assert!(processor.is_ok() || true);
+        let _ = processor.is_ok(); // fallback always acceptable
     }
 
     #[test]
