@@ -14,7 +14,7 @@ cargo test test_exactly_7_tools --lib
 # Check tool definitions in protocol.rs
 echo ""
 echo "Verifying tool definitions in src/mcp/protocol.rs..."
-TOOL_COUNT=$(grep -c '"name": "websearch"\|"name": "premium"\|"name": "file_search"\|"name": "scan"\|"name": "ai_dataset_trainer"\|"name": "parallel_engine"\|"name": "osint_intelligence"' src/mcp/protocol.rs || true)
+TOOL_COUNT=$(grep -c "name: \"websearch\"\|name: \"premium\"\|name: \"file_search\"\|name: \"scan\"\|name: \"ai_dataset_trainer\"\|name: \"parallel_engine\"\|name: \"osint_intelligence\"" src/mcp/protocol.rs || true)
 
 echo "Tools found in protocol.rs: $TOOL_COUNT"
 
