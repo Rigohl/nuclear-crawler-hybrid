@@ -15,3 +15,5 @@ pub use nuclear_core::*;
 pub use premium_content_scraper::*;
 pub use url_helpers::*;
 pub use web_search::*;
+pub mod advanced_analysis;
+pub use advanced_analysis::*;

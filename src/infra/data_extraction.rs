@@ -264,9 +264,8 @@ impl DataExtractionEngine {
         // Extraer precios
         if self.config.extract_prices {
             static PRICE_REGEX: OnceLock<regex::Regex> = OnceLock::new();
-            let price_pattern = PRICE_REGEX.get_or_init(|| {
-                regex::Regex::new(r"[\$€£]\s*[0-9]+[,\.]?[0-9]*").unwrap()
-            });
+            let price_pattern = PRICE_REGEX
+                .get_or_init(|| regex::Regex::new(r"[\$€£]\s*[0-9]+[,\.]?[0-9]*").unwrap());
             let prices: Vec<String> = price_pattern
                 .find_iter(html)
                 .map(|m| m.as_str().to_string())

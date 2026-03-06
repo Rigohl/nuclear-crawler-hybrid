@@ -1,5 +1,5 @@
 //! 🔥 ADVANCED ANALYSIS ENGINE - Inspired by Java Analyzer patterns
-//! 
+//!
 //! Extracted from NuclearAnalyzer.java + Spark Analytics.java:
 //! ✅ Parallel folder analysis (Rayon)
 //! ✅ Duplicate detection (hash-based)
@@ -10,10 +10,10 @@
 //! ✅ NO MOCKS - all real implementations
 
 use rayon::prelude::*;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
-use serde::{Deserialize, Serialize};
 
 /// Statistics for a single folder (Java: FolderStats)
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -29,7 +29,7 @@ impl FolderStats {
     pub fn size_mb(&self) -> f64 {
         self.total_size as f64 / (1024.0 * 1024.0)
     }
-    
+
     pub fn size_gb(&self) -> f64 {
         self.total_size as f64 / (1024.0 * 1024.0 * 1024.0)
     }
@@ -96,7 +96,7 @@ impl AdvancedAnalysisEngine {
                     // Count files and calculate stats in parallel
                     let (file_count, total_size, file_types) =
                         Self::analyze_dir_recursive(&path).ok()?;
-                    
+
                     // Calculate health score: files/size ratio
                     let health_score = if file_count > 0 {
                         let avg_file_size = total_size as f64 / file_count as f64;
@@ -126,14 +126,16 @@ impl AdvancedAnalysisEngine {
     }
 
     /// Recursive directory analysis helper
-    fn analyze_dir_recursive(path: &Path) -> Result<(usize, u64, HashMap<String, usize>), Box<dyn std::error::Error>> {
+    fn analyze_dir_recursive(
+        path: &Path,
+    ) -> Result<(usize, u64, HashMap<String, usize>), Box<dyn std::error::Error>> {
         let mut file_count = 0;
         let mut total_size = 0u64;
         let mut file_types: HashMap<String, usize> = HashMap::new();
 
         // ✅ Sequential walk with error handling (not recursive to avoid stack issues)
         let mut dirs_to_process = vec![path.to_path_buf()];
-        
+
         while let Some(dir) = dirs_to_process.pop() {
             if let Ok(entries) = fs::read_dir(&dir) {
                 for entry in entries {
@@ -144,7 +146,7 @@ impl AdvancedAnalysisEngine {
                         } else if let Ok(metadata) = entry.metadata() {
                             file_count += 1;
                             total_size += metadata.len();
-                            
+
                             // Extract file extension
                             if let Some(ext) = entry_path.extension() {
                                 let ext_str = ext.to_string_lossy().to_string();
@@ -162,14 +164,24 @@ impl AdvancedAnalysisEngine {
     }
 
     /// Detect duplicate files (Java: detectDuplicates + HashMap)
-    pub fn detect_duplicates(root: &Path, depth_limit: usize) -> Result<Vec<DuplicateRecord>, Box<dyn std::error::Error>> {
+    pub fn detect_duplicates(
+        root: &Path,
+        depth_limit: usize,
+    ) -> Result<Vec<DuplicateRecord>, Box<dyn std::error::Error>> {
         let mut filename_map: HashMap<String, Vec<PathBuf>> = HashMap::new();
 
         // Walk up to depth_limit levels
         Self::walk_depth_limited(root, depth_limit, &mut |path| {
             if path.is_file() {
-                let filename = path.file_name().unwrap_or_default().to_string_lossy().to_string();
-                filename_map.entry(filename).or_insert_with(Vec::new).push(path.to_path_buf());
+                let filename = path
+                    .file_name()
+                    .unwrap_or_default()
+                    .to_string_lossy()
+                    .to_string();
+                filename_map
+                    .entry(filename)
+                    .or_insert_with(Vec::new)
+                    .push(path.to_path_buf());
             }
         })?;
 
@@ -211,7 +223,7 @@ impl AdvancedAnalysisEngine {
                 if let Ok(entry) = entry {
                     let entry_path = entry.path();
                     visitor(entry_path.clone());
-                    
+
                     if entry_path.is_dir() {
                         Self::walk_depth_limited(&entry_path, depth - 1, visitor)?;
                     }
@@ -223,22 +235,29 @@ impl AdvancedAnalysisEngine {
     }
 
     /// Analyze file types (Java: analyzeFileTypes)
-    pub fn analyze_file_types(root: &Path, limit: usize) -> Result<Vec<FileTypeStats>, Box<dyn std::error::Error>> {
+    pub fn analyze_file_types(
+        root: &Path,
+        limit: usize,
+    ) -> Result<Vec<FileTypeStats>, Box<dyn std::error::Error>> {
         let mut type_count: HashMap<String, (usize, u64)> = HashMap::new();
         let mut total_size = 0u64;
 
         let mut dirs_to_process = vec![root.to_path_buf()];
-        
+
         while let Some(dir) = dirs_to_process.pop() {
             if let Ok(entries) = fs::read_dir(&dir) {
                 for entry in entries {
                     if let Ok(entry) = entry {
                         let entry_path = entry.path();
-                        
+
                         if entry_path.is_dir() {
                             dirs_to_process.push(entry_path);
                         } else {
-                            let filename = entry_path.file_name().unwrap_or_default().to_string_lossy().to_string();
+                            let filename = entry_path
+                                .file_name()
+                                .unwrap_or_default()
+                                .to_string_lossy()
+                                .to_string();
                             let ext = if let Some(pos) = filename.rfind('.') {
                                 filename[pos..].to_string()
                             } else {
@@ -295,7 +314,7 @@ impl AdvancedAnalysisEngine {
             })
             .sum::<f64>()
             / values.len() as f64;
-        
+
         let stddev = variance.sqrt();
         let threshold_upper = mean + (3.0 * stddev);
         let threshold_lower = (mean - (3.0 * stddev)).max(0.0);
@@ -308,8 +327,8 @@ impl AdvancedAnalysisEngine {
                 } else {
                     0.0
                 };
-                
-                let is_anomaly = value as f64 > threshold_upper || value as f64 < threshold_lower;
+
+                let is_anomaly = value as f64 > threshold_upper || (value as f64) < threshold_lower;
 
                 AnomalyResult {
                     value,
@@ -325,8 +344,9 @@ impl AdvancedAnalysisEngine {
     /// Calculate workspace health (Spark: silhouette + metrics)
     pub fn calculate_health(stats: &[FolderStats]) -> HealthAssessment {
         let total_files: usize = stats.iter().map(|s| s.file_count).sum();
-        let total_size_gb = stats.iter().map(|s| s.total_size).sum::<u64>() as f64 / (1024.0 * 1024.0 * 1024.0);
-        
+        let total_size_gb =
+            stats.iter().map(|s| s.total_size).sum::<u64>() as f64 / (1024.0 * 1024.0 * 1024.0);
+
         // Average health score
         let overall_score = if !stats.is_empty() {
             stats.iter().map(|s| s.health_score).sum::<f64>() / stats.len() as f64
@@ -342,7 +362,7 @@ impl AdvancedAnalysisEngine {
             warnings.push("Low health score detected: unbalanced file distribution".to_string());
             recommendations.push("Consider organizing files into logical folders".to_string());
         }
-        
+
         if total_size_gb > 100.0 {
             warnings.push(format!("Large workspace: {:.1}GB", total_size_gb));
             recommendations.push("Archive or compress older files".to_string());
@@ -366,11 +386,14 @@ mod tests {
 
     #[test]
     fn test_anomaly_detection_3sigma() {
-        // Normal distribution: mean=100, should detect values > 100 + 3*15 = 145
-        let values = vec![85, 90, 95, 100, 105, 110, 115, 500]; // 500 is anomaly
+        let mut values = vec![100; 100]; // 100 normal values
+        values.push(1000); // 1 anomaly
         let results = AdvancedAnalysisEngine::detect_anomalies(&values);
-        
-        assert!(results.last().map(|r| r.is_anomaly).unwrap_or(false), "Last value should be anomaly");
+
+        assert!(
+            results.last().map(|r| r.is_anomaly).unwrap_or(false),
+            "Last value should be anomaly"
+        );
     }
 
     #[test]
@@ -384,6 +407,74 @@ mod tests {
         }];
 
         let health = AdvancedAnalysisEngine::calculate_health(&stats);
-        assert!(health.overall_score > 0.0);
+        assert_eq!(health.total_files, 100);
+        assert_eq!(health.overall_score, 75.0);
+        assert!(health.total_size_gb < 1.0);
+        assert_eq!(health.warnings.len(), 0);
+        assert_eq!(health.recommendations.len(), 0);
+    }
+
+    #[test]
+    fn test_health_assessment_empty() {
+        let stats: Vec<FolderStats> = vec![];
+        let health = AdvancedAnalysisEngine::calculate_health(&stats);
+
+        assert_eq!(health.total_files, 0);
+        assert_eq!(health.total_size_gb, 0.0);
+        assert_eq!(health.overall_score, 0.0);
+        // Overall score is 0.0, which is < 50.0, so it triggers the warning
+        assert_eq!(health.warnings.len(), 1);
+        assert!(health.warnings[0].contains("Low health score"));
+        assert_eq!(health.recommendations.len(), 1);
+    }
+
+    #[test]
+    fn test_health_assessment_low_score() {
+        let stats = vec![
+            FolderStats {
+                name: "dir1".to_string(),
+                file_count: 50,
+                total_size: 1_000,
+                file_types: HashMap::new(),
+                health_score: 20.0,
+            },
+            FolderStats {
+                name: "dir2".to_string(),
+                file_count: 50,
+                total_size: 1_000,
+                file_types: HashMap::new(),
+                health_score: 40.0,
+            },
+        ];
+
+        let health = AdvancedAnalysisEngine::calculate_health(&stats);
+
+        assert_eq!(health.total_files, 100);
+        assert_eq!(health.overall_score, 30.0); // (20 + 40) / 2
+        assert!(health.total_size_gb < 1.0);
+        assert_eq!(health.warnings.len(), 1);
+        assert!(health.warnings[0].contains("Low health score"));
+    }
+
+    #[test]
+    fn test_health_assessment_large_workspace() {
+        let gb_in_bytes = 1024u64 * 1024 * 1024;
+        let stats = vec![FolderStats {
+            name: "huge_dir".to_string(),
+            file_count: 10,
+            total_size: 120 * gb_in_bytes,
+            file_types: HashMap::new(),
+            health_score: 90.0,
+        }];
+
+        let health = AdvancedAnalysisEngine::calculate_health(&stats);
+
+        assert_eq!(health.total_files, 10);
+        assert_eq!(health.overall_score, 90.0);
+        assert_eq!(health.total_size_gb, 120.0);
+        assert_eq!(health.warnings.len(), 1);
+        assert!(health.warnings[0].contains("Large workspace: 120.0GB"));
+        assert_eq!(health.recommendations.len(), 1);
+        assert!(health.recommendations[0].contains("Archive or compress"));
     }
 }

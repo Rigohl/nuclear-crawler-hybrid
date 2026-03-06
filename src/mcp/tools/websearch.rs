@@ -6,15 +6,15 @@
 
 use crate::cache::Cache;
 use crate::chapel_integration::{create_context, get_chapel_ai};
+use crate::core::nuclear_core::NuclearCore;
 use crate::deepweb_tor::DeepWebSearch;
 use crate::go_integration::GoParallelProcessor;
 use crate::rate_limit::RateLimiter;
 use crate::tantivy_search::{SearchDocument, TantivySearchEngine};
 use crate::web_search::WebSearch as CoreWebSearch;
 use anyhow::Result;
-use crate::core::nuclear_core::NuclearCore;
-use std::sync::Arc;
 use serde::{Deserialize, Serialize};
+use std::sync::Arc;
 
 /// Web search result
 #[derive(Debug, Clone, Serialize, Deserialize)]

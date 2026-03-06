@@ -9,10 +9,10 @@
 //! - WASM compilation for ultra-fast execution
 
 use anyhow::{Context, Result};
+use blake3;
+use rayon::prelude::*;
 use serde_json::{json, Value};
 use std::time::Instant;
-use rayon::prelude::*;
-use blake3;
 
 /// Execute parallel engine operations
 pub async fn execute_parallel_engine(arguments: Value) -> Result<Value> {
@@ -76,35 +76,41 @@ pub async fn execute_parallel_engine(arguments: Value) -> Result<Value> {
 
 /// Batch process data in parallel using Rayon (CPU intensive simulation)
 async fn batch_process(data: &Value, _workers: u64) -> Result<Value> {
-    let items = data.as_array()
+    let items = data
+        .as_array()
         .context("Data must be an array for batch_process")?
         .clone();
 
     // Offload CPU intensive work to a blocking thread
     let processed: Vec<Value> = tokio::task::spawn_blocking(move || {
-        items.par_iter().map(|item| {
-            // Simulate heavy processing (hashing)
-            let content = item.to_string();
-            let hash = blake3::hash(content.as_bytes());
+        items
+            .par_iter()
+            .map(|item| {
+                // Simulate heavy processing (hashing)
+                let content = item.to_string();
+                let hash = blake3::hash(content.as_bytes());
 
-            // Artificial delay to simulate "work" if needed, but hashing is good enough
-            // std::thread::sleep(std::time::Duration::from_micros(10));
+                // Artificial delay to simulate "work" if needed, but hashing is good enough
+                // std::thread::sleep(std::time::Duration::from_micros(10));
 
-            json!({
-                "original": item,
-                "processed": true,
-                "hash": hash.to_hex().to_string(),
-                "engine": "rayon_parallel"
+                json!({
+                    "original": item,
+                    "processed": true,
+                    "hash": hash.to_hex().to_string(),
+                    "engine": "rayon_parallel"
+                })
             })
-        }).collect()
-    }).await?;
+            .collect()
+    })
+    .await?;
 
     Ok(json!(processed))
 }
 
 /// Parallel map operation
 async fn parallel_map(data: &Value) -> Result<Value> {
-     let items = data.as_array()
+    let items = data
+        .as_array()
         .context("Data must be an array for parallel_map")?
         .clone();
 
@@ -124,13 +130,12 @@ async fn parallel_map(data: &Value) -> Result<Value> {
 
 /// Parallel reduce operation
 async fn parallel_reduce(data: &Value) -> Result<Value> {
-    let items = data.as_array()
+    let items = data
+        .as_array()
         .context("Data must be an array for parallel_reduce")?
         .clone();
 
-    let count = tokio::task::spawn_blocking(move || {
-        items.par_iter().count()
-    }).await?;
+    let count = tokio::task::spawn_blocking(move || items.par_iter().count()).await?;
 
     Ok(json!({
         "reduced_count": count,
