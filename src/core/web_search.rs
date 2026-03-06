@@ -35,6 +35,7 @@ use crate::nuclear_core;
 use crate::premium_content_scraper;
 use crate::rate_limit::RateLimiter;
 use crate::zig_integration;
+use crate::ffi::chapel_integration::{get_chapel_ai, create_context};
 
 /// Configuración de búsqueda web
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -798,7 +799,7 @@ impl WebSearch {
                     result.quality_score *= 0.9;
                 }
             }
-            // .recommend_massive_parallel_search(all_sources.clone()); // TODO: Fix this call
+            self.recommend_massive_parallel_search(all_sources.clone());
             eprintln!("   🧠 AI Smart: ranking inteligente aplicado");
         }
 
@@ -2056,6 +2057,29 @@ impl WebSearch {
     }
 
     /// Helper method to deduplicate results using Zig SIMD
+
+    /// Uses Chapel AI to recommend search strategies based on provided sources
+    fn recommend_massive_parallel_search(&self, sources: Vec<String>) {
+        let chapel_ai = get_chapel_ai();
+        if !chapel_ai.is_ffi_available() {
+            return;
+        }
+
+        let context = create_context(
+            "websearch",
+            "massive_parallel_search",
+            sources.join(","),
+            1.0,
+        );
+
+        if let Ok(_) = chapel_ai.learn(context) {
+            if let Ok(advice) = chapel_ai.get_advice("websearch", "massive_parallel_search") {
+                for a in advice {
+                    eprintln!("   🧠 Chapel AI Suggestion ({}): {}", a.priority, a.suggestion);
+                }
+            }
+        }
+    }
     /// Calculate relevance score for a query against content
     fn calculate_relevance(&self, query: &str, content: &str) -> f32 {
         let query_words: Vec<&str> = query.split_whitespace().collect();
