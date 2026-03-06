@@ -505,7 +505,7 @@ impl WebSearch {
         {
             Ok(Ok(results)) => {
                 eprintln!("   ✅ Nuclear Spider: {} páginas procesadas", results.len());
-                results.into_iter().map(|r| r.url).collect()
+                results
             }
             Ok(Err(e)) => {
                 eprintln!("   ⚠️ Nuclear Spider error: {}", e);
@@ -556,7 +556,7 @@ impl WebSearch {
 
         let mut search_urls = self.prepare_search_urls(&config.query, &all_sources);
         search_urls.extend(self.prepare_alternative_sources(&config.query));
-        search_urls.extend(massive_results); // Add spider crawl results
+        search_urls.extend(massive_results.iter().map(|r| r.url.clone())); // Add spider crawl results
 
         eprintln!("🔥 URLs generadas: {}", search_urls.len());
 
@@ -746,34 +746,32 @@ impl WebSearch {
         // 🔥 FASE 5: COMBINAR RESULTADOS DE MASSIVE SEARCH
         // ═══════════════════════════════════════════════════════════════
 
-        // TODO: Fix massive_results processing - currently Vec<String> but code expects struct
         // Convertir resultados de MassiveParallelSearch a WebSearchResult
-        /*
-        for massive_result in &massive_results {
-            if massive_result.success && massive_result.is_real_data {
-                for url in &massive_result.urls_found {
+        for spider_result in &massive_results {
+            if spider_result.status_code == 200 {
+                for url in &spider_result.links_found {
                     if !processed_results.iter().any(|r| &r.url == url) {
+                        let source = self.extract_source(&spider_result.url);
                         processed_results.push(WebSearchResult {
                             url: url.clone(),
-                            title: format!("Resultado de {}", massive_result.source),
+                            title: format!("Resultado de {}", source),
                             description: format!(
                                 "Encontrado via búsqueda masiva paralela en {}",
-                                massive_result.source
+                                source
                             ),
                             main_text: String::new(), // Se llenará después si se crawlea
                             summary: String::new(),
                             word_count: 0,
                             headings: Vec::new(),
                             code_snippets: Vec::new(),
-                            relevance: massive_result.data_quality,
-                            quality_score: massive_result.data_quality,
-                            source: massive_result.source.clone(),
+                            relevance: 0.5,
+                            quality_score: 0.5,
+                            source,
                         });
                     }
                 }
             }
         }
-        */
 
         eprintln!(
             "   ✅ Total resultados combinados: {}",
