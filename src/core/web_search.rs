@@ -2038,7 +2038,24 @@ impl WebSearch {
 
             if self.nim_integration.is_available() {
                 eprintln!("🐉 Using Nim FFI for HTML parsing");
-                // TODO: Implement Nim FFI processing
+                // Apply Nim FFI HTML parsing to enhance results
+                for result in &mut fetched_results {
+                    if let Ok(nim_parsed) = self.nim_integration.parse_html(&result.main_text, Some(&result.url)) {
+                        if !nim_parsed.title.is_empty() && result.title == "No title" {
+                            result.title = nim_parsed.title;
+                        }
+
+                        // Extract better code snippets if possible, or update word count
+                        if result.word_count == 0 {
+                            result.word_count = nim_parsed.word_count;
+                        }
+
+                        // Nim parsing might give better text
+                        if nim_parsed.text_content.len() > result.main_text.len() {
+                            result.main_text = nim_parsed.text_content;
+                        }
+                    }
+                }
             }
 
             if self.jax_integration.is_available() {
