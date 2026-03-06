@@ -135,7 +135,10 @@ impl ProxyPool {
 
     /// Add proxy to pool
     pub fn add_proxy(&self, url: String, proxy_type: ProxyType) -> Result<()> {
-        let mut proxies = self.proxies.lock().unwrap();
+        let mut proxies = self
+            .proxies
+            .lock()
+            .map_err(|e| anyhow::anyhow!("Proxy pool mutex poisoned: {}", e))?;
         let entry = ProxyEntry::new(url.clone(), proxy_type);
         proxies.push_back(entry);
         eprintln!("  ✅ Added proxy: {} ({:?})", url, proxy_type);
@@ -152,14 +155,14 @@ impl ProxyPool {
 
     /// Get next proxy for request
     pub fn get_next_proxy(&self) -> Option<ProxyEntry> {
-        let proxies = self.proxies.lock().unwrap();
+        let proxies = self.proxies.lock().ok()?;
         if proxies.is_empty() {
             return None;
         }
 
         let selected = match self.config.rotation_strategy {
             RotationStrategy::RoundRobin => {
-                let mut index = self.rotation_index.lock().unwrap();
+                let mut index = self.rotation_index.lock().ok()?;
                 let proxy = proxies[*index % proxies.len()].clone();
                 *index = (*index + 1) % proxies.len();
                 Some(proxy)
@@ -207,7 +210,10 @@ impl ProxyPool {
 
     /// Report successful request
     pub fn report_success(&self, proxy_url: &str, response_time_ms: u64) -> Result<()> {
-        let mut proxies = self.proxies.lock().unwrap();
+        let mut proxies = self
+            .proxies
+            .lock()
+            .map_err(|e| anyhow::anyhow!("Proxy pool mutex poisoned: {}", e))?;
 
         if let Some(proxy) = proxies.iter_mut().find(|p| p.url == proxy_url) {
             proxy.success_count += 1;
@@ -229,7 +235,10 @@ impl ProxyPool {
 
     /// Report failed request
     pub fn report_failure(&self, proxy_url: &str) -> Result<()> {
-        let mut proxies = self.proxies.lock().unwrap();
+        let mut proxies = self
+            .proxies
+            .lock()
+            .map_err(|e| anyhow::anyhow!("Proxy pool mutex poisoned: {}", e))?;
 
         if let Some(proxy) = proxies.iter_mut().find(|p| p.url == proxy_url) {
             proxy.failure_count += 1;
@@ -248,51 +257,60 @@ impl ProxyPool {
 
     /// Get proxy statistics
     pub fn get_stats(&self) -> HashMap<String, String> {
-        let proxies = self.proxies.lock().unwrap();
         let mut stats = HashMap::new();
 
-        stats.insert("total_proxies".to_string(), proxies.len().to_string());
-        stats.insert(
-            "healthy_proxies".to_string(),
-            proxies
-                .iter()
-                .filter(|p| p.is_healthy && !p.banned)
-                .count()
-                .to_string(),
-        );
-        stats.insert(
-            "banned_proxies".to_string(),
-            proxies.iter().filter(|p| p.banned).count().to_string(),
-        );
+        if let Ok(proxies) = self.proxies.lock() {
+            stats.insert("total_proxies".to_string(), proxies.len().to_string());
+            stats.insert(
+                "healthy_proxies".to_string(),
+                proxies
+                    .iter()
+                    .filter(|p| p.is_healthy && !p.banned)
+                    .count()
+                    .to_string(),
+            );
+            stats.insert(
+                "banned_proxies".to_string(),
+                proxies.iter().filter(|p| p.banned).count().to_string(),
+            );
+        }
 
-        let request_count = self.request_count.lock().unwrap();
-        stats.insert("total_requests".to_string(), request_count.to_string());
+        if let Ok(request_count) = self.request_count.lock() {
+            stats.insert("total_requests".to_string(), request_count.to_string());
+        }
 
         stats
     }
 
     /// Clear all proxies
     pub fn clear(&self) -> Result<()> {
-        self.proxies.lock().unwrap().clear();
+        let mut proxies = self
+            .proxies
+            .lock()
+            .map_err(|e| anyhow::anyhow!("Proxy pool mutex poisoned: {}", e))?;
+        proxies.clear();
         eprintln!("  🗑️  Proxy pool cleared");
         Ok(())
     }
 
     /// Get pool size
     pub fn size(&self) -> usize {
-        self.proxies.lock().unwrap().len()
+        self.proxies.lock().map(|p| p.len()).unwrap_or(0)
     }
 
     /// Check if pool is empty
     pub fn is_empty(&self) -> bool {
-        self.proxies.lock().unwrap().is_empty()
+        self.proxies.lock().map(|p| p.is_empty()).unwrap_or(true)
     }
 
     /// Force health check on all proxies
     pub async fn health_check_all(&self) -> Result<()> {
         eprintln!("🔥 Running health checks on all proxies...");
 
-        let mut proxies = self.proxies.lock().unwrap();
+        let mut proxies = self
+            .proxies
+            .lock()
+            .map_err(|e| anyhow::anyhow!("Proxy pool mutex poisoned: {}", e))?;
         for proxy in proxies.iter_mut() {
             if !proxy.banned {
                 // In real implementation, would perform actual HTTP request
