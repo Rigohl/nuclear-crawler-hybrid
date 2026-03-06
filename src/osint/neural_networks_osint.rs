@@ -325,6 +325,28 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_sigmoid_derivative() {
+        let epsilon = 1e-6;
+
+        let sd_0 = sigmoid_derivative(0.0);
+        assert!((sd_0 - 0.25).abs() < epsilon);
+
+        let s_1 = sigmoid(1.0);
+        let sd_1 = sigmoid_derivative(1.0);
+        assert!((sd_1 - (s_1 * (1.0 - s_1))).abs() < epsilon);
+
+        let s_m1 = sigmoid(-1.0);
+        let sd_m1 = sigmoid_derivative(-1.0);
+        assert!((sd_m1 - (s_m1 * (1.0 - s_m1))).abs() < epsilon);
+
+        let sd_10 = sigmoid_derivative(10.0);
+        assert!(sd_10 < 1e-4);
+
+        let sd_m10 = sigmoid_derivative(-10.0);
+        assert!(sd_m10 < 1e-4);
+    }
+
+    #[test]
     fn test_linear_layer() {
         let mut layer = LinearLayer::new(3, 2);
         let input = vec![1.0, 2.0, 3.0];
