@@ -1989,7 +1989,7 @@ impl WebSearch {
                         headings: Vec::new(), // extracted.headings doesn't exist
                         code_snippets: extracted.code_snippets.clone(),
                         relevance: self.calculate_relevance(&query, &extracted.main_text),
-                        quality_score: 0.8, // TODO: Calculate quality score
+                        quality_score: self.calculate_relevance(query.as_str(), &extracted.main_text).clamp(0.3, 1.0),
                         source: "nuclear_core".to_string(),
                     };
                     fetched_results.push(result);
@@ -2043,8 +2043,21 @@ impl WebSearch {
             }
 
             if self.zig_integration.is_available() {
-                eprintln!("⚡ Using Zig FFI for SIMD operations");
-                // TODO: Implement Zig FFI processing
+                eprintln!("⚡ Using Zig FFI for SIMD relevance boost");
+                let query_patterns: Vec<String> = query
+                    .split_whitespace()
+                    .filter(|w| w.len() > 3)
+                    .map(|w| w.to_lowercase())
+                    .collect();
+                if !query_patterns.is_empty() {
+                    for result in &mut fetched_results {
+                        let text = format!("{} {}", result.title, result.main_text);
+                        if let Ok(matches) = self.zig_integration.find_patterns(&text.to_lowercase(), &query_patterns) {
+                            let boost = matches.iter().map(|m| m.match_count as f32 * 0.05).sum::<f32>();
+                            result.relevance = (result.relevance + boost).min(1.0);
+                        }
+                    }
+                }
             }
 
             if self.nim_integration.is_available() {
@@ -2070,8 +2083,17 @@ impl WebSearch {
             }
 
             if self.jax_integration.is_available() {
-                eprintln!("🧠 Using JAX FFI for AI processing");
-                // TODO: Implement JAX FFI processing
+                eprintln!("🧠 Using JAX FFI for AI relevance scoring");
+                let texts: Vec<String> = fetched_results.iter()
+                    .map(|r| format!("{} {}", r.title, &r.description))
+                    .collect();
+                if !texts.is_empty() {
+                    if let Ok(scores) = self.jax_integration.process_search_results_batch(texts) {
+                        for (result, score) in fetched_results.iter_mut().zip(scores.iter()) {
+                            result.relevance = (result.relevance * 0.7 + score * 0.3).min(1.0);
+                        }
+                    }
+                }
             }
 
             all_results.extend(fetched_results);
