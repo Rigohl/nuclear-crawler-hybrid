@@ -836,7 +836,9 @@ impl WebSearch {
         let mut links = Vec::new();
 
         // Extraer todos los hrefs
-        let href_re = Regex::new(r#"href=["']([^"']+)["']"#).unwrap();
+        use std::sync::OnceLock;
+        static HREF_RE: OnceLock<Regex> = OnceLock::new();
+        let href_re = HREF_RE.get_or_init(|| Regex::new(r#"href=["']([^"']+)["']"#).expect("Valid regex"));
         let query_lower = query.to_lowercase();
         let query_words: Vec<String> = query_lower
             .split_whitespace()
@@ -1771,8 +1773,9 @@ impl WebSearch {
     /// Extrae título del HTML
     fn extract_title(&self, html: &str) -> String {
         use regex::Regex;
-        let re = Regex::new(r"(?i)<title[^>]*>(.*?)</title>")
-            .unwrap_or_else(|_| Regex::new("").unwrap());
+        use std::sync::OnceLock;
+        static TITLE_RE: OnceLock<Regex> = OnceLock::new();
+        let re = TITLE_RE.get_or_init(|| Regex::new(r"(?i)<title[^>]*>(.*?)</title>").expect("Valid regex"));
         if let Some(cap) = re.captures(html) {
             let title = cap.get(1).map(|m| m.as_str()).unwrap_or("");
             // Decodificar entidades HTML básicas
@@ -1791,19 +1794,23 @@ impl WebSearch {
     /// Extrae descripción del HTML
     fn extract_description(&self, html: &str) -> String {
         use regex::Regex;
-        let re =
+        use std::sync::OnceLock;
+        static DESC_RE: OnceLock<Regex> = OnceLock::new();
+        let re = DESC_RE.get_or_init(|| {
             Regex::new(r#"(?i)<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']"#)
-                .unwrap_or_else(|_| Regex::new("").unwrap());
+                .expect("Valid regex")
+        });
         if let Some(cap) = re.captures(html) {
             cap.get(1).map(|m| m.as_str()).unwrap_or("").to_string()
         } else {
             // Intentar extraer del body
-            let body_re = Regex::new(r"(?i)<body[^>]*>(.*?)</body>")
-                .unwrap_or_else(|_| Regex::new("").unwrap());
+            static BODY_RE: OnceLock<Regex> = OnceLock::new();
+            let body_re = BODY_RE.get_or_init(|| Regex::new(r"(?i)<body[^>]*>(.*?)</body>").expect("Valid regex"));
             if let Some(cap) = body_re.captures(html) {
                 let body = cap.get(1).map(|m| m.as_str()).unwrap_or("");
-                let text = regex::Regex::new(r"<[^>]+>")
-                    .unwrap_or_else(|_| Regex::new("").unwrap())
+                static TAG_RE: OnceLock<Regex> = OnceLock::new();
+                let text = TAG_RE
+                    .get_or_init(|| Regex::new(r"<[^>]+>").expect("Valid regex"))
                     .replace_all(body, " ");
                 text.trim().chars().take(200).collect()
             } else {
