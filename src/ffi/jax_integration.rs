@@ -119,10 +119,9 @@ impl JaxProcessor {
 
     /// Check if JAX is available via Python subprocess
     fn check_jax_availability() -> bool {
-        // Try to run a simple JAX import test
+        // Try to run a simple JAX import test with robust argument passing
         match Command::new("python")
-            .arg("-c")
-            .arg("import jax; print('JAX available')")
+            .args(["-c", "import jax; print('JAX available')"])
             .output()
         {
             Ok(output) => {
@@ -196,7 +195,7 @@ if __name__ == "__main__":
         // Run Python script with data
         let _data_json = serde_json::to_string(results)?;
         let output = std::process::Command::new(&python_cmd)
-            .arg(script_path)
+            .args([&script_path])
             .stdin(std::process::Stdio::piped())
             .stdout(std::process::Stdio::piped())
             .stderr(std::process::Stdio::piped())
@@ -316,7 +315,7 @@ if __name__ == "__main__":
         std::fs::write(&script_path, script_content)?;
 
         let mut child = std::process::Command::new(&python_cmd)
-            .arg(script_path)
+            .args([&script_path])
             .stdin(std::process::Stdio::piped())
             .stdout(std::process::Stdio::piped())
             .stderr(std::process::Stdio::piped())
@@ -374,7 +373,7 @@ if __name__ == "__main__":
         std::fs::write(&script_path, script_content)?;
 
         let mut child = std::process::Command::new(&python_cmd)
-            .arg(script_path)
+            .args([&script_path])
             .stdin(std::process::Stdio::piped())
             .stdout(std::process::Stdio::piped())
             .stderr(std::process::Stdio::piped())
@@ -435,16 +434,19 @@ if __name__ == "__main__":
 
     /// 🔥 PROCESS PDF BATCH - Extract text from PDF bytes using JAX/Python
     pub fn process_pdf_batch(&self, pdf_data: &[u8]) -> Result<String> {
-        // Note: PDF extraction via Python script deferred to future implementation
-        // For now, return placeholder indicating feature is available via tools
-        // JAX integration available through ai_dataset_trainer tool in MCP
+        // Find Python with JAX for secure execution
+        let python_cmd = self.find_python_with_jax()?;
 
         // Alternative: Use scripts/generate_advanced_report.py for PDF processing
-        // Call Python script for report generation
-        let mut cmd = Command::new("python3");
-        cmd.arg("scripts/generate_advanced_report.py")
-            .arg("--operation")
-            .arg("extract_pdf")
+        // Ensure script exists before execution
+        let script_path = "scripts/generate_advanced_report.py";
+        if !std::path::Path::new(script_path).exists() {
+            return Err(anyhow::anyhow!("PDF extraction script not found: {}", script_path));
+        }
+
+        // Call Python script for report generation with robust argument passing
+        let mut cmd = Command::new(&python_cmd);
+        cmd.args([script_path, "--operation", "extract_pdf"])
             .stdin(std::process::Stdio::piped())
             .stdout(std::process::Stdio::piped())
             .stderr(std::process::Stdio::piped());
