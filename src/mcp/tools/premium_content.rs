@@ -548,3 +548,54 @@ impl PremiumContentTool {
         Ok(results)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parse_medium_content() {
+        let tool = PremiumContentTool::default();
+        let html = "<html><body><h1>Medium Title</h1><article>Medium content article</article></body></html>";
+        let result = tool.parse_medium_content(html).unwrap();
+
+        assert_eq!(result.title, "Medium Title");
+        assert_eq!(result.content, "Medium content article");
+        assert_eq!(result.source, "medium");
+        assert!(result.full_text_available);
+    }
+
+    #[test]
+    fn test_parse_generic_content() {
+        let tool = PremiumContentTool::default();
+        let html = "<html><head><title>Generic Title</title></head><body><main>Generic main content</main></body></html>";
+        let result = tool.parse_generic_content("http://example.com", html).unwrap();
+
+        assert_eq!(result.title, "Generic Title");
+        assert_eq!(result.content, "Generic main content");
+        assert_eq!(result.source, "http://example.com");
+        assert!(result.full_text_available);
+    }
+
+    #[test]
+    fn test_parse_arxiv_content() {
+        let tool = PremiumContentTool::default();
+        let html = "arxiv content";
+        let result = tool.parse_arxiv_content(html).unwrap();
+
+        assert_eq!(result.title, "ArXiv Paper");
+        assert_eq!(result.content, "arxiv content");
+        assert_eq!(result.source, "arxiv");
+    }
+
+    #[test]
+    fn test_parse_oreilly_content() {
+        let tool = PremiumContentTool::default();
+        let html = "oreilly content";
+        let result = tool.parse_oreilly_content(html).unwrap();
+
+        assert_eq!(result.title, "O'Reilly Book");
+        assert_eq!(result.content, "oreilly content");
+        assert_eq!(result.source, "oreilly");
+    }
+}
