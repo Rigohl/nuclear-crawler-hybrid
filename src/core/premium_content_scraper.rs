@@ -9,6 +9,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Instant;
+use lopdf::Document;
 
 use crate::go_integration::GoParallelProcessor;
 use crate::jax_integration::JaxProcessor;
@@ -519,9 +520,43 @@ impl NuclearPremiumScraper {
 
         let word_count = content.split_whitespace().count();
 
+        // 🔥 Extract title from PDF using lopdf
+        let mut pdf_title = "PDF Document".to_string();
+        if let Ok(doc) = Document::load_mem(&pdf_bytes) {
+            if let Some(info_id) = doc.trailer.get(b"Info").and_then(|info| info.as_reference()).ok() {
+                if let Ok(info_dict) = doc.get_dictionary(info_id) {
+                    if let Ok(title) = info_dict.get(b"Title") {
+                        // as_str() returns a byte slice in lopdf for strings
+                        if let Ok(title_bytes) = title.as_str() {
+                            let mut clean_title = String::new();
+
+                            // Check for UTF-16BE BOM (0xFE, 0xFF)
+                            if title_bytes.len() >= 2 && title_bytes[0] == 0xFE && title_bytes[1] == 0xFF {
+                                if title_bytes.len() > 2 {
+                                    let utf16_bytes: Vec<u16> = title_bytes[2..]
+                                        .chunks_exact(2)
+                                        .map(|chunk| ((chunk[0] as u16) << 8) | (chunk[1] as u16))
+                                        .collect();
+                                    clean_title = String::from_utf16_lossy(&utf16_bytes);
+                                }
+                            } else {
+                                // Fallback to UTF-8 lossy if no BOM
+                                clean_title = String::from_utf8_lossy(title_bytes).into_owned();
+                            }
+
+                            let clean_title = clean_title.trim().to_string();
+                            if !clean_title.is_empty() {
+                                pdf_title = clean_title;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         Ok(PremiumContentResult {
             content_type: PremiumContentType::PDFDocument,
-            title: "PDF Document".to_string(), // TODO: extract title from PDF
+            title: pdf_title,
             author: "Unknown".to_string(),
             content,
             abstract_text: None,
