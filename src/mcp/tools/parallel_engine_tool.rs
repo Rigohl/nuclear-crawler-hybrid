@@ -13,8 +13,6 @@ use blake3;
 use rayon::prelude::*;
 use serde_json::{json, Value};
 use std::time::Instant;
-use rayon::prelude::*;
-use blake3;
 use ndarray::prelude::*;
 
 /// Execute parallel engine operations

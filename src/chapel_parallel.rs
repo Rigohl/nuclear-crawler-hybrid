@@ -1,4 +1,112 @@
 // use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::Arc;
+use tokio::sync::RwLock;
+use std::collections::HashMap;
+use std::time::Instant;
+use std::ffi::{CString};
+use std::os::raw::{c_char, c_int};
+
+// ═════════════════════════════════════════════════════════════════════
+// CHAPEL FFI BINDINGS
+// ═════════════════════════════════════════════════════════════════════
+
+struct ChapelLib {
+    lib: libloading::Library,
+}
+
+impl ChapelLib {
+    fn load() -> Option<Self> {
+        unsafe {
+            let paths = [
+                "libchapel_osint.so",
+                "./libchapel_osint.so",
+                "ffi/chapel/libchapel_osint.so",
+                "target/release/libchapel_osint.so"
+            ];
+
+            for path in &paths {
+                if let Ok(lib) = libloading::Library::new(*path) {
+                    eprintln!("✅ [Chapel] Loaded library from {}", path);
+                    return Some(Self { lib });
+                }
+            }
+            eprintln!("⚠️ [Chapel] Library not found. Using mock implementation.");
+            None
+        }
+    }
+
+    fn analyze_target(&self, target: &str, depth: i32) -> i32 {
+        unsafe {
+            let func: libloading::Symbol<unsafe extern "C" fn(*const c_char, c_int) -> c_int> =
+                match self.lib.get(b"osint_analyze_target") {
+                    Ok(f) => f,
+                    Err(_) => return -1,
+                };
+
+            let c_target = CString::new(target).unwrap();
+            func(c_target.as_ptr(), depth as c_int)
+        }
+    }
+
+    fn train_model(&self, epochs: i32) -> i32 {
+        unsafe {
+            let func: libloading::Symbol<unsafe extern "C" fn(c_int) -> c_int> =
+                match self.lib.get(b"osint_train_model") {
+                    Ok(f) => f,
+                    Err(_) => return -1,
+                };
+
+            func(epochs as c_int)
+        }
+    }
+}
+
+// ═════════════════════════════════════════════════════════════════════
+// 🧠 CHAPEL AI ASYNC ORCHESTRATOR
+// ═════════════════════════════════════════════════════════════════════
+
+#[derive(Clone, Debug)]
+pub struct ChapelAIOrchestrator {
+    learning_memory: Arc<RwLock<LearningMemory>>,
+}
+
+lazy_static::lazy_static! {
+    static ref CHAPEL_LIB: Option<ChapelLib> = ChapelLib::load();
+}
+
+#[derive(Debug)]
+struct LearningMemory {
+    tool_metrics: HashMap<String, ToolMetrics>,
+    patterns: Vec<String>,
+    optimization_suggestions: Vec<String>,
+}
+
+#[derive(Clone, Debug)]
+struct ToolMetrics {
+    calls: usize,
+    total_duration_ms: u64,
+    avg_quality: f64,
+}
+
+impl ChapelAIOrchestrator {
+    pub fn new() -> Self {
+        Self {
+            learning_memory: Arc::new(RwLock::new(LearningMemory {
+                tool_metrics: HashMap::new(),
+                patterns: Vec::new(),
+                optimization_suggestions: Vec::new(),
+            })),
+        }
+    }
+
+    pub async fn analyze_target_ffi(&self, target: String, depth: i32) -> i32 {
+        tokio::task::spawn_blocking(move || {
+            if let Some(lib) = &*CHAPEL_LIB {
+                lib.analyze_target(&target, depth)
+            } else {
+                std::thread::sleep(std::time::Duration::from_millis(100));
+                depth * 50
+            }
         }).await.unwrap_or(-1)
     }
 

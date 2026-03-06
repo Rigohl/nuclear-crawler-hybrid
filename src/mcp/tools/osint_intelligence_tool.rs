@@ -5,11 +5,50 @@
 //! - Multi-source data gathering (Surface, Deep, and Dark Web simulation)
 //! - WASM-based scraping integration (simulated or bridged)
 
-use crate::chapel_parallel::ChapelAIOrchestrator;
-use crate::core::nuclear_core::NuclearCore;
 use anyhow::{Context, Result};
 use serde_json::{json, Value};
 use std::collections::HashMap;
+use crate::chapel_parallel::ChapelAIOrchestrator;
+use std::net::ToSocketAddrs;
+use reqwest::Client;
+
+#[derive(Debug)]
+pub struct OsintConfig {
+    pub target: String,
+    pub search_type: String, // email, domain, ip, username, all
+    pub depth: String,       // basic, deep, maximum
+    pub include_darkweb: bool,
+}
+
+/// Execute OSINT intelligence gathering and analysis
+pub async fn execute_osint_intelligence(arguments: Value) -> Result<Value> {
+    let target = arguments
+        .get("target")
+        .and_then(|v| v.as_str())
+        .context("Missing 'target' parameter")?;
+
+    let search_type = arguments
+        .get("search_type")
+        .and_then(|v| v.as_str())
+        .unwrap_or("all");
+
+    let depth = arguments
+        .get("depth")
+        .and_then(|v| v.as_str())
+        .unwrap_or("deep");
+
+    let include_darkweb = arguments
+        .get("include_darkweb")
+        .and_then(|v| v.as_bool())
+        .unwrap_or(false);
+
+    let config = OsintConfig {
+        target: target.to_string(),
+        search_type: search_type.to_string(),
+        depth: depth.to_string(),
+        include_darkweb,
+    };
+
     eprintln!("🔍 OSINT: Analyzing '{}' (Depth: {}, Type: {})", target, depth, search_type);
 
     // 1. Gather Data (Real parallel gathering)
