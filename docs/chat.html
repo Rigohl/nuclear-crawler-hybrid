@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nuclear AI Chat - MCP Server</title>
+<style>
+:root{
+  --bg:#0d1117;--surface:#161b22;--s2:#21262d;--bd:#30363d;
+  --acc:#ff6b35;--txt:#e6edf3;--dim:#8b949e;
+  --ok:#3fb950;--err:#f85149;--ubg:#1f4068;--abg:#1a2332;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:"Segoe UI",system-ui,sans-serif;height:100vh;display:flex;flex-direction:column}
+header{background:var(--surface);border-bottom:1px solid var(--bd);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+header h1{font-size:1.05em;font-weight:700;color:var(--acc)}
+.status{margin-left:auto;font-size:.78em;color:var(--dim);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.layout{display:flex;flex:1;overflow:hidden}
+.sidebar{width:215px;background:var(--surface);border-right:1px solid var(--bd);display:flex;flex-direction:column;flex-shrink:0}
+.sidebar h2{font-size:.68em;text-transform:uppercase;color:var(--dim);padding:14px 14px 7px;letter-spacing:1px}
+.tlist{display:flex;flex-direction:column;gap:2px;padding:0 6px;flex:1;overflow-y:auto}
+.tbtn{background:transparent;border:none;color:var(--txt);padding:7px 9px;border-radius:5px;text-align:left;cursor:pointer;font-size:.83em;display:flex;align-items:center;gap:7px;transition:background .15s;width:100%}
+.tbtn:hover{background:var(--s2)}
+.tbtn.active{background:rgba(255,107,53,.15);color:var(--acc)}
+.tinfo{padding:11px;border-top:1px solid var(--bd)}
+.tname{font-size:.76em;font-weight:600;color:var(--acc);margin-bottom:3px}
+.tdesc{font-size:.72em;color:var(--dim);line-height:1.4}
+.chat{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:13px}
+.msg{max-width:86%;display:flex;flex-direction:column;gap:3px}
+.msg.u{align-self:flex-end}
+.msg.a{align-self:flex-start}
+.sndr{font-size:.7em;color:var(--dim);padding:0 3px}
+.msg.u .sndr{text-align:right}
+.bbl{padding:9px 13px;border-radius:9px;font-size:.87em;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.msg.u .bbl{background:var(--ubg);border-bottom-right-radius:3px}
+.msg.a .bbl{background:var(--abg);border:1px solid var(--bd);border-bottom-left-radius:3px}
+.badge{font-size:.68em;background:rgba(255,107,53,.18);color:var(--acc);padding:2px 7px;border-radius:3px;display:inline-block;margin-bottom:3px}
+.ld{display:flex;gap:4px;align-items:center;padding:9px 13px;background:var(--abg);border:1px solid var(--bd);border-radius:9px;border-bottom-left-radius:3px}
+.ld span{width:7px;height:7px;background:var(--acc);border-radius:50%;animation:bop 1.2s infinite}
+.ld span:nth-child(2){animation-delay:.2s}
+.ld span:nth-child(3){animation-delay:.4s}
+@keyframes bop{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+.inp-area{padding:13px;border-top:1px solid var(--bd);background:var(--surface);flex-shrink:0}
+.srv-row{display:flex;gap:7px;margin-bottom:8px;align-items:center}
+.srv-row label{font-size:.71em;color:var(--dim);white-space:nowrap}
+.srv-row input{flex:1;background:var(--bg);border:1px solid var(--bd);color:var(--txt);padding:5px 8px;border-radius:5px;font-size:.77em;outline:none}
+.srv-row input:focus{border-color:var(--acc)}
+.chk-btn{background:var(--s2);border:1px solid var(--bd);color:var(--txt);padding:5px 9px;border-radius:5px;cursor:pointer;font-size:.73em}
+.inp-row{display:flex;gap:7px}
+textarea{flex:1;background:var(--bg);border:1px solid var(--bd);color:var(--txt);padding:8px 11px;border-radius:7px;font-size:.875em;resize:none;outline:none;font-family:inherit;max-height:100px;min-height:38px;transition:border-color .15s}
+textarea:focus{border-color:var(--acc)}
+.snd-btn{background:var(--acc);border:none;color:#fff;padding:8px 14px;border-radius:7px;cursor:pointer;font-size:.83em;font-weight:600;transition:opacity .15s;white-space:nowrap}
+.snd-btn:hover{opacity:.9}
+.snd-btn:disabled{opacity:.4;cursor:not-allowed}
+.hint{font-size:.68em;color:var(--dim);margin-top:5px}
+.hint code{font-family:Consolas,monospace;background:var(--s2);padding:1px 4px;border-radius:3px}
+.wel{text-align:center;padding:60px 20px;color:var(--dim)}
+.wel .em{font-size:2.5em;margin-bottom:10px}
+.wel h2{font-size:1.15em;color:var(--txt);margin-bottom:8px}
+.wel p{font-size:.875em;line-height:1.6;max-width:500px;margin:0 auto}
+.exs{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:16px}
+.ex-btn{background:var(--s2);border:1px solid var(--bd);color:var(--txt);padding:5px 11px;border-radius:15px;font-size:.77em;cursor:pointer;transition:all .15s}
+.ex-btn:hover{border-color:var(--acc);color:var(--acc)}
+.bbl pre{background:#0d1117;border:1px solid var(--bd);border-radius:5px;padding:8px;overflow-x:auto;font-size:.8em;margin-top:6px;font-family:Consolas,monospace}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+</style>
+</head>
+<body>
+
+<header>
+  <span>&#9883;&#65039;</span>
+  <h1>Nuclear AI Chat &mdash; MCP Server</h1>
+  <div class="status">
+    <div class="dot" id="dot"></div>
+    <span id="stxt">Conectando...</span>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <h2>7 Herramientas MCP</h2>
+    <div class="tlist" id="tlist"></div>
+    <div class="tinfo" id="tinfo">
+      <div class="tname">Auto-detect activo</div>
+      <div class="tdesc">Escribe tu consulta. El sistema detecta la herramienta correcta automaticamente.</div>
+    </div>
+  </nav>
+
+  <div class="chat">
+    <div class="msgs" id="msgs">
+      <div class="wel" id="wel">
+        <div class="em">&#9883;&#65039;</div>
+        <h2>Nuclear Crawler Hybrid</h2>
+        <p>IA con FFI real: Go &bull; Nim &bull; Zig &bull; Chapel &bull; JAX &bull; WASM<br>
+           2000 requests concurrentes &bull; 10K req/s &bull; 55+ motores de busqueda</p>
+        <div class="exs" id="exs"></div>
+      </div>
+    </div>
+
+    <div class="inp-area">
+      <div class="srv-row">
+        <label>Servidor MCP:</label>
+        <input type="text" id="srvUrl" value="http://localhost:8079" placeholder="http://localhost:8079">
+        <button class="chk-btn" onclick="chkHealth()">Ping</button>
+      </div>
+      <div class="inp-row">
+        <textarea id="inp" placeholder="Escribe tu consulta... (Enter = enviar, Shift+Enter = nueva linea)" rows="1"></textarea>
+        <button class="snd-btn" id="sndBtn" onclick="doSend()">Enviar &#8594;</button>
+      </div>
+      <div class="hint">
+        Tool activo: <strong id="atool">auto-detect</strong> &nbsp;|&nbsp;
+        Iniciar servidor: <code>cargo run --bin nuclear-mcp -- --verbose</code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOOLS = [
+  {
+    id: 'websearch',
+    em: '\u{1F50D}',
+    name: 'Web Search',
+    desc: '55+ motores reales. Stealth, bypass automatico, rate limiting invisible. Max 100 resultados, FFI Go para procesamiento paralelo.',
+    ex: 'buscar inteligencia artificial 2026',
+    args: function(m) { return {query: m, max_results: 10, use_ai: true}; }
+  },
+  {
+    id: 'premium',
+    em: '\u{1F4C4}',
+    name: 'Premium Content',
+    desc: 'Scraping de PDF y papers academicos. Extraccion de titulo real con lopdf. Contenido premium sin restricciones.',
+    ex: 'https://arxiv.org/abs/2301.00001',
+    args: function(m) { return {url: m}; }
+  },
+  {
+    id: 'file_search',
+    em: '\u{1F4C1}',
+    name: 'File Search',
+    desc: 'Busqueda avanzada en workspace local. Analisis de codigo, estadisticas, estructura del proyecto.',
+    ex: 'buscar funciones async en src/',
+    args: function(m) { return {query: m, path: '.'}; }
+  },
+  {
+    id: 'scan',
+    em: '\u{1F6E1}',
+    name: 'Scan Workspace',
+    desc: 'Escaneo completo: seguridad, estructura, dependencias, metricas de codigo. Detecta vulnerabilidades.',
+    ex: 'escanear proyecto',
+    args: function(m) { return {path: m.trim() || '.', deep: true}; }
+  },
+  {
+    id: 'ai_dataset_trainer',
+    em: '\u{1F916}',
+    name: 'AI Dataset Trainer',
+    desc: 'Generacion de datasets y entrenamiento con Chapel AI. Aprendizaje continuo, integracion HuggingFace.',
+    ex: 'generar dataset de busquedas web',
+    args: function(m) { return {task: m, epochs: 5}; }
+  },
+  {
+    id: 'parallel_engine',
+    em: '\u26A1',
+    name: 'Parallel Engine',
+    desc: 'Motor de computo con WASM real, ndarray, GPU simulado, BLAKE3 hash. 50K goroutines, Zig SIMD. FFI real.',
+    ex: 'calcular hash de datos',
+    args: function(m) { return {operation: 'hash', data: m}; }
+  },
+  {
+    id: 'osint_intelligence',
+    em: '\u{1F575}',
+    name: 'OSINT Intelligence',
+    desc: 'DNS real, HTTP fetch, Chapel AI para correlacion. Analisis de dominios, IPs, emails, usernames.',
+    ex: 'analizar dominio github.com',
+    args: function(m) {
+      var parts = m.trim().split(' ');
+      return {target: parts[parts.length - 1], search_type: 'all', depth: 'deep', include_darkweb: false};
+    }
+  }
+];
+
+var activeTool = null;
+
+function initTools() {
+  var list = document.getElementById('tlist');
+  TOOLS.forEach(function(t) {
+    var b = document.createElement('button');
+    b.className = 'tbtn';
+    b.id = 'tb_' + t.id;
+    b.textContent = t.em + ' ' + t.name;
+    b.onclick = function() { selTool(t); };
+    list.appendChild(b);
+  });
+
+  var exs = document.getElementById('exs');
+  TOOLS.forEach(function(t) {
+    var b = document.createElement('button');
+    b.className = 'ex-btn';
+    b.textContent = t.em + ' ' + t.ex;
+    b.onclick = function() {
+      selTool(t);
+      document.getElementById('inp').value = t.ex;
+      doSend();
+    };
+    exs.appendChild(b);
+  });
+}
+
+function selTool(t) {
+  document.querySelectorAll('.tbtn').forEach(function(b) { b.classList.remove('active'); });
+  if (activeTool && activeTool.id === t.id) {
+    activeTool = null;
+    document.getElementById('atool').textContent = 'auto-detect';
+    document.getElementById('tinfo').innerHTML =
+      '<div class="tname">Auto-detect activo</div>' +
+      '<div class="tdesc">Escribe tu consulta. El sistema detecta la herramienta correcta automaticamente.</div>';
+    document.getElementById('inp').placeholder = 'Escribe tu consulta... (Enter = enviar)';
+    return;
+  }
+  activeTool = t;
+  document.getElementById('tb_' + t.id).classList.add('active');
+  document.getElementById('atool').textContent = t.name;
+  document.getElementById('tinfo').innerHTML =
+    '<div class="tname">' + t.em + ' ' + t.name + '</div>' +
+    '<div class="tdesc">' + t.desc + '</div>';
+  document.getElementById('inp').placeholder = 'Ejemplo: ' + t.ex;
+}
+
+function chkHealth() {
+  var url = document.getElementById('srvUrl').value.trim();
+  fetch(url + '/health', {signal: AbortSignal.timeout(3000)})
+    .then(function(r) {
+      document.getElementById('dot').style.background = r.ok ? 'var(--ok)' : 'var(--err)';
+      document.getElementById('stxt').textContent = r.ok ? 'Servidor activo en ' + url : 'Error del servidor';
+    })
+    .catch(function() {
+      document.getElementById('dot').style.background = 'var(--err)';
+      document.getElementById('stxt').textContent = 'Sin conexion - ejecuta: cargo run --bin nuclear-mcp';
+    });
+}
+
+function addMsg(role, content, badge) {
+  var w = document.getElementById('wel');
+  if (w) w.remove();
+  var c = document.getElementById('msgs');
+  var d = document.createElement('div');
+  d.className = 'msg ' + (role === 'user' ? 'u' : 'a');
+  var h = '<div class="sndr">' + (role === 'user' ? 'Tu' : '&#9883;&#65039; Nuclear AI') + '</div>';
+  if (role !== 'user' && badge) h += '<div class="badge">' + badge + '</div>';
+  var fc = content;
+  if (role !== 'user') {
+    try {
+      var parsed = JSON.parse(content);
+      fc = '<pre>' + JSON.stringify(parsed, null, 2) + '</pre>';
+    } catch(e) {
+      fc = content
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+  }
+  h += '<div class="bbl">' + fc + '</div>';
+  d.innerHTML = h;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function addLoading() {
+  var c = document.getElementById('msgs');
+  var d = document.createElement('div');
+  d.className = 'msg a'; d.id = 'ldMsg';
+  d.innerHTML = '<div class="sndr">&#9883;&#65039; Nuclear AI</div><div class="ld"><span></span><span></span><span></span></div>';
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function rmLoading() {
+  var e = document.getElementById('ldMsg');
+  if (e) e.remove();
+}
+
+function callTool(name, args) {
+  var url = document.getElementById('srvUrl').value.trim();
+  return fetch(url + '/mcp/tools/call', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      method: 'tools/call',
+      params: {name: name, arguments: args},
+      id: Date.now()
+    })
+  }).then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status + ' - El servidor MCP no esta disponible');
+    return r.json();
+  }).then(function(data) {
+    if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
+    return data.result || data;
+  });
+}
+
+function doSend() {
+  var inp = document.getElementById('inp');
+  var msg = inp.value.trim();
+  if (!msg) return;
+  inp.value = '';
+  inp.style.height = 'auto';
+  document.getElementById('sndBtn').disabled = true;
+  addMsg('user', msg);
+  addLoading();
+
+  var t = activeTool || TOOLS[0];
+  callTool(t.id, t.args(msg))
+    .then(function(res) {
+      rmLoading();
+      var txt;
+      if (res.content) {
+        txt = res.content.map(function(c) { return c.text || JSON.stringify(c); }).join('\n');
+      } else {
+        txt = JSON.stringify(res, null, 2);
+      }
+      addMsg('ai', txt, t.em + ' ' + t.name);
+    })
+    .catch(function(e) {
+      rmLoading();
+      addMsg('ai',
+        'ERROR: ' + e.message + '\n\n' +
+        'Para iniciar el servidor MCP:\n' +
+        '  cargo run --bin nuclear-mcp -- --verbose\n\n' +
+        'Puerto por defecto: 8079\n' +
+        'Verifica que la URL del servidor sea correcta.'
+      );
+    })
+    .finally(function() {
+      document.getElementById('sndBtn').disabled = false;
+      inp.focus();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  initTools();
+  chkHealth();
+  setInterval(chkHealth, 15000);
+
+  var inp = document.getElementById('inp');
+  inp.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  });
+  inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      doSend();
+    }
+  });
+});
+</script>
+</body>
+</html>
