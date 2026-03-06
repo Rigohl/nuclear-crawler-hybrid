@@ -5,11 +5,11 @@
 //! Extracts full articles, papers, and premium content with maximum stealth
 
 use anyhow::Result;
+use lopdf::Document;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Instant;
-use lopdf::Document;
 
 use crate::go_integration::GoParallelProcessor;
 use crate::jax_integration::JaxProcessor;
@@ -523,7 +523,11 @@ impl NuclearPremiumScraper {
         // 🔥 Extract title from PDF using lopdf
         let mut pdf_title = "PDF Document".to_string();
         if let Ok(doc) = Document::load_mem(&pdf_bytes) {
-            if let Some(info_id) = doc.trailer.get(b"Info").and_then(|info| info.as_reference()).ok() {
+            if let Ok(info_id) = doc
+                .trailer
+                .get(b"Info")
+                .and_then(|info| info.as_reference())
+            {
                 if let Ok(info_dict) = doc.get_dictionary(info_id) {
                     if let Ok(title) = info_dict.get(b"Title") {
                         // as_str() returns a byte slice in lopdf for strings
@@ -531,7 +535,10 @@ impl NuclearPremiumScraper {
                             let mut clean_title = String::new();
 
                             // Check for UTF-16BE BOM (0xFE, 0xFF)
-                            if title_bytes.len() >= 2 && title_bytes[0] == 0xFE && title_bytes[1] == 0xFF {
+                            if title_bytes.len() >= 2
+                                && title_bytes[0] == 0xFE
+                                && title_bytes[1] == 0xFF
+                            {
                                 if title_bytes.len() > 2 {
                                     let utf16_bytes: Vec<u16> = title_bytes[2..]
                                         .chunks_exact(2)

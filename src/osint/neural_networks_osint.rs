@@ -33,9 +33,9 @@ impl LinearLayer {
 
         // Xavier initialization
         let scale = (2.0 / (input_size + output_size) as f64).sqrt();
-        for i in 0..output_size {
-            for j in 0..input_size {
-                weights[i][j] = (rand::random::<f64>() - 0.5) * scale;
+        for (i, row) in weights.iter_mut().enumerate() {
+            for val in row.iter_mut() {
+                *val = (rand::random::<f64>() - 0.5) * scale;
             }
             bias[i] = 0.0;
         }
@@ -54,12 +54,12 @@ impl LinearLayer {
         let output_size = self.weights.len();
         let mut output = vec![0.0; output_size];
 
-        for i in 0..output_size {
+        for (i, out) in output.iter_mut().enumerate() {
             let mut sum = self.bias[i];
-            for j in 0..input.len() {
-                sum += self.weights[i][j] * input[j];
+            for (j, &inp) in input.iter().enumerate() {
+                sum += self.weights[i][j] * inp;
             }
-            output[i] = sum;
+            *out = sum;
         }
 
         output
@@ -74,11 +74,11 @@ impl LinearLayer {
         let grad_len = grad_output.len().min(output_size);
 
         // Compute gradients
-        for i in 0..grad_len {
-            self.grad_bias[i] += grad_output[i];
-            for j in 0..input_size {
-                self.grad_weights[i][j] += grad_output[i] * self.input_cache[j];
-                grad_input[j] += grad_output[i] * self.weights[i][j];
+        for (i, &grad_out) in grad_output.iter().enumerate().take(grad_len) {
+            self.grad_bias[i] += grad_out;
+            for (j, grad_in) in grad_input.iter_mut().enumerate().take(input_size) {
+                self.grad_weights[i][j] += grad_out * self.input_cache[j];
+                *grad_in += grad_out * self.weights[i][j];
             }
         }
 
@@ -155,8 +155,8 @@ pub struct OSINTNeuralNetwork {
 impl OSINTNeuralNetwork {
     pub fn new(layer_sizes: &[usize], activations: Vec<String>, learning_rate: f64) -> Self {
         let mut layers = Vec::new();
-        for i in 0..layer_sizes.len() - 1 {
-            layers.push(LinearLayer::new(layer_sizes[i], layer_sizes[i + 1]));
+        for pair in layer_sizes.windows(2) {
+            layers.push(LinearLayer::new(pair[0], pair[1]));
         }
 
         OSINTNeuralNetwork {
@@ -262,6 +262,12 @@ pub struct BotClassifierNN {
     network: OSINTNeuralNetwork,
 }
 
+impl Default for BotClassifierNN {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl BotClassifierNN {
     /// Create bot classifier: 20D input → [hidden1:64, hidden2:32] → 2D output (human/bot)
     pub fn new() -> Self {
@@ -291,6 +297,12 @@ impl BotClassifierNN {
 /// ============================================================================
 pub struct AuthorshipNN {
     network: OSINTNeuralNetwork,
+}
+
+impl Default for AuthorshipNN {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl AuthorshipNN {
@@ -378,7 +390,7 @@ mod tests {
 
         // Check range [0, 1]
         for &val in &output {
-            assert!(val >= 0.0 && val <= 1.0);
+            assert!((0.0..=1.0).contains(&val));
         }
 
         // Check sum is 1.0

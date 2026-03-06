@@ -569,7 +569,9 @@ mod tests {
     fn test_parse_generic_content() {
         let tool = PremiumContentTool::default();
         let html = "<html><head><title>Generic Title</title></head><body><main>Generic main content</main></body></html>";
-        let result = tool.parse_generic_content("http://example.com", html).unwrap();
+        let result = tool
+            .parse_generic_content("http://example.com", html)
+            .unwrap();
 
         assert_eq!(result.title, "Generic Title");
         assert_eq!(result.content, "Generic main content");

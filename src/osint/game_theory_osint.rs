@@ -165,7 +165,7 @@ impl NashSolver {
             (g - a) / (c - a - g + a)
         };
 
-        if p1_prob >= 0.0 && p1_prob <= 1.0 && p2_prob >= 0.0 && p2_prob <= 1.0 {
+        if (0.0..=1.0).contains(&p1_prob) && (0.0..=1.0).contains(&p2_prob) {
             let mut s1 = MixedStrategy::new("Player1", 2);
             let mut s2 = MixedStrategy::new("Player2", 2);
 
@@ -212,6 +212,7 @@ impl OSINTAdversarialGame {
     /// Create adversarial game between defender (us) and attacker (threat actor)
     /// Defender strategies: Monitor, Block, Ignore, IncreaseMonitoring
     /// Attacker strategies: Attack, Subtle, Hide, Escalate
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         let defender_strategies = vec![
             "Monitor".to_string(),
@@ -415,7 +416,7 @@ impl CoalitionGame {
         let n = self.players.len();
         let mut shapley = vec![0.0; n];
 
-        for player in 0..n {
+        for (player, shapley_val) in shapley.iter_mut().enumerate() {
             let mut contribution = 0.0;
             let mut count = 0;
 
@@ -434,7 +435,7 @@ impl CoalitionGame {
             }
 
             if count > 0 {
-                shapley[player] = contribution / count as f64;
+                *shapley_val = contribution / count as f64;
             }
         }
 

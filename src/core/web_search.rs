@@ -28,6 +28,7 @@ use std::time::{Duration, Instant};
 // ═══════════════════════════════════════════════════════════════════════════
 // 🔥 IMPORTAR ABSOLUTAMENTE TODOS LOS MÓDULOS DISPONIBLES
 // ═══════════════════════════════════════════════════════════════════════════
+use crate::ffi::chapel_integration::{create_context, get_chapel_ai};
 use crate::go_integration;
 use crate::jax_integration;
 use crate::nim_integration::NimParsedContent;
@@ -35,7 +36,6 @@ use crate::nuclear_core;
 use crate::premium_content_scraper;
 use crate::rate_limit::RateLimiter;
 use crate::zig_integration;
-use crate::ffi::chapel_integration::{get_chapel_ai, create_context};
 
 /// Configuración de búsqueda web
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -838,7 +838,8 @@ impl WebSearch {
         // Extraer todos los hrefs
         use std::sync::OnceLock;
         static HREF_RE: OnceLock<Regex> = OnceLock::new();
-        let href_re = HREF_RE.get_or_init(|| Regex::new(r#"href=["']([^"']+)["']"#).expect("Valid regex"));
+        let href_re =
+            HREF_RE.get_or_init(|| Regex::new(r#"href=["']([^"']+)["']"#).expect("Valid regex"));
         let query_lower = query.to_lowercase();
         let query_words: Vec<String> = query_lower
             .split_whitespace()
@@ -1775,7 +1776,8 @@ impl WebSearch {
         use regex::Regex;
         use std::sync::OnceLock;
         static TITLE_RE: OnceLock<Regex> = OnceLock::new();
-        let re = TITLE_RE.get_or_init(|| Regex::new(r"(?i)<title[^>]*>(.*?)</title>").expect("Valid regex"));
+        let re = TITLE_RE
+            .get_or_init(|| Regex::new(r"(?i)<title[^>]*>(.*?)</title>").expect("Valid regex"));
         if let Some(cap) = re.captures(html) {
             let title = cap.get(1).map(|m| m.as_str()).unwrap_or("");
             // Decodificar entidades HTML básicas
@@ -1805,7 +1807,8 @@ impl WebSearch {
         } else {
             // Intentar extraer del body
             static BODY_RE: OnceLock<Regex> = OnceLock::new();
-            let body_re = BODY_RE.get_or_init(|| Regex::new(r"(?i)<body[^>]*>(.*?)</body>").expect("Valid regex"));
+            let body_re = BODY_RE
+                .get_or_init(|| Regex::new(r"(?i)<body[^>]*>(.*?)</body>").expect("Valid regex"));
             if let Some(cap) = body_re.captures(html) {
                 let body = cap.get(1).map(|m| m.as_str()).unwrap_or("");
                 static TAG_RE: OnceLock<Regex> = OnceLock::new();
@@ -1989,7 +1992,9 @@ impl WebSearch {
                         headings: Vec::new(), // extracted.headings doesn't exist
                         code_snippets: extracted.code_snippets.clone(),
                         relevance: self.calculate_relevance(&query, &extracted.main_text),
-                        quality_score: self.calculate_relevance(query.as_str(), &extracted.main_text).clamp(0.3, 1.0),
+                        quality_score: self
+                            .calculate_relevance(query.as_str(), &extracted.main_text)
+                            .clamp(0.3, 1.0),
                         source: "nuclear_core".to_string(),
                     };
                     fetched_results.push(result);
@@ -2028,7 +2033,10 @@ impl WebSearch {
             // 🔥 STEP 4: Use FFI modules for additional processing if available
             if self.go_integration.is_available() {
                 eprintln!("🚀 Using Go FFI for additional processing");
-                let contents: Vec<String> = fetched_results.iter().map(|r| r.main_text.clone()).collect();
+                let contents: Vec<String> = fetched_results
+                    .iter()
+                    .map(|r| r.main_text.clone())
+                    .collect();
                 match self.go_integration.process_content_parallel(contents).await {
                     Ok(processed) => {
                         for (i, content) in processed.into_iter().enumerate() {
@@ -2036,7 +2044,10 @@ impl WebSearch {
                                 fetched_results[i].main_text = content;
                             }
                         }
-                        eprintln!("   ✅ Successfully processed {} results with Go FFI", fetched_results.len());
+                        eprintln!(
+                            "   ✅ Successfully processed {} results with Go FFI",
+                            fetched_results.len()
+                        );
                     }
                     Err(e) => eprintln!("   ⚠️ Go FFI processing failed: {}", e),
                 }
@@ -2052,8 +2063,14 @@ impl WebSearch {
                 if !query_patterns.is_empty() {
                     for result in &mut fetched_results {
                         let text = format!("{} {}", result.title, result.main_text);
-                        if let Ok(matches) = self.zig_integration.find_patterns(&text.to_lowercase(), &query_patterns) {
-                            let boost = matches.iter().map(|m| m.match_count as f32 * 0.05).sum::<f32>();
+                        if let Ok(matches) = self
+                            .zig_integration
+                            .find_patterns(&text.to_lowercase(), &query_patterns)
+                        {
+                            let boost = matches
+                                .iter()
+                                .map(|m| m.match_count as f32 * 0.05)
+                                .sum::<f32>();
                             result.relevance = (result.relevance + boost).min(1.0);
                         }
                     }
@@ -2064,7 +2081,10 @@ impl WebSearch {
                 eprintln!("🐉 Using Nim FFI for HTML parsing");
                 // Apply Nim FFI HTML parsing to enhance results
                 for result in &mut fetched_results {
-                    if let Ok(nim_parsed) = self.nim_integration.parse_html(&result.main_text, Some(&result.url)) {
+                    if let Ok(nim_parsed) = self
+                        .nim_integration
+                        .parse_html(&result.main_text, Some(&result.url))
+                    {
                         if !nim_parsed.title.is_empty() && result.title == "No title" {
                             result.title = nim_parsed.title;
                         }
@@ -2084,7 +2104,8 @@ impl WebSearch {
 
             if self.jax_integration.is_available() {
                 eprintln!("🧠 Using JAX FFI for AI relevance scoring");
-                let texts: Vec<String> = fetched_results.iter()
+                let texts: Vec<String> = fetched_results
+                    .iter()
                     .map(|r| format!("{} {}", r.title, &r.description))
                     .collect();
                 if !texts.is_empty() {
@@ -2112,10 +2133,7 @@ impl WebSearch {
         Ok(all_results)
     }
 
-
-
     /// Helper method to deduplicate results using Zig SIMD
-
     /// Uses Chapel AI to recommend search strategies based on provided sources
     fn recommend_massive_parallel_search(&self, sources: Vec<String>) {
         let chapel_ai = get_chapel_ai();
@@ -2130,16 +2148,18 @@ impl WebSearch {
             1.0,
         );
 
-        if let Ok(_) = chapel_ai.learn(context) {
+        if chapel_ai.learn(context).is_ok() {
             if let Ok(advice) = chapel_ai.get_advice("websearch", "massive_parallel_search") {
                 for a in advice {
-                    eprintln!("   🧠 Chapel AI Suggestion ({}): {}", a.priority, a.suggestion);
+                    eprintln!(
+                        "   🧠 Chapel AI Suggestion ({}): {}",
+                        a.priority, a.suggestion
+                    );
                 }
             }
         }
     }
     /// Calculate relevance score for a query against content
-
     pub fn generate_summary(&self, text: &str, query: &str) -> String {
         // Scoring sentences based on query keyword frequency, position, and length
         let query_terms: Vec<String> = query
@@ -2149,7 +2169,7 @@ impl WebSearch {
             .collect();
 
         let sentences: Vec<&str> = text
-            .split(|c| c == '.' || c == '!' || c == '?')
+            .split(['.', '!', '?'])
             .map(|s| s.trim())
             .filter(|s| !s.is_empty())
             .collect();
@@ -2172,7 +2192,7 @@ impl WebSearch {
             let length = words.len();
 
             // 1. Length score (prefer sentences between 10 and 30 words)
-            if length >= 10 && length <= 30 {
+            if (10..=30).contains(&length) {
                 score += 1.0;
             } else if length > 30 {
                 score += 0.5;

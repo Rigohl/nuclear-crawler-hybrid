@@ -1,1 +1,3 @@
-fn main() { println!("Nuclear Agent"); }
+fn main() {
+    println!("Nuclear Agent");
+}

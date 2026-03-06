@@ -374,7 +374,7 @@ impl WebSearchTool {
         self.cache.set_simple(&cache_key, json_result);
 
         // 🧠 Chapel AI: Learn from search quality
-        let quality = if results.len() > 0 {
+        let quality = if !results.is_empty() {
             (results.len() as f64 / self.config.max_results as f64).min(1.0)
         } else {
             0.0
@@ -434,7 +434,7 @@ impl WebSearchTool {
         let mut header_map = HeaderMap::new();
         for (k, v) in &headers {
             if let Ok(hname) = reqwest::header::HeaderName::from_bytes(k.as_bytes()) {
-                if let Ok(hval) = reqwest::header::HeaderValue::from_str(&v) {
+                if let Ok(hval) = reqwest::header::HeaderValue::from_str(v) {
                     header_map.insert(hname, hval);
                 }
             }
@@ -528,7 +528,11 @@ impl WebSearchTool {
                         if !url_str.contains("google.com") && !url_str.contains("bing.com") {
                             results.push(SearchResult {
                                 url: url_str.to_string(),
-                                title: url_str.split('/').last().unwrap_or("Result").to_string(),
+                                title: url_str
+                                    .split('/')
+                                    .next_back()
+                                    .unwrap_or("Result")
+                                    .to_string(),
                                 snippet: "Extracted from search results".to_string(),
                                 source: "web_extraction".to_string(),
                                 relevance_score: 0.75,

@@ -67,6 +67,13 @@ pub struct GoHttpResult {
     pub retry_count: u32,
 }
 
+/// Hash result from Go/Blake3 processing
+#[derive(Debug, Clone)]
+pub struct GoHashResult {
+    pub hash: String,
+    pub processing_time_ns: u64,
+}
+
 /// 🔥 Go Parallel Processor - REAL GOROUTINE POWER + WASM RUNTIME
 pub struct GoParallelProcessor {
     config: GoParallelConfig,
@@ -240,10 +247,7 @@ impl GoParallelProcessor {
             .map(|url| CString::new(url.as_str()).unwrap())
             .collect();
 
-        let url_ptrs: Vec<*const i8> = c_urls
-            .iter()
-            .map(|cstr| cstr.as_ptr() as *const i8)
-            .collect();
+        let url_ptrs: Vec<*const i8> = c_urls.iter().map(|cstr| cstr.as_ptr()).collect();
 
         let url_lengths: Vec<usize> = urls.iter().map(|url| url.len()).collect();
 
@@ -383,9 +387,13 @@ impl GoParallelProcessor {
         #[cfg(has_go)]
         {
             // Try to load the Go library - try both possible names
-            let lib_paths = ["go/stealth_go.dll", "go/stealth_go_msvc.dll"];
+            let lib_paths = [
+                "go/stealth_go.dll",
+                "go/stealth_go_msvc.dll",
+                "ffi/shared/stealth_go.dll",
+            ];
 
-            for lib_path in &lib_paths {
+            for lib_path in lib_paths {
                 match unsafe { Library::new(lib_path) } {
                     Ok(lib) => {
                         eprintln!("✅ Go library loaded successfully from: {}", lib_path);
@@ -405,6 +413,17 @@ impl GoParallelProcessor {
         {
             None
         }
+    }
+
+    /// Hash data using Blake3 (real implementation, no mock)
+    pub fn hash_data(&self, data: &[u8]) -> Result<GoHashResult> {
+        let start = std::time::Instant::now();
+        let hash = blake3::hash(data);
+        let elapsed = start.elapsed();
+        Ok(GoHashResult {
+            hash: hash.to_hex().to_string(),
+            processing_time_ns: elapsed.as_nanos() as u64,
+        })
     }
 
     /// Check if Go FFI is available

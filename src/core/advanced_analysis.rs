@@ -103,7 +103,7 @@ impl AdvancedAnalysisEngine {
                         // Ideal: 100KB average = score 100
                         let target = 100_000_f64;
                         let health = 100.0 * (1.0 - (avg_file_size - target).abs() / target);
-                        health.max(0.0).min(100.0)
+                        health.clamp(0.0, 100.0)
                     } else {
                         0.0
                     };
@@ -138,22 +138,20 @@ impl AdvancedAnalysisEngine {
 
         while let Some(dir) = dirs_to_process.pop() {
             if let Ok(entries) = fs::read_dir(&dir) {
-                for entry in entries {
-                    if let Ok(entry) = entry {
-                        let entry_path = entry.path();
-                        if entry_path.is_dir() {
-                            dirs_to_process.push(entry_path);
-                        } else if let Ok(metadata) = entry.metadata() {
-                            file_count += 1;
-                            total_size += metadata.len();
+                for entry in entries.flatten() {
+                    let entry_path = entry.path();
+                    if entry_path.is_dir() {
+                        dirs_to_process.push(entry_path);
+                    } else if let Ok(metadata) = entry.metadata() {
+                        file_count += 1;
+                        total_size += metadata.len();
 
-                            // Extract file extension
-                            if let Some(ext) = entry_path.extension() {
-                                let ext_str = ext.to_string_lossy().to_string();
-                                *file_types.entry(ext_str).or_insert(0) += 1;
-                            } else {
-                                *file_types.entry("[no-ext]".to_string()).or_insert(0) += 1;
-                            }
+                        // Extract file extension
+                        if let Some(ext) = entry_path.extension() {
+                            let ext_str = ext.to_string_lossy().to_string();
+                            *file_types.entry(ext_str).or_insert(0) += 1;
+                        } else {
+                            *file_types.entry("[no-ext]".to_string()).or_insert(0) += 1;
                         }
                     }
                 }
@@ -180,7 +178,7 @@ impl AdvancedAnalysisEngine {
                     .to_string();
                 filename_map
                     .entry(filename)
-                    .or_insert_with(Vec::new)
+                    .or_default()
                     .push(path.to_path_buf());
             }
         })?;
@@ -219,14 +217,12 @@ impl AdvancedAnalysisEngine {
         }
 
         if let Ok(entries) = fs::read_dir(path) {
-            for entry in entries {
-                if let Ok(entry) = entry {
-                    let entry_path = entry.path();
-                    visitor(entry_path.clone());
+            for entry in entries.flatten() {
+                let entry_path = entry.path();
+                visitor(entry_path.clone());
 
-                    if entry_path.is_dir() {
-                        Self::walk_depth_limited(&entry_path, depth - 1, visitor)?;
-                    }
+                if entry_path.is_dir() {
+                    Self::walk_depth_limited(&entry_path, depth - 1, visitor)?;
                 }
             }
         }
@@ -246,31 +242,29 @@ impl AdvancedAnalysisEngine {
 
         while let Some(dir) = dirs_to_process.pop() {
             if let Ok(entries) = fs::read_dir(&dir) {
-                for entry in entries {
-                    if let Ok(entry) = entry {
-                        let entry_path = entry.path();
+                for entry in entries.flatten() {
+                    let entry_path = entry.path();
 
-                        if entry_path.is_dir() {
-                            dirs_to_process.push(entry_path);
+                    if entry_path.is_dir() {
+                        dirs_to_process.push(entry_path);
+                    } else {
+                        let filename = entry_path
+                            .file_name()
+                            .unwrap_or_default()
+                            .to_string_lossy()
+                            .to_string();
+                        let ext = if let Some(pos) = filename.rfind('.') {
+                            filename[pos..].to_string()
                         } else {
-                            let filename = entry_path
-                                .file_name()
-                                .unwrap_or_default()
-                                .to_string_lossy()
-                                .to_string();
-                            let ext = if let Some(pos) = filename.rfind('.') {
-                                filename[pos..].to_string()
-                            } else {
-                                "[no-ext]".to_string()
-                            };
+                            "[no-ext]".to_string()
+                        };
 
-                            if let Ok(metadata) = entry.metadata() {
-                                let size = metadata.len();
-                                total_size += size;
-                                let entry = type_count.entry(ext).or_insert((0, 0));
-                                entry.0 += 1;
-                                entry.1 += size;
-                            }
+                        if let Ok(metadata) = entry.metadata() {
+                            let size = metadata.len();
+                            total_size += size;
+                            let entry = type_count.entry(ext).or_insert((0, 0));
+                            entry.0 += 1;
+                            entry.1 += size;
                         }
                     }
                 }

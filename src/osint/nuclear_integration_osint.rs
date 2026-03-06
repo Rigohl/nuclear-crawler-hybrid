@@ -31,7 +31,6 @@ pub trait DataSource {
 /// ============================================================================
 /// TWITTER/X DATA SOURCE
 /// ============================================================================
-
 pub struct TwitterDataSource {
     api_key: String,
     filter_keywords: Vec<String>,
@@ -153,7 +152,6 @@ impl DataSource for TwitterDataSource {
 /// ============================================================================
 /// DISCORD DATA SOURCE
 /// ============================================================================
-
 pub struct DiscordDataSource {
     webhook_url: String,
     channels: Vec<String>,
@@ -235,7 +233,6 @@ impl DataSource for DiscordDataSource {
 /// ============================================================================
 /// TELEGRAM DATA SOURCE
 /// ============================================================================
-
 pub struct TelegramDataSource {
     bot_token: String,
     chat_ids: Vec<String>,
@@ -305,10 +302,15 @@ impl DataSource for TelegramDataSource {
 /// ============================================================================
 /// MULTI-SOURCE DATA AGGREGATOR
 /// ============================================================================
-
 pub struct NuclearDataAggregator {
     sources: Vec<Box<dyn DataSource>>,
     all_records: Vec<RawDataRecord>,
+}
+
+impl Default for NuclearDataAggregator {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl NuclearDataAggregator {
@@ -383,12 +385,15 @@ impl NuclearDataAggregator {
     pub fn len(&self) -> usize {
         self.all_records.len()
     }
+
+    pub fn is_empty(&self) -> bool {
+        self.all_records.is_empty()
+    }
 }
 
 /// ============================================================================
 /// PIPELINE: DATA ENRICHMENT
 /// ============================================================================
-
 pub struct DataEnrichmentPipeline {
     records: Vec<RawDataRecord>,
 }
@@ -470,11 +475,10 @@ impl DataEnrichmentPipeline {
 /// ============================================================================
 /// REAL-TIME STREAMING PROCESSOR
 /// ============================================================================
-
 pub struct RealTimeStreamProcessor {
     buffer: Vec<RawDataRecord>,
     buffer_size: usize,
-    processors: Vec<Box<dyn Fn(&[RawDataRecord]) -> ()>>,
+    processors: Vec<Box<dyn Fn(&[RawDataRecord])>>,
 }
 
 impl RealTimeStreamProcessor {
@@ -486,7 +490,7 @@ impl RealTimeStreamProcessor {
         }
     }
 
-    pub fn add_processor(&mut self, processor: Box<dyn Fn(&[RawDataRecord]) -> ()>) {
+    pub fn add_processor(&mut self, processor: Box<dyn Fn(&[RawDataRecord])>) {
         self.processors.push(processor);
     }
 
@@ -514,10 +518,15 @@ impl RealTimeStreamProcessor {
 /// ============================================================================
 /// INTEGRATION WITH EXISTING OSINT ANALYSIS
 /// ============================================================================
-
 pub struct OSINTIntegrationPipeline {
     pub aggregator: NuclearDataAggregator,
     pub enrichment: Option<Vec<HashMap<String, serde_json::Value>>>,
+}
+
+impl Default for OSINTIntegrationPipeline {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl OSINTIntegrationPipeline {
@@ -553,7 +562,7 @@ impl OSINTIntegrationPipeline {
     }
 
     pub fn get_enriched_data(&self) -> Option<&[HashMap<String, serde_json::Value>]> {
-        self.enrichment.as_ref().map(|e| e.as_slice())
+        self.enrichment.as_deref()
     }
 
     /// Export to JSON format compatible with OSINT analysis
@@ -606,7 +615,7 @@ mod tests {
 
         match twitter.fetch() {
             Ok(records) => {
-                assert!(records.len() > 0);
+                assert!(!records.is_empty());
                 assert_eq!(records[0].platform, "twitter");
             }
             Err(e) => eprintln!("Error: {}", e),
@@ -635,7 +644,7 @@ mod tests {
 
         match pipeline.execute() {
             Ok(_) => {
-                assert!(pipeline.aggregator.len() > 0);
+                assert!(!pipeline.aggregator.is_empty());
             }
             Err(e) => eprintln!("Error: {}", e),
         }

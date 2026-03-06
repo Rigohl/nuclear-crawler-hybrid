@@ -129,14 +129,14 @@ impl NuclearBypass {
     }
 
     fn extract_domain(&self, url: &str) -> Option<String> {
-        url::Url::parse(url)
-            .ok()?
-            .host_str()?
-            .to_string()
-            .split('.')
-            .next_back()?
-            .to_string()
-            .into()
+        Some(
+            url::Url::parse(url)
+                .ok()?
+                .host_str()?
+                .split('.')
+                .next_back()?
+                .to_string(),
+        )
     }
 }
 
@@ -236,7 +236,7 @@ impl AdvancedExtractor {
         }
     }
 
-        fn scrape_html(html: &str, _url: &str) -> Result<ExtractedData> {
+    fn scrape_html(html: &str, _url: &str) -> Result<ExtractedData> {
         use scraper::{Html, Selector};
 
         let document = Html::parse_document(html);
@@ -463,14 +463,14 @@ impl ExtremeConcealment {
     }
 
     fn extract_domain(&self, url: &str) -> Option<String> {
-        url::Url::parse(url)
-            .ok()?
-            .host_str()?
-            .to_string()
-            .split('.')
-            .next_back()?
-            .to_string()
-            .into()
+        Some(
+            url::Url::parse(url)
+                .ok()?
+                .host_str()?
+                .split('.')
+                .next_back()?
+                .to_string(),
+        )
     }
 
     pub async fn rotate_identity(&self) {

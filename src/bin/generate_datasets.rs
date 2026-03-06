@@ -181,8 +181,8 @@ fn generate_code_dataset(count: usize) -> serde_json::Value {
         ("exception", "try { risky_op } catch { handle_error }"),
     ];
 
-    let categories = vec!["simple", "moderate", "complex", "advanced", "parallel"];
-    let smells = vec![
+    let categories = ["simple", "moderate", "complex", "advanced", "parallel"];
+    let smells = [
         "dead_code",
         "high_nesting",
         "duplicate_logic",
@@ -222,8 +222,8 @@ fn generate_code_dataset(count: usize) -> serde_json::Value {
 }
 
 fn generate_config_dataset(count: usize) -> serde_json::Value {
-    let optimizers = vec!["adam", "sgd", "rmsprop", "adagrad", "momentum"];
-    let strategies = vec!["blockdist", "cyclicdist", "replicated", "privatized"];
+    let optimizers = ["adam", "sgd", "rmsprop", "adagrad", "momentum"];
+    let strategies = ["blockdist", "cyclicdist", "replicated", "privatized"];
 
     let mut samples = vec![];
 

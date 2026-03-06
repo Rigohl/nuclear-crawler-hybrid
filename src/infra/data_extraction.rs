@@ -375,12 +375,11 @@ impl DataExtractionEngine {
         let trimmed = content.trim();
 
         // JSON
-        if (trimmed.starts_with('{') && trimmed.ends_with('}'))
-            || (trimmed.starts_with('[') && trimmed.ends_with(']'))
+        if ((trimmed.starts_with('{') && trimmed.ends_with('}'))
+            || (trimmed.starts_with('[') && trimmed.ends_with(']')))
+            && serde_json::from_str::<serde_json::Value>(trimmed).is_ok()
         {
-            if serde_json::from_str::<serde_json::Value>(trimmed).is_ok() {
-                return DataType::Json;
-            }
+            return DataType::Json;
         }
 
         // HTML

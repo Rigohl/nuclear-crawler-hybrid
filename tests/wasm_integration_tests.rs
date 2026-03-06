@@ -1,5 +1,5 @@
-/// Integration tests for WASM modules
-/// Verifies that WASM implementations work correctly
+// Integration tests for WASM modules
+// Verifies that WASM implementations work correctly
 
 #[cfg(test)]
 mod wasm_tests {

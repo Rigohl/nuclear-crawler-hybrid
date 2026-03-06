@@ -202,8 +202,8 @@ mod tests {
 
             let dataset = result.unwrap();
             assert_eq!(dataset.metadata.total_samples, 120000);
-            assert!(dataset.fake_news.len() > 0);
-            assert!(dataset.code_samples.len() > 0);
+            assert!(!dataset.fake_news.is_empty());
+            assert!(!dataset.code_samples.is_empty());
         }
     }
 }

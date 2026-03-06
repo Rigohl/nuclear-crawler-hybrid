@@ -58,7 +58,7 @@ impl OSINTCase {
     }
 
     pub fn set_priority(&mut self, priority: u8) {
-        self.priority = priority.min(10).max(1);
+        self.priority = priority.clamp(1, 10);
     }
 }
 
@@ -90,7 +90,7 @@ impl Evidence {
             source: source.to_string(),
             timestamp: chrono::Utc::now().timestamp() as u64,
             content: content.to_string(),
-            confidence: confidence.max(0.0).min(1.0),
+            confidence: confidence.clamp(0.0, 1.0),
             supporting_data: HashMap::new(),
         }
     }
@@ -116,7 +116,7 @@ impl AnalysisResult {
             case_id: case_id.to_string(),
             analysis_type: analysis_type.to_string(),
             conclusion: conclusion.to_string(),
-            confidence: confidence.max(0.0).min(1.0),
+            confidence: confidence.clamp(0.0, 1.0),
             evidence: Vec::new(),
             recommendations: Vec::new(),
             timestamp: chrono::Utc::now().timestamp() as u64,
@@ -231,7 +231,6 @@ impl OSINTCaseResolver {
     /// ========================================================================
     /// PHASE 1: DATA COLLECTION AND ENRICHMENT
     /// ========================================================================
-
     pub fn phase_1_data_collection(&mut self) -> Result<(), Box<dyn std::error::Error>> {
         eprintln!("\n[Phase 1] DATA COLLECTION AND ENRICHMENT");
         eprintln!("========================================");
@@ -262,7 +261,6 @@ impl OSINTCaseResolver {
     /// ========================================================================
     /// PHASE 2: NEURAL NETWORK ANALYSIS (Module A)
     /// ========================================================================
-
     pub fn phase_2_neural_network_analysis(&mut self) -> AnalysisResult {
         eprintln!("\n[Phase 2] NEURAL NETWORK ANALYSIS");
         eprintln!("==================================");
@@ -303,7 +301,6 @@ impl OSINTCaseResolver {
     /// ========================================================================
     /// PHASE 3: BAYESIAN NETWORK ANALYSIS (Module B)
     /// ========================================================================
-
     pub fn phase_3_bayesian_analysis(&mut self) -> AnalysisResult {
         eprintln!("\n[Phase 3] BAYESIAN NETWORK ANALYSIS");
         eprintln!("====================================");
@@ -345,7 +342,6 @@ impl OSINTCaseResolver {
     /// ========================================================================
     /// PHASE 4: GAME THEORY ANALYSIS (Module C)
     /// ========================================================================
-
     pub fn phase_4_game_theory_analysis(&mut self) -> AnalysisResult {
         eprintln!("\n[Phase 4] GAME THEORY ANALYSIS");
         eprintln!("================================");
@@ -387,7 +383,6 @@ impl OSINTCaseResolver {
     /// ========================================================================
     /// PHASE 5: CONFIDENCE AGGREGATION AND FINAL JUDGMENT
     /// ========================================================================
-
     pub fn phase_5_final_judgment(&mut self) -> CaseReport {
         eprintln!("\n[Phase 5] FINAL JUDGMENT AND REPORT");
         eprintln!("=====================================");
@@ -482,7 +477,6 @@ impl OSINTCaseResolver {
     /// ========================================================================
     /// MAIN ENTRY POINT: SOLVE CASE
     /// ========================================================================
-
     pub fn solve(&mut self) -> Result<CaseReport, Box<dyn std::error::Error>> {
         eprintln!("\n╔════════════════════════════════════════════════════════════╗");
         eprintln!("║        OSINT CASE RESOLVER - COMPREHENSIVE ANALYSIS       ║");
@@ -514,6 +508,12 @@ impl OSINTCaseResolver {
 /// ============================================================================
 pub struct CaseManager {
     cases: HashMap<String, CaseReport>,
+}
+
+impl Default for CaseManager {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl CaseManager {
@@ -556,7 +556,7 @@ impl CaseManager {
     pub fn export_all_cases(&self) -> serde_json::Value {
         let mut all_cases = Vec::new();
 
-        for (_, report) in &self.cases {
+        for report in self.cases.values() {
             all_cases.push(report.to_json());
         }
 

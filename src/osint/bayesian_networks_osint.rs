@@ -45,6 +45,12 @@ pub struct BayesianNetwork {
     edges: Vec<(String, String)>, // (parent, child)
 }
 
+impl Default for BayesianNetwork {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl BayesianNetwork {
     pub fn new() -> Self {
         BayesianNetwork {
@@ -76,7 +82,6 @@ impl BayesianNetwork {
     /// ========================================================================
     /// INFERENCE ENGINES
     /// ========================================================================
-
     /// Variable Elimination inference
     pub fn variable_elimination(
         &self,
@@ -128,7 +133,7 @@ impl BayesianNetwork {
                     for state in &node.states {
                         let mut temp_state = current_state.clone();
                         temp_state.insert(name.clone(), state.clone());
-                        let prob = self.compute_probability(name, state, &evidence);
+                        let prob = self.compute_probability(name, state, evidence);
                         probs.push(prob);
                     }
 
@@ -235,6 +240,12 @@ fn sample_from_distribution(states: &[String], probabilities: &[f64]) -> String 
 /// ============================================================================
 pub struct OSINTBayesianNetwork {
     network: BayesianNetwork,
+}
+
+impl Default for OSINTBayesianNetwork {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl OSINTBayesianNetwork {
@@ -368,6 +379,12 @@ pub struct OSINTNaiveBayes {
     classes: Vec<String>,
 }
 
+impl Default for OSINTNaiveBayes {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl OSINTNaiveBayes {
     pub fn new() -> Self {
         OSINTNaiveBayes {
@@ -408,7 +425,7 @@ impl OSINTNaiveBayes {
                     // Ensure entry exists
                     self.feature_likelihoods
                         .entry(feature_name.clone())
-                        .or_insert_with(HashMap::new);
+                        .or_default();
 
                     // Store mean and variance
                     if let Some(inner_map) = self.feature_likelihoods.get_mut(&feature_name) {
@@ -468,8 +485,7 @@ impl OSINTNaiveBayes {
 
         let confidence = ((posteriors.get(&class).cloned().unwrap_or(0.0) - max_posterior).exp()
             / exp_sum)
-            .max(0.5)
-            .min(0.99);
+            .clamp(0.5, 0.99);
 
         (class, confidence)
     }
@@ -484,7 +500,7 @@ mod tests {
         let network = OSINTBayesianNetwork::new();
         let (judgment, confidence) = network.aggregate_evidence(0.8, "high", true, false);
         println!("Judgment: {} (confidence: {})", judgment, confidence);
-        assert!(confidence >= 0.0 && confidence <= 1.0);
+        assert!((0.0..=1.0).contains(&confidence));
     }
 
     #[test]
@@ -502,7 +518,7 @@ mod tests {
         let y = vec!["bot".to_string(), "human".to_string()];
         nb.train(&x, &y);
 
-        let (pred, conf) = nb.predict(&vec![0.15, 0.25, 0.35, 0.45, 0.55]);
+        let (pred, conf) = nb.predict(&[0.15, 0.25, 0.35, 0.45, 0.55]);
         println!("Prediction: {} (confidence: {})", pred, conf);
     }
 }

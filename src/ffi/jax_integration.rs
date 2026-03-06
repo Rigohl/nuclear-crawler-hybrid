@@ -260,7 +260,7 @@ if __name__ == "__main__":
                 score -= 0.3;
             }
 
-            scores.push(score.max(0.0).min(1.0)); // Clamp to [0, 1]
+            scores.push(score.clamp(0.0, 1.0)); // Clamp to [0, 1]
         }
 
         Ok(scores)
@@ -441,7 +441,10 @@ if __name__ == "__main__":
         // Ensure script exists before execution
         let script_path = "scripts/generate_advanced_report.py";
         if !std::path::Path::new(script_path).exists() {
-            return Err(anyhow::anyhow!("PDF extraction script not found: {}", script_path));
+            return Err(anyhow::anyhow!(
+                "PDF extraction script not found: {}",
+                script_path
+            ));
         }
 
         // Call Python script for report generation with robust argument passing

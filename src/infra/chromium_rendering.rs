@@ -226,7 +226,7 @@ impl ChromiumRenderer {
             vec![path.clone()]
         } else {
             // Common Chrome/Chromium installation paths
-            vec![
+            [
                 "google-chrome",
                 "google-chrome-stable",
                 "chromium",

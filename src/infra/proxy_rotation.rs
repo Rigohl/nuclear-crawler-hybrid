@@ -57,7 +57,7 @@ impl ProxyEntry {
         let success_rate = self.success_count as f32 / total_requests;
         let response_penalty = (self.average_response_time_ms as f32 / 5000.0).min(0.2);
 
-        (success_rate * 0.8 - response_penalty).max(0.0).min(1.0)
+        (success_rate * 0.8 - response_penalty).clamp(0.0, 1.0)
     }
 }
 

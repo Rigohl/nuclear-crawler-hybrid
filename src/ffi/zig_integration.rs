@@ -257,7 +257,7 @@ impl ZigSimdProcessor {
             let mut results = Vec::new();
             let mut all_ok = true;
             for text in &texts {
-                match self.zig_process_text(lib, &text) {
+                match self.zig_process_text(lib, text) {
                     Ok(result) => results.push(result),
                     Err(_e) => {
                         all_ok = false;

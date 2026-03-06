@@ -184,21 +184,22 @@ impl Chatbot {
         }];
 
         // Add conversation history
-        let state = self
-            .state
-            .read()
-            .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
-        for turn in state.conversation_history.iter() {
-            messages.push(ChatMessage {
-                role: "user".to_string(),
-                content: turn.user_message.clone(),
-            });
-            messages.push(ChatMessage {
-                role: "assistant".to_string(),
-                content: turn.assistant_message.clone(),
-            });
+        {
+            let state = self
+                .state
+                .read()
+                .map_err(|e| anyhow::anyhow!("Lock error: {}", e))?;
+            for turn in state.conversation_history.iter() {
+                messages.push(ChatMessage {
+                    role: "user".to_string(),
+                    content: turn.user_message.clone(),
+                });
+                messages.push(ChatMessage {
+                    role: "assistant".to_string(),
+                    content: turn.assistant_message.clone(),
+                });
+            }
         }
-        drop(state);
 
         // Add current message
         messages.push(ChatMessage {
@@ -257,7 +258,7 @@ impl Chatbot {
         if msg_lower.contains("hello") || msg_lower.contains("hi") {
             "Hello! I'm Nuclear AI, your advanced assistant. I can help you with web searches, file analysis, code scanning, and more. What can I do for you?".to_string()
         } else if msg_lower.contains("search") {
-            format!("I can help you search the web! The websearch tool is available and ready to use. What would you like to search for?")
+            "I can help you search the web! The websearch tool is available and ready to use. What would you like to search for?".to_string()
         } else if msg_lower.contains("file") || msg_lower.contains("code") {
             "I can help you analyze files and code! The file_search tool can search through your codebase and find specific patterns. What are you looking for?".to_string()
         } else if msg_lower.contains("scan") {

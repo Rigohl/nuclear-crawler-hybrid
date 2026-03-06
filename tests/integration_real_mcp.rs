@@ -111,7 +111,7 @@ fn validate_timeout(execution_ms: u64, timeout_seconds: u64) -> Result<(), Strin
 fn compile_mcp() -> Result<(), String> {
     println!("\n📦 Compilando MCP server...");
     let output = Command::new("cargo")
-        .args(&["build", "--bin", "nuclear-mcp", "--release"])
+        .args(["build", "--bin", "nuclear-mcp", "--release"])
         .current_dir("/workspaces/nuclear-crawler-hybrid")
         .output()
         .map_err(|e| format!("Error compilando: {}", e))?;
@@ -131,7 +131,7 @@ fn start_mcp_server() -> Result<std::process::Child, String> {
     println!("\n🚀 Iniciando MCP server en background...");
 
     let child = Command::new("cargo")
-        .args(&["run", "--bin", "nuclear-mcp", "--release"])
+        .args(["run", "--bin", "nuclear-mcp", "--release"])
         .current_dir("/workspaces/nuclear-crawler-hybrid")
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
@@ -586,7 +586,7 @@ fn test_mcp_server_compilation_real() {
     // Step 1: Compilar el servidor
     println!("\n📦 Compiling MCP server in release mode...");
     let output = Command::new("cargo")
-        .args(&["check", "--bin", "nuclear-mcp"])
+        .args(["check", "--bin", "nuclear-mcp"])
         .output()
         .expect("Failed to run cargo check");
 

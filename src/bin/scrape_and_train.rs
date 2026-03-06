@@ -1,6 +1,6 @@
 use anyhow::Result;
 use clap::{Parser, Subcommand};
-///! Scrape and Train - Scrapea web y entrena bots automáticamente
+// Scrape and Train - Scrapea web y entrena bots automáticamente
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
