@@ -747,26 +747,25 @@ impl WebSearch {
         // ═══════════════════════════════════════════════════════════════
 
         // Convertir resultados de MassiveParallelSearch a WebSearchResult
-        for spider_result in &massive_results {
-            if spider_result.status_code == 200 {
-                for url in &spider_result.links_found {
+        for massive_result in &massive_results {
+            if massive_result.status_code >= 200 && massive_result.status_code < 300 {
+                for url in &massive_result.links_found {
                     if !processed_results.iter().any(|r| &r.url == url) {
-                        let source = self.extract_source(&spider_result.url);
                         processed_results.push(WebSearchResult {
                             url: url.clone(),
-                            title: format!("Resultado de {}", source),
+                            title: format!("Resultado de Spider en {}", massive_result.url),
                             description: format!(
-                                "Encontrado via búsqueda masiva paralela en {}",
-                                source
+                                "Encontrado via búsqueda masiva paralela en profundidad {}",
+                                massive_result.depth
                             ),
                             main_text: String::new(), // Se llenará después si se crawlea
                             summary: String::new(),
                             word_count: 0,
                             headings: Vec::new(),
                             code_snippets: Vec::new(),
-                            relevance: 0.5,
+                            relevance: 0.6, // Relevancia para links encontrados
                             quality_score: 0.5,
-                            source,
+                            source: "nuclear_spider".to_string(),
                         });
                     }
                 }
