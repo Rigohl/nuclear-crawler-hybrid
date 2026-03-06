@@ -1,6 +1,7 @@
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
+use std::sync::OnceLock;
 use regex::Regex;
 use scraper::{Html, Selector};
 use anyhow::Result;
@@ -35,13 +36,19 @@ pub struct SocialProfile {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
+// GLOBAL OPTIMIZED REGEXES
+// ═══════════════════════════════════════════════════════════════════════════
+
+static WHITESPACE_REGEX: OnceLock<Regex> = OnceLock::new();
+static PHONE_REGEX: OnceLock<Regex> = OnceLock::new();
+static EMAIL_REGEX: OnceLock<Regex> = OnceLock::new();
+
+// ═══════════════════════════════════════════════════════════════════════════
 // WASM BINDGEN INTERFACE
 // ═══════════════════════════════════════════════════════════════════════════
 
 #[wasm_bindgen]
 pub struct NuclearScraper {
-    phone_regex: Regex,
-    email_regex: Regex,
 }
 
 #[wasm_bindgen]
@@ -49,8 +56,6 @@ impl NuclearScraper {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {
-            phone_regex: Regex::new(r"(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{1,4}\)?[-.\s]?)?[\d\s.-]{7,15}").unwrap(),
-            email_regex: Regex::new(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").unwrap(),
         }
     }
 
@@ -183,12 +188,13 @@ impl NuclearScraper {
 
     fn clean_text(&self, text: &str) -> String {
         // Normalize whitespace: remove newlines, tabs, multiple spaces
-        let re = Regex::new(r"\s+").unwrap();
+        let re = WHITESPACE_REGEX.get_or_init(|| Regex::new(r"\s+").unwrap());
         re.replace_all(text.trim(), " ").to_string()
     }
 
     fn extract_emails(&self, text: &str) -> Vec<String> {
-        let mut emails: Vec<String> = self.email_regex.find_iter(text)
+        let re = EMAIL_REGEX.get_or_init(|| Regex::new(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").unwrap());
+        let mut emails: Vec<String> = re.find_iter(text)
             .map(|m| m.as_str().to_string())
             .collect();
         emails.sort();
@@ -197,7 +203,8 @@ impl NuclearScraper {
     }
 
     fn extract_phones(&self, text: &str) -> Vec<String> {
-         let mut phones: Vec<String> = self.phone_regex.find_iter(text)
+        let re = PHONE_REGEX.get_or_init(|| Regex::new(r"(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{1,4}\)?[-.\s]?)?[\d\s.-]{7,15}").unwrap());
+        let mut phones: Vec<String> = re.find_iter(text)
             .map(|m| m.as_str().trim().to_string())
             .filter(|p| p.len() >= 7)
             .collect();
