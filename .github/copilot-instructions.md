@@ -16,9 +16,9 @@
 ## 🔒 Critical Constraints (DO NOT CHANGE)
 
 ### MCP Protocol Rules
-- **EXACTLY 5 MCP TOOLS** — Enforced by `test_exactly_7_tools` in `src/mcp/protocol.rs`
-- **Tool Names**: `websearch`, `premium`, `file_search`, `scan`, `ai_dataset_trainer`
-- **CI Validation**: `.github/workflows/mcp-validation.yml` and `scripts/validate_5_tools.sh`
+- **EXACTLY 7 MCP TOOLS** — Enforced by `test_exactly_7_tools` in `src/mcp/protocol.rs`
+- **Tool Names**: `websearch`, `premium`, `file_search`, `scan`, `ai_dataset_trainer`, `parallel_engine`, `osint_intelligence`
+- **CI Validation**: `.github/workflows/mcp-validation.yml` and `scripts/validate_7_tools.sh`
 - **Adding/Removing Tools**: ❌ FORBIDDEN (breaks CI and tests)
 
 ### Integration Rules
@@ -139,7 +139,7 @@ cargo test test_exactly_7_tools
 cargo test --test integration_real_mcp --release -- --nocapture --test-threads=1
 
 # Validate 7 tools
-./scripts/validate_5_tools.sh
+./scripts/validate_7_tools.sh
 ```
 
 ### Chapel AI (ML Training)
@@ -241,15 +241,17 @@ MCPRequest::call_tool("websearch", json!({"query": "..."}))
 ### 1. MCP Tools (Rust) - SACRED
 **Location**: `src/mcp/protocol.rs` and `src/mcp/tools/`
 
-**The 5 Tools:**
+**The 7 Tools:**
 1. **websearch** - DuckDuckGo + Brave search integration
 2. **premium** - Premium content extraction (Cloudflare bypass)
 3. **file_search** - Advanced file operations
 4. **scan** - Workspace analysis
 5. **ai_dataset_trainer** - Dataset generation for ML
+6. **parallel_engine** - Parallel processing engine (Go+SIMD+GPU+Chapel)
+7. **osint_intelligence** - OSINT intelligence with Chapel AI
 
 **Rules:**
-- ⚠️ NEVER add a 6th tool
+- ⚠️ NEVER add an 8th tool
 - ⚠️ NEVER remove any of the 7 tools
 - ✅ Can modify implementations
 - ✅ Can enhance features within tools
@@ -329,11 +331,11 @@ cargo test --lib
 # Integration tests (real server)
 cargo test --test integration_real_mcp --release -- --nocapture --test-threads=1
 
-# 5-tool validation (CRITICAL)
+# 7-tool validation (CRITICAL)
 cargo test test_exactly_7_tools
 
 # Script validation
-./scripts/validate_5_tools.sh
+./scripts/validate_7_tools.sh
 ```
 
 ### Chapel Tests
@@ -402,14 +404,14 @@ go test -v ./pkg/github/
 - Check syntax: `make check`
 - Build incrementally: `make train`, `make mining`, etc.
 
-### Issue 5: 5-Tool Test Fails
+### Issue 5: 7-Tool Test Fails
 **Problem**: `test_exactly_7_tools` fails
 
 **Solution**:
 - Check `src/mcp/protocol.rs` - should have exactly 7 tools
-- Tool names must match: websearch, premium, file_search, scan, ai_dataset_trainer, wasm_scraper, osint_intelligence
+- Tool names must match: websearch, premium, file_search, scan, ai_dataset_trainer, parallel_engine, osint_intelligence
 - Never add or remove tools
-- Run `./scripts/validate_5_tools.sh` for details
+- Run `./scripts/validate_7_tools.sh` for details
 
 ---
 
