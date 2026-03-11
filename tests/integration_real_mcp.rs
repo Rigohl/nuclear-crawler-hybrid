@@ -224,8 +224,12 @@ async fn send_jsonrpc_request(method: &str, params: Value, id: i32) -> Result<Va
 // ===== TEST CASES =====
 
 /// Validar que el servidor inicia y responde
+///
+/// # Precondition
+/// Requires a running MCP server at `http://127.0.0.1:8079`.
+/// Start with: `cargo run --bin nuclear-mcp -- --port 8079`
 #[tokio::test]
-#[ignore]
+#[ignore = "requires running MCP server at http://127.0.0.1:8079"]
 async fn test_health_check() -> Result<(), String> {
     println!("\n🧪 TEST 1: Health Check");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -253,8 +257,12 @@ async fn test_health_check() -> Result<(), String> {
 }
 
 /// Test: initialize (JSON-RPC 2.0)
+///
+/// # Precondition
+/// Requires a running MCP server at `http://127.0.0.1:8079`.
+/// Start with: `cargo run --bin nuclear-mcp -- --port 8079`
 #[tokio::test]
-#[ignore]
+#[ignore = "requires running MCP server at http://127.0.0.1:8079"]
 async fn test_initialize() -> Result<(), String> {
     println!("\n🧪 TEST 2: Initialize (JSON-RPC 2.0)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -293,8 +301,12 @@ async fn test_initialize() -> Result<(), String> {
 }
 
 /// Test: tools/list (JSON-RPC 2.0)
+///
+/// # Precondition
+/// Requires a running MCP server at `http://127.0.0.1:8079`.
+/// Start with: `cargo run --bin nuclear-mcp -- --port 8079`
 #[tokio::test]
-#[ignore]
+#[ignore = "requires running MCP server at http://127.0.0.1:8079"]
 async fn test_tools_list() -> Result<(), String> {
     println!("\n🧪 TEST 3: Tools List (JSON-RPC 2.0)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -345,8 +357,12 @@ async fn test_tools_list() -> Result<(), String> {
 }
 
 /// Test: websearch tool REAL (sin mocks)
+///
+/// # Precondition
+/// Requires a running MCP server at `http://127.0.0.1:8079` with outbound internet access.
+/// Start with: `cargo run --bin nuclear-mcp -- --port 8079`
 #[tokio::test]
-#[ignore]
+#[ignore = "requires running MCP server at http://127.0.0.1:8079 with outbound internet access"]
 async fn test_websearch_real() -> Result<(), String> {
     println!("\n🧪 TEST 4: Websearch REAL (sin mocks)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -395,8 +411,12 @@ async fn test_websearch_real() -> Result<(), String> {
 }
 
 /// Test: file_search tool REAL (sin mocks)
+///
+/// # Precondition
+/// Requires a running MCP server at `http://127.0.0.1:8079`.
+/// Start with: `cargo run --bin nuclear-mcp -- --port 8079`
 #[tokio::test]
-#[ignore]
+#[ignore = "requires running MCP server at http://127.0.0.1:8079"]
 async fn test_file_search_real() -> Result<(), String> {
     println!("\n🧪 TEST 5: File Search REAL (sin mocks)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -444,8 +464,13 @@ async fn test_file_search_real() -> Result<(), String> {
 }
 
 /// Test: deepweb_search tool REAL (sin mocks)
+///
+/// # Precondition
+/// Requires a running MCP server at `http://127.0.0.1:8079` AND an active TOR daemon
+/// listening on `socks5://127.0.0.1:9050`.
+/// Start TOR: `tor` | Start server: `cargo run --bin nuclear-mcp -- --port 8079`
 #[tokio::test]
-#[ignore]
+#[ignore = "requires running MCP server at http://127.0.0.1:8079 AND TOR daemon on port 9050"]
 async fn test_deepweb_search_real() -> Result<(), String> {
     println!("\n🧪 TEST 6: Deepweb Search REAL (sin mocks)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -490,8 +515,12 @@ async fn test_deepweb_search_real() -> Result<(), String> {
 }
 
 /// Test: premium_content_scraper tool REAL (sin mocks)
+///
+/// # Precondition
+/// Requires a running MCP server at `http://127.0.0.1:8079` with outbound internet access.
+/// Start with: `cargo run --bin nuclear-mcp -- --port 8079`
 #[tokio::test]
-#[ignore]
+#[ignore = "requires running MCP server at http://127.0.0.1:8079 with outbound internet access"]
 async fn test_premium_content_scraper_real() -> Result<(), String> {
     println!("\n🧪 TEST 7: Premium Content Scraper REAL (sin mocks)");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -536,8 +565,12 @@ async fn test_premium_content_scraper_real() -> Result<(), String> {
 }
 
 /// Test: Rate limiting
+///
+/// # Precondition
+/// Requires a running MCP server at `http://127.0.0.1:8079`.
+/// Start with: `cargo run --bin nuclear-mcp -- --port 8079`
 #[tokio::test]
-#[ignore]
+#[ignore = "requires running MCP server at http://127.0.0.1:8079"]
 async fn test_rate_limiting() -> Result<(), String> {
     println!("\n🧪 TEST 8: Rate Limiting Validation");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");

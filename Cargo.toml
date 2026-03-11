@@ -23,6 +23,8 @@ advanced_tor = []
 # Advanced feature bundle: enables all advanced capabilities for the multi-agent pipeline
 advanced = ["chromium_rendering", "advanced_tor"]
 wasm_ffi = ["wasmtime"]
+# Premium content extraction (paywalled sites, advanced bypass)
+premium = []
 
 [package.metadata.mcp]
 protocol-version = "2026-02-06"

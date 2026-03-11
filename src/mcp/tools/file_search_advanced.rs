@@ -1,9 +1,48 @@
 use crate::cache::Cache;
 use crate::chapel_integration::{create_context, get_chapel_ai};
 use anyhow::Result;
+use regex::Regex;
 use serde::{Deserialize, Serialize};
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 use walkdir::WalkDir;
+
+// ─── Pre-compiled regex patterns (compiled once, reused across all analyses) ───
+
+/// Returns a compiled `RegexSet` for batch mock/stub detection.
+fn mock_pattern_set() -> &'static regex::RegexSet {
+    static INSTANCE: OnceLock<regex::RegexSet> = OnceLock::new();
+    INSTANCE.get_or_init(|| {
+        regex::RegexSet::new([
+            r"(?i)\bmock\b",
+            r"(?i)\bstub\b",
+            r"(?i)\bfake\b",
+            r"(?i)\bdummy\b",
+            r"(?i)\bplaceholder\b",
+            r"todo!\(\)",
+            r"unimplemented!\(\)",
+            r"panic!\(",
+            r"unreachable!\(\)",
+        ])
+        .expect("pre-compiled mock pattern set must be valid")
+    })
+}
+
+/// Returns a pre-compiled regex for locating the first mock keyword in a line.
+fn mock_keyword_re() -> &'static Regex {
+    static INSTANCE: OnceLock<Regex> = OnceLock::new();
+    INSTANCE.get_or_init(|| {
+        Regex::new(r"(?i)\b(mock|stub|fake|dummy|placeholder)\b|todo!\(\)|unimplemented!\(\)|panic!\(|unreachable!\(\)")
+            .expect("pre-compiled mock keyword regex must be valid")
+    })
+}
+
+/// Returns a pre-compiled regex for `TODO` / `FIXME` comments.
+fn todo_fixme_re() -> &'static Regex {
+    static INSTANCE: OnceLock<Regex> = OnceLock::new();
+    INSTANCE.get_or_init(|| {
+        Regex::new(r"\b(TODO|FIXME)\b").expect("pre-compiled todo/fixme regex must be valid")
+    })
+}
 
 #[derive(Clone, Debug, Serialize, Deserialize, Default)]
 pub struct FileSearchConfig {
@@ -83,7 +122,8 @@ impl AdvancedFileSearchTool {
                 issues.push(CodeIssue {
                     file: file_path.to_string(),
                     line_number,
-                    column: line.find("mock").unwrap_or(0),
+                    // Use pre-compiled regex to find column of first match
+                    column: mock_keyword_re().find(line).map(|m| m.start()).unwrap_or(0),
                     severity: "warning".to_string(),
                     issue_type: "mock".to_string(),
                     message: "Mock/stub code detected".to_string(),
@@ -92,14 +132,11 @@ impl AdvancedFileSearchTool {
                 });
             }
 
-            if line.contains("TODO") || line.contains("FIXME") {
+            if let Some(m) = todo_fixme_re().find(line) {
                 issues.push(CodeIssue {
                     file: file_path.to_string(),
                     line_number,
-                    column: line
-                        .find("TODO")
-                        .or_else(|| line.find("FIXME"))
-                        .unwrap_or(0),
+                    column: m.start(),
                     severity: "info".to_string(),
                     issue_type: "todo".to_string(),
                     message: format!("TODO/FIXME: {}", line.trim()),
@@ -184,18 +221,8 @@ impl AdvancedFileSearchTool {
     }
 
     fn has_mock_pattern(&self, line: &str) -> bool {
-        let patterns = vec![
-            "mock",
-            "stub",
-            "fake",
-            "dummy",
-            "placeholder",
-            "todo!()",
-            "unimplemented!()",
-            "panic!(",
-            "unreachable!()",
-        ];
-        patterns.iter().any(|p| line.to_lowercase().contains(p))
+        // Uses a pre-compiled RegexSet for batch matching — O(n) over patterns, compiled once
+        mock_pattern_set().is_match(line)
     }
 
     fn has_unused_var(&self, line: &str) -> bool {

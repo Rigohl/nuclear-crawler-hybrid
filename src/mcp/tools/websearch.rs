@@ -297,14 +297,11 @@ impl WebSearchTool {
         {
             eprintln!("📡 Go FFI not available, using parse_html_with_go fallback");
             for engine_url in search_engines.iter().take(5) {
-                match self.fetch_results_real(engine_url).await {
-                    Ok(html_content_results) => {
-                        for res in html_content_results {
-                            let parsed = self.parse_html_with_go(&format!("href=\"{}\"", res.url));
-                            results.extend(parsed);
-                        }
+                if let Ok(html_content_results) = self.fetch_results_real(engine_url).await {
+                    for res in html_content_results {
+                        let parsed = self.parse_html_with_go(&format!("href=\"{}\"", res.url));
+                        results.extend(parsed);
                     }
-                    Err(_) => {}
                 }
             }
         }
@@ -423,9 +420,12 @@ impl WebSearchTool {
         results
     }
 
-    /// Fetch REAL results from search engine
+    /// Fetch REAL results from search engine with retry + exponential backoff
     async fn fetch_results_real(&self, engine_url: &str) -> Result<Vec<SearchResult>> {
         use reqwest::Client;
+
+        const MAX_RETRIES: u32 = 3;
+        const INITIAL_BACKOFF_MS: u64 = 200;
 
         // 🔥 Use Nuclear Core Stealth Headers
         let headers = self.core.concealment.get_headers(Some(engine_url)).await;
@@ -440,27 +440,54 @@ impl WebSearchTool {
             }
         }
 
-        let client = Client::new()
-            .get(engine_url)
-            .headers(header_map)
-            .timeout(std::time::Duration::from_secs(self.config.timeout_seconds));
+        let mut last_error = anyhow::anyhow!("No attempts made");
 
-        match client.send().await {
-            Ok(response) => {
-                if response.status().is_success() {
-                    let html = response.text().await?;
-                    // Parse real HTML and extract results
-                    let results = self.parse_search_results(&html);
-                    Ok(results)
-                } else {
-                    Err(anyhow::anyhow!(
-                        "Search engine returned {}",
-                        response.status()
-                    ))
-                }
+        for attempt in 0..MAX_RETRIES {
+            if attempt > 0 {
+                // Exponential backoff: 200ms, 400ms, 800ms
+                let backoff_ms = INITIAL_BACKOFF_MS * (1 << (attempt - 1));
+                tokio::time::sleep(std::time::Duration::from_millis(backoff_ms)).await;
+                eprintln!(
+                    "   🔄 Retry {}/{} for {} (backoff {}ms)",
+                    attempt, MAX_RETRIES, engine_url, backoff_ms
+                );
             }
-            Err(e) => Err(anyhow::anyhow!("Search failed: {}", e)),
+
+            let request = Client::new()
+                .get(engine_url)
+                .headers(header_map.clone())
+                .timeout(std::time::Duration::from_secs(self.config.timeout_seconds));
+
+            match request.send().await {
+                Ok(response) => {
+                    if response.status().is_success() {
+                        let html = response.text().await?;
+                        let results = self.parse_search_results(&html);
+                        return Ok(results);
+                    } else if response.status().as_u16() == 429 {
+                        // Rate limited – always retry with backoff
+                        last_error = anyhow::anyhow!(
+                            "Rate limited (429) by {}",
+                            engine_url
+                        );
+                        continue;
+                    } else {
+                        return Err(anyhow::anyhow!(
+                            "Search engine returned {}",
+                            response.status()
+                        ));
+                    }
+                }
+                Err(e) if e.is_timeout() || e.is_connect() => {
+                    // Transient errors – retry
+                    last_error = anyhow::anyhow!("Transient error for {}: {}", engine_url, e);
+                    continue;
+                }
+                Err(e) => return Err(anyhow::anyhow!("Search failed: {}", e)),
+            }
         }
+
+        Err(last_error)
     }
 
     fn parse_search_results(&self, html: &str) -> Vec<SearchResult> {
