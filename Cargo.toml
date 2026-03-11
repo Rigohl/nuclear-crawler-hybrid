@@ -39,12 +39,12 @@ tools = [
 ]
 
 [dependencies]
-# HTTP server - ESSENTIAL (with SSE support for MCP 2025)
-axum = { version = "0.8", features = ["macros"] }
-hyper = { version = "1.8", features = ["full"] }
-tokio = { version = "1.49", features = ["full"] }
-tokio-stream = "0.1"
-futures = "0.3"
+# HTTP server - ESSENTIAL (with SSE support for MCP 2025) - PINNED FOR STABILITY
+axum = { version = "=0.8.0", features = ["macros"] }
+hyper = { version = "=1.8.0", features = ["full"] }
+tokio = { version = "=1.49.0", features = ["full"] }
+tokio-stream = "=0.1.15"
+futures = "=0.3.31"
 
 # CLI and error handling - ESSENTIAL
 clap = { version = "4.5", features = ["derive"] }
@@ -72,8 +72,8 @@ dashmap = "6.1"
 # Parallel processing - USED for sorting
 rayon = "1.8"
 
-# HTTP client - ESSENTIAL for web search (with SOCKS5 for TOR support)
-reqwest = { version = "0.13", features = ["json", "gzip", "blocking", "socks"] }
+# HTTP client - ESSENTIAL for web search (with SOCKS5 for TOR support) - PINNED
+reqwest = { version = "=0.13.0", features = ["json", "gzip", "blocking", "socks"] }
 
 # URL parsing - ESSENTIAL
 url = "2.5"

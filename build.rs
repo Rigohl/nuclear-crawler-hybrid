@@ -31,9 +31,19 @@ fn main() {
     println!("cargo::rustc-check-cfg=cfg(has_go)");
     println!("cargo::rustc-check-cfg=cfg(has_zig)");
     println!("cargo::rustc-check-cfg=cfg(has_nim)");
-    println!("cargo::rustc-check-cfg=cfg(has_chapel)"); // Chapel AI added
+    println!("cargo::rustc-check-cfg=cfg(has_chapel)");
+    
     let manifest_dir = std::env::var("CARGO_MANIFEST_DIR").unwrap_or_else(|_| ".".to_string());
     let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
+
+    // ════════════════════════════════════════════════════════════════════════
+    // VERSIÓN FFI TRACKING - DETECTAR Y VALIDAR VERSIONES
+    // ════════════════════════════════════════════════════════════════════════
+    
+    println!("cargo:rustc-env=NFI_VALIDATION=strict");
+    println!("cargo:rustc-env=FFI_GO_REQUIRED_VERSION=1.21.0");
+    println!("cargo:rustc-env=FFI_ZIG_REQUIRED_VERSION=0.15.2");
+    println!("cargo:rustc-env=FFI_CHAPEL_REQUIRED_VERSION=2.0.0");
 
     // ════════════════════════════════════════════════════════════════════════
     // FFI REAL - MAXIMUM LANGUAGE FEATURES

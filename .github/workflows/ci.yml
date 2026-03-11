@@ -15,6 +15,7 @@ jobs:
   validate:
     name: ⚠️ Validation & Security
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - name: Setup Rust
@@ -25,29 +26,49 @@ jobs:
         run: cargo fmt -- --check
       - name: 🔍 Clippy
         run: cargo clippy --all-targets -- -D warnings
-      - name: 🔐 Security Audit
+      - name: 🔐 Security Audit (BLOCKING)
         run: |
           cargo install cargo-audit
           cargo audit
-        continue-on-error: true
 
   build-test:
     name: 🦀 Rust Build & Test
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          cache: true
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+      - name: Cache cargo index
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-git-${{ hashFiles('**/Cargo.lock') }}
       - name: 🔨 Build
-        run: cargo build --release
+        run: cargo build --release --all-features
       - name: 🧪 Run Tests
-        run: cargo test --verbose
+        run: cargo test --verbose --all-features
+      - name: 📦 Upload Binary Artifacts
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: nuclear-hybrid-release-${{ runner.os }}
+          path: target/release/nuclear* 
+          retention-days: 30
 
   chapel-ci:
     name: 🧠 Chapel AI CI
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - name: Setup Chapel
@@ -64,6 +85,7 @@ jobs:
     name: 🐹 Go CI
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - name: Setup Go
@@ -82,6 +104,7 @@ jobs:
     name: 🔧 Zig SIMD CI
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - name: Install Zig
@@ -101,6 +124,7 @@ jobs:
     name: 🐍 Nim HTML Parser CI
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - name: Install Nim
@@ -121,6 +145,7 @@ jobs:
     name: 🧠 JAX ML Intelligence CI
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python + JAX
@@ -142,6 +167,7 @@ jobs:
     name: 🔗 FFI Cross-Language Integration
     needs: [build-test, zig-ci, nim-ci, jax-ci]
     runs-on: ubuntu-latest
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
       - name: Prepare environment

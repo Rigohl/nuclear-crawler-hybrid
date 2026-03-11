@@ -15,6 +15,7 @@ permissions:
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,11 +26,25 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+          cache: 'pip'
 
       - name: Install requirements
         run: |
           python -m pip install --upgrade pip
           pip install -r tools/auto_analyzer/requirements.txt
+          pip install ruff mypy flake8
+
+      - name: 🔍 Lint Python (ruff)
+        working-directory: tools/auto_analyzer
+        run: ruff check .
+
+      - name: 🔍 Type check (mypy)
+        working-directory: tools/auto_analyzer
+        run: mypy . --ignore-missing-imports || echo "Type warnings (non-blocking)"
+
+      - name: 🔍 Format check (flake8)
+        working-directory: tools/auto_analyzer
+        run: flake8 . --max-line-length=120 || echo "Format warnings (non-blocking)"
 
       - name: Run auto-analyzer
         env:
@@ -37,3 +52,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python tools/auto_analyzer/auto_analyzer.py
+
+      - name: 📊 Upload analyzer results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-analyzer-report
+          path: resultados/
+          retention-days: 30
+
