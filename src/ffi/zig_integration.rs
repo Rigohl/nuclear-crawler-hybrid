@@ -1,38 +1,23 @@
-//! 🔥 ZIG INTEGRATION - REAL SIMD HASHING AND PARSING
-//!
-//! Uses Zig for ultra-fast SIMD-accelerated hashing and pattern matching
-//! Real FFI integration with Zig via libloading
-//! WASM compilation support via native Zig compiler (ffi/wasm/zig/main.zig)
-//! Specialized for cryptographic hashing and high-performance string operations
-//!
-//! Powers MCP Tools:
-//! - file_search       (SIMD pattern matching in files)
-//! - scan              (SIMD workspace hashing & dedup)
-//! - ai_dataset_trainer (batch hashing, data transform)
-//! - parallel_engine   (SIMD batch processing)
-//!
-//! WASM Source: ffi/wasm/zig/main.zig
-//! Build WASM: cd ffi/wasm && ./build_wasm.sh zig
+//! Zig integration with explicit real-backend enforcement.
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 use libloading::{Library, Symbol};
+use parking_lot::Mutex;
 use serde::{Deserialize, Serialize};
 use std::ffi::CString;
 use std::os::raw::c_char;
+use tokio::runtime::Builder;
 
-// Import WASM bridge for Zig WASM runtime
 use crate::ffi::wasm_ffi_bridge::{HashAlgorithm, WasmConfig, ZigWasmSimd};
 
-/// 🔥 Zig SIMD Config
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ZigSimdConfig {
     pub enable_simd: bool,
-    pub hash_algorithm: String, // "blake3", "sha256", "xxhash"
+    pub hash_algorithm: String,
     pub buffer_size: usize,
     pub parallel_chunks: usize,
 }
 
-/// 🔥 Zig SIMD Config for FFI (C-compatible)
 #[repr(C)]
 pub struct ZigSimdConfigFFI {
     pub enable_simd: bool,
@@ -46,13 +31,12 @@ impl Default for ZigSimdConfig {
         Self {
             enable_simd: true,
             hash_algorithm: "blake3".to_string(),
-            buffer_size: 64 * 1024, // 64KB
+            buffer_size: 64 * 1024,
             parallel_chunks: 8,
         }
     }
 }
 
-/// 🔥 Hash Result
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ZigHashResult {
     pub hash: String,
@@ -61,52 +45,31 @@ pub struct ZigHashResult {
     pub processing_time_ns: u64,
 }
 
-/// 🔥 Pattern Match Result
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ZigPatternResult {
     pub pattern: String,
-    pub matches: Vec<usize>, // Positions
+    pub matches: Vec<usize>,
     pub match_count: usize,
     pub processing_time_ns: u64,
 }
 
-/// 🔥 Zig SIMD Processor - REAL HIGH-PERFORMANCE COMPUTING + WASM RUNTIME
 pub struct ZigSimdProcessor {
     library: Option<Library>,
     config: ZigSimdConfig,
-    wasm_runtime: Option<ZigWasmSimd>,
+    wasm_runtime: Option<Mutex<ZigWasmSimd>>,
 }
 
 impl ZigSimdProcessor {
-    /// Initialize REAL Zig SIMD processor with optional WASM runtime
+    /// Initializes the processor and requires a real backend.
     pub fn new(config: ZigSimdConfig) -> Result<Self> {
-        eprintln!("🔥 Initializing Zig SIMD Processor...");
-
         let library = Self::load_zig_library();
+        let wasm_runtime = ZigWasmSimd::new(WasmConfig::default()).ok().map(Mutex::new);
 
-        #[cfg(has_zig)]
-        if library.is_some() {
-            eprintln!("✅ Zig library available via FFI - using REAL SIMD acceleration!");
-        } else {
-            eprintln!("⚠️ Zig library not available, using CPU fallback");
+        if library.is_none() && wasm_runtime.is_none() {
+            return Err(anyhow::anyhow!(
+                "Zig backend unavailable. Build native Zig FFI or ffi/wasm/zig/zig_simd.wasm"
+            ));
         }
-
-        #[cfg(not(has_zig))]
-        {
-            eprintln!("⚠️ Zig FFI not compiled, using CPU fallback");
-        }
-
-        // Try to initialize WASM runtime
-        let wasm_runtime = match ZigWasmSimd::new(WasmConfig::default()) {
-            Ok(runtime) => {
-                eprintln!("✅ Zig WASM runtime initialized with SIMD support!");
-                Some(runtime)
-            }
-            Err(e) => {
-                eprintln!("⚠️ Zig WASM runtime not available: {}", e);
-                None
-            }
-        };
 
         Ok(Self {
             library,
@@ -115,7 +78,7 @@ impl ZigSimdProcessor {
         })
     }
 
-    /// 🔥 REAL SIMD HASHING + CPU FALLBACK - Maximum power potentiation
+    /// Hashes data through a real Zig backend.
     pub fn hash_data(&self, data: &[u8]) -> Result<ZigHashResult> {
         if data.is_empty() {
             return Ok(ZigHashResult {
@@ -126,53 +89,14 @@ impl ZigSimdProcessor {
             });
         }
 
-        // Try REAL Zig FFI first (maximum performance)
-        if let Some(ref lib) = self.library {
-            match self.zig_hash(lib, data) {
-                Ok(result) => {
-                    eprintln!("✅ REAL Zig SIMD hashing executed for {} bytes", data.len());
-                    return Ok(result);
-                }
-                Err(_e) => {
-                    eprintln!("⚠️ Zig FFI failed, falling back to CPU SIMD");
-                }
-            }
-        }
-
-        // Fallback: CPU SIMD (still powerful)
-        eprintln!("🔥 Using CPU SIMD fallback for maximum power");
-        self.cpu_fallback_hash(data)
-    }
-
-    /// 🔥 WASM-POWERED SIMD hashing - Uses Zig WASM for portable SIMD
-    pub async fn hash_data_wasm(&mut self, data: &[u8]) -> Result<ZigHashResult> {
-        if let Some(ref mut wasm_runtime) = self.wasm_runtime {
-            eprintln!(
-                "🔥 Using Zig WASM runtime with SIMD for {} bytes",
-                data.len()
-            );
-
+        if let Some(ref wasm_runtime) = self.wasm_runtime {
+            let mut runtime = wasm_runtime.lock();
+            let executor = Builder::new_current_thread().enable_all().build()?;
+            let algorithm = Self::hash_algorithm_from_name(&self.config.hash_algorithm);
             let start = std::time::Instant::now();
-
-            // Map algorithm name to enum
-            let algorithm = match self.config.hash_algorithm.as_str() {
-                "blake3" => HashAlgorithm::Blake3,
-                "sha256" => HashAlgorithm::Sha256,
-                "xxhash" => HashAlgorithm::XxHash,
-                _ => HashAlgorithm::Blake3,
-            };
-
-            // Use WASM runtime
-            let hash_bytes = wasm_runtime.hash_data(data, algorithm).await?;
-
+            let hash_bytes = executor.block_on(runtime.hash_data(data, algorithm))?;
             let elapsed = start.elapsed();
-
-            // Convert hash bytes to hex string
-            let hash_hex = hash_bytes
-                .iter()
-                .map(|b| format!("{:02x}", b))
-                .collect::<String>();
-
+            let hash_hex = hash_bytes.iter().map(|b| format!("{:02x}", b)).collect::<String>();
             return Ok(ZigHashResult {
                 hash: hash_hex,
                 algorithm: self.config.hash_algorithm.clone(),
@@ -181,115 +105,70 @@ impl ZigSimdProcessor {
             });
         }
 
-        // Fall back to native Zig FFI or CPU
+        if let Some(ref lib) = self.library {
+            return self.zig_hash(lib, data);
+        }
+
+        Err(anyhow::anyhow!("Zig hashing backend unavailable"))
+    }
+
+    /// Hashes data through the explicit backend contract.
+    pub async fn hash_data_wasm(&mut self, data: &[u8]) -> Result<ZigHashResult> {
         self.hash_data(data)
     }
 
-    /// 🔥 WASM-POWERED SIMD pattern matching - Uses Zig WASM
-    pub async fn find_patterns_wasm(
-        &mut self,
-        text: &str,
-        patterns: &[String],
-    ) -> Result<Vec<ZigPatternResult>> {
-        if let Some(ref mut wasm_runtime) = self.wasm_runtime {
-            eprintln!("🔥 Using Zig WASM runtime with SIMD for pattern matching");
-
-            let mut results = Vec::new();
-
-            for pattern in patterns {
-                let start = std::time::Instant::now();
-                let matches: Vec<u32> = wasm_runtime
-                    .pattern_match(text.as_bytes(), pattern.as_bytes())
-                    .await?;
-                let elapsed = start.elapsed();
-                let match_count = matches.len();
-
-                results.push(ZigPatternResult {
-                    pattern: pattern.clone(),
-                    matches: matches.into_iter().map(|pos| pos as usize).collect(),
-                    match_count,
-                    processing_time_ns: elapsed.as_nanos() as u64,
-                });
-            }
-
-            return Ok(results);
-        }
-
-        // Fall back to native Zig FFI or CPU
-        self.find_patterns(text, patterns)
-    }
-
-    /// 🔥 REAL SIMD PATTERN MATCHING + CPU FALLBACK - Maximum power potentiation
+    /// Matches patterns through the real WASM backend.
     pub fn find_patterns(&self, text: &str, patterns: &[String]) -> Result<Vec<ZigPatternResult>> {
         if text.is_empty() || patterns.is_empty() {
             return Ok(Vec::new());
         }
 
-        // Try REAL Zig FFI first (maximum performance)
-        if let Some(ref lib) = self.library {
-            eprintln!(
-                "🔥 Using REAL Zig SIMD pattern matching for {} patterns!",
-                patterns.len()
-            );
-            let mut results = Vec::new();
-            let mut all_ok = true;
-            for pattern in patterns {
-                match self.zig_find_pattern(lib, text, pattern) {
-                    Ok(result) => results.push(result),
-                    Err(_e) => {
-                        all_ok = false;
-                        break;
-                    }
-                }
-            }
-            if all_ok {
-                return Ok(results);
-            }
-            eprintln!("⚠️ Zig FFI pattern matching failed, falling back to CPU SIMD");
+        let wasm_runtime = self
+            .wasm_runtime
+            .as_ref()
+            .context("Zig pattern matching requires ffi/wasm/zig/zig_simd.wasm")?;
+        let mut runtime = wasm_runtime.lock();
+        let executor = Builder::new_current_thread().enable_all().build()?;
+        let mut results = Vec::with_capacity(patterns.len());
+
+        for pattern in patterns {
+            let start = std::time::Instant::now();
+            let matches = executor.block_on(runtime.pattern_match(text.as_bytes(), pattern.as_bytes()))?;
+            let elapsed = start.elapsed();
+            let converted = matches.into_iter().map(|pos| pos as usize).collect::<Vec<_>>();
+            results.push(ZigPatternResult {
+                pattern: pattern.clone(),
+                match_count: converted.len(),
+                matches: converted,
+                processing_time_ns: elapsed.as_nanos() as u64,
+            });
         }
 
-        // Fallback: CPU SIMD (still powerful)
-        eprintln!("🔥 Using CPU SIMD fallback for maximum power");
-        self.cpu_fallback_pattern_match(text, patterns)
+        Ok(results)
     }
 
-    /// 🔥 REAL SIMD BATCH PROCESSING + CPU FALLBACK - Maximum power potentiation
-    pub fn process_batch(&self, texts: Vec<String>) -> Result<Vec<String>> {
-        if texts.is_empty() {
-            return Ok(Vec::new());
-        }
-
-        // Try REAL Zig FFI first (maximum performance)
-        if let Some(ref lib) = self.library {
-            eprintln!(
-                "🔥 Using REAL Zig SIMD batch processing for {} texts!",
-                texts.len()
-            );
-            let mut results = Vec::new();
-            let mut all_ok = true;
-            for text in &texts {
-                match self.zig_process_text(lib, text) {
-                    Ok(result) => results.push(result),
-                    Err(_e) => {
-                        all_ok = false;
-                        break;
-                    }
-                }
-            }
-            if all_ok {
-                return Ok(results);
-            }
-            eprintln!("⚠️ Zig FFI batch processing failed, falling back to CPU SIMD");
-        }
-
-        // Fallback: CPU SIMD (still powerful)
-        eprintln!("🔥 Using CPU SIMD fallback for maximum power");
-        self.cpu_fallback_batch_process(&texts)
+    /// Matches patterns through the explicit backend contract.
+    pub async fn find_patterns_wasm(
+        &mut self,
+        text: &str,
+        patterns: &[String],
+    ) -> Result<Vec<ZigPatternResult>> {
+        self.find_patterns(text, patterns)
     }
 
-    /// Load Zig library dynamically (REAL FFI)
+    /// Batch processing requires a wired real export and otherwise fails.
+    pub fn process_batch(&self, _texts: Vec<String>) -> Result<Vec<String>> {
+        Err(anyhow::anyhow!(
+            "Real Zig batch processing export is not wired in this repository; no fallback is allowed"
+        ))
+    }
+
+    /// Reports whether at least one real backend is available.
+    pub fn is_available(&self) -> bool {
+        self.library.is_some() || self.wasm_runtime.is_some()
+    }
+
     fn load_zig_library() -> Option<Library> {
-        // Try the actual library names we found
         let lib_paths = [
             "zig/nuclear_zig.lib",
             "zig/lib.lib",
@@ -299,21 +178,15 @@ impl ZigSimdProcessor {
 
         for lib_path in &lib_paths {
             match unsafe { Library::new(*lib_path) } {
-                Ok(lib) => {
-                    eprintln!("✅ Zig library loaded from: {}", lib_path);
-                    return Some(lib);
-                }
+                Ok(lib) => return Some(lib),
                 Err(_) => continue,
             }
         }
 
-        eprintln!("⚠️ No Zig library found, will use CPU SIMD fallback for maximum power");
         None
     }
 
-    /// Real Zig FFI call for SIMD hashing
     fn zig_hash(&self, lib: &Library, data: &[u8]) -> Result<ZigHashResult> {
-        // Real FFI function signature
         type ZigHashFn = unsafe extern "C" fn(
             data: *const u8,
             data_len: usize,
@@ -324,12 +197,8 @@ impl ZigSimdProcessor {
         ) -> i32;
 
         let func: Symbol<ZigHashFn> = unsafe { lib.get(b"zig_simd_hash")? };
-
-        // Prepare output buffer
-        let mut hash_buffer = [0u8; 64]; // Max hash size
+        let mut hash_buffer = [0u8; 64];
         let mut processing_time: u64 = 0;
-
-        // Convert config to C-compatible format
         let algo_cstr = CString::new(self.config.hash_algorithm.as_str())?;
         let config_ffi = ZigSimdConfigFFI {
             enable_simd: self.config.enable_simd,
@@ -338,7 +207,6 @@ impl ZigSimdProcessor {
             parallel_chunks: self.config.parallel_chunks,
         };
 
-        // Call Zig function
         let result_code = unsafe {
             func(
                 data.as_ptr(),
@@ -351,13 +219,9 @@ impl ZigSimdProcessor {
         };
 
         if result_code != 0 {
-            return Err(anyhow::anyhow!(
-                "Zig SIMD hash failed with code: {}",
-                result_code
-            ));
+            return Err(anyhow::anyhow!("Zig SIMD hash failed with code: {}", result_code));
         }
 
-        // Convert hash bytes to hex string
         let hash_hex = hash_buffer
             .iter()
             .take_while(|&&b| b != 0)
@@ -372,96 +236,19 @@ impl ZigSimdProcessor {
         })
     }
 
-    /// Real Zig FFI call for pattern matching
-    fn zig_find_pattern(
-        &self,
-        _lib: &Library,
-        text: &str,
-        pattern: &str,
-    ) -> Result<ZigPatternResult> {
-        // Fallback to CPU version
-        self.cpu_fallback_pattern_match(text, &[pattern.to_string()])
-            .map(|mut results| results.pop().unwrap())
-    }
-
-    /// Real Zig FFI call for batch processing
-    fn zig_process_text(&self, _lib: &Library, text: &str) -> Result<String> {
-        // Fallback to CPU version
-        Ok(text.split_whitespace().collect::<Vec<_>>().join(" "))
-    }
-
-    /// CPU fallback for hashing - Powerful SIMD alternative when FFI unavailable
-    pub fn cpu_fallback_hash(&self, data: &[u8]) -> Result<ZigHashResult> {
-        let start = std::time::Instant::now();
-
-        // Use simple hash computation
-        let mut hash: u64 = 0;
-        for &byte in data {
-            hash = hash.wrapping_mul(31).wrapping_add(byte as u64);
+    fn hash_algorithm_from_name(name: &str) -> HashAlgorithm {
+        match name {
+            "sha256" => HashAlgorithm::Sha256,
+            "xxhash" => HashAlgorithm::XxHash,
+            _ => HashAlgorithm::Blake3,
         }
-        let hash_hex = format!("{:x}", hash);
-
-        let processing_time_ns = start.elapsed().as_nanos() as u64;
-
-        Ok(ZigHashResult {
-            hash: hash_hex,
-            algorithm: "simd_cpu".to_string(),
-            input_size: data.len(),
-            processing_time_ns,
-        })
-    }
-
-    /// CPU fallback for pattern matching
-    pub fn cpu_fallback_pattern_match(
-        &self,
-        text: &str,
-        patterns: &[String],
-    ) -> Result<Vec<ZigPatternResult>> {
-        let start = std::time::Instant::now();
-        let mut results = Vec::new();
-
-        for pattern in patterns {
-            let matches: Vec<usize> = text
-                .match_indices(pattern.as_str())
-                .map(|(i, _)| i)
-                .collect();
-            let match_count = matches.len();
-
-            results.push(ZigPatternResult {
-                pattern: pattern.clone(),
-                matches,
-                match_count,
-                processing_time_ns: start.elapsed().as_nanos() as u64,
-            });
-        }
-
-        Ok(results)
-    }
-
-    /// CPU fallback for batch processing
-    pub fn cpu_fallback_batch_process(&self, texts: &[String]) -> Result<Vec<String>> {
-        Ok(texts
-            .iter()
-            .map(|text| text.split_whitespace().collect::<Vec<_>>().join(" "))
-            .collect())
-    }
-
-    /// Check if Zig FFI is available
-    pub fn is_available(&self) -> bool {
-        self.library.is_some()
     }
 }
 
 impl Default for ZigSimdProcessor {
     fn default() -> Self {
-        Self::new(ZigSimdConfig::default()).unwrap_or_else(|_| {
-            eprintln!("Failed to initialize Zig SIMD processor, using CPU fallback");
-            Self {
-                library: None,
-                config: ZigSimdConfig::default(),
-                wasm_runtime: None,
-            }
-        })
+        Self::new(ZigSimdConfig::default())
+            .expect("ZigSimdProcessor requires native Zig FFI or ffi/wasm/zig/zig_simd.wasm")
     }
 }
 
@@ -470,47 +257,17 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_zig_initialization() {
-        let processor = ZigSimdProcessor::new(ZigSimdConfig::default());
-        // Test passes even if Zig library is not available (fallback mode)
-        let _ = processor.is_ok(); // fallback always acceptable
+    fn test_zig_backend_contract_is_explicit() {
+        match ZigSimdProcessor::new(ZigSimdConfig::default()) {
+            Ok(processor) => assert!(processor.is_available()),
+            Err(err) => assert!(err.to_string().contains("Zig backend unavailable")),
+        }
     }
 
     #[test]
-    fn test_cpu_fallback_hash() {
-        let processor = ZigSimdProcessor::default();
-        let data = b"Hello, World!";
-        let result = processor.cpu_fallback_hash(data).unwrap();
-        assert!(!result.hash.is_empty());
-        assert_eq!(result.algorithm, "simd_cpu"); // CPU fallback uses simd_cpu, not blake3
-        assert_eq!(result.input_size, data.len());
-    }
-
-    #[test]
-    fn test_cpu_fallback_pattern_match() {
-        let processor = ZigSimdProcessor::default();
-        let text = "Hello world, hello universe";
-        let patterns = vec!["hello".to_string(), "world".to_string()];
-        let results = processor
-            .cpu_fallback_pattern_match(text, &patterns)
-            .unwrap();
-
-        assert_eq!(results.len(), 2);
-        assert_eq!(results[0].match_count, 1); // "hello" appears once (case-sensitive)
-        assert_eq!(results[1].match_count, 1); // "world" appears once
-    }
-
-    #[test]
-    fn test_cpu_fallback_batch_process() {
-        let processor = ZigSimdProcessor::default();
-        let texts = vec![
-            "  Hello   world  ".to_string(),
-            "Multiple    spaces    here".to_string(),
-        ];
-        let processed = processor.cpu_fallback_batch_process(&texts).unwrap();
-
-        assert_eq!(processed.len(), 2);
-        assert_eq!(processed[0], "Hello world");
-        assert_eq!(processed[1], "Multiple spaces here");
+    fn test_hash_algorithm_mapping() {
+        assert!(matches!(ZigSimdProcessor::hash_algorithm_from_name("blake3"), HashAlgorithm::Blake3));
+        assert!(matches!(ZigSimdProcessor::hash_algorithm_from_name("sha256"), HashAlgorithm::Sha256));
+        assert!(matches!(ZigSimdProcessor::hash_algorithm_from_name("xxhash"), HashAlgorithm::XxHash));
     }
 }

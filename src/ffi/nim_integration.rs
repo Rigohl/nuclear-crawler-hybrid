@@ -1,35 +1,17 @@
-//! 🔥 NIM INTEGRATION - REAL HIGH-PERFORMANCE HTML PARSING
-//!
-//! Uses Nim for ultra-fast HTML parsing and content extraction
-//! Real FFI integration with Nim via static linking
-//! WASM compilation support via Emscripten (ffi/wasm/nim/main.nim)
-//! Specialized for web scraping and content analysis
-//!
-//! Powers MCP Tools:
-//! - websearch         (HTML result parsing & extraction)
-//! - premium           (premium content HTML processing)
-//! - scan              (HTML file analysis)
-//! - osint_intelligence (OSINT page parsing & metadata)
-//!
-//! WASM Source: ffi/wasm/nim/main.nim
-//! Build WASM: cd ffi/wasm && ./build_wasm.sh nim
+//! Nim integration with explicit real-backend enforcement.
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 use libloading::Library;
+use parking_lot::Mutex;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use tokio::runtime::Builder;
 
-// Import WASM bridge for Nim WASM runtime
-use crate::ffi::wasm_ffi_bridge::{NimWasmParser, WasmConfig};
+use crate::ffi::wasm_ffi_bridge::{Element, Link, NimWasmParser, WasmConfig};
 
-// 🔥 REAL FFI DECLARATIONS - ACTIVATED FOR MAXIMUM POWER
 #[cfg(has_nim)]
-extern "C" {
-    // Note: nim_parse_html is declared but not used in current implementation
-    // It is kept for future FFI integration
-}
+extern "C" {}
 
-/// 🔥 FFI Result structure for Nim HTML parsing
 #[repr(C)]
 #[derive(Debug, Clone)]
 pub struct NimHtmlResult {
@@ -40,7 +22,6 @@ pub struct NimHtmlResult {
     pub error: *const i8,
 }
 
-/// 🔥 Nim HTML Parser Configuration
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NimParserConfig {
     pub enable_javascript_extraction: bool,
@@ -56,13 +37,12 @@ impl Default for NimParserConfig {
             enable_javascript_extraction: true,
             extract_metadata: true,
             follow_redirects: true,
-            timeout_ms: 10000,                    // 10 seconds
-            max_content_length: 10 * 1024 * 1024, // 10MB
+            timeout_ms: 10000,
+            max_content_length: 10 * 1024 * 1024,
         }
     }
 }
 
-/// 🔥 Parsed HTML Content Structure
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NimParsedContent {
     pub title: String,
@@ -76,88 +56,71 @@ pub struct NimParsedContent {
     pub has_javascript: bool,
 }
 
-/// 🔥 Nim HTML Parser - REAL HIGH-PERFORMANCE PARSING + WASM RUNTIME
 pub struct NimHtmlParser {
     config: NimParserConfig,
     library: Option<Library>,
-    _wasm_runtime: Option<NimWasmParser>,
+    wasm_runtime: Option<Mutex<NimWasmParser>>,
 }
 
 impl NimHtmlParser {
-    /// Initialize REAL Nim HTML parser with optional WASM runtime
+    /// Initializes the parser and requires a real backend.
     pub fn new(config: NimParserConfig) -> Result<Self> {
-        eprintln!("🔥 Initializing Nim HTML Parser with MAXIMUM POWER...");
-
         let library = Self::load_nim_library();
+        let wasm_runtime = NimWasmParser::new(WasmConfig::default()).ok().map(Mutex::new);
 
-        if library.is_some() {
-            eprintln!("✅ Nim library available via FFI - using REAL parsing!");
-        } else {
-            eprintln!("⚠️ Nim library not available, using fallback parser");
+        if library.is_none() && wasm_runtime.is_none() {
+            return Err(anyhow::anyhow!(
+                "Nim backend unavailable. Build native Nim FFI or ffi/wasm/nim/nim_parser.wasm"
+            ));
         }
-
-        // Try to initialize WASM runtime
-        let wasm_runtime = match NimWasmParser::new(WasmConfig::default()) {
-            Ok(runtime) => {
-                eprintln!("✅ Nim WASM runtime initialized for portable parsing!");
-                Some(runtime)
-            }
-            Err(e) => {
-                eprintln!("⚠️ Nim WASM runtime not available: {}", e);
-                None
-            }
-        };
 
         Ok(Self {
             config,
             library,
-            _wasm_runtime: wasm_runtime,
+            wasm_runtime,
         })
     }
 
-    /// 🔥 REAL NIM HTML PARSING + RUST FALLBACK - Parse HTML with MAXIMUM power
+    /// Parses HTML through native Nim FFI or the Nim WASM runtime.
     pub fn parse_html(&self, html: &str, url: Option<&str>) -> Result<NimParsedContent> {
-        // Try REAL Nim FFI first
+        self.ensure_content_length(html)?;
+
         if let Some(ref lib) = self.library {
-            match self.nim_parse_html_ffi(lib, html, url) {
-                Ok(result) => {
-                    eprintln!("✅ Used REAL Nim HTML parsing for {} bytes", html.len());
-                    return Ok(result);
-                }
-                Err(e) => {
-                    eprintln!("⚠️ Nim FFI parsing failed: {}, falling back to Rust", e);
-                }
+            if let Ok(result) = self.nim_parse_html_ffi(lib, html, url) {
+                return Ok(result);
             }
         }
 
-        // Fallback to Rust implementation with MAXIMUM POWER
-        eprintln!("🔥 Using Rust HTML parser with MAXIMUM POWER");
-        self.fallback_parse_html(html, url)
+        if self.wasm_runtime.is_some() {
+            return self.parse_html_via_wasm(html, url);
+        }
+
+        Err(anyhow::anyhow!("Nim parsing backend unavailable"))
     }
 
-    /// 🔥 REAL BATCH HTML PARSING + RUST FALLBACK - Process multiple pages
+    /// Parses several pages through the same explicit backend contract.
     pub fn parse_html_batch(
         &self,
         html_pages: Vec<(String, Option<String>)>,
     ) -> Result<Vec<NimParsedContent>> {
-        eprintln!(
-            "🔥 Batch parsing {} pages with MAXIMUM POWER",
-            html_pages.len()
-        );
-        // Always use fallback for batch (both FFI and Rust are available)
-        self.fallback_parse_batch(html_pages)
+        let mut results = Vec::with_capacity(html_pages.len());
+        for (html, url) in html_pages {
+            results.push(self.parse_html(&html, url.as_deref())?);
+        }
+        Ok(results)
     }
 
-    /// 🔥 REAL CONTENT EXTRACTION + RUST FALLBACK - Extract clean text from HTML
+    /// Extracts visible body text through the real parsing backend.
     pub fn extract_clean_text(&self, html: &str) -> Result<String> {
-        eprintln!("🔥 Content extraction with MAXIMUM POWER");
-        // Always use fallback with maximum power features
-        self.fallback_extract_text(html)
+        Ok(self.parse_html(html, None)?.text_content)
     }
 
-    /// Load Nim library dynamically
+    /// Checks whether at least one real backend is available.
+    pub fn is_available(&self) -> bool {
+        self.library.is_some() || self.wasm_runtime.is_some()
+    }
+
     fn load_nim_library() -> Option<Library> {
-        // Try the actual library names we found
         let lib_paths = [
             "nim/nuclear_nim.dll",
             "nim/nuclear_nim.lib",
@@ -166,201 +129,109 @@ impl NimHtmlParser {
 
         for lib_path in &lib_paths {
             match unsafe { Library::new(*lib_path) } {
-                Ok(lib) => {
-                    eprintln!("✅ Nim library loaded from: {}", lib_path);
-                    return Some(lib);
-                }
+                Ok(lib) => return Some(lib),
                 Err(_) => continue,
             }
         }
 
-        eprintln!("⚠️ No Nim library found, will use Rust HTML parser with MAXIMUM POWER");
         None
     }
 
-    /// Real Nim FFI call for HTML parsing
     fn nim_parse_html_ffi(
         &self,
-        lib: &Library,
-        html: &str,
-        url: Option<&str>,
+        _lib: &Library,
+        _html: &str,
+        _url: Option<&str>,
     ) -> Result<NimParsedContent> {
-        use libloading::Symbol;
-        use std::ffi::CString;
-
-        // Convert strings to C strings, filtering out null bytes
-        let clean_html = html.replace('\0', "");
-        let c_html = CString::new(clean_html)?;
-        let c_url = url
-            .map(|u| CString::new(u.replace('\0', "")).unwrap())
-            .unwrap_or_else(|| CString::new("").unwrap());
-
-        // Load the Nim function
-        type NimParseFn = unsafe extern "C" fn(*const i8, *const i8) -> *mut NimHtmlResult;
-        let func: Symbol<NimParseFn> = unsafe { lib.get(b"nim_parse_html")? };
-
-        // Call the Nim function
-        let result_ptr = unsafe { func(c_html.as_ptr(), c_url.as_ptr()) };
-
-        if result_ptr.is_null() {
-            return Err(anyhow::anyhow!("Nim FFI function returned null"));
-        }
-
-        // Convert results back to Rust (simplified - would need proper FFI memory management)
-        // For now, return error and let it fall back
-        unsafe {
-            // This is a placeholder - real implementation would need proper FFI memory management
-            drop(Box::from_raw(result_ptr));
-        }
-
-        Err(anyhow::anyhow!("FFI result conversion not implemented yet"))
+        Err(anyhow::anyhow!(
+            "Native Nim FFI result conversion is not implemented; use the real WASM backend"
+        ))
     }
 
-    /// Fallback HTML parser using Rust scraper
-    fn fallback_parse_html(&self, html: &str, _url: Option<&str>) -> Result<NimParsedContent> {
-        use scraper::{Html, Selector};
+    fn parse_html_via_wasm(&self, html: &str, _url: Option<&str>) -> Result<NimParsedContent> {
+        let wasm_runtime = self
+            .wasm_runtime
+            .as_ref()
+            .context("Nim WASM runtime not initialized")?;
+        let mut runtime = wasm_runtime.lock();
+        let executor = Builder::new_current_thread().enable_all().build()?;
 
-        // Check content length limit
+        let title_elements = executor.block_on(runtime.parse_html(html, "title"))?;
+        let body_elements = executor.block_on(runtime.parse_html(html, "body"))?;
+        let link_elements = executor.block_on(runtime.extract_links(html))?;
+        let image_elements = executor.block_on(runtime.parse_html(html, "img"))?;
+
+        Ok(self.assemble_parsed_content(
+            html,
+            title_elements,
+            body_elements,
+            link_elements,
+            image_elements,
+        ))
+    }
+
+    fn ensure_content_length(&self, html: &str) -> Result<()> {
         if html.len() > self.config.max_content_length {
             return Err(anyhow::anyhow!(
                 "HTML content exceeds maximum length of {} bytes",
                 self.config.max_content_length
             ));
         }
+        Ok(())
+    }
 
-        let document = Html::parse_document(html);
-
-        // Extract title
-        let title_selector = Selector::parse("title").unwrap();
-        let title = document
-            .select(&title_selector)
-            .next()
-            .map(|el| el.text().collect::<String>())
+    fn assemble_parsed_content(
+        &self,
+        html: &str,
+        title_elements: Vec<Element>,
+        body_elements: Vec<Element>,
+        link_elements: Vec<Link>,
+        image_elements: Vec<Element>,
+    ) -> NimParsedContent {
+        let title = title_elements
+            .first()
+            .map(|element| element.text.clone())
             .unwrap_or_default();
+        let text_content = body_elements
+            .iter()
+            .map(|element| element.text.trim())
+            .filter(|text| !text.is_empty())
+            .collect::<Vec<_>>()
+            .join(" ");
+        let links = link_elements.into_iter().map(|link| link.url).collect::<Vec<_>>();
+        let images = image_elements
+            .into_iter()
+            .filter_map(|element| element.attributes.get("src").cloned())
+            .collect::<Vec<_>>();
 
-        // Extract text content
-        let text_selector = Selector::parse("body").unwrap();
-        let text_content = document
-            .select(&text_selector)
-            .next()
-            .map(|el| el.text().collect::<Vec<_>>().join(" "))
-            .unwrap_or_default();
-
-        // Extract links
-        let link_selector = Selector::parse("a[href]").unwrap();
-        let links: Vec<String> = document
-            .select(&link_selector)
-            .filter_map(|el| el.value().attr("href"))
-            .map(String::from)
-            .collect();
-
-        // Extract images
-        let img_selector = Selector::parse("img[src]").unwrap();
-        let images: Vec<String> = document
-            .select(&img_selector)
-            .filter_map(|el| el.value().attr("src"))
-            .map(String::from)
-            .collect();
-
-        // Extract metadata
-        let mut metadata = HashMap::new();
-        let meta_selector = Selector::parse("meta[name], meta[property]").unwrap();
-        for element in document.select(&meta_selector) {
-            if let (Some(name), Some(content)) = (
-                element
-                    .value()
-                    .attr("name")
-                    .or_else(|| element.value().attr("property")),
-                element.value().attr("content"),
-            ) {
-                metadata.insert(name.to_string(), content.to_string());
-            }
+        NimParsedContent {
+            title,
+            text_content: text_content.clone(),
+            links,
+            images,
+            metadata: HashMap::new(),
+            structured_data: serde_json::Value::Null,
+            word_count: text_content.split_whitespace().count(),
+            language: Self::detect_language(&text_content),
+            has_javascript: html.contains("<script") || html.contains("javascript:"),
         }
+    }
 
-        // Extract JSON-LD structured data
-        let json_ld_selector = Selector::parse("script[type=\"application/ld+json\"]").unwrap();
-        let structured_data = document
-            .select(&json_ld_selector)
-            .next()
-            .and_then(|el| {
-                let json_text = el.text().collect::<String>();
-                serde_json::from_str(&json_text).ok()
-            })
-            .unwrap_or(serde_json::Value::Null);
-
-        // Detect JavaScript
-        let has_javascript = html.contains("<script") || html.contains("javascript:");
-
-        // Detect language
-        let language = if text_content.contains("the ") || text_content.contains(" and ") {
+    fn detect_language(text_content: &str) -> String {
+        if text_content.contains("the ") || text_content.contains(" and ") {
             "english".to_string()
         } else if text_content.contains(" el ") || text_content.contains(" la ") {
             "spanish".to_string()
         } else {
             "unknown".to_string()
-        };
-
-        let word_count = text_content.split_whitespace().count();
-
-        Ok(NimParsedContent {
-            title,
-            text_content,
-            links,
-            images,
-            metadata,
-            structured_data,
-            word_count,
-            language,
-            has_javascript,
-        })
-    }
-
-    /// Fallback batch parsing
-    fn fallback_parse_batch(
-        &self,
-        html_pages: Vec<(String, Option<String>)>,
-    ) -> Result<Vec<NimParsedContent>> {
-        let mut results = Vec::new();
-        for (html, url) in html_pages {
-            results.push(self.fallback_parse_html(&html, url.as_deref())?);
         }
-        Ok(results)
-    }
-
-    /// Fallback text extraction
-    fn fallback_extract_text(&self, html: &str) -> Result<String> {
-        use scraper::{Html, Selector};
-
-        let document = Html::parse_document(html);
-        let selector = Selector::parse("body").unwrap();
-
-        let text = document
-            .select(&selector)
-            .next()
-            .map(|el| el.text().collect::<Vec<_>>().join(" "))
-            .unwrap_or_default();
-
-        Ok(text)
     }
 }
 
 impl Default for NimHtmlParser {
     fn default() -> Self {
-        Self::new(NimParserConfig::default()).unwrap_or_else(|_| {
-            eprintln!("Failed to initialize Nim parser, using fallback mode");
-            Self {
-                config: NimParserConfig::default(),
-                library: None,
-                _wasm_runtime: None,
-            }
-        })
-    }
-}
-
-impl NimHtmlParser {
-    /// Check if Nim FFI is available
-    pub fn is_available(&self) -> bool {
-        self.library.is_some()
+        Self::new(NimParserConfig::default())
+            .expect("NimHtmlParser requires native Nim FFI or ffi/wasm/nim/nim_parser.wasm")
     }
 }
 
@@ -369,42 +240,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_nim_initialization() {
-        let parser = NimHtmlParser::new(NimParserConfig::default());
-        // Test passes even if Nim library is not available (fallback mode)
-        let _ = parser.is_ok(); // fallback always acceptable
+    fn test_nim_backend_contract_is_explicit() {
+        match NimHtmlParser::new(NimParserConfig::default()) {
+            Ok(parser) => assert!(parser.is_available()),
+            Err(err) => assert!(err.to_string().contains("Nim backend unavailable")),
+        }
     }
 
     #[test]
-    fn test_fallback_parsing() {
-        let parser = NimHtmlParser::default();
-        let html = r#"
-            <html>
-                <head><title>Test Page</title></head>
-                <body>
-                    <h1>Hello World</h1>
-                    <p>This is a test page.</p>
-                    <a href="https://example.com">Link</a>
-                    <img src="image.jpg" alt="test image">
-                </body>
-            </html>
-        "#;
-
-        let result = parser
-            .fallback_parse_html(html, Some("https://test.com"))
-            .unwrap();
-        assert_eq!(result.title, "Test Page");
-        assert!(result.text_content.contains("Hello World"));
-        assert!(result.links.contains(&"https://example.com".to_string()));
-        assert!(result.images.contains(&"image.jpg".to_string()));
-    }
-
-    #[test]
-    fn test_fallback_text_extraction() {
-        let parser = NimHtmlParser::default();
-        let html = r#"<div>Hello <span>world</span></div>"#;
-        let text = parser.fallback_extract_text(html).unwrap();
-        assert!(text.contains("Hello"));
-        assert!(text.contains("world"));
+    fn test_language_detection() {
+        assert_eq!(NimHtmlParser::detect_language("the system and the parser"), "english");
+        assert_eq!(NimHtmlParser::detect_language(" el parser y la pagina"), "spanish");
     }
 }

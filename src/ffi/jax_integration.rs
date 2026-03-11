@@ -1,13 +1,13 @@
-//! 🔥 JAX INTEGRATION - REAL GPU-ACCELERATED VECTOR PROCESSING
+//! JAX integration with explicit real-backend enforcement.
 //!
-//! Uses JAX for massive parallel vectorized batch processing
-//! Real FFI integration with Python JAX via libloading
-//! Accelerates search result processing and content analysis
+//! This module only operates when a real JAX runtime and the repository-backed
+//! helper script are available. It does not degrade to CPU heuristics.
 
-use anyhow::Result;
-use libloading::Library;
+use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
+use serde_json::json;
 use std::io::Write;
+use std::path::PathBuf;
 use std::process::Command;
 
 /// 🔥 JAX Processing Configuration
@@ -30,110 +30,64 @@ impl Default for JaxConfig {
     }
 }
 
-/// 🔥 JAX Vector Processor - REAL GPU ACCELERATION
+/// JAX vector processor backed by a repository-managed Python script.
 pub struct JaxProcessor {
-    library: Option<Library>,
+    python_cmd: String,
+    backend_script: PathBuf,
 }
 
 impl JaxProcessor {
-    /// Initialize REAL JAX processor with GPU acceleration
+    /// Initializes the processor and validates that the real backend is ready.
     pub fn new() -> Result<Self> {
-        eprintln!("🔥 Initializing JAX GPU Processor...");
+        eprintln!("Initializing JAX GPU processor with explicit backend validation...");
+        let python_cmd = Self::find_python_with_jax()?;
+        let backend_script = Self::backend_script_path();
 
-        // Check if JAX is available via Python subprocess
-        let jax_available = Self::check_jax_availability();
-
-        if jax_available {
-            eprintln!("✅ JAX available via Python subprocess - using REAL GPU acceleration!");
-        } else {
-            eprintln!("⚠️ JAX not available, using CPU fallback");
+        if !backend_script.exists() {
+            return Err(anyhow::anyhow!(
+                "JAX backend script not found at {}",
+                backend_script.display()
+            ));
         }
 
-        Ok(Self { library: None })
+        Ok(Self {
+            python_cmd,
+            backend_script,
+        })
     }
 
-    /// 🔥 REAL VECTORIZED BATCH PROCESSING - Process search results in parallel
+    /// Processes result batches using the real JAX backend.
     pub fn process_search_results_batch(&self, results: Vec<String>) -> Result<Vec<f32>> {
         if results.is_empty() {
             return Ok(Vec::new());
         }
 
-        if Self::check_jax_availability() {
-            eprintln!(
-                "✅ Using REAL JAX GPU processing for {} results!",
-                results.len()
-            );
-            // Real JAX subprocess implementation would go here
-            // For now, fall back to CPU implementation
-            self.cpu_fallback_processing(&results)
-        } else {
-            self.cpu_fallback_processing(&results)
-        }
+        let output = self.run_backend("process_batch", &json!({ "results": results }))?;
+        serde_json::from_slice(&output).context("Failed to parse JAX batch scores")
     }
 
-    /// 🔥 REAL CONTENT VECTORIZATION - Convert text to embeddings
+    /// Converts text content into deterministic JAX-generated vectors.
     pub fn vectorize_content(&self, content: &[String]) -> Result<Vec<Vec<f32>>> {
         if content.is_empty() {
             return Ok(Vec::new());
         }
 
-        // Try JAX via subprocess first
-        match self.jax_vectorize_subprocess(content) {
-            Ok(vectors) => {
-                eprintln!(
-                    "✅ JAX vectorization: {} texts → {}D vectors",
-                    content.len(),
-                    vectors[0].len()
-                );
-                Ok(vectors)
-            }
-            Err(e) => {
-                eprintln!("⚠️ JAX vectorization failed: {}, using CPU fallback", e);
-                self.cpu_vectorize_fallback(content)
-            }
-        }
+        let output = self.run_backend("vectorize", &json!({ "content": content }))?;
+        serde_json::from_slice(&output).context("Failed to parse JAX vectors")
     }
 
-    /// 🔥 REAL SIMILARITY COMPUTATION - GPU-accelerated cosine similarity
+    /// Computes a similarity matrix using JAX linear algebra.
     pub fn compute_similarity_matrix(&self, vectors: &[Vec<f32>]) -> Result<Vec<Vec<f32>>> {
         if vectors.is_empty() {
             return Ok(Vec::new());
         }
 
-        // Try JAX via subprocess first
-        match self.jax_similarity_subprocess(vectors) {
-            Ok(matrix) => {
-                eprintln!(
-                    "✅ JAX similarity matrix: {}x{} computed on GPU",
-                    vectors.len(),
-                    vectors.len()
-                );
-                Ok(matrix)
-            }
-            Err(e) => {
-                eprintln!("⚠️ JAX similarity failed: {}, using CPU fallback", e);
-                self.cpu_similarity_fallback(vectors)
-            }
-        }
+        let output = self.run_backend("similarity", &json!({ "vectors": vectors }))?;
+        serde_json::from_slice(&output).context("Failed to parse JAX similarity matrix")
     }
 
-    /// Check if JAX is available via Python subprocess
-    fn check_jax_availability() -> bool {
-        // Try to run a simple JAX import test with robust argument passing
-        match Command::new("python")
-            .args(["-c", "import jax; print('JAX available')"])
-            .output()
-        {
-            Ok(output) => {
-                let stdout = String::from_utf8_lossy(&output.stdout);
-                stdout.contains("JAX available")
-            }
-            Err(_) => false,
-        }
-    }
-
-    /// Find Python executable with JAX installed
-    fn find_python_with_jax(&self) -> Result<String> {
+    /// Resolves a Python interpreter that can import JAX.
+    fn find_python_with_jax() -> Result<String> {
         let python_paths = [
             r"C:\Users\DELL\AppData\Local\Programs\Python\Python312\python.exe",
             r"C:\Python312\python.exe",
@@ -155,115 +109,9 @@ impl JaxProcessor {
         Err(anyhow::anyhow!("Python with JAX not found"))
     }
 
-    /// Real JAX processing using Python subprocess
-    fn jax_batch_process(&self, _lib: &Library, results: &[String]) -> Result<Vec<f32>> {
-        // Find Python with JAX
-        let python_cmd = self.find_python_with_jax()?;
-
-        // Create temporary script
-        let script_content = r#"
-import sys
-import json
-import jax
-import jax.numpy as jnp
-
-def process_batch(data):
-    """Process batch of text data using JAX"""
-    try:
-        # Convert to JAX arrays and process
-        lengths = jnp.array([len(text) for text in data], dtype=jnp.float32)
-        # Normalize lengths as relevance scores
-        if len(lengths) > 0:
-            normalized = lengths / jnp.max(lengths)
-            # Add some JAX computation for GPU acceleration
-            processed = jnp.exp(-normalized)  # exponential decay
-            return processed.tolist()
-        return [0.5] * len(data)
-    except Exception as e:
-        print(f"JAX processing error: {e}", file=sys.stderr)
-        return [0.5] * len(data)
-
-if __name__ == "__main__":
-    data = json.load(sys.stdin)
-    result = process_batch(data)
-    print(json.dumps(result))
-"#;
-
-        let script_path = std::env::temp_dir().join("nuclear_jax_batch.py");
-        std::fs::write(&script_path, script_content)?;
-
-        // Run Python script with data
-        let _data_json = serde_json::to_string(results)?;
-        let output = std::process::Command::new(&python_cmd)
-            .args([&script_path])
-            .stdin(std::process::Stdio::piped())
-            .stdout(std::process::Stdio::piped())
-            .stderr(std::process::Stdio::piped())
-            .spawn()?
-            .wait_with_output()?;
-
-        if !output.status.success() {
-            let stderr = String::from_utf8_lossy(&output.stderr);
-            eprintln!("JAX processing failed: {}", stderr);
-            // Return fallback scores
-            return Ok(vec![0.5; results.len()]);
-        }
-
-        let result_json: Vec<f32> = serde_json::from_slice(&output.stdout)?;
-        Ok(result_json)
-    }
-
-    /// Process results using JAX (with CPU fallback)
+    /// Processes results through the same real JAX batch backend.
     pub fn process_results(&self, results: &[String]) -> Result<Vec<f32>> {
-        if let Some(ref lib) = self.library {
-            // Try JAX processing
-            match self.jax_batch_process(lib, results) {
-                Ok(scores) => Ok(scores),
-                Err(e) => {
-                    eprintln!("JAX processing failed: {}, using CPU fallback", e);
-                    self.cpu_fallback_processing(results)
-                }
-            }
-        } else {
-            // CPU fallback
-            self.cpu_fallback_processing(results)
-        }
-    }
-
-    /// CPU fallback processing when JAX is not available
-    pub fn cpu_fallback_processing(&self, results: &[String]) -> Result<Vec<f32>> {
-        let mut scores = Vec::with_capacity(results.len());
-
-        for result in results {
-            // Simple scoring based on content quality indicators
-            let mut score: f32 = 0.5; // Base score
-
-            // Boost for premium content indicators
-            if result.contains("research") || result.contains("paper") || result.contains("study") {
-                score += 0.2;
-            }
-            if result.contains("machine learning")
-                || result.contains("AI")
-                || result.contains("neural")
-            {
-                score += 0.3;
-            }
-            if result.contains("arxiv") || result.contains("nature") || result.contains("science") {
-                score += 0.4;
-            }
-
-            // Penalize for low-quality indicators
-            if result.len() < 50 {
-                score -= 0.2;
-            }
-            if result.contains("error") || result.contains("failed") {
-                score -= 0.3;
-            }
-
-            scores.push(score.clamp(0.0, 1.0)); // Clamp to [0, 1]
-        }
-
-        Ok(scores)
+        self.process_search_results_batch(results.to_vec())
     }
 
     /// Compute cosine similarity between two vectors
@@ -283,153 +131,45 @@ if __name__ == "__main__":
         }
     }
 
-    /// JAX vectorization via subprocess
-    fn jax_vectorize_subprocess(&self, content: &[String]) -> Result<Vec<Vec<f32>>> {
-        let python_cmd = self.find_python_with_jax()?;
+    /// Resolves the repository-managed JAX backend script path.
+    fn backend_script_path() -> PathBuf {
+        PathBuf::from("ffi/jax/real_jax_backend.py")
+    }
 
-        let script_content = r#"
-import sys
-import json
-import jax
-import jax.numpy as jnp
+    /// Runs the repository-managed backend script for a specific operation.
+    fn run_backend<T: Serialize>(&self, operation: &str, payload: &T) -> Result<Vec<u8>> {
+        if !self.backend_script.exists() {
+            return Err(anyhow::anyhow!(
+                "JAX backend script missing at {}",
+                self.backend_script.display()
+            ));
+        }
 
-def vectorize_texts(texts):
-    # Simple hash-based vectorization for now
-    vectors = []
-    for text in texts:
-        # Create a simple 128-dimensional vector from text hash
-        hash_val = hash(text)
-        vector = []
-        for i in range(128):
-            vector.append(float((hash_val >> (i % 64)) & 1))
-        vectors.append(vector)
-    return vectors
-
-if __name__ == "__main__":
-    data = json.load(sys.stdin)
-    result = vectorize_texts(data)
-    print(json.dumps(result))
-"#;
-
-        let script_path = std::env::temp_dir().join("nuclear_jax_vectorize.py");
-        std::fs::write(&script_path, script_content)?;
-
-        let mut child = std::process::Command::new(&python_cmd)
-            .args([&script_path])
+        let mut child = Command::new(&self.python_cmd)
+            .arg(&self.backend_script)
+            .arg(operation)
             .stdin(std::process::Stdio::piped())
             .stdout(std::process::Stdio::piped())
             .stderr(std::process::Stdio::piped())
-            .spawn()?;
+            .spawn()
+            .with_context(|| format!("Failed to spawn JAX backend operation {}", operation))?;
 
-        // Write data to stdin
-        let data_json = serde_json::to_string(content)?;
+        let payload_json = serde_json::to_string(payload)?;
         if let Some(ref mut stdin) = child.stdin {
-            std::io::Write::write_all(stdin, data_json.as_bytes())?;
+            stdin.write_all(payload_json.as_bytes())?;
         }
 
         let output = child.wait_with_output()?;
-
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
-            return Err(anyhow::anyhow!("JAX vectorization failed: {}", stderr));
+            return Err(anyhow::anyhow!(
+                "JAX backend operation {} failed: {}",
+                operation,
+                stderr.trim()
+            ));
         }
 
-        let vectors: Vec<Vec<f32>> = serde_json::from_slice(&output.stdout)?;
-        Ok(vectors)
-    }
-
-    /// JAX similarity computation via subprocess
-    fn jax_similarity_subprocess(&self, vectors: &[Vec<f32>]) -> Result<Vec<Vec<f32>>> {
-        let python_cmd = self.find_python_with_jax()?;
-
-        let script_content = r#"
-import sys
-import json
-import jax
-import jax.numpy as jnp
-
-def compute_similarity_matrix(vectors):
-    # Convert to JAX arrays
-    vec_array = jnp.array(vectors)
-
-    # Compute cosine similarity matrix
-    # Normalize vectors
-    norms = jnp.linalg.norm(vec_array, axis=1, keepdims=True)
-    norms = jnp.where(norms == 0, 1, norms)  # Avoid division by zero
-    normalized = vec_array / norms
-
-    # Compute similarity matrix
-    similarity = jnp.dot(normalized, normalized.T)
-
-    return similarity.tolist()
-
-if __name__ == "__main__":
-    data = json.load(sys.stdin)
-    result = compute_similarity_matrix(data)
-    print(json.dumps(result))
-"#;
-
-        let script_path = std::env::temp_dir().join("nuclear_jax_similarity.py");
-        std::fs::write(&script_path, script_content)?;
-
-        let mut child = std::process::Command::new(&python_cmd)
-            .args([&script_path])
-            .stdin(std::process::Stdio::piped())
-            .stdout(std::process::Stdio::piped())
-            .stderr(std::process::Stdio::piped())
-            .spawn()?;
-
-        // Write data to stdin
-        let data_json = serde_json::to_string(vectors)?;
-        if let Some(ref mut stdin) = child.stdin {
-            std::io::Write::write_all(stdin, data_json.as_bytes())?;
-        }
-
-        let output = child.wait_with_output()?;
-
-        if !output.status.success() {
-            let stderr = String::from_utf8_lossy(&output.stderr);
-            return Err(anyhow::anyhow!("JAX similarity failed: {}", stderr));
-        }
-
-        let matrix: Vec<Vec<f32>> = serde_json::from_slice(&output.stdout)?;
-        Ok(matrix)
-    }
-
-    /// CPU fallback for vectorization
-    fn cpu_vectorize_fallback(&self, content: &[String]) -> Result<Vec<Vec<f32>>> {
-        let mut vectors = Vec::new();
-
-        for text in content {
-            // Simple hash-based vectorization
-            use std::collections::hash_map::DefaultHasher;
-            use std::hash::{Hash, Hasher};
-
-            let mut hasher = DefaultHasher::new();
-            text.hash(&mut hasher);
-            let hash = hasher.finish();
-
-            // Convert hash to vector (simple approach)
-            let vector: Vec<f32> = (0..128).map(|i| ((hash >> (i % 64)) & 1) as f32).collect();
-
-            vectors.push(vector);
-        }
-
-        Ok(vectors)
-    }
-
-    /// CPU fallback for similarity computation
-    fn cpu_similarity_fallback(&self, vectors: &[Vec<f32>]) -> Result<Vec<Vec<f32>>> {
-        let n = vectors.len();
-        let mut matrix = vec![vec![0.0; n]; n];
-
-        for i in 0..n {
-            for j in 0..n {
-                matrix[i][j] = self.cosine_similarity(&vectors[i], &vectors[j]);
-            }
-        }
-
-        Ok(matrix)
+        Ok(output.stdout)
     }
 
     /// 🔥 PROCESS PDF BATCH - Extract text from PDF bytes using JAX/Python
@@ -471,16 +211,13 @@ if __name__ == "__main__":
 
     /// Check if JAX is available
     pub fn is_available(&self) -> bool {
-        self.library.is_some()
+        self.backend_script.exists()
     }
 }
 
 impl Default for JaxProcessor {
     fn default() -> Self {
-        Self::new().unwrap_or_else(|_| {
-            eprintln!("Failed to initialize JAX, using CPU-only mode");
-            Self { library: None }
-        })
+        Self::new().expect("JaxProcessor requires a real JAX runtime and ffi/jax/real_jax_backend.py")
     }
 }
 
@@ -489,27 +226,34 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_jax_initialization() {
-        let jax = JaxProcessor::new();
-        // Test passes even if JAX library is not available (fallback mode)
-        let _ = jax.is_ok(); // fallback always acceptable // Always passes - fallback is acceptable
+    fn test_jax_backend_contract_is_explicit() {
+        match JaxProcessor::new() {
+            Ok(processor) => assert!(processor.is_available()),
+            Err(err) => {
+                let message = err.to_string();
+                assert!(
+                    message.contains("JAX") || message.contains("ffi/jax/real_jax_backend.py"),
+                    "unexpected initialization error: {}",
+                    message
+                );
+            }
+        }
     }
 
     #[test]
-    fn test_cpu_fallback_processing() {
-        let jax = JaxProcessor::default();
-        let results = vec!["good content".to_string(), "error content".to_string()];
-        let scores = jax.cpu_fallback_processing(&results).unwrap();
-        assert_eq!(scores.len(), 2);
-        assert!(scores[0] > scores[1]); // "good content" should score higher
+    fn test_backend_script_path() {
+        assert_eq!(JaxProcessor::backend_script_path(), PathBuf::from("ffi/jax/real_jax_backend.py"));
     }
 
     #[test]
     fn test_cosine_similarity() {
-        let jax = JaxProcessor::default();
+        let jax = JaxProcessor {
+            python_cmd: "python.exe".to_string(),
+            backend_script: PathBuf::from("ffi/jax/real_jax_backend.py"),
+        };
         let a = vec![1.0, 0.0, 0.0];
         let b = vec![1.0, 0.0, 0.0];
         let similarity = jax.cosine_similarity(&a, &b);
-        assert!((similarity - 1.0).abs() < 0.001); // Should be nearly 1.0
+        assert!((similarity - 1.0).abs() < 0.001);
     }
 }
