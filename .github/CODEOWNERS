@@ -30,7 +30,8 @@ libs/ @ffi-team
 scripts/ @devops-team
 .github/ @devops-team
 .github/workflows/ @devops-team
-.github/workflows/mcp-validation.yml @mcp-team @devops-team
+.github/workflows/ci.yml @devops-team @core-team
+.github/workflows/auto_analyzer.yml @devops-team
 .github/CODE_QUALITY.md @mcp-team @core-team
 
 # Documentation
