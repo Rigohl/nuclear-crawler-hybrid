@@ -17,6 +17,8 @@
 use anyhow::Result;
 use libloading::{Library, Symbol};
 use serde::{Deserialize, Serialize};
+use std::ffi::CString;
+use std::os::raw::c_char;
 
 // Import WASM bridge for Zig WASM runtime
 use crate::ffi::wasm_ffi_bridge::{HashAlgorithm, WasmConfig, ZigWasmSimd};
@@ -26,6 +28,15 @@ use crate::ffi::wasm_ffi_bridge::{HashAlgorithm, WasmConfig, ZigWasmSimd};
 pub struct ZigSimdConfig {
     pub enable_simd: bool,
     pub hash_algorithm: String, // "blake3", "sha256", "xxhash"
+    pub buffer_size: usize,
+    pub parallel_chunks: usize,
+}
+
+/// 🔥 Zig SIMD Config for FFI (C-compatible)
+#[repr(C)]
+pub struct ZigSimdConfigFFI {
+    pub enable_simd: bool,
+    pub hash_algorithm: *const c_char,
     pub buffer_size: usize,
     pub parallel_chunks: usize,
 }
@@ -306,7 +317,7 @@ impl ZigSimdProcessor {
         type ZigHashFn = unsafe extern "C" fn(
             data: *const u8,
             data_len: usize,
-            config: *const ZigSimdConfig,
+            config: *const ZigSimdConfigFFI,
             out_hash: *mut u8,
             out_hash_len: usize,
             out_time: *mut u64,
@@ -318,12 +329,21 @@ impl ZigSimdProcessor {
         let mut hash_buffer = [0u8; 64]; // Max hash size
         let mut processing_time: u64 = 0;
 
+        // Convert config to C-compatible format
+        let algo_cstr = CString::new(self.config.hash_algorithm.as_str())?;
+        let config_ffi = ZigSimdConfigFFI {
+            enable_simd: self.config.enable_simd,
+            hash_algorithm: algo_cstr.as_ptr(),
+            buffer_size: self.config.buffer_size,
+            parallel_chunks: self.config.parallel_chunks,
+        };
+
         // Call Zig function
         let result_code = unsafe {
             func(
                 data.as_ptr(),
                 data.len(),
-                &self.config as *const ZigSimdConfig,
+                &config_ffi as *const ZigSimdConfigFFI,
                 hash_buffer.as_mut_ptr(),
                 hash_buffer.len(),
                 &mut processing_time as *mut u64,
