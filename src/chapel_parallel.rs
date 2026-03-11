@@ -30,6 +30,7 @@ impl ChapelLib {
                     return Some(Self { lib });
                 }
             }
+            // ⚠️ MARKER: Soft mock fallback - contradicts "REAL FFI" claim
             eprintln!("⚠️ [Chapel] Library not found. Using mock implementation.");
             None
         }
