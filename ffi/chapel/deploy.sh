@@ -165,78 +165,45 @@ Status: ✅ All 11 files uploaded"
 # FUNCTION: Push to HuggingFace (via GitHub)
 # ============================================
 push_to_huggingface() {
-    echo "🤗 HuggingFace Deployment (via GitHub Actions)..."
-    
-    # Create workflow file if it doesn't exist
-    local workflow_dir=".github/workflows"
-    local workflow_file="$workflow_dir/sync-chapel-hf.yml"
-    
-    if [ ! -f "$workflow_file" ]; then
-        mkdir -p "$workflow_dir"
-        
-        cat > "$workflow_file" << 'EOF'
-name: Sync Chapel AI to HuggingFace
+        echo "🤗 HuggingFace Deployment (direct sync, no extra workflow)..."
 
-on:
-  push:
-    paths:
-      - 'ffi/chapel/**'
-      - '.github/workflows/sync-chapel-hf.yml'
-    branches:
-      - main
+        if [ -z "$HF_TOKEN" ]; then
+                echo "❌ HF_TOKEN not set. Export HF_TOKEN before syncing."
+                exit 1
+        fi
 
-jobs:
-  sync-hf:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: 📤 Sync to HuggingFace
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: |
-          pip install huggingface_hub
-          python3 - << 'PYTHON'
-          import os
-          from pathlib import Path
-          from huggingface_hub import HfApi
-          
-          api = HfApi()
-          chapel_dir = Path("ffi/chapel")
-          
-          files = {
-              "ai/nuclear_chapel_ai.chpl": "ai/nuclear_chapel_ai.chpl",
-              "ai/unified_nuclear_ai.chpl": "ai/unified_nuclear_ai.chpl",
-              "tools/code_analyzer.chpl": "tools/code_analyzer.chpl",
-              "tools/code_repair.chpl": "tools/code_repair.chpl",
-              "tools/code_reviewer.chpl": "tools/code_reviewer.chpl",
-              "training/training_pipeline.chpl": "training/training_pipeline.chpl",
-              "training/data_mining.chpl": "training/data_mining.chpl",
-              "training/analysis.chpl": "training/analysis.chpl",
-              "Makefile": "Makefile",
-              "README_HF.md": "README.md",
-          }
-          
-          for local_path, remote_path in files.items():
-              full_path = chapel_dir / local_path
-              if full_path.exists():
-                  api.upload_file(
-                      path_or_fileobj=str(full_path),
-                      path_in_repo=remote_path,
-                      repo_id="Kimberlyindiva/nuclear-chapel-training",
-                      repo_type="dataset"
-                  )
-                  print(f"✅ {remote_path}")
-          PYTHON
-EOF
-        
-        echo "✅ GitHub Actions workflow created"
-        git add "$workflow_file"
-        git commit -m "ci: Add Chapel AI HuggingFace sync workflow" || true
-        git push origin main
-    else
-        echo "✅ Workflow already exists"
-    fi
+        python3 - << 'PYTHON'
+import os
+from pathlib import Path
+from huggingface_hub import HfApi
+
+api = HfApi(token=os.environ["HF_TOKEN"])
+chapel_dir = Path("ffi/chapel")
+
+files = {
+        "ai/nuclear_chapel_ai.chpl": "ai/nuclear_chapel_ai.chpl",
+        "ai/unified_nuclear_ai.chpl": "ai/unified_nuclear_ai.chpl",
+        "tools/code_analyzer.chpl": "tools/code_analyzer.chpl",
+        "tools/code_repair.chpl": "tools/code_repair.chpl",
+        "tools/code_reviewer.chpl": "tools/code_reviewer.chpl",
+        "training/training_pipeline.chpl": "training/training_pipeline.chpl",
+        "training/data_mining.chpl": "training/data_mining.chpl",
+        "training/analysis.chpl": "training/analysis.chpl",
+        "Makefile": "Makefile",
+        "README_HF.md": "README.md",
+}
+
+for local_path, remote_path in files.items():
+        full_path = chapel_dir / local_path
+        if full_path.exists():
+                api.upload_file(
+                        path_or_fileobj=str(full_path),
+                        path_in_repo=remote_path,
+                        repo_id="Kimberlyindiva/nuclear-chapel-training",
+                        repo_type="dataset"
+                )
+                print(f"✅ {remote_path}")
+PYTHON
 }
 
 # ============================================

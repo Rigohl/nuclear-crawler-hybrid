@@ -221,7 +221,7 @@ fn main() {
         eprintln!("📝 build.rs: Non-Windows platform ({})", target_os);
         eprintln!("   → FFI Go/Zig/Nim: Windows only");
         eprintln!("   → Chapel/JAX/Julia: Cross-platform (Linux + Windows)");
-        eprintln!("   → Using Rust native implementations for HTTP/parsing");
+        eprintln!("   → No implicit substitution is advertised for missing Windows-only static libraries");
     }
 
     // Rerun si cambian las librerías FFI

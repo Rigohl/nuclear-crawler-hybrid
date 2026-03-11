@@ -1,11 +1,11 @@
-# FFI Architecture - HYBRID REAL FFI + WASM FALLBACK (2026)
+# FFI Architecture - Real Backend Contracts (2026)
 
 ## Overview
 
-Nuclear Crawler Hybrid uses **Foreign Function Interface (FFI)** and **WebAssembly (WASM)** for performance-critical operations:
-- **REAL FFI**: Chapel (multi-platform GPU support)
-- **WASM Fallback**: Go, Zig, Nim (portable, browser-compatible)
-- **GPU Acceleration**: JAX subprocess integration
+Nuclear Crawler Hybrid uses explicit backend contracts for performance-critical operations:
+- **REAL FFI**: Chapel shared library
+- **WASM Runtimes**: Go, Zig, Nim portable backends
+- **GPU Acceleration**: Repo-managed JAX subprocess backend
 
 ### **Chapel FFI** - AI Learning + GPU (PRIMARY, REAL)
 Located: `ffi/chapel/`
@@ -17,47 +17,48 @@ Located: `ffi/chapel/`
 - Build: `cd ffi/chapel && ./Makefile`
 - Integrated in: `src/chapel_integration.rs`
 
-### **Go WASM** - Concurrent HTTP (WASM, Portable)
+### **Go WASM** - Concurrent HTTP (Portable Runtime Backend)
 Located: `ffi/wasm/go/`
 - TinyGo → WASM compilation (concurrent model via wasmtime)
 - NOT native FFI (build.rs links WASM, not .lib)
 - Goroutines simulated in WASM via wasmtime workers
-- **STATUS: ⚠️ WASM BUNDLE (not native FFI)**
+- **STATUS: ✅ EXPLICIT WASM BACKEND**
 - Build: `cd ffi/wasm/go && tinygo build -target wasm`
 - Integrated in: `src/go_integration.rs` (wasmtime runtime)
 
-### **Zig WASM** - SIMD Operations (WASM, Portable)
+### **Zig WASM** - SIMD Operations (Portable Runtime Backend)
 Located: `ffi/wasm/zig/`
 - Zig SIMD compiled to WASM32
 - NOT native FFI (no Windows .lib binding)
 - SIMD patterns portable via WASM SIMD proposal
-- **STATUS: ⚠️ WASM BUNDLE (not native FFI)**
+- **STATUS: ✅ EXPLICIT WASM BACKEND**
 - Build: `cd ffi/wasm/zig && zig build-lib -target wasm32-freestanding`
 - Integrated in: `src/zig_integration.rs` (wasmtime runtime)
 
-### **Nim WASM** - Text Processing (WASM, Portable)
+### **Nim WASM** - Text Processing (Portable Runtime Backend)
 Located: `ffi/wasm/nim/`
 - Nim → Emscripten → WASM
 - NOT native FFI (no direct Windows .lib)
 - HTML parsing + DOM navigation via WASM
-- **STATUS: ⚠️ WASM BUNDLE (not native FFI)**
+- **STATUS: ✅ EXPLICIT WASM BACKEND**
 - Build: `cd ffi/wasm/nim && nim js lib.nim`
 - Integrated in: `src/nim_integration.rs` (wasmtime runtime)
 
-### **JAX FFI** - GPU Acceleration (Python Subprocess)
-Located: NOT in `ffi/` (subprocess integration)
+### **JAX Backend** - GPU Acceleration (Python Subprocess)
+Located: `ffi/jax/real_jax_backend.py`
 - GPU vectorization (CUDA, HIP, Metal)
 - 1536-dim embeddings for ML
-- Subprocess spawn: `python -c "import jax; ..."`
-- **STATUS: ⚠️ SUBPROCESS (not FFI, requires Python 3.11+ + JAX installed)**
-- Integrated in: `src/jax_integration.rs`
+- Repo-managed subprocess entrypoint for JAX execution
+- **STATUS: ✅ EXPLICIT SUBPROCESS BACKEND (requires Python 3.11+ + JAX installed)**
+- Integrated in: `src/ffi/jax_integration.rs`
 
 ## File Structure
 
 ```
 ffi/
 ├── chapel/              ← Chapel AI (✅ REAL FFI)
-├── wasm/                ← WASM bundles (⚠️ NOT FFI, portable)
+├── jax/                 ← Repo-managed JAX backend
+├── wasm/                ← Portable runtime backends
 │   ├── go/              ← TinyGo WASM
 │   ├── zig/             ← Zig WASM
 │   ├── nim/             ← Nim Emscripten
@@ -68,16 +69,16 @@ ffi/
 ## Integration Points
 
 ### `build.rs`
-- Chapel: **STRICT DETECTION** (fails if not available in production)
-- WASM (Go/Zig/Nim): Bundled in binary (always available)
-- JAX: Subprocess check at runtime
+- Chapel: strict detection and visible failure if missing
+- Go/Zig/Nim static libraries: linked when available on supported platforms
+- JAX: explicit subprocess contract checked at runtime
 
 ### Feature Flags
 - `chapel_ffi`: Optional (Chapel binary)
 - `wasm_ffi`: Default (WASM runtimes bundled)
 - `jax_integration`: Optional (requires Python subprocess)
 
-## Fallback Strategy
+## Backend Strategy
 
 **Chapel FFI (Primary):**
 - If absent: Build fails with clear error message (**NO MOCK**)
@@ -85,12 +86,12 @@ ffi/
 - Dev: Can build without Chapel if feature disabled
 
 **WASM (Go/Zig/Nim):**
-- Always available (bundled WASM binaries)
-- NO fallbacks (WASM is the fallback itself)
+- Runtime backend must be wired explicitly
+- No silent substitution to stub implementations
 
 **JAX (Subprocess):**
 - If Python absent: Runtime error
-- If JAX absent: Graceful degradation (returns empty result)
+- If JAX absent: Runtime error
 
 ## 2026 Versions
 
@@ -103,7 +104,7 @@ ffi/
 ## NO SILENT MOCKS POLICY
 
 - ✅ Chapel fails HARD if not available (compile error, not runtime mock)
-- ✅ WASM always available (bundled in binary)
+- ✅ WASM backends must be present and wired explicitly
 - ✅ JAX subprocess fails visible (not hidden mock)
 - ❌ ZERO silent fallbacks to stub implementations
 - ❌ ZERO hardcoded test data in production code
@@ -112,6 +113,6 @@ ffi/
 
 - Chapel: Update build.rs on new Chapel release
 - WASM: Rebuild bundles when updating languages
-- JAX: Document runtime Python requirements
-- Test: CI validates Chapel fails correctly, WASM always works
+- JAX: Keep ffi/jax/real_jax_backend.py aligned with runtime requirements
+- Test: CI validates missing required backends fail visibly
 

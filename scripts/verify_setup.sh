@@ -1,9 +1,9 @@
 #!/bin/bash
-# Verificación rápida del sistema para Chapel + HuggingFace
+# Verificación rápida del repositorio y backends reales
 
 echo "╔════════════════════════════════════════════════════════════════╗"
-echo "║          NUCLEAR CHAPEL DEPLOYMENT VERIFICATION               ║"
-echo "║              GitHub + HuggingFace Setup Check                 ║"
+echo "║           NUCLEAR REPOSITORY VERIFICATION                     ║"
+echo "║          CI + FFI + Chapel + JAX Setup Check                  ║"
 echo "╚════════════════════════════════════════════════════════════════╝"
 echo ""
 
@@ -67,13 +67,13 @@ check_file "/workspaces/nuclear-crawler-hybrid/ffi/chapel/data/train/scraping_st
 
 # ─────────────────────────────────────────────────────────────────────────
 echo ""
-echo -e "${BLUE}🚀 DEPLOYMENT FILES${NC}"
+echo -e "${BLUE}🚦 CI AND REPOSITORY FILES${NC}"
 echo "─────────────────────────────────────────────────────────────────────────"
 
-check_file "/workspaces/nuclear-crawler-hybrid/.github/workflows/chapel-training-pipeline.yml"
-check_file "/workspaces/nuclear-crawler-hybrid/scripts/push_to_huggingface.sh"
-check_file "/workspaces/nuclear-crawler-hybrid/HUGGINGFACE_DEPLOYMENT.md"
-check_file "/workspaces/nuclear-crawler-hybrid/SETUP_HF_KIMBERLY.md"
+check_file "/workspaces/nuclear-crawler-hybrid/.github/workflows/ci.yml"
+check_file "/workspaces/nuclear-crawler-hybrid/scripts/build_all_ffi.sh"
+check_file "/workspaces/nuclear-crawler-hybrid/scripts/build_chapel_lib.sh"
+check_file "/workspaces/nuclear-crawler-hybrid/ffi/jax/real_jax_backend.py"
 
 # ─────────────────────────────────────────────────────────────────────────
 echo ""
@@ -162,21 +162,21 @@ echo -e "❌ Failed:   ${RED}$FAILED${NC}"
 echo ""
 
 if [ $FAILED -eq 0 ]; then
-    echo -e "${GREEN}🟢 SYSTEM READY FOR DEPLOYMENT${NC}"
+    echo -e "${GREEN}🟢 REPOSITORY READY FOR VALIDATION${NC}"
     echo ""
     echo "Next steps:"
-    echo "  1. Set HF_TOKEN:  export HF_TOKEN=\"hf_xxxxx\""
-    echo "  2. Push to HF:    ./scripts/push_to_huggingface.sh \$HF_TOKEN"
-    echo "  3. Create Space:  https://huggingface.co/new-space"
-    echo "  4. Run locally:   cd ffi/chapel && make train && make run"
+    echo "  1. Run: ./scripts/build_all_ffi.sh"
+    echo "  2. Run: cargo check --bin nuclear-mcp"
+    echo "  3. Run: cargo test"
+    echo "  4. Review .github/workflows/ci.yml"
     echo ""
 else
-    echo -e "${RED}🔴 ISSUES FOUND - FIX BEFORE DEPLOYING${NC}"
+    echo -e "${RED}🔴 ISSUES FOUND - FIX BEFORE VALIDATING${NC}"
     echo ""
     echo "Failed items:"
     echo "  • Install missing dependencies"
-    echo "  • Verify Chapel installation"
-    echo "  • Check file paths"
+    echo "  • Verify required backend installation"
+    echo "  • Check repository paths and CI files"
     echo ""
 fi
 

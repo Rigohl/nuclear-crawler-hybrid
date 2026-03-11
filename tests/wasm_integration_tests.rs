@@ -3,6 +3,9 @@
 
 #[cfg(test)]
 mod wasm_tests {
+    use std::fs;
+    use std::path::Path;
+
     #[test]
     fn test_wasm_file_searcher_creation() {
         #[cfg(target_arch = "wasm32")]
@@ -40,48 +43,39 @@ mod wasm_tests {
     }
 
     #[test]
-    fn test_wasm_fallback_when_not_compiled() {
-        // This test verifies that fallback implementations work
-        // when WASM is not available
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            // Fallback implementations should still work on native builds
-            let pattern = "test";
-            assert!(!pattern.is_empty());
+    fn test_wasm_source_files_exist() {
+        let required = [
+            "ffi/wasm/go/main.go",
+            "ffi/wasm/zig/main.zig",
+            "ffi/wasm/nim/main.nim",
+            "ffi/wasm/build_wasm.sh",
+        ];
+
+        for path in required {
+            assert!(Path::new(path).exists(), "required WASM source missing: {}", path);
         }
     }
 
     #[test]
-    fn test_wasm_performance_improvement() {
-        // Expected speedups:
-        // - file_search: 100x (100ms → 1ms)
-        // - neural_ops: 50x (200ms → 5ms)
-        // - data_search: 30x (30ms → 1ms)
+    fn test_wasm_sources_expose_expected_contracts() {
+        let go_src = fs::read_to_string("ffi/wasm/go/main.go").expect("Go WASM source should be readable");
+        assert!(go_src.contains("//export parallel_fetch_urls"));
+        assert!(go_src.contains("//export process_data_parallel"));
 
-        let file_search_expected = 1.0; // ms
-        let neural_ops_expected = 5.0; // ms
-        let data_search_expected = 1.0; // ms
+        let zig_src = fs::read_to_string("ffi/wasm/zig/main.zig").expect("Zig WASM source should be readable");
+        assert!(zig_src.contains("export fn hash_data_simd"));
+        assert!(zig_src.contains("export fn pattern_match_simd"));
 
-        assert!(file_search_expected < 10.0);
-        assert!(neural_ops_expected < 100.0);
-        assert!(data_search_expected < 10.0);
+        let nim_src = fs::read_to_string("ffi/wasm/nim/main.nim").expect("Nim WASM source should be readable");
+        assert!(nim_src.contains("exportc: \"parse_html\""));
+        assert!(nim_src.contains("exportc: \"extract_links\""));
     }
 }
 
 #[cfg(test)]
 mod wasm_integration {
     #[test]
-    fn test_wasm_library_exports() {
-        // Verify WASM modules are properly exported
-        assert!(std::any::type_name::<
-            nuclear_crawler_hybrid::wasm::file_search::FileSearcherFallback,
-        >()
-        .contains("FileSearcher"));
-    }
-
-    #[test]
     fn test_wasm_feature_flags() {
-        // Check that conditional compilation works
         #[cfg(target_arch = "wasm32")]
         {
             println!("✅ WASM features compiled");
@@ -89,7 +83,7 @@ mod wasm_integration {
 
         #[cfg(not(target_arch = "wasm32"))]
         {
-            println!("✅ Native fallback compiled");
+            println!("✅ Native build validates explicit WASM source contracts");
         }
     }
 }
