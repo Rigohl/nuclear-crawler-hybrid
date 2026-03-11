@@ -11,7 +11,7 @@ Nuclear Crawler Hybrid is a **unified MCP (Model Context Protocol) server** that
 - **Multi-Language FFI** - Rust, Python, Go, Zig, Nim, JAX, Chapel integration
 - **50K Goroutine Parallelism** - Distributed operations at massive scale
 - **OSINT Capabilities** - Advanced data mining and intelligence gathering
-- **🆕 CI/CD Resilience** - Self-healing pipelines with automatic failure recovery
+- **Unified CI Enforcement** - one blocking CI pipeline with explicit backend validation
 - **Fail-Fast Execution** - required backends must be present; no silent mock substitution
 
 ### Core Philosophy
@@ -34,15 +34,11 @@ Nuclear Crawler Hybrid is a **unified MCP (Model Context Protocol) server** that
 | 6 | **CODE_INTELLIGENCE** | ML analysis: vulnerability detection, fix suggestions, risk scoring | JAX + Zig |
 | 7 | **INTELLIGENCE_OSINT** | OSINT analysis: public info, risk analysis, Bayesian networks, game theory | Go + JAX |
 
-### 🔧 CI/CD Resilience & Self-Healing (NEW!)
-- ✅ **Automatic Retry** - Smart retry with `cargo clean && cargo build`
-- ✅ **Error Pattern Detection** - 7 common failure patterns with auto-repair
-- ✅ **Intelligent Monitoring** - Secondary workflow supervises main pipelines every 30min
-- ✅ **Checkpoint Management** - Automatic ML model backup & recovery
-- ✅ **Smart Notifications** - GitHub Issues for irreparable failures
-- ✅ **Docker Recovery** - Containerized recovery system
-- ✅ **Cache Resilience** - Automatic cache rebuild on corruption
-- 📚 See [Resilience Documentation](.github/workflows/RESILIENCE.md)
+### 🔧 CI/CD Enforcement
+- ✅ **Single Workflow** - the repository should keep one primary CI workflow
+- ✅ **Fail-Fast Validation** - missing required backends stop the pipeline explicitly
+- ✅ **Backend Contract Checks** - CI validates real FFI and the repo-managed JAX path
+- ✅ **Controlled Concurrency** - CI avoids redundant executions on the same branch
 
 ### Chapel AI Training Engine (Parallel)
 - ✅ **Massive Data Parallelism** - `coforall` for concurrent operations across locales
@@ -113,42 +109,18 @@ Parallel optimization cycle with atomic pattern removal and multi-locale cleanup
 
 ## 🔧 CI/CD & Development
 
-### Resilience Features
+### CI/CD Development Rules
 
-The project includes a comprehensive CI/CD resilience system:
+The repository policy is to keep CI minimal and truthful:
 
 ```bash
-# Run enhanced validation with auto-repair
-python3 scripts/validate_system.py --enhanced
-
-# Test checkpoint management
-python3 scripts/checkpoint_manager.py validate backup
-
-# Test all resilience features
-python3 scripts/test_resilience.py
+cargo check --bin nuclear-mcp
+cargo test
 ```
 
-### Automatic Error Recovery
-
-The CI pipeline automatically handles:
-- **Bincode errors** - Dependency updates
-- **Format issues** - Auto-formatting with `cargo fmt`
-- **Cache corruption** - Clean rebuild
-- **Memory errors** - Artifact cleanup
-- **Lock conflicts** - Lockfile regeneration
-- **Docker health** - Containerized recovery system
-- **Model corruption** - Checkpoint restoration
-
-### Monitoring & Notifications
-
-- **Self-Healing Workflow** - Runs every 30 minutes
-- **Failure Detection** - Analyzes logs with regex patterns
-- **Auto-Repair** - Applies fixes automatically  
-- **GitHub Issues** - Created for unresolvable failures
-- **Checkpoint Backups** - Models backed up with SHA256 validation
-- **Artifact Retention** - 90-day storage with recovery
-
-See [.github/workflows/RESILIENCE.md](.github/workflows/RESILIENCE.md) for complete documentation.
+- One primary CI workflow gates the repository.
+- Missing required backends must fail visibly.
+- Documentation must not claim auto-repair or hidden recovery that the repo does not implement.
 
 Chapel AI is accessed through the Rust FFI in `src/chapel_integration.rs`:
 
@@ -239,6 +211,6 @@ nuclear-crawler-hybrid/
 
 ---
 
-**Last Updated**: 9 de febrero de 2026  
+**Last Updated**: 11 de marzo de 2026  
 **Version**: 2.0 (7 Tools)  
 **License**: MIT/Apache 2.0

@@ -44,8 +44,8 @@ if command -v go &> /dev/null; then
     fi
     cd "$SCRIPT_DIR"
 else
-    echo -e "${YELLOW}⚠️  Go compiler not found, skipping Go FFI${NC}"
-    SKIP_COUNT=$((SKIP_COUNT + 1))
+    echo -e "${RED}❌ Go compiler not found; real Go FFI is required${NC}"
+    FAIL_COUNT=$((FAIL_COUNT + 1))
 fi
 echo ""
 
@@ -64,8 +64,8 @@ if command -v zig &> /dev/null; then
     fi
     cd "$SCRIPT_DIR"
 else
-    echo -e "${YELLOW}⚠️  Zig compiler not found, skipping Zig FFI${NC}"
-    SKIP_COUNT=$((SKIP_COUNT + 1))
+    echo -e "${RED}❌ Zig compiler not found; real Zig FFI is required${NC}"
+    FAIL_COUNT=$((FAIL_COUNT + 1))
 fi
 echo ""
 
@@ -84,8 +84,8 @@ if command -v nim &> /dev/null; then
     fi
     cd "$SCRIPT_DIR"
 else
-    echo -e "${YELLOW}⚠️  Nim compiler not found, skipping Nim FFI${NC}"
-    SKIP_COUNT=$((SKIP_COUNT + 1))
+    echo -e "${RED}❌ Nim compiler not found; real Nim FFI is required${NC}"
+    FAIL_COUNT=$((FAIL_COUNT + 1))
 fi
 echo ""
 
@@ -104,8 +104,8 @@ if command -v python3 &> /dev/null; then
     fi
     cd "$SCRIPT_DIR"
 else
-    echo -e "${YELLOW}⚠️  Python3 not found, skipping JAX FFI${NC}"
-    SKIP_COUNT=$((SKIP_COUNT + 1))
+    echo -e "${RED}❌ Python3 not found; repo-managed JAX backend is required${NC}"
+    FAIL_COUNT=$((FAIL_COUNT + 1))
 fi
 echo ""
 
@@ -124,9 +124,9 @@ if command -v chpl &> /dev/null; then
     fi
     cd "$SCRIPT_DIR"
 else
-    echo -e "${YELLOW}⚠️  Chapel compiler not found, skipping Chapel FFI${NC}"
+    echo -e "${RED}❌ Chapel compiler not found; real Chapel FFI is required${NC}"
     echo "   Install from: https://chapel-lang.org/download.html"
-    SKIP_COUNT=$((SKIP_COUNT + 1))
+    FAIL_COUNT=$((FAIL_COUNT + 1))
 fi
 echo ""
 
@@ -140,10 +140,8 @@ echo -e "${YELLOW}⚠️  Skipped: $SKIP_COUNT${NC}"
 echo ""
 
 if [ $FAIL_COUNT -gt 0 ]; then
-    echo -e "${RED}⚠️  Some FFI libraries failed to build${NC}"
+    echo -e "${RED}⚠️  Some required FFI libraries failed to build${NC}"
     echo "Check the output above for details"
-    echo ""
-    echo "Note: Rust fallback implementations will be used for missing FFI libraries"
     exit 1
 else
     echo -e "${GREEN}✅ All available FFI libraries built successfully!${NC}"

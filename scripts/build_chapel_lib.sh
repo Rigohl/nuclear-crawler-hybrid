@@ -3,8 +3,8 @@ set -e
 
 # Check if chpl is installed
 if ! command -v chpl &> /dev/null; then
-    echo "⚠️ Chapel compiler (chpl) not found. Skipping Chapel build."
-    echo "⚠️ Using mock implementation in Rust."
+    echo "❌ Chapel compiler (chpl) not found. Chapel backend is required."
+    exit 1
 else
     echo "🚀 Compiling Chapel OSINT Library..."
     mkdir -p ffi/chapel

@@ -30,8 +30,7 @@ impl ChapelLib {
                     return Some(Self { lib });
                 }
             }
-            // ⚠️ MARKER: Soft mock fallback - contradicts "REAL FFI" claim
-            eprintln!("⚠️ [Chapel] Library not found. Using mock implementation.");
+            eprintln!("❌ [Chapel] Required library not found. Parallel Chapel runtime is unavailable.");
             None
         }
     }
@@ -111,8 +110,7 @@ impl ChapelAIOrchestrator {
             if let Some(lib) = &*CHAPEL_LIB {
                 lib.analyze_target(&target, depth)
             } else {
-                std::thread::sleep(std::time::Duration::from_millis(100));
-                depth * 50
+                -1
             }
         })
         .await
@@ -124,12 +122,11 @@ impl ChapelAIOrchestrator {
             if let Some(lib) = &*CHAPEL_LIB {
                 lib.train_model(epochs)
             } else {
-                std::thread::sleep(std::time::Duration::from_millis(200));
-                85
+                -1
             }
         })
         .await
-        .unwrap_or(0)
+        .unwrap_or(-1)
     }
 
     pub async fn run_tools_parallel(&self) -> Vec<ToolExecResult> {
@@ -187,7 +184,7 @@ impl ChapelAIOrchestrator {
         let mut report = String::from("🧠 CHAPEL AI - PARALLEL LEARNING REPORT\n");
         report.push_str("═══════════════════════════════════════\n\n");
 
-        report.push_str("📊 5 MCP TOOLS STATUS:\n");
+        report.push_str("📊 MCP TOOLS STATUS:\n");
         for (tool, metrics) in &memory.tool_metrics {
             report.push_str(&format!(
                 "  {} - Calls: {}, Avg: {}ms, Quality: {:.1}%\n",

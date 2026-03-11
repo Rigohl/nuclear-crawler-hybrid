@@ -4,13 +4,13 @@
 //! 1. Compile and launch the REAL MCP server in background
 //! 2. Make actual HTTP requests against the real server
 //! 3. Validate REAL JSON-RPC 2.0 responses (NOT mocks/stubs)
-//! 4. Test 5 tools against real server
+//! 4. Test the real tool surface exposed by the server
 //! 5. Measure actual execution times vs configured timeouts
 //!
 //! NOTE: These are REAL integration tests - NO mocks, NO stubs, NO simulation
 //! All data comes from the MCP server actually running.
 //!
-//! VALIDATION: ✅ MCP Server is genuinely REAL
+//! VALIDATION: ✅ MCP Server is expected to expose real implementations only
 //! - No mocked responses
 //! - No stubbed implementations
 //! - No test fixtures masquerading as real data
@@ -321,12 +321,13 @@ async fn test_tools_list() -> Result<(), String> {
                 println!("  • {}", tool_name);
             }
 
-            // Verificar que las 4 herramientas esperadas estén presentes
+            // Verificar que el inventario mínimo esperado esté presente
             let expected = [
                 "websearch",
-                "deepweb_search",
-                "premium_content_scraper",
+                "premium_content",
                 "file_search",
+                "scan_workspace",
+                "ai_dataset_trainer",
             ];
             for expected_tool in &expected {
                 if !tool_names.contains(expected_tool) {
@@ -337,7 +338,7 @@ async fn test_tools_list() -> Result<(), String> {
                 }
             }
 
-            println!("✅ Todas las 4 herramientas esperadas están disponibles");
+            println!("✅ El inventario mínimo esperado de herramientas está disponible");
         }
     }
 
@@ -575,11 +576,9 @@ fn test_mcp_server_compilation_real() {
     println!("║  VALIDATION RESULTS:                                          ║");
     println!("║  ✅ Server compiles successfully                              ║");
     println!("║  ✅ No mock code found                                         ║");
-    println!("║  ✅ All fallbacks are REAL implementations                     ║");
+    println!("║  ✅ Missing backends fail explicitly instead of degrading      ║");
     println!("║  ✅ JSON-RPC 2.0 protocol compliant                           ║");
-    println!(
-        "║  ✅ 5 tools available: websearch, premium, file_search, scan, ai_dataset_trainer ║"
-    );
+    println!("║  ✅ Tool inventory is validated against the running server    ║");
     println!("║  ✅ Integration tests ready to run                             ║");
     println!("╚════════════════════════════════════════════════════════════════╝");
 
@@ -633,13 +632,15 @@ fn test_mcp_server_compilation_real() {
     }
 
     // Step 4: List tools in server code
-    println!("\n🔧 Verifying 5 tools are implemented...");
+    println!("\n🔧 Verifying expected tools are implemented...");
     let tools = vec![
         "websearch",
-        "premium",
+        "premium_content",
         "file_search",
-        "scan",
+        "scan_workspace",
         "ai_dataset_trainer",
+        "code_intelligence",
+        "intelligence_osint",
     ];
     let mut found_tools = 0;
 
@@ -652,13 +653,13 @@ fn test_mcp_server_compilation_real() {
         }
     }
 
-    assert_eq!(found_tools, 5, "❌ Not all 5 tools found in code");
+    assert_eq!(found_tools, tools.len(), "❌ Not all expected tools found in code");
 
     println!("\n✨ CONCLUSION:");
     println!("  MCP Server is 100% REAL implementation");
     println!("  - No mocks, no stubs, no simulations");
     println!("  - Genuine HTTP/JSON-RPC 2.0 protocol");
-    println!("  - 5 real tools with fallback implementations");
+    println!("  - Expected tools are wired without silent fallback substitution");
     println!("  - Ready for production use");
     println!("\n📌 To test against running server:");
     println!("  1. Start server: cargo run --bin nuclear-mcp");

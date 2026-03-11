@@ -4,7 +4,7 @@
 //! REAL Chrome instance automation for breaking JS-protected sites
 //! Production-grade rendering engine for complex web applications
 
-use anyhow::Result;
+use anyhow::{bail, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::time::{Duration, Instant};
@@ -104,7 +104,7 @@ impl ChromiumRenderer {
         if available {
             eprintln!("  ✅ Chrome/Chromium found");
         } else {
-            eprintln!("  ⚠️  Chrome/Chromium not found - rendering will be simulated");
+            eprintln!("  ❌ Chrome/Chromium not found - real rendering is unavailable");
         }
 
         Self { config, available }
@@ -112,21 +112,16 @@ impl ChromiumRenderer {
 
     /// Render a page with JavaScript execution
     pub async fn render_page(&self, url: &str) -> Result<ChromiumResult> {
-        let start = Instant::now();
         eprintln!("🔥 Rendering: {}", url);
 
         if !self.available {
-            // Fallback: just fetch without rendering
-            eprintln!("  ⚠️  Using fallback rendering (no Chrome)");
-            return self.render_page_fallback(url, &start);
+            bail!("Chrome/Chromium is required for real rendering: {}", url);
         }
 
-        // 🔥 REAL Chrome rendering would happen here with chromiumoxide crate
-        // For now, provide detailed fallback implementation
-        eprintln!("  📝 NOTE: chromiumoxide crate required for real Chrome rendering");
-        eprintln!("  📝 Add to Cargo.toml: chromiumoxide = {{ version = \"0.5\", features = [\"fetch\"] }}");
-
-        self.render_page_fallback(url, &start)
+        bail!(
+            "Real Chromium rendering path is not implemented in this repository for {}. Wire chromiumoxide or another CDP backend before advertising this capability.",
+            url
+        )
     }
 
     /// Render with dynamic JavaScript execution
@@ -135,7 +130,6 @@ impl ChromiumRenderer {
         url: &str,
         javascript: &str,
     ) -> Result<ChromiumResult> {
-        let start = Instant::now();
         eprintln!("🔥 Rendering with JavaScript: {}", url);
         eprintln!(
             "  🔧 Executing: {}",
@@ -143,11 +137,13 @@ impl ChromiumRenderer {
         );
 
         if !self.available {
-            return self.render_page_fallback(url, &start);
+            bail!("Chrome/Chromium is required for JavaScript rendering: {}", url);
         }
 
-        // Real implementation would execute JavaScript via Chrome DevTools
-        self.render_page_fallback(url, &start)
+        bail!(
+            "JavaScript rendering is advertised but not implemented with a real browser backend for {}.",
+            url
+        )
     }
 
     /// Wait for a selector to appear
@@ -182,40 +178,6 @@ impl ChromiumRenderer {
     pub async fn get_full_page_content(&self, url: &str) -> Result<String> {
         let result = self.render_page(url).await?;
         Ok(result.rendered_html)
-    }
-
-    /// Fallback rendering (without Chrome)
-    fn render_page_fallback(&self, url: &str, start: &Instant) -> Result<ChromiumResult> {
-        use reqwest::blocking::Client;
-
-        let client = Client::new();
-
-        match client
-            .get(url)
-            .header("User-Agent", &self.config.user_agent)
-            .timeout(Duration::from_secs(self.config.navigation_timeout))
-            .send()
-        {
-            Ok(response) => {
-                let html = response.text().unwrap_or_default();
-                let render_time_ms = start.elapsed().as_millis() as u64;
-
-                Ok(ChromiumResult {
-                    url: url.to_string(),
-                    html_content: html.clone(),
-                    rendered_html: html,
-                    screenshot: None,
-                    cookies: Vec::new(),
-                    local_storage: HashMap::new(),
-                    session_storage: HashMap::new(),
-                    console_logs: Vec::new(),
-                    network_requests: Vec::new(),
-                    render_time_ms,
-                    success: true,
-                })
-            }
-            Err(e) => Err(anyhow::anyhow!("Failed to render page {}: {}", url, e)),
-        }
     }
 
     /// Check if Chrome/Chromium is available on system
@@ -273,7 +235,6 @@ mod tests {
     #[test]
     fn test_chromium_initialization() {
         let renderer = ChromiumRenderer::new(ChromiumConfig::default());
-        // Test passes regardless of Chrome availability
         assert!(renderer.config.headless);
         assert_eq!(renderer.config.viewport_width, 1920);
     }
