@@ -34,8 +34,13 @@ jobs:
   build-test:
     name: 🦀 Rust Build & Test
     needs: validate
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        rust: [stable]
+      fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - name: Setup Rust
@@ -52,16 +57,20 @@ jobs:
         with:
           path: ~/.cargo/git
           key: ${{ runner.os }}-cargo-git-${{ hashFiles('**/Cargo.lock') }}
-      - name: 🔨 Build
+      - name: 🔨 Build (Release)
         run: cargo build --release --all-features
       - name: 🧪 Run Tests
-        run: cargo test --verbose --all-features
+        run: cargo test --verbose --all-features --release
       - name: 📦 Upload Binary Artifacts
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: nuclear-hybrid-release-${{ runner.os }}
-          path: target/release/nuclear* 
+          name: nuclear-hybrid-release-${{ runner.os }}-${{ matrix.rust }}
+          path: |
+            target/release/nuclear*
+            target/release/*.dll
+            target/release/*.so
+            target/release/*.dylib
           retention-days: 30
 
   chapel-ci:
