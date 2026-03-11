@@ -1,7 +1,7 @@
 //! Build script para Nuclear Crawler Hybrid
 //!
 //! ═══════════════════════════════════════════════════════════════════════════
-//! FFI REAL - MAXIMUM LANGUAGE FEATURES (NO FALLBACKS)
+//! FFI REAL - MAXIMUM LANGUAGE FEATURES (FAIL-FAST ENFORCEMENT)
 //! ═══════════════════════════════════════════════════════════════════════════
 //!
 //! Primary Engine: Chapel AI with GPU + Multi-locale + BLAS/LAPACK
@@ -59,7 +59,7 @@ fn main() {
     //   - Zig: SIMD intrinsics (hashing)
     //   - Nim: Macros + C++ interop (HTML parsing)
     //
-    // Philosophy: NO FALLBACKS - Real implementations with maximum features
+    // Philosophy: fail fast when required real backends are missing
     // ════════════════════════════════════════════════════════════════════════
 
     // Solo intentar linkear FFI en Windows (no en Linux)
@@ -211,20 +211,9 @@ fn main() {
         eprintln!("🧠 Chapel AI FFI: ENABLED (Local libchapel_ai.so found)");
         eprintln!("   ✅ Binary will use rpath: {}/ffi/chapel", manifest_dir);
     } else {
-        eprintln!("⚠️ Chapel AI FFI: Not available (REAL COMPILATION REQUIRED)");
-        eprintln!("   Chapel AI is the PRIMARY engine - compilation strongly recommended!");
-        eprintln!("   ");
-        eprintln!("   To enable Chapel with MAXIMUM features:");
-        eprintln!("   1) Install Chapel 1.32+ from: https://chapel-lang.org/download.html");
-        eprintln!("   2) CPU only:  cd ffi/chapel && ./build_chapel_real.sh");
-        eprintln!("   3) With GPU:  cd ffi/chapel && GPU_ARCH=sm_86 ./build_chapel_real.sh");
-        eprintln!("   4) Distributed: cd ffi/chapel && NUM_LOCALES=4 ./build_chapel_real.sh");
-        eprintln!(
-            "   5) Maximum:   cd ffi/chapel && GPU_ARCH=sm_80 NUM_LOCALES=8 ./build_chapel_real.sh"
+        panic!(
+            "Chapel AI FFI is required on this repository. Missing system Chapel or ffi/chapel/libchapel_ai.so. Build it with `cd ffi/chapel && ./build_chapel_real.sh` or install Chapel and set CHPL_HOME."
         );
-        eprintln!("   ");
-        eprintln!("   Or use Makefile: cd ffi/chapel && make full-pipeline");
-        eprintln!("   GPU + Distributed: make full-pipeline GPU_ARCH=sm_86");
     }
 
     if !cfg!(target_os = "windows") {
