@@ -12,12 +12,18 @@ categories = ["web-programming", "command-line-utilities"]
 license = "MIT OR Apache-2.0"
 
 [features]
-# FFI toggles: keep defaults off so caller opts-in explicitly
-default = ["wasm_ffi"]
+# Core feature set (enabled by default)
+default = ["core", "wasm_ffi"]
+core = []
+# Premium feature bundle: enables advanced analytics and paywall extraction
+premium = ["core", "jax", "advanced-analytics"]
+# Individual FFI toggles: caller opts-in explicitly
 go_integration = []
 nim_integration = []
 zig_integration = []
 chapel_ffi = []
+jax = []
+advanced-analytics = []
 chromium_rendering = ["chromiumoxide"]
 advanced_tor = []
 # Advanced feature bundle: enables all advanced capabilities for the multi-agent pipeline

@@ -464,8 +464,20 @@ impl DeepWebSearch {
 impl Default for DeepWebSearch {
     fn default() -> Self {
         Self::new(TorConfig::default()).unwrap_or_else(|e| {
-            eprintln!("⚠️  DeepWeb search initialization failed: {}", e);
-            panic!("Cannot create DeepWebSearch");
+            eprintln!("⚠️  DeepWeb search initialization failed: {} (using minimal clearnet-only instance)", e);
+            // Return a minimal instance with clearnet-only client instead of panicking
+            let config = TorConfig::default();
+            let clearnet_client = reqwest::Client::builder()
+                .timeout(std::time::Duration::from_secs(config.timeout_seconds))
+                .user_agent(&config.user_agent)
+                .build()
+                .unwrap_or_default();
+            Self {
+                config,
+                tor_client: None,
+                i2p_client: None,
+                clearnet_client,
+            }
         })
     }
 }

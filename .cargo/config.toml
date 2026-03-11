@@ -3,3 +3,8 @@ rustflags = [
     "-C", "link-arg=/DEFAULTLIB:msvcrt",
     "-C", "link-arg=/NODEFAULTLIB:libcmt",
 ]
+
+[target.wasm32-unknown-unknown]
+rustflags = [
+    "-C", "target-feature=+simd128",
+]
