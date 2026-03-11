@@ -12,13 +12,13 @@ Nuclear Crawler Hybrid is a **unified MCP (Model Context Protocol) server** that
 - **50K Goroutine Parallelism** - Distributed operations at massive scale
 - **OSINT Capabilities** - Advanced data mining and intelligence gathering
 - **🆕 CI/CD Resilience** - Self-healing pipelines with automatic failure recovery
-- **Real Execution** - NO MOCKS - all tools hit real systems
+- **Fail-Fast Execution** - required backends must be present; no silent mock substitution
 
 ### Core Philosophy
 
-- **NO MOCKS** - All operations use real FFI, real HTTP, real data
+- **NO SILENT MOCKS** - missing required backends now fail visibly instead of degrading silently
 - **MAXIMUM PARALLELISM** - 50,000 goroutines per operation
-- **MULTI-LANGUAGE FFI** - Go, Zig, Nim, JAX, Chapel backends
+- **HYBRID BACKENDS** - Chapel primary, WASM for Go/Zig/Nim, subprocess JAX
 - **WASM ACCELERATION** - 50-100x speedup modules
 - **CHAPEL AI BRAIN** - Intelligent decision-making pre/post execution
 
@@ -198,7 +198,7 @@ curl -X POST http://localhost:8079/tools/websearch \
 
 ## Key Features
 
-✅ **Real Execution** - No mocks, all operations hit real servers/data  
+✅ **Fail-Fast Execution** - missing required backends fail visibly  
 ✅ **Parallelism** - Go FFI: 50,000 goroutines  
 ✅ **Speed** - Nim FFI: 100-200x HTML parsing, Zig: 256-bit SIMD  
 ✅ **Intelligence** - Chapel AI pre/post optimization  
@@ -233,9 +233,9 @@ nuclear-crawler-hybrid/
 
 ✅ **7 MCP Tools** - Fully specified  
 ✅ **37 Internal Modules** - Integrated  
-✅ **5 FFI Backends** - Ready  
+✅ **Backends** - Chapel enforced, WASM/JAX validated in CI  
 ✅ **6 WASM Accelerators** - Compiled  
-✅ **Production Ready** - All systems GO
+⚠️ **Strict Mode** - CI blocks on missing required backends
 
 ---
 
