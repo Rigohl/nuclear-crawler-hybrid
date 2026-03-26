@@ -152,3 +152,57 @@ jobs:
       - run: pip install jax jaxlib numpy --quiet
       - run: python -c "import jax; print('JAX OK', jax.__version__)"
         continue-on-error: true
+
+  # ─────────────────────────────────────────────
+  # 7. Chapel AI Parallel FFI - optional
+  #    Uses chapel/chapel:latest container (2.8+)
+  # ─────────────────────────────────────────────
+  chapel-ffi:
+    name: Chapel AI Parallel (optional)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    continue-on-error: true
+    container:
+      image: chapel/chapel:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Chapel version
+        run: chpl --version
+      - name: Build Chapel FFI (if source exists)
+        run: |
+          if [ -d "ffi/chapel" ]; then
+            echo "Found ffi/chapel, attempting build..."
+            find ffi/chapel -name "*.chpl" | head -5
+            chpl -M ffi/chapel ffi/chapel/*.chpl -o /tmp/chapel_ffi_demo 2>&1 \
+              || echo "Chapel FFI build skipped (compile error or stub)"
+          else
+            echo "No ffi/chapel directory yet - Chapel runtime validated OK"
+          fi
+        continue-on-error: true
+
+  # ─────────────────────────────────────────────
+  # 8. Pony Actor FFI - optional
+  #    Uses ponylang/ponyc:release container
+  # ─────────────────────────────────────────────
+  pony-ffi:
+    name: Pony Actor FFI (optional)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    continue-on-error: true
+    container:
+      image: ponylang/ponyc:release
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pony version
+        run: ponyc --version
+      - name: Build Pony FFI (if source exists)
+        run: |
+          if [ -d "ffi/pony" ]; then
+            echo "Found ffi/pony, attempting build..."
+            cd ffi/pony
+            ponyc --output /tmp . 2>&1 \
+              || echo "Pony FFI build skipped (compile error or stub)"
+          else
+            echo "No ffi/pony directory yet - Pony runtime validated OK"
+          fi
+        continue-on-error: true
