@@ -56,7 +56,7 @@ impl GoWasmRuntime {
         let wasm_path = PathBuf::from("ffi/wasm/go/go_parallel.wasm");
 
         let module = if wasm_path.exists() {
-            Module::from_file(&engine, &wasm_path).context("Failed to load Go WASM module")?
+            Module::from_file(&engine, &wasm_path).map_err(|e| anyhow::anyhow!("{}", e)).context("Failed to load Go WASM module")?
         } else {
             // Module not available, return error with helpful message
             return Err(anyhow::anyhow!(
@@ -97,7 +97,7 @@ impl GoWasmRuntime {
         // Get exported function
         let parallel_fetch = instance
             .get_typed_func::<(i32, i32, i32), i32>(&mut self.store, "parallel_fetch_urls")
-            .context("Function parallel_fetch_urls not exported")?;
+            .map_err(|e| anyhow::anyhow!("{}", e)).context("Function parallel_fetch_urls not exported")?;
 
         // Call function
         let result_ptr = parallel_fetch.call(
