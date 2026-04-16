@@ -175,7 +175,7 @@ impl JaxProcessor {
     /// 🔥 PROCESS PDF BATCH - Extract text from PDF bytes using JAX/Python
     pub fn process_pdf_batch(&self, pdf_data: &[u8]) -> Result<String> {
         // Find Python with JAX for secure execution
-        let python_cmd = self.find_python_with_jax()?;
+        let python_cmd = Self::find_python_with_jax()?;
 
         // Alternative: Use scripts/generate_advanced_report.py for PDF processing
         // Ensure script exists before execution
