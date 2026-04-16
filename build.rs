@@ -185,7 +185,38 @@ fn main() {
 
     // Second, check local compiled version
     let chapel_lib_path = format!("{}/ffi/chapel/libchapel_ai.so", manifest_dir);
-    let has_local_chapel = std::path::Path::new(&chapel_lib_path).exists();
+    let mut has_local_chapel = std::path::Path::new(&chapel_lib_path).exists();
+
+    if !has_system_chapel && !has_local_chapel {
+        eprintln!("⚙️ Chapel no detectado. Intentando compilar en caliente Chapel v2.8.0 FFI REAL...");
+        let chpl_version = "2.8.0";
+        if let Ok(out_dir) = std::env::var("OUT_DIR") {
+            let script = format!("wget -q https://github.com/chapel-lang/chapel/releases/download/{0}/chapel-{0}.tar.gz -O {1}/chapel.tar.gz && tar -xzf {1}/chapel.tar.gz -C {1} && cd {1}/chapel-{0} || (git clone --depth 1 https://github.com/chapel-lang/chapel.git {1}/chapel-{0} && cd {1}/chapel-{0}) && export CHPL_LLVM=none && make -j$(nproc)", chpl_version, out_dir);
+
+            if let Ok(status) = std::process::Command::new("sh").arg("-c").arg(&script).status() {
+                if status.success() {
+                    let home = format!("{}/chapel-{}", out_dir, chpl_version);
+                    std::env::set_var("CHPL_HOME", &home);
+                    let path = std::env::var("PATH").unwrap_or_default();
+                    std::env::set_var(
+                        "PATH",
+                        format!("{}/bin/linux64-x86_64:{}/bin:{}", home, home, path),
+                    );
+
+                    if let Ok(build_status) = std::process::Command::new("sh")
+                        .current_dir(format!("{}/ffi/chapel", manifest_dir))
+                        .arg("-c")
+                        .arg("./build_chapel_real.sh")
+                        .status()
+                    {
+                        if build_status.success() {
+                            has_local_chapel = std::path::Path::new(&chapel_lib_path).exists();
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     if has_system_chapel {
         if let Some(home) = chapel_home {
