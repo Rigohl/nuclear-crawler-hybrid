@@ -391,7 +391,7 @@ proc main() {
     writeln();
     
     // COMBINAR RESULTADOS
-    const total_results = total_mcp;  // TODO: merge both
+    const total_results = total_mcp + total_unified;
     
     // Curar dataset
     writeln("─" * 70);
