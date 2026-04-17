@@ -26,8 +26,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN update-ca-certificates
 
-# Install Chapel v2.0.0
-ENV CHPL_VERSION=2.0.0
+# Install Chapel v2.8.0
+ENV CHPL_VERSION=2.8.0
 ENV CHPL_HOME=/opt/chapel
 ENV PATH=$CHPL_HOME/bin/linux64-x86_64:$CHPL_HOME/bin/linux64-x86_64-gnu:$CHPL_HOME/bin:$PATH
 

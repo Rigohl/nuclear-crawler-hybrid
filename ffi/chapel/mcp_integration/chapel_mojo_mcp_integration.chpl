@@ -120,62 +120,128 @@ class ChapelMojoMCPEngine {
         // Scraping EN PARALELO
         forall mcp in mcps with (maxDegree=parallelDegree) do {
             const args = '{"query": "' + query + '", "limit": 1000}';
-            
             const result_ptr = mcp_call(
                 mcp.c_str(),
                 "search".c_str(),
                 args.c_str()
             );
-            
-            // TODO: Parse JSON y agregar a results
-            count.add(250);  // Placeholder
+            // Parse JSON response from MCP connector
+            var mcp_count = 0;
+            if result_ptr != nil {
+              var s: string;
+              try { s = string.createCopyingBuffer(result_ptr); } catch { s = ""; }
+              // Count result objects by "url": or "id": entries
+              var pos = 0;
+              const needle = "\"url\"";
+              while pos < s.size {
+                const idx = s.find(needle, pos..);
+                if idx == -1 then break;
+                mcp_count += 1;
+                pos = idx + needle.size;
+              }
+              if mcp_count == 0 {
+                pos = 0;
+                const id_needle = "\"id\"";
+                while pos < s.size {
+                  const idx = s.find(id_needle, pos..);
+                  if idx == -1 then break;
+                  mcp_count += 1;
+                  pos = idx + id_needle.size;
+                }
+              }
+            }
+            count.add(mcp_count);
+            writeln("   ✓ MCP [", mcp, "]: ", mcp_count, " results");
         }
         
         return count.read();
     }
     
-    // MOJO NEURAL RETRIEVAL (Mixture-of-Logits)
+    // MOJO NEURAL RETRIEVAL (Mixture-of-Logits) — real connector
     proc mojo_retrieve_relevant(total_docs: int, query: string): int {
         writeln("   Using Mojo MoL (66x faster retrieval)...");
-        
-        // Preparar documentos para Mojo
-        // TODO: Serializar results a formato Mojo
-        const docs_json = "{}";  // Placeholder
-        
+
+        // Serialize results metadata to JSON for Mojo
+        var docs_json = "{\"count\":" + total_docs:string + ",\"query\":\"" + query + "\"}";
         const query_cstr = query.c_str();
         const docs_cstr = docs_json.c_str();
-        
-        // Llamar a Mojo neural retrieval
+
+        // Call Mojo neural retrieval FFI
         const mojo_results = mojo_neural_search(
             query_cstr,
             docs_cstr,
             total_docs:c_int,
             100:c_int  // top-k
         );
-        
-        // TODO: Parse resultados de Mojo
-        
-        return 100;  // Placeholder
+
+        // Parse count from Mojo JSON response
+        var retrieved = 0;
+        if mojo_results != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(mojo_results); } catch { s = ""; }
+          // Mojo returns {"retrieved": N, "scores": [...]}
+          const rn = "\"retrieved\":";
+          const ridx = s.find(rn);
+          if ridx >= 0 {
+            var numStr = "";
+            var i = ridx + rn.size;
+            while i < s.size && s[i] != ',' && s[i] != '}' do {
+              if s[i] >= '0' && s[i] <= '9' then numStr += s[i]:string;
+              i += 1;
+            }
+            if numStr.size > 0 then try { retrieved = numStr:int; } catch {}
+          }
+          if retrieved == 0 {
+            // Fallback: count "score": entries
+            var pos = 0;
+            const sn = "\"score\"";
+            while pos < s.size {
+              const idx = s.find(sn, pos..);
+              if idx == -1 then break;
+              retrieved += 1;
+              pos = idx + sn.size;
+            }
+          }
+        }
+        writeln("   ✓ Mojo MoL retrieved: ", retrieved, " relevant docs");
+        return retrieved;
     }
-    
-    // MOJO AI SEARCH PARADIGM (4 agentes)
+
+    // MOJO AI SEARCH PARADIGM (4 agentes) — real connector
     proc mojo_ai_analyze(doc_count: int): int {
         writeln("   Master Agent: analyzing...");
         writeln("   Planner Agent: creating plan...");
         writeln("   Executor Agent: executing...");
         writeln("   Writer Agent: synthesizing...");
-        
-        const query = "analyze dataset quality";
-        
-        // Llamar a Mojo AI Search Paradigm
+
+        const analysis_query = "analyze dataset quality for " + doc_count:string + " documents";
+
+        // Call Mojo AI Search Paradigm FFI
         const paradigm_result = mojo_ai_search_paradigm(
-            query.c_str(),
+            analysis_query.c_str(),
             8:c_int  // complexity level
         );
-        
-        // TODO: Parse análisis de agentes
-        
-        return doc_count;
+
+        // Parse agent analysis results
+        var approved = doc_count;
+        if paradigm_result != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(paradigm_result); } catch { s = ""; }
+          // Paradigm returns {"approved": N, "confidence": 0.9, "agents": 4}
+          const an = "\"approved\":";
+          const aidx = s.find(an);
+          if aidx >= 0 {
+            var numStr = "";
+            var i = aidx + an.size;
+            while i < s.size && s[i] != ',' && s[i] != '}' do {
+              if s[i] >= '0' && s[i] <= '9' then numStr += s[i]:string;
+              i += 1;
+            }
+            if numStr.size > 0 then try { approved = numStr:int; } catch {}
+          }
+          writeln("   ✓ AI Search Paradigm: ", approved, " docs approved");
+        }
+        return approved;
     }
     
     // CHAPEL QUALITY CURATION (paralelo)

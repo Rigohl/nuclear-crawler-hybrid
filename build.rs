@@ -43,7 +43,7 @@ fn main() {
     println!("cargo:rustc-env=NFI_VALIDATION=strict");
     println!("cargo:rustc-env=FFI_GO_REQUIRED_VERSION=1.21.0");
     println!("cargo:rustc-env=FFI_ZIG_REQUIRED_VERSION=0.15.2");
-    println!("cargo:rustc-env=FFI_CHAPEL_REQUIRED_VERSION=2.0.0");
+    println!("cargo:rustc-env=FFI_CHAPEL_REQUIRED_VERSION=2.8.0");
 
     // ════════════════════════════════════════════════════════════════════════
     // FFI REAL - MAXIMUM LANGUAGE FEATURES

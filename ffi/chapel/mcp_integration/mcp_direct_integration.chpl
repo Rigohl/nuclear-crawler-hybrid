@@ -122,66 +122,129 @@ class ChapelMCPEngine {
         return result_count.read();
     }
     
-    // GITHUB MCP - Buscar código, issues, discussions
+    // GITHUB MCP - Buscar código, issues, discussions (real connector)
     proc search_github_mcp(query: string, k: int): int {
-        // Construir args JSON para GitHub MCP
         const args = '{"query": "' + query + '", "type": "code", "per_page": ' + k:string + '}';
-        
         const server_cstr = "github".c_str();
         const tool_cstr = "search_code".c_str();
         const args_cstr = args.c_str();
-        
-        // Llamar MCP directamente
         const result_ptr = mcp_call(server_cstr, tool_cstr, args_cstr);
-        
-        // Parse JSON response
-        // TODO: Implementar parser JSON en Chapel
-        
-        return 0;  // Placeholder
+        // Extract count from JSON using Chapel string helpers
+        var count = 0;
+        if result_ptr != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(result_ptr); } catch { s = ""; }
+          // GitHub returns {"total_count": N, "items": [...]}
+          var pos = 0;
+          const needle = "\"total_count\":";
+          const idx = s.find(needle);
+          if idx >= 0 {
+            const start = idx + needle.size;
+            var numStr = "";
+            var i = start;
+            while i < s.size && s[i] != ',' && s[i] != '}' do {
+              if s[i] >= '0' && s[i] <= '9' then numStr += s[i]:string;
+              i += 1;
+            }
+            if numStr.size > 0 then try { count = numStr:int; } catch {}
+          }
+          if count == 0 {
+            // fallback: count "html_url": entries
+            const item_needle = "\"html_url\"";
+            pos = 0;
+            while pos < s.size {
+              const iidx = s.find(item_needle, pos..);
+              if iidx == -1 then break;
+              count += 1;
+              pos = iidx + item_needle.size;
+            }
+          }
+        }
+        return count;
     }
-    
-    // SUPABASE MCP - Buscar en base de datos
+
+    // SUPABASE MCP - Buscar en base de datos (real connector)
     proc search_supabase_mcp(query: string, k: int): int {
-        // SQL query via Supabase MCP
         const sql = 'SELECT * FROM conversations WHERE content LIKE \'%' + query + '%\' LIMIT ' + k:string;
         const args = '{"query": "' + sql + '"}';
-        
         const server_cstr = "supabase".c_str();
         const tool_cstr = "execute_sql".c_str();
         const args_cstr = args.c_str();
-        
         const result_ptr = mcp_call(server_cstr, tool_cstr, args_cstr);
-        
-        return 0;
+        var count = 0;
+        if result_ptr != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(result_ptr); } catch { s = ""; }
+          // Supabase returns array of row objects; count "id": entries
+          var pos = 0;
+          const needle = "\"id\"";
+          while pos < s.size {
+            const idx = s.find(needle, pos..);
+            if idx == -1 then break;
+            count += 1;
+            pos = idx + needle.size;
+          }
+        }
+        return count;
     }
-    
-    // HUGGING FACE MCP - Buscar datasets, models
+
+    // HUGGING FACE MCP - Buscar datasets, models (real connector)
     proc search_huggingface_mcp(query: string, k: int): int {
         const args = '{"query": "' + query + '", "limit": ' + k:string + '}';
-        
         const server_cstr = "huggingface".c_str();
         const tool_cstr = "search_datasets".c_str();
         const args_cstr = args.c_str();
-        
         const result_ptr = mcp_call(server_cstr, tool_cstr, args_cstr);
-        
-        return 0;
+        var count = 0;
+        if result_ptr != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(result_ptr); } catch { s = ""; }
+          // HuggingFace returns {"datasets": [...]}; count "datasetId": entries
+          var pos = 0;
+          const needle = "\"datasetId\"";
+          while pos < s.size {
+            const idx = s.find(needle, pos..);
+            if idx == -1 then break;
+            count += 1;
+            pos = idx + needle.size;
+          }
+          if count == 0 {
+            // fallback: any id field
+            pos = 0;
+            const id_needle = "\"id\"";
+            while pos < s.size {
+              const idx = s.find(id_needle, pos..);
+              if idx == -1 then break;
+              count += 1;
+              pos = idx + id_needle.size;
+            }
+          }
+        }
+        return count;
     }
-    
-    // BROWSER MCP - Scraping web en tiempo real
+
+    // BROWSER MCP - Scraping web en tiempo real (real connector)
     proc search_web_via_browser_mcp(query: string, k: int): int {
-        // Usar Browser MCP para scraping
         const search_url = "https://www.google.com/search?q=" + query;
-        
-        // 1. Navigate
         const nav_args = '{"url": "' + search_url + '"}';
         const nav_result = mcp_call("browser".c_str(), "navigate".c_str(), nav_args.c_str());
-        
-        // 2. Extract content
         const extract_args = '{"selector": ".search-result"}';
         const content_result = mcp_call("browser".c_str(), "extract".c_str(), extract_args.c_str());
-        
-        return 0;
+        var count = 0;
+        if content_result != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(content_result); } catch { s = ""; }
+          // Count extracted result blocks by "href": entries
+          var pos = 0;
+          const needle = "\"href\"";
+          while pos < s.size {
+            const idx = s.find(needle, pos..);
+            if idx == -1 then break;
+            count += 1;
+            pos = idx + needle.size;
+          }
+        }
+        return count;
     }
     
     // FILTRAR DATOS SINTÉTICOS (Chapel nativo, sin Python)
@@ -305,24 +368,54 @@ class ChapelMCPEngine {
         return real_count;
     }
     
-    // BÚSQUEDA VIA UNIFIED ENGINE (JAX + Mojo consolidado)
+    // BÚSQUEDA VIA UNIFIED ENGINE (JAX + Mojo consolidado) — real connector
     proc search_unified_engine(query: string, k: int = 100, prefer: string = "auto"): int {
         writeln("\n🚀 UNIFIED ENGINE: JAX + Mojo search...");
         writeln("   Prefer: ", prefer);
-        
+
         const query_cstr = query.c_str();
         const prefer_cstr = prefer.c_str();
         const k_cint = k:c_int;
-        
-        // Llamar al Unified Engine HTTP server (port 9999)
+
+        // Call the Unified Engine HTTP server (port 9999) via FFI
         const result_ptr = unified_engine_search(query_cstr, k_cint, prefer_cstr);
-        
-        // Parse JSON response
-        // TODO: Implementar parser JSON
-        
-        writeln("   ✓ Unified Engine results received");
-        
-        return 0;  // Placeholder
+
+        var count = 0;
+        if result_ptr != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(result_ptr); } catch { s = ""; }
+          // Unified Engine returns {"results": [...], "count": N, "engine": "jax|mojo"}
+          var pos = 0;
+          const count_needle = "\"count\":";
+          const cidx = s.find(count_needle);
+          if cidx >= 0 {
+            const start = cidx + count_needle.size;
+            var numStr = "";
+            var i = start;
+            while i < s.size && s[i] != ',' && s[i] != '}' do {
+              if s[i] >= '0' && s[i] <= '9' then numStr += s[i]:string;
+              i += 1;
+            }
+            if numStr.size > 0 then try { count = numStr:int; } catch {}
+          }
+          if count == 0 {
+            // Fallback: count result objects by "score": field
+            pos = 0;
+            const score_needle = "\"score\"";
+            while pos < s.size {
+              const idx = s.find(score_needle, pos..);
+              if idx == -1 then break;
+              count += 1;
+              pos = idx + score_needle.size;
+            }
+          }
+          writeln("   ✓ Unified Engine: ", count, " results (engine=",
+                  if s.find("\"engine\":\"jax\"") >= 0 then "jax" else "mojo", ")");
+        } else {
+          writeln("   ⚠️  Unified Engine returned nil — is port 9999 running?");
+        }
+
+        return count;
     }
     
     // EXPORTAR A SUPABASE (via MCP)

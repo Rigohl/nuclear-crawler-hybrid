@@ -1,0 +1,33 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy nuclear-mcp to Render
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trigger Render deploy
+        run: |
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
+            echo "❌ RENDER_DEPLOY_HOOK_URL secret is not set."
+            echo "   Go to Render dashboard → nuclear-mcp service → Settings → Deploy Hook"
+            echo "   Then add the URL as RENDER_DEPLOY_HOOK_URL in GitHub repo secrets."
+            exit 1
+          fi
+          curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": false}'
+          echo "✅ Render deploy triggered for nuclear-mcp"
+
+      - name: Wait for deploy to start
+        run: |
+          echo "Deploy triggered. Monitor at: https://dashboard.render.com"
+          echo "Service: nuclear-mcp (port 8079)"
+          echo "Health check: /health"

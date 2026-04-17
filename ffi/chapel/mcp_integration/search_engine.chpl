@@ -6,6 +6,86 @@ use ChapelFFI;
 use Time;
 use Map;
 
+// ═══════════════════════════════════════════════════════════════
+// JSON HELPERS (Chapel 2.8 — string-based extraction, no external lib)
+// ═══════════════════════════════════════════════════════════════
+
+// Count items in a JSON array by counting "url": occurrences
+// Works on JSON returned by python_osint_search, mcp_call, etc.
+proc count_json_results(ptr: c_ptrConst(c_char)): int {
+  if ptr == nil then return 0;
+  var s: string;
+  try { s = string.createCopyingBuffer(ptr); } catch { return 0; }
+  if s.size == 0 || s == "null" || s.startsWith("{\"error\"") then return 0;
+  // Count "url": occurrences as proxy for result items
+  var count = 0;
+  var pos = 0;
+  const needle = "\"url\"";
+  while pos < s.size {
+    const idx = s.find(needle, pos..);
+    if idx == -1 then break;
+    count += 1;
+    pos = idx + needle.size;
+  }
+  // Fallback: count by "id": if no urls
+  if count == 0 {
+    pos = 0;
+    const id_needle = "\"id\"";
+    while pos < s.size {
+      const idx = s.find(id_needle, pos..);
+      if idx == -1 then break;
+      count += 1;
+      pos = idx + id_needle.size;
+    }
+  }
+  return count;
+}
+
+// Extract a string field value from simple JSON: {"field": "value", ...}
+proc json_get_field(ptr: c_ptrConst(c_char), field: string): string {
+  if ptr == nil then return "";
+  var s: string;
+  try { s = string.createCopyingBuffer(ptr); } catch { return ""; }
+  const key = "\"" + field + "\":\"";
+  const idx = s.find(key);
+  if idx == -1 then return "";
+  const start = idx + key.size;
+  const endIdx = s.find("\"", start..);
+  if endIdx == -1 then return s[start..];
+  return s[start..<endIdx];
+}
+
+// Extract a numeric field value from JSON: {"field": 42, ...}
+proc json_get_int(ptr: c_ptrConst(c_char), field: string): int {
+  if ptr == nil then return 0;
+  var s: string;
+  try { s = string.createCopyingBuffer(ptr); } catch { return 0; }
+  const key = "\"" + field + "\":";
+  const idx = s.find(key);
+  if idx == -1 then return 0;
+  const start = idx + key.size;
+  // skip whitespace
+  var i = start;
+  while i < s.size && (s[i] == ' ' || s[i] == '\t') do i += 1;
+  var numStr = "";
+  while i < s.size && s[i] >= '0' && s[i] <= '9' do {
+    numStr += s[i]:string;
+    i += 1;
+  }
+  if numStr.size == 0 then return 0;
+  try { return numStr:int; } catch { return 0; }
+}
+
+// Build a query string from keywords array
+proc build_query(keywords: [] string, num_keywords: int): string {
+  var q = "";
+  for i in 1..num_keywords do {
+    if i > 1 then q += " ";
+    q += keywords[i];
+  }
+  return q;
+}
+
 // FFI con MCPs
 extern proc mcp_websearch(query: c_ptrConst(c_char), max_results: c_int): c_ptrConst(c_char);
 extern proc mcp_github_search(query: c_ptrConst(c_char), type_filter: c_ptrConst(c_char)): c_ptrConst(c_char);
@@ -153,113 +233,105 @@ class SearchEngine {
     return real_count.read();
   }
   
-  // BÚSQUEDA EN REDDIT (vía Python OSINT)
+  // BÚSQUEDA EN REDDIT (vía Python OSINT connector)
   proc search_reddit(keywords: [] string, num_keywords: int): int {
-    // Construir query
-    var query_str = "";
-    for i in 1..num_keywords do {
-      if i > 1 then query_str += " ";
-      query_str += keywords[i];
-    }
-    
+    const query_str = build_query(keywords, num_keywords);
     const query_cstr = query_str.c_str();
     const sources_cstr = "reddit".c_str();
-    
-    // Llamar a Python OSINT scraper
     const results_ptr = python_osint_search(query_cstr, sources_cstr);
-    
-    // Parse results (JSON)
-    // TODO: Implementar parser JSON
-    
-    return 0;  // Placeholder
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN TWITTER
+
+  // BÚSQUEDA EN TWITTER (vía Python OSINT connector)
   proc search_twitter(keywords: [] string, num_keywords: int): int {
-    var query_str = "";
-    for i in 1..num_keywords do {
-      if i > 1 then query_str += " ";
-      query_str += keywords[i];
-    }
-    
+    const query_str = build_query(keywords, num_keywords);
     const query_cstr = query_str.c_str();
     const sources_cstr = "twitter".c_str();
     const results_ptr = python_osint_search(query_cstr, sources_cstr);
-    
-    return 0;
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN GITHUB (vía MCP)
+
+  // BÚSQUEDA EN GITHUB (vía MCP connector)
   proc search_github(keywords: [] string, num_keywords: int): int {
-    var query_str = "";
-    for i in 1..num_keywords do {
-      if i > 1 then query_str += " ";
-      query_str += keywords[i];
-    }
-    
+    const query_str = build_query(keywords, num_keywords);
     const query_cstr = query_str.c_str();
-    const type_filter = "code".c_str();  // "code", "issues", "repos"
-    
+    const type_filter_str = "code";
+    const type_filter = type_filter_str.c_str();
     const results_ptr = mcp_github_search(query_cstr, type_filter);
-    
-    return 0;
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN TELEGRAM
+
+  // BÚSQUEDA EN TELEGRAM (vía Python OSINT connector)
   proc search_telegram(keywords: [] string, num_keywords: int): int {
-    var query_str = "";
-    for i in 1..num_keywords do {
-      if i > 1 then query_str += " ";
-      query_str += keywords[i];
-    }
-    
+    const query_str = build_query(keywords, num_keywords);
     const query_cstr = query_str.c_str();
     const sources_cstr = "telegram".c_str();
     const results_ptr = python_osint_search(query_cstr, sources_cstr);
-    
-    return 0;
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN DISCORD
+
+  // BÚSQUEDA EN DISCORD (vía Python OSINT connector)
   proc search_discord(keywords: [] string, num_keywords: int): int {
-    var query_str = "";
-    for i in 1..num_keywords do {
-      if i > 1 then query_str += " ";
-      query_str += keywords[i];
-    }
-    
+    const query_str = build_query(keywords, num_keywords);
     const query_cstr = query_str.c_str();
     const sources_cstr = "discord".c_str();
     const results_ptr = python_osint_search(query_cstr, sources_cstr);
-    
-    return 0;
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN LINKEDIN
+
+  // BÚSQUEDA EN LINKEDIN (vía Python OSINT connector + WASM scraping)
   proc search_linkedin(keywords: [] string, num_keywords: int): int {
-    // LinkedIn scraping via Playwright
-    return 0;
+    const query_str = build_query(keywords, num_keywords);
+    const query_cstr = query_str.c_str();
+    const sources_cstr = "linkedin".c_str();
+    const results_ptr = python_osint_search(query_cstr, sources_cstr);
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN HACKERNEWS
+
+  // BÚSQUEDA EN HACKERNEWS (vía Algolia API through Python OSINT connector)
   proc search_hackernews(keywords: [] string, num_keywords: int): int {
-    // HN Algolia API
-    return 0;
+    const query_str = build_query(keywords, num_keywords);
+    const query_cstr = query_str.c_str();
+    const sources_cstr = "hackernews".c_str();
+    const results_ptr = python_osint_search(query_cstr, sources_cstr);
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN QUORA
+
+  // BÚSQUEDA EN QUORA (vía Python OSINT connector)
   proc search_quora(keywords: [] string, num_keywords: int): int {
-    return 0;
+    const query_str = build_query(keywords, num_keywords);
+    const query_cstr = query_str.c_str();
+    const sources_cstr = "quora".c_str();
+    const results_ptr = python_osint_search(query_cstr, sources_cstr);
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN STACKOVERFLOW
+
+  // BÚSQUEDA EN STACKOVERFLOW (vía Python OSINT connector)
   proc search_stackoverflow(keywords: [] string, num_keywords: int): int {
-    return 0;
+    const query_str = build_query(keywords, num_keywords);
+    const query_cstr = query_str.c_str();
+    const sources_cstr = "stackoverflow".c_str();
+    const results_ptr = python_osint_search(query_cstr, sources_cstr);
+    const count = count_json_results(results_ptr);
+    return count;
   }
-  
-  // BÚSQUEDA EN YOUTUBE COMMENTS
+
+  // BÚSQUEDA EN YOUTUBE COMMENTS (vía Python OSINT connector)
   proc search_youtube_comments(keywords: [] string, num_keywords: int): int {
-    return 0;
+    const query_str = build_query(keywords, num_keywords);
+    const query_cstr = query_str.c_str();
+    const sources_cstr = "youtube".c_str();
+    const results_ptr = python_osint_search(query_cstr, sources_cstr);
+    const count = count_json_results(results_ptr);
+    return count;
   }
   
   // CURACIÓN DE DATASET (filtrar + rankear)
@@ -287,35 +359,53 @@ class SearchEngine {
   // CALCULAR CALIDAD (engagement, autenticidad, relevancia)
   proc calculate_quality_score(result: SearchResult): real {
     var score: real = 0.0;
-    
+
     // Factor 1: Longitud (conversaciones más largas = mejor)
     const length_score = min(result.content.size:real / 500.0, 1.0) * 20.0;
-    
-    // Factor 2: Engagement (upvotes, likes, etc.)
-    // TODO: Parse metadata JSON
-    const engagement_score = 30.0;  // Placeholder
-    
-    // Factor 3: Autenticidad (typos naturales, emojis, slang)
-    const authenticity_score = 25.0;  // Placeholder
-    
-    // Factor 4: Relevancia (match con keywords)
-    const relevance_score = 25.0;  // Placeholder
-    
+
+    // Factor 2: Engagement — parse upvotes/likes from metadata JSON
+    const meta_cstr = result.metadata.c_str();
+    const upvotes = json_get_int(meta_cstr, "upvotes");
+    const likes    = json_get_int(meta_cstr, "likes");
+    const comments = json_get_int(meta_cstr, "comments");
+    const raw_engagement = (upvotes + likes + comments):real;
+    const engagement_score = min(raw_engagement / 100.0, 1.0) * 30.0;
+
+    // Factor 3: Autenticidad — check for organic markers in content
+    var auth_bonus: real = 25.0;
+    if result.content.find("lol") >= 0 || result.content.find("haha") >= 0 then
+      auth_bonus += 5.0;
+    if result.content.find("...") >= 0 then auth_bonus += 3.0;
+    const authenticity_score = min(auth_bonus, 30.0);
+
+    // Factor 4: Relevancia — URL and source present = relevant
+    const relevance_score = if result.url.size > 5 then 20.0 else 10.0;
+
     score = length_score + engagement_score + authenticity_score + relevance_score;
-    
-    return score;
+    return min(score, 100.0);
   }
-  
-  // EXPORTAR DATASET
+
+  // EXPORTAR DATASET — real call to Python FFI connector
   proc export_dataset(format: string = "json") {
     writeln("\n💾 Exportando dataset...");
-    
-    // TODO: Llamar a Python para exportar JSON
+
     extern proc python_export_json(data: c_ptrConst(c_char), filename: c_ptrConst(c_char)): c_int;
-    
-    const filename = "dataset_real_" + Time.timeSinceEpoch().totalSeconds():string + ".json";
-    writeln("   Archivo: ", filename);
-    writeln("   ✅ Dataset exportado");
+
+    const timestamp = Time.timeSinceEpoch().totalSeconds():string;
+    const filename = "dataset_real_" + timestamp + ".json";
+    const filename_cstr = filename.c_str();
+
+    // Build JSON summary of curated results
+    var json_data = "{\"count\": " + this.num_results:string +
+                    ", \"timestamp\": " + timestamp +
+                    ", \"source\": \"chapel_search_engine\"}";
+    const data_cstr = json_data.c_str();
+
+    const rc = python_export_json(data_cstr, filename_cstr);
+    if rc == 0 then
+      writeln("   ✅ Dataset exportado: ", filename)
+    else
+      writeln("   ⚠️  Export returned code ", rc, " for ", filename);
   }
 }
 

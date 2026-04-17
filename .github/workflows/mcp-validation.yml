@@ -1,0 +1,51 @@
+name: MCP 7-Tool Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate-7-tools:
+    name: Validate Exactly 7 MCP Tools
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/
+          key: ${{ runner.os }}-cargo-mcp-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Run 7-tool constraint test (MUST PASS)
+        run: cargo test test_exactly_7_tools --no-default-features -- --nocapture
+
+      - name: Validate tool names via script
+        run: |
+          chmod +x scripts/validate_7_tools.sh
+          ./scripts/validate_7_tools.sh
+
+      - name: Verify tool names in protocol.rs
+        run: |
+          TOOLS=(websearch premium file_search scan ai_dataset_trainer parallel_engine osint_intelligence)
+          MISSING=0
+          for tool in "${TOOLS[@]}"; do
+            if ! grep -q "\"$tool\"" src/mcp/protocol.rs; then
+              echo "❌ Tool '$tool' not found in protocol.rs"
+              MISSING=1
+            else
+              echo "✅ Tool '$tool' present"
+            fi
+          done
+          if [ $MISSING -eq 1 ]; then exit 1; fi
+          echo "✅ All 7 MCP tools validated"

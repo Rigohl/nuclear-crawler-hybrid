@@ -60,22 +60,43 @@ proc main() {
     
     select target.target_type {
       when "phone" {
-        // OSINT de teléfono
+        // OSINT de teléfono — real connector call
         const phone_cstr = target.value.c_str();
         const result_ptr = python_osint_phone(phone_cstr);
-        // TODO: Parsear resultado
-        target.results = "phone_osint_completed";
+        // Extract carrier/country from returned JSON
+        if result_ptr != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(result_ptr); } catch { s = "{}"; }
+          target.results = s;
+        } else {
+          target.results = "{\"status\":\"no_data\",\"phone\":\"" + target.value + "\"}";
+        }
       }
       when "email" {
-        // OSINT de email
+        // OSINT de email — real connector call
         const email_cstr = target.value.c_str();
         const result_ptr = python_osint_email(email_cstr);
-        target.results = "email_osint_completed";
+        if result_ptr != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(result_ptr); } catch { s = "{}"; }
+          target.results = s;
+        } else {
+          target.results = "{\"status\":\"no_data\",\"email\":\"" + target.value + "\"}";
+        }
       }
       when "username" {
-        // OSINT de username (sherlock-style)
-        // TODO: Implementar
-        target.results = "username_osint_completed";
+        // OSINT de username (sherlock-style) — search all social platforms
+        const query_cstr = target.value.c_str();
+        const sources_cstr = "twitter,instagram,github,reddit,linkedin".c_str();
+        extern proc python_osint_search(q: c_ptrConst(c_char), s: c_ptrConst(c_char)): c_ptrConst(c_char);
+        const result_ptr = python_osint_search(query_cstr, sources_cstr);
+        if result_ptr != nil {
+          var s: string;
+          try { s = string.createCopyingBuffer(result_ptr); } catch { s = "{}"; }
+          target.results = s;
+        } else {
+          target.results = "{\"status\":\"no_data\",\"username\":\"" + target.value + "\"}";
+        }
       }
       when "url" {
         // Scraping de URL con WASM
@@ -133,16 +154,35 @@ proc main() {
 
 proc save_results(targets: [1..numTargets] OSINTTarget) {
   writeln("\n💾 Guardando resultados...");
-  
-  // TODO: Exportar a JSON usando Python FFI
+
   extern proc python_save_json(data: c_ptrConst(c_char), filename: c_ptrConst(c_char)): c_int;
-  
-  const filename = "osint_results_" + Time.timeSinceEpoch().totalSeconds():string + ".json";
-  writeln("   Archivo: ", filename);
-  
-  // Aquí iría la serialización a JSON
-  // Por ahora, solo mensaje de éxito
-  writeln("   ✅ Resultados guardados");
+
+  const timestamp = Time.timeSinceEpoch().totalSeconds():string;
+  const filename = "osint_results_" + timestamp + ".json";
+
+  // Serialize results to JSON array
+  var json = "[";
+  var first = true;
+  for t in targets do {
+    if t.results != "" && t.results != "unknown_type" {
+      if !first then json += ",";
+      json += "{\"id\":" + t.id:string +
+              ",\"type\":\"" + t.target_type + "\"" +
+              ",\"value\":\"" + t.value + "\"" +
+              ",\"results\":" + t.results +
+              ",\"elapsed\":" + t.timestamp:string + "}";
+      first = false;
+    }
+  }
+  json += "]";
+
+  const json_cstr = json.c_str();
+  const filename_cstr = filename.c_str();
+  const rc = python_save_json(json_cstr, filename_cstr);
+  if rc == 0 then
+    writeln("   ✅ Resultados guardados: ", filename)
+  else
+    writeln("   ⚠️  Save returned code ", rc, " — check Python FFI bridge");
 }
 
 // Función auxiliar para scraping de Telegram channels en paralelo
@@ -152,9 +192,22 @@ proc scrape_telegram_channels_parallel(channels: [] string) {
   forall channel in channels with (maxDegree=parallelDegree) do {
     const channel_cstr = channel.c_str();
     const messages_ptr = python_scrape_telegram(channel_cstr);
-    
-    // TODO: Procesar mensajes
-    writeln("   ✓ Channel scraped: ", channel);
+    // Extract message count from returned JSON
+    var msg_count = 0;
+    if messages_ptr != nil {
+      var s: string;
+      try { s = string.createCopyingBuffer(messages_ptr); } catch { s = ""; }
+      // Count "message_id": entries
+      var pos = 0;
+      const needle = "\"message_id\"";
+      while pos < s.size {
+        const idx = s.find(needle, pos..);
+        if idx == -1 then break;
+        msg_count += 1;
+        pos = idx + needle.size;
+      }
+    }
+    writeln("   ✓ Channel scraped: ", channel, " (", msg_count, " messages)");
   }
 }
 

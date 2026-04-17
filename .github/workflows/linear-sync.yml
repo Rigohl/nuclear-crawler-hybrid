@@ -1,0 +1,114 @@
+name: Linear.app Sync
+
+on:
+  pull_request:
+    types: [opened, closed, reopened, synchronize]
+  push:
+    branches: [main]
+
+jobs:
+  sync-linear:
+    name: Sync PR status to Linear
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract Linear issue ID from branch/PR
+        id: extract
+        run: |
+          # Linear issues appear in branch names like: feat/LIN-123-some-feature
+          # or PR titles like: [LIN-456] Fix something
+          BRANCH="${{ github.head_ref || github.ref_name }}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+
+          ISSUE_ID=$(echo "$BRANCH $PR_TITLE $COMMIT_MSG" \
+            | grep -oE '[A-Z]+-[0-9]+' | head -1 || true)
+
+          echo "issue_id=$ISSUE_ID" >> "$GITHUB_OUTPUT"
+          if [ -n "$ISSUE_ID" ]; then
+            echo "Found Linear issue: $ISSUE_ID"
+          else
+            echo "No Linear issue ID found in branch/title/commit — skipping"
+          fi
+
+      - name: Update Linear issue state
+        if: steps.extract.outputs.issue_id != ''
+        env:
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          ISSUE_ID: ${{ steps.extract.outputs.issue_id }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_MERGED: ${{ github.event.pull_request.merged }}
+          PR_STATE: ${{ github.event.pull_request.state }}
+        run: |
+          if [ -z "$LINEAR_API_KEY" ]; then
+            echo "⚠️  LINEAR_API_KEY secret not set — skipping Linear sync"
+            echo "   Add LINEAR_API_KEY to repo secrets to enable Linear integration"
+            exit 0
+          fi
+
+          # Determine target state
+          if [ "$EVENT_NAME" = "push" ]; then
+            STATE_NAME="Done"
+          elif [ "$PR_MERGED" = "true" ]; then
+            STATE_NAME="Done"
+          elif [ "$PR_STATE" = "open" ]; then
+            STATE_NAME="In Progress"
+          else
+            STATE_NAME="Todo"
+          fi
+
+          echo "Updating Linear issue $ISSUE_ID → $STATE_NAME"
+
+          # Step 1: Get the issue's team ID and available states
+          ISSUE_QUERY=$(cat <<EOF
+          {
+            "query": "query { issue(id: \"$ISSUE_ID\") { id team { id states { nodes { id name } } } } }"
+          }
+          EOF
+          )
+
+          ISSUE_RESP=$(curl -fsS "https://api.linear.app/graphql" \
+            -H "Authorization: $LINEAR_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$ISSUE_QUERY")
+
+          # Step 2: Find the state ID matching STATE_NAME
+          STATE_ID=$(echo "$ISSUE_RESP" \
+            | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          states = data['data']['issue']['team']['states']['nodes']
+          target = '$STATE_NAME'
+          sid = next((s['id'] for s in states if s['name'].lower() == target.lower()), None)
+          print(sid or '')
+          " 2>/dev/null || true)
+
+          if [ -z "$STATE_ID" ]; then
+            echo "⚠️  Could not find state '$STATE_NAME' in Linear team — skipping"
+            exit 0
+          fi
+
+          # Step 3: Update the issue state
+          UPDATE_QUERY=$(cat <<EOF
+          {
+            "query": "mutation { issueUpdate(id: \"$ISSUE_ID\", input: { stateId: \"$STATE_ID\" }) { success issue { id state { name } } } }"
+          }
+          EOF
+          )
+
+          UPDATE_RESP=$(curl -fsS "https://api.linear.app/graphql" \
+            -H "Authorization: $LINEAR_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$UPDATE_QUERY")
+
+          SUCCESS=$(echo "$UPDATE_RESP" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['issueUpdate']['success'])" \
+            2>/dev/null || echo "false")
+
+          if [ "$SUCCESS" = "True" ] || [ "$SUCCESS" = "true" ]; then
+            echo "✅ Linear issue $ISSUE_ID updated to '$STATE_NAME'"
+          else
+            echo "⚠️  Linear update returned: $UPDATE_RESP"
+          fi

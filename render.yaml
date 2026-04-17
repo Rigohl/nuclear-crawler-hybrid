@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: nuclear-mcp
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: NUCLEAR_MCP_PORT
+        value: 8079
+      - key: RUST_LOG
+        value: info
+      - key: CHPL_HOME
+        value: /opt/chapel
+      - key: LD_LIBRARY_PATH
+        value: /app/ffi/chapel
+    healthCheckPath: /health
+    numInstances: 1
+    plan: starter
+    region: oregon
+    branch: main
+    autoDeploy: true

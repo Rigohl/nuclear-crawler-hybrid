@@ -42,9 +42,16 @@ echo "   NUM_LOCALES:  $NUM_LOCALES"
 echo ""
 
 # Advanced compilation flags
-CHPL_FLAGS="--fast -O3 --llvm --optimize"
+# Note: --llvm requires CHPL_LLVM!=none at Chapel build time; use only when available
+CHPL_FLAGS="--fast -O3"
 CHPL_FLAGS="$CHPL_FLAGS --ccflags -O3 --ccflags -march=native"
 CHPL_FLAGS="$CHPL_FLAGS --ccflags -mtune=native"
+if [ "${CHPL_LLVM:-none}" != "none" ]; then
+    echo "🔧 LLVM backend enabled (CHPL_LLVM=$CHPL_LLVM)"
+    CHPL_FLAGS="$CHPL_FLAGS --llvm --optimize"
+else
+    echo "💡 LLVM backend disabled (CHPL_LLVM=none) — using default backend"
+fi
 
 # GPU support
 if [ "$GPU_ARCH" != "none" ]; then
@@ -113,14 +120,20 @@ echo "════════════════════════�
 echo "📊 [3/8] Building Training Pipeline"
 echo "════════════════════════════════════════════════════════════════════"
 
-if [ -f "training/training_pipeline.chpl" ] && [ -f "ai/nuclear_chapel_ai.chpl" ]; then
+if [ -f "training_pipeline.chpl" ] && [ -f "ai/nuclear_chapel_ai.chpl" ]; then
     $CHPL $CHPL_FLAGS \
         -o bin/training_pipeline \
-        training/training_pipeline.chpl ai/nuclear_chapel_ai.chpl
+        training_pipeline.chpl ai/nuclear_chapel_ai.chpl
     echo "✅ Built: bin/training_pipeline"
     ls -lh bin/training_pipeline
+elif [ -f "training_pipeline.chpl" ]; then
+    $CHPL $CHPL_FLAGS \
+        -o bin/training_pipeline \
+        training_pipeline.chpl
+    echo "✅ Built: bin/training_pipeline (standalone)"
+    ls -lh bin/training_pipeline
 else
-    echo "⚠️  Skipping: training files not found"
+    echo "⚠️  Skipping: training_pipeline.chpl not found"
 fi
 
 echo ""
@@ -137,8 +150,13 @@ if [ -f "training/data_mining.chpl" ]; then
         -o bin/data_mining_engine training/data_mining.chpl
     echo "✅ Built: bin/data_mining_engine"
     ls -lh bin/data_mining_engine
+elif [ -f "data_mining.chpl" ]; then
+    $CHPL $CHPL_FLAGS \
+        -o bin/data_mining_engine data_mining.chpl
+    echo "✅ Built: bin/data_mining_engine (root)"
+    ls -lh bin/data_mining_engine
 else
-    echo "⚠️  Skipping: training/data_mining.chpl not found"
+    echo "⚠️  Skipping: data_mining.chpl not found (create training/data_mining.chpl to enable)"
 fi
 
 echo ""
@@ -155,8 +173,13 @@ if [ -f "training/analysis.chpl" ]; then
         -o bin/scientific_analysis training/analysis.chpl
     echo "✅ Built: bin/scientific_analysis"
     ls -lh bin/scientific_analysis
+elif [ -f "scientific_analysis.chpl" ]; then
+    $CHPL $CHPL_FLAGS \
+        -o bin/scientific_analysis scientific_analysis.chpl
+    echo "✅ Built: bin/scientific_analysis (root)"
+    ls -lh bin/scientific_analysis
 else
-    echo "⚠️  Skipping: training/analysis.chpl not found"
+    echo "⚠️  Skipping: scientific_analysis.chpl not found in training/ or root"
 fi
 
 echo ""

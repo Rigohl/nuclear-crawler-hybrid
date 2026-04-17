@@ -18,7 +18,7 @@
 ### MCP Protocol Rules
 - **EXACTLY 7 MCP TOOLS** — Enforced by `test_exactly_7_tools` in `src/mcp/protocol.rs`
 - **Tool Names**: `websearch`, `premium`, `file_search`, `scan`, `ai_dataset_trainer`, `parallel_engine`, `osint_intelligence`
-- **CI Validation**: `.github/workflows/mcp-validation.yml` and `scripts/validate_7_tools.sh`
+- **CI Validation**: `.github/workflows/mcp-validation.yml` ✅ and `scripts/validate_7_tools.sh`
 - **Adding/Removing Tools**: ❌ FORBIDDEN (breaks CI and tests)
 
 ### Integration Rules
@@ -103,18 +103,28 @@ nuclear-crawler-hybrid/
 │
 ├── .github/
 │   ├── workflows/                 # CI/CD Pipelines
-│   │   ├── mcp-validation.yml           # MCP 5-tool validation
-│   │   ├── chapel-ai-learning-hub.yml   # Chapel training
-│   │   ├── ffi-validation.yml           # FFI checks
-│   │   └── full-validation.yml          # Complete validation
+│   │   ├── ci.yml                       # Core Rust build + security (MUST PASS)
+│   │   ├── mcp-validation.yml           # MCP 7-tool validation ✅
+│   │   ├── chapel-ai-learning-hub.yml   # Chapel 2.8 training (MANDATORY) ✅
+│   │   ├── ffi-validation.yml           # All FFI backends ✅
+│   │   ├── full-validation.yml          # Complete orchestration ✅
+│   │   ├── deploy-render.yml            # Auto-deploy to Render.com ✅
+│   │   └── linear-sync.yml              # Linear.app issue sync ✅
 │   └── copilot-instructions.md    # This file
 │
+├── mcp-servers/                   # MCP Server Integrations ✅
+│   ├── github/                    # GitHub MCP Server (Go) ✅
+│   │   ├── cmd/github-mcp-server/ # Entry point
+│   │   ├── pkg/github/            # GitHub API tools
+│   │   ├── internal/ghmcp/        # MCP protocol
+│   │   ├── go.mod
+│   │   └── Makefile
+│   └── README.md
+│
+├── render.yaml                    # Render.com deploy config ✅
 ├── README.md                      # Main documentation
-├── QUICK_START.md                 # Installation guide
-├── INTEGRATION_STATUS.md          # Integration report
-├── TOOLS.md                       # 7 MCP tools description
 ├── Cargo.toml                     # Rust dependencies
-└── .cursorrules                   # Cursor behavior rules
+└── .gitignore
 ```
 
 ---
@@ -491,23 +501,24 @@ A change is complete ONLY when ALL pass:
 - **Main Repo**: https://github.com/Rigohl/nuclear-crawler-hybrid
 - **HuggingFace**: https://huggingface.co/Kimberlyindiva/nuclear-chapel-training
 - **Datasets Repo**: https://github.com/Rigohl/mojo-mega-dataset-system
-- **GitHub MCP**: https://github.com/modelcontextprotocol/servers
 
 ### Documentation
 - `README.md` - Main project documentation
-- `QUICK_START.md` - Installation and quick start
-- `INTEGRATION_STATUS.md` - Integration details and statistics
-- `TOOLS.md` - 7 MCP tools detailed description
-- `ffi/chapel/ARCHITECTURE.md` - Chapel AI architecture
-- `docs/chapel/MULTI_LANGUAGE_ML_ENGINE.md` - Multi-language guide
-- `mcp-servers/README.md` - MCP server integration guide
+- `docs/ARCHITECTURE.md` - Architecture documentation
+- `docs/QUICK_START.md` - Quick start guide
+- `mcp-servers/README.md` - GitHub MCP server integration guide ✅
+- `ffi/chapel/mcp_integration/CHAPEL_MCP_DIRECT.md` - Chapel↔MCP integration
 
 ### Configuration
-- `.cursorrules` - Cursor/Copilot behavior rules
 - `.github/copilot-instructions.md` - This file
 - `Cargo.toml` - Rust dependencies
+- `render.yaml` - Render.com deployment ✅
 - `ffi/chapel/Makefile` - Chapel build system
-- `mcp-servers/github/go.mod` - Go dependencies
+- `mcp-servers/github/go.mod` - Go dependencies ✅
+
+### Secrets Required (GitHub repo Settings → Secrets)
+- `RENDER_DEPLOY_HOOK_URL` — Render.com deploy hook URL
+- `LINEAR_API_KEY` — Linear.app API key for issue sync
 
 ---
 
@@ -527,15 +538,17 @@ A change is complete ONLY when ALL pass:
 - **Respect FFI boundaries** - Each language has its role
 
 ### Testing Tips
-- **5-tool test is CRITICAL** - Must pass always
-- **Integration tests are real** - They hit actual servers
+- **7-tool test is CRITICAL** - `cargo test test_exactly_7_tools` must pass always
+- **Integration tests are real** - They hit actual servers (no mocks)
 - **Multi-threaded aware** - Use --test-threads=1 for integration
 - **CI validates everything** - Check workflows for requirements
+- **Chapel 2.8 is MANDATORY** - chapel-ffi job must pass (no continue-on-error)
+- **FFI is REAL** - No mocks, no placeholders, no fallback echoes in CI
 
 ---
 
 > **Remember**: Follow `.cursorrules` strictly. When in doubt, ask before making changes. This is a complex multi-language project with tight integration constraints.
 
-**Last Updated**: 2026-01-24  
-**Version**: 2.0 (Post-Integration)  
-**Status**: ✅ All components integrated and documented
+**Last Updated**: 2026-04-17
+**Version**: 3.0 (Full Audit — Chapel 2.8, FFI Mandatory, Connectors, Render, Linear)
+**Status**: ✅ All components real — no mocks, no placeholders, no continue-on-error on Chapel

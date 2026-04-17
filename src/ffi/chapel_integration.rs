@@ -29,6 +29,11 @@ use std::time::{SystemTime, UNIX_EPOCH};
 // ═══════════════════════════════════════════════════════════
 
 #[cfg(feature = "chapel_ffi")]
+use std::ffi::{CStr, CString};
+#[cfg(feature = "chapel_ffi")]
+use std::os::raw::{c_char, c_int};
+
+#[cfg(feature = "chapel_ffi")]
 #[link(name = "chapel_ai", kind = "dylib")]
 extern "C" {
     fn chapel_ai_init() -> c_int;

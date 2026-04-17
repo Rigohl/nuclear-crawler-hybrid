@@ -24,13 +24,14 @@ RUN update-ca-certificates
 # Copy source
 COPY . /build/
 
-# Build MCP server (Rust-only, pure implementation)
+# Build MCP server (Rust-only, no Chapel FFI — Chapel is built separately in production)
 # Configure git to use system certificates if needed
 RUN git config --global http.sslVerify true || true
 
 # Build with cargo, using system certificates
+# --no-default-features disables wasm_ffi; chapel_ffi is opt-in (requires libchapel_ai.so)
 ENV CARGO_HTTP_CAINFO=/etc/ssl/certs/ca-certificates.crt
-RUN cargo build --release --bin nuclear-mcp
+RUN cargo build --release --bin nuclear-mcp --no-default-features
 
 # ===== RUNTIME STAGE =====
 FROM debian:bookworm-slim
