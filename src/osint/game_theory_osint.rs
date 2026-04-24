@@ -8,11 +8,23 @@ use std::collections::HashMap;
 /// ============================================================================
 /// GAME THEORY BASICS
 /// ============================================================================
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct Payoff {
+    pub p1: f64,
+    pub p2: f64,
+}
+
+impl Payoff {
+    pub fn new(p1: f64, p2: f64) -> Self {
+        Payoff { p1, p2 }
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct PayoffMatrix {
     pub name: String,
     pub strategies: Vec<String>,
-    pub payoffs: Vec<Vec<(f64, f64)>>, // (player1, player2) payoff
+    pub payoffs: Vec<Vec<Payoff>>, // (player1, player2) payoff
 }
 
 impl PayoffMatrix {
@@ -21,17 +33,17 @@ impl PayoffMatrix {
         PayoffMatrix {
             name: name.to_string(),
             strategies,
-            payoffs: vec![vec![(0.0, 0.0); size]; size],
+            payoffs: vec![vec![Payoff::default(); size]; size],
         }
     }
 
-    pub fn set_payoff(&mut self, i: usize, j: usize, p1: f64, p2: f64) {
+    pub fn set_payoff(&mut self, i: usize, j: usize, payoff: Payoff) {
         if i < self.payoffs.len() && j < self.payoffs[i].len() {
-            self.payoffs[i][j] = (p1, p2);
+            self.payoffs[i][j] = payoff;
         }
     }
 
-    pub fn get_payoff(&self, i: usize, j: usize) -> Option<(f64, f64)> {
+    pub fn get_payoff(&self, i: usize, j: usize) -> Option<Payoff> {
         if i < self.payoffs.len() && j < self.payoffs[i].len() {
             Some(self.payoffs[i][j])
         } else {
@@ -100,14 +112,14 @@ impl NashSolver {
 
         for i in 0..n {
             for j in 0..n {
-                if let Some((p1_payoff, p2_payoff)) = self.game.get_payoff(i, j) {
+                if let Some(payoff) = self.game.get_payoff(i, j) {
                     let mut is_nash = true;
 
                     // Check if player 1 can improve by deviating
                     for i_prime in 0..n {
                         if i_prime != i {
-                            if let Some((p1_alt, _)) = self.game.get_payoff(i_prime, j) {
-                                if p1_alt > p1_payoff {
+                            if let Some(payoff_alt) = self.game.get_payoff(i_prime, j) {
+                                if payoff_alt.p1 > payoff.p1 {
                                     is_nash = false;
                                     break;
                                 }
@@ -119,8 +131,8 @@ impl NashSolver {
                     if is_nash {
                         for j_prime in 0..n {
                             if j_prime != j {
-                                if let Some((_, p2_alt)) = self.game.get_payoff(i, j_prime) {
-                                    if p2_alt > p2_payoff {
+                                if let Some(payoff_alt) = self.game.get_payoff(i, j_prime) {
+                                    if payoff_alt.p2 > payoff.p2 {
                                         is_nash = false;
                                         break;
                                     }
@@ -146,23 +158,23 @@ impl NashSolver {
         }
 
         // For 2x2 game: A B vs C D
-        let (a, _b) = self.game.get_payoff(0, 0)?;
-        let (c, d) = self.game.get_payoff(0, 1)?;
-        let (_e, f) = self.game.get_payoff(1, 0)?;
-        let (g, h) = self.game.get_payoff(1, 1)?;
+        let a = self.game.get_payoff(0, 0)?;
+        let c = self.game.get_payoff(0, 1)?;
+        let e = self.game.get_payoff(1, 0)?;
+        let g = self.game.get_payoff(1, 1)?;
 
         // Player 2's indifference condition
-        let p1_prob = if (d - f).abs() < 1e-10 {
+        let p1_prob = if (c.p2 - e.p2).abs() < 1e-10 {
             0.5
         } else {
-            (h - f) / (d - f - h + f)
+            (g.p2 - e.p2) / (c.p2 - e.p2 - g.p2 + e.p2)
         };
 
         // Player 1's indifference condition
-        let p2_prob = if (c - a).abs() < 1e-10 {
+        let p2_prob = if (c.p1 - a.p1).abs() < 1e-10 {
             0.5
         } else {
-            (g - a) / (c - a - g + a)
+            (g.p1 - a.p1) / (c.p1 - a.p1 - g.p1 + a.p1)
         };
 
         if (0.0..=1.0).contains(&p1_prob) && (0.0..=1.0).contains(&p2_prob) {
@@ -188,9 +200,9 @@ impl NashSolver {
 
         for i in 0..self.game.strategies.len() {
             for j in 0..self.game.strategies.len() {
-                if let Some((p1, p2)) = self.game.get_payoff(i, j) {
-                    payoff1 += s1.probabilities[i] * s2.probabilities[j] * p1;
-                    payoff2 += s1.probabilities[i] * s2.probabilities[j] * p2;
+                if let Some(payoff) = self.game.get_payoff(i, j) {
+                    payoff1 += s1.probabilities[i] * s2.probabilities[j] * payoff.p1;
+                    payoff2 += s1.probabilities[i] * s2.probabilities[j] * payoff.p2;
                 }
             }
         }
@@ -205,7 +217,7 @@ impl NashSolver {
 pub struct OSINTAdversarialGame {
     defender_strategies: Vec<String>,
     attacker_strategies: Vec<String>,
-    payoffs: HashMap<(usize, usize), (f64, f64)>,
+    payoffs: HashMap<(usize, usize), Payoff>,
 }
 
 impl OSINTAdversarialGame {
@@ -232,28 +244,28 @@ impl OSINTAdversarialGame {
 
         // Payoff matrix (Defender, Attacker)
         // Monitor vs Attack: good for us, bad for attacker
-        payoffs.insert((0, 0), (8.0, -5.0));
-        payoffs.insert((0, 1), (6.0, -2.0));
-        payoffs.insert((0, 2), (3.0, 2.0));
-        payoffs.insert((0, 3), (4.0, 0.0));
+        payoffs.insert((0, 0), Payoff::new(8.0, -5.0));
+        payoffs.insert((0, 1), Payoff::new(6.0, -2.0));
+        payoffs.insert((0, 2), Payoff::new(3.0, 2.0));
+        payoffs.insert((0, 3), Payoff::new(4.0, 0.0));
 
         // Block vs *
-        payoffs.insert((1, 0), (10.0, -8.0));
-        payoffs.insert((1, 1), (7.0, -4.0));
-        payoffs.insert((1, 2), (5.0, -6.0));
-        payoffs.insert((1, 3), (2.0, -3.0));
+        payoffs.insert((1, 0), Payoff::new(10.0, -8.0));
+        payoffs.insert((1, 1), Payoff::new(7.0, -4.0));
+        payoffs.insert((1, 2), Payoff::new(5.0, -6.0));
+        payoffs.insert((1, 3), Payoff::new(2.0, -3.0));
 
         // Ignore vs *
-        payoffs.insert((2, 0), (-5.0, 8.0));
-        payoffs.insert((2, 1), (-2.0, 6.0));
-        payoffs.insert((2, 2), (0.0, 4.0));
-        payoffs.insert((2, 3), (-8.0, 9.0));
+        payoffs.insert((2, 0), Payoff::new(-5.0, 8.0));
+        payoffs.insert((2, 1), Payoff::new(-2.0, 6.0));
+        payoffs.insert((2, 2), Payoff::new(0.0, 4.0));
+        payoffs.insert((2, 3), Payoff::new(-8.0, 9.0));
 
         // IncreaseMonitoring vs *
-        payoffs.insert((3, 0), (9.0, -6.0));
-        payoffs.insert((3, 1), (7.0, -3.0));
-        payoffs.insert((3, 2), (4.0, 1.0));
-        payoffs.insert((3, 3), (5.0, -1.0));
+        payoffs.insert((3, 0), Payoff::new(9.0, -6.0));
+        payoffs.insert((3, 1), Payoff::new(7.0, -3.0));
+        payoffs.insert((3, 2), Payoff::new(4.0, 1.0));
+        payoffs.insert((3, 3), Payoff::new(5.0, -1.0));
 
         OSINTAdversarialGame {
             defender_strategies,
@@ -267,14 +279,14 @@ impl OSINTAdversarialGame {
 
         for (d_idx, d_strat) in self.defender_strategies.iter().enumerate() {
             for (a_idx, a_strat) in self.attacker_strategies.iter().enumerate() {
-                if let Some((d_payoff, a_payoff)) = self.payoffs.get(&(d_idx, a_idx)) {
+                if let Some(payoff) = self.payoffs.get(&(d_idx, a_idx)) {
                     let mut is_nash = true;
 
                     // Check defender's best response
                     for d_idx_alt in 0..self.defender_strategies.len() {
                         if d_idx_alt != d_idx {
-                            if let Some((d_alt, _)) = self.payoffs.get(&(d_idx_alt, a_idx)) {
-                                if d_alt > d_payoff {
+                            if let Some(payoff_alt) = self.payoffs.get(&(d_idx_alt, a_idx)) {
+                                if payoff_alt.p1 > payoff.p1 {
                                     is_nash = false;
                                     break;
                                 }
@@ -286,8 +298,8 @@ impl OSINTAdversarialGame {
                     if is_nash {
                         for a_idx_alt in 0..self.attacker_strategies.len() {
                             if a_idx_alt != a_idx {
-                                if let Some((_, a_alt)) = self.payoffs.get(&(d_idx, a_idx_alt)) {
-                                    if a_alt > a_payoff {
+                                if let Some(payoff_alt) = self.payoffs.get(&(d_idx, a_idx_alt)) {
+                                    if payoff_alt.p2 > payoff.p2 {
                                         is_nash = false;
                                         break;
                                     }
@@ -330,9 +342,9 @@ impl OSINTAdversarialGame {
                 .position(|s| s == a_strat)
                 .unwrap_or(0);
 
-            if let Some((payoff, _)) = self.payoffs.get(&(d_idx, a_idx)) {
-                if payoff > &best_payoff {
-                    best_payoff = *payoff;
+            if let Some(payoff) = self.payoffs.get(&(d_idx, a_idx)) {
+                if payoff.p1 > best_payoff {
+                    best_payoff = payoff.p1;
                     best_strategy = d_strat.clone();
                 }
             }
@@ -450,12 +462,12 @@ mod tests {
     #[test]
     fn test_payoff_matrix() {
         let mut game = PayoffMatrix::new("TestGame", vec!["A".to_string(), "B".to_string()]);
-        game.set_payoff(0, 0, 3.0, 3.0);
-        game.set_payoff(0, 1, 0.0, 5.0);
-        game.set_payoff(1, 0, 5.0, 0.0);
-        game.set_payoff(1, 1, 1.0, 1.0);
+        game.set_payoff(0, 0, Payoff::new(3.0, 3.0));
+        game.set_payoff(0, 1, Payoff::new(0.0, 5.0));
+        game.set_payoff(1, 0, Payoff::new(5.0, 0.0));
+        game.set_payoff(1, 1, Payoff::new(1.0, 1.0));
 
-        assert_eq!(game.get_payoff(0, 0), Some((3.0, 3.0)));
+        assert_eq!(game.get_payoff(0, 0), Some(Payoff::new(3.0, 3.0)));
     }
 
     #[test]
@@ -464,10 +476,10 @@ mod tests {
             "PrisonersDilemma",
             vec!["Cooperate".to_string(), "Defect".to_string()],
         );
-        game.set_payoff(0, 0, -1.0, -1.0); // Both cooperate
-        game.set_payoff(0, 1, -3.0, 0.0); // Cooperate vs Defect
-        game.set_payoff(1, 0, 0.0, -3.0); // Defect vs Cooperate
-        game.set_payoff(1, 1, -2.0, -2.0); // Both defect
+        game.set_payoff(0, 0, Payoff::new(-1.0, -1.0)); // Both cooperate
+        game.set_payoff(0, 1, Payoff::new(-3.0, 0.0)); // Cooperate vs Defect
+        game.set_payoff(1, 0, Payoff::new(0.0, -3.0)); // Defect vs Cooperate
+        game.set_payoff(1, 1, Payoff::new(-2.0, -2.0)); // Both defect
 
         let solver = NashSolver::new(game);
         let equilibria = solver.find_pure_nash();
